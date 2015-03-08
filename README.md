@@ -10,6 +10,12 @@ Acknowledgement Receipts
 Sales Invoices
 Company Check and Bank Profiles
 
+Iteration 2 Features:
+Return Slip
+Credit Memo/Debit Memo
+Collectibles
+Payables
+
 Currently done & integrated:
 Account Profiles
 
@@ -20,9 +26,3 @@ Model done:
 Acknowledgement Receipts
 Payables
 Collectibles
-
-Iteration 2 Features:
-Return Slip
-Credit Memo/Debit Memo
-Collectibles
-Payables
