@@ -21,7 +21,7 @@ Payables <br>
 **Done & integrated for Testing:** <br>
 Account Profiles <br>
 
-**Done & not Integrated/for Fixing:** <br>
+**Done & for Fixing:** <br>
 Inventory and Item Profiles <br>
 
 **Model done (needs Controller/for Integration):** <br>
