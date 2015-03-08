@@ -22,7 +22,7 @@ Payables <br>
 **For Testing:** <br>
 Account Profiles <br>
 
-**For Fixing: (Model/Controller done)** <br>
+**For Fixing: (Controller in progress/done)** <br>
 Inventory and Item Profiles <br>
 Check and Bank Accounts<br>
 
