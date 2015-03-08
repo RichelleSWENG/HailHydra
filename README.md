@@ -5,12 +5,12 @@ Files are sorted by feature, each has its own controller and model because yolo 
 Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 
 **Iteration 1 Features:** <br>
-Inventory and Item Profiles <br>
-Account Profiles <br>
-Purchases <br>
-Acknowledgement Receipts <br>
-Sales Invoices <br>
-Company Check and Bank Profiles <br>
+Inventory and Item Profiles - ~~Model~~ || Integration || Testing <br>
+Account Profiles - ~~Model~~ || ~~Integration~~ || Testing <br>
+Purchases - Model || Integration || Testing <br>
+Acknowledgement Receipts - ~~Model~~ || Integration || Testing <br>
+Sales Invoices - Model || Integration || Testing <br>
+Company Check and Bank Profiles - Model || Integration || Testing  <br>
 
 **Iteration 2 Features:** <br>
 Return Slip <br>
