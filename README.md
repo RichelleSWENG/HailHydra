@@ -1,5 +1,5 @@
 # HailHydra
-Hail Hydra Project for SPSWENG productivity where r u huhuhu <br>
+Hail Hydra Project for SPSWENG by the very awesome Team CodeforLife Team!!! OH YEAH huhuhu <Br>
 Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 Iteration 1 and 2 features based on Coding Schedule yeyeye <br>
@@ -18,10 +18,10 @@ Credit Memo/Debit Memo <br>
 Collectibles <br>
 Payables <br>
 
-**Currently done & integrated for testing:** <br>
+**Done & integrated for Testing:** <br>
 Account Profiles <br>
 
-**Done & not Integrated with recent GUI(?):** <br>
+**Done & not Integrated/for Cleaning:** <br>
 Inventory and Item Profiles <br>
 
 **Model done:** <br>
