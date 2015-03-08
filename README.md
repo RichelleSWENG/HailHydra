@@ -1,8 +1,8 @@
-# HailHydra
+# HailHydra || #roadTo4.0
 Hail Hydra Project for SPSWENG by the very awesome Team CodeforLife Team!!! OH YEAH huhuhu <Br>
 Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
-Iteration 1 and 2 features based on Coding Schedule yeyeye <br>
+Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 
 **Iteration 1 Features:** <br>
 Inventory and Item Profiles <br>
