@@ -4,7 +4,6 @@ import Database.DBConnection;
 import HailHydra.Model;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -62,8 +61,8 @@ public class AcknowledgementReceiptModel extends Model
         try
         {
             statement = con.createStatement();
-            String sql="";
-            if(filter=="name")
+            String sql;
+            if(filter.equalsIgnoreCase("name"))
             	sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id and customer.name LIKE '%"+field+"%'";
             else
             	sql="SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id and acknowledgement_receipt_id LIKE '%"+field+"%'";
@@ -118,12 +117,5 @@ public class AcknowledgementReceiptModel extends Model
         }
 
     }
-
-    @Override
-    public boolean getConnectionStatus()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     
 }

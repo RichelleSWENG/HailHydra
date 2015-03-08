@@ -29,8 +29,7 @@ public class CollectiblesListGUI extends JPanel
         private String strMonths[] = { "January", "February", "March", "April", "May", 
                 "June", "July", "August", "September", "October", "November", "December" },
                 strHeader[] = { "Customer Name", "Date", 
-                "<html><center>Sales Invoice<br>Number</center></html>",
-		"<html><center>Acknowledgement<br/>Receipt Number</center></html>",
+                "<html><center>Receipt<br>Number</center></html>",
 		"<html><center>Original<br>Amount</center></html>", 
                 "<html><center>Current<br>Balance</center></html>", "Status" };
         private JComboBox cmbToYear, cmbToMonth, cmbFromMonth, cmbFromYear;
@@ -46,11 +45,11 @@ public class CollectiblesListGUI extends JPanel
 			btnAddCollectible;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIModel GUIController;
+        private GUIModel guiController;
 	
 	public CollectiblesListGUI(GUIModel temp)
 	{
-                GUIController=temp;
+                guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -71,7 +70,7 @@ public class CollectiblesListGUI extends JPanel
 
 		tfCustomer = new JTextField();
 		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(127, 114, 561, 30);
+		tfCustomer.setBounds(140, 114, 550, 30);
 		add(tfCustomer);
 
 		lblCustomer = new JLabel("Customer:");
@@ -96,10 +95,50 @@ public class CollectiblesListGUI extends JPanel
 
 		lblNumOfPayablesFound = new JLabel("0");
 		lblNumOfPayablesFound.setFont(fntPlainText);
-		lblNumOfPayablesFound.setBounds(217, 196, 53, 30);
+		lblNumOfPayablesFound.setBounds(220, 196, 250, 30);
 		add(lblNumOfPayablesFound);
 
-		
+		cmbFromMonth = new JComboBox();
+		cmbFromMonth.setFont(fntPlainText);
+		cmbFromMonth.setBounds(104, 156, 155, 30);
+		add(cmbFromMonth);
+
+		cmbFromYear = new JComboBox();
+		cmbFromYear.setFont(fntPlainText);
+		cmbFromYear.setBounds(272, 156, 100, 30);
+		add(cmbFromYear);
+
+		cmbToMonth = new JComboBox();
+		cmbToMonth.setFont(fntPlainText);
+		cmbToMonth.setBounds(419, 155, 155, 30);
+		add(cmbToMonth);
+
+		cmbToYear = new JComboBox();
+		cmbToYear.setFont(fntPlainText);
+		cmbToYear.setBounds(588, 155, 100, 30);
+		add(cmbToYear);
+
+		for (int i = 0; i < strMonths.length; i++)
+		{
+			cmbFromMonth.addItem(strMonths[i]);
+			cmbToMonth.addItem(strMonths[i]);
+		}
+
+		Calendar date = Calendar.getInstance();
+		int yr = date.get(Calendar.YEAR);
+		for (int j = 0; j < 5; j++)
+		{
+			cmbFromYear.addItem(Integer.toString(yr - 2));
+			cmbToYear.addItem(Integer.toString(yr - 2));
+			yr++;
+		}
+
+		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
+		String yearToday = String.valueOf(date.get(Calendar.YEAR));
+		cmbFromMonth.setSelectedIndex(0);
+		cmbFromYear.setSelectedItem(yearBefore);
+		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
+		cmbToYear.setSelectedItem(yearToday);
 
                 tbModel = new DefaultTableModel()
 		{
@@ -171,54 +210,11 @@ public class CollectiblesListGUI extends JPanel
 		chckbxActiveCollectibles.setBounds(110, 73, 222, 30);
 		add(chckbxActiveCollectibles);
 
-		 chckbxClosedPayables = new JCheckBox("Closed Collectibles");
+		chckbxClosedPayables = new JCheckBox("Closed Collectibles");
 		chckbxClosedPayables.setFont(fntPlainText);
                 chckbxClosedPayables.setBackground(SystemColor.textHighlight);
 		chckbxClosedPayables.setBounds(334, 73, 228, 30);
 		add(chckbxClosedPayables);
-
-
-		cmbFromMonth = new JComboBox();
-		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(104, 156, 155, 30);
-		add(cmbFromMonth);
-
-		cmbFromYear = new JComboBox();
-		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 156, 100, 30);
-		add(cmbFromYear);
-
-		cmbToMonth = new JComboBox();
-		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(419, 155, 155, 30);
-		add(cmbToMonth);
-
-		cmbToYear = new JComboBox();
-		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(588, 155, 100, 30);
-		add(cmbToYear);
-
-		for (int i = 0; i < strMonths.length; i++)
-		{
-			cmbFromMonth.addItem(strMonths[i]);
-			cmbToMonth.addItem(strMonths[i]);
-		}
-
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
 
                 btnViewAllCollectibles = new JButton("View All Collectibles");
 		btnViewAllCollectibles.setFont(fntPlainText);
@@ -239,7 +235,7 @@ public class CollectiblesListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                GUIController.changePanelToAddPaymentCollectibles();
+                                guiController.changePanelToAddPaymentCollectibles();
                         }
                     });
 
@@ -252,7 +248,7 @@ public class CollectiblesListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                GUIController.changePanelToMainMenu();
+                                guiController.changePanelToMainMenu();
                         }
                     });
 	}

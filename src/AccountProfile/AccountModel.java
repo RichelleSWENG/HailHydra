@@ -176,7 +176,18 @@ public class AccountModel extends Model
     @Override
     public ResultSet getDetail(String ID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql = "SELECT name,address_location,address_city,address_postal_code,address_country,credit_limit,terms,phone1,phone2,phone3,fax_num,email,website,contact_person,type,status FROM company WHERE company_id='" + ID + "'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+        
     }
 
     @Override
