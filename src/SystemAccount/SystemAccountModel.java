@@ -34,7 +34,16 @@ public class SystemAccountModel extends Model
     @Override
     public void addDetail(ArrayList list)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            statement = con.createStatement();
+            String sql = "INSERT INTO systemaccount(account_num,account_name,bank_name,bank_branch,type) VALUES('" + list.get(0) + "','" + list.get(1) + "','" + list.get(2) + "','" + list.get(3) + "','" + list.get(4)+ "')";
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 
     @Override

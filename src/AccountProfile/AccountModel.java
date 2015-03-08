@@ -82,7 +82,6 @@ public class AccountModel extends Model
     @Override
     public void addDetail(ArrayList list)
     {
-
         try
         {
             statement = con.createStatement();
