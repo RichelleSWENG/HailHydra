@@ -2,7 +2,7 @@
 Hail Hydra Project for SPSWENG productivity where r u huhuhu <br>
 Iteration 1 and 2 features based on Coding Schedule yeyeye <br>
 
-**Iteration 1 Features** <br>
+**Iteration 1 Features:** <br>
 Inventory and Item Profiles <br>
 Account Profiles <br>
 Purchases <br>
