@@ -1,3 +1,8 @@
+package AcknowledgementReceipt;
+
+import Database.DBConnection;
+import HailHydra.Model;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
@@ -10,10 +15,10 @@ import java.util.ArrayList;
  *
  * @author Jolo Simeon
  */
-public class AckReceiptModel extends Model
+public class AcknowledgementReceiptModel extends Model
 {
 
-    public AckReceiptModel(DBConnection db)
+    public AcknowledgementReceiptModel(DBConnection db)
     {
         super(db);
     }
@@ -24,7 +29,7 @@ public class AckReceiptModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql = "SELECT (SELECT name FROM company WHERE company.company_id=acknowledgementreceipt.company_id),(SELECT address_location FROM company WHERE company.company_id=acknowledgementreceipt.company_id),acknowledgement_receipt_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status WHERE acknowledgement_receipt_id LIKE '"+ID+"'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
@@ -40,7 +45,7 @@ public class AckReceiptModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
@@ -56,7 +61,7 @@ public class AckReceiptModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql="";
             if(filter=="name")
             	sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id and customer.name LIKE '%"+field+"%'";
@@ -75,7 +80,7 @@ public class AckReceiptModel extends Model
     {
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql = "INSERT INTO acknowledgementreceipt(acknowledgementreceipt.company_id,acknowledgement_receipt_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES((SELECT company_id FROM company WHERE name LIKE '"+list.get(0)+"'),'"+list.get(1)+"','"+list.get(2)+"','"+list.get(3)+"','"+list.get(4)+"','"+list.get(5)+"','"+list.get(6)+"','"+list.get(7)+"','"+list.get(8)+"','"+list.get(9)+"','"+list.get(10)+"','"+list.get(11)+"',status='"+list.get(12)+"')";
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -89,7 +94,7 @@ public class AckReceiptModel extends Model
     {
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql = "UPDATE acknowledgementreceipt SET acknowledgementreceipt.company_id=(SELECT company_id FROM company WHERE name LIKE '"+list.get(0)+"',date='"+list.get(2)+"',po_num='"+list.get(3)+"',delivery_receipt_num='"+list.get(4)+"',sales_person='"+list.get(5)+"',ordered_by='"+list.get(6)+"',delivered_by='"+list.get(7)+"',delivery_notes='"+list.get(8)+"',discount='"+list.get(9)+"',original_amount='"+list.get(10)+"',current_balance='"+list.get(11)+"' WHERE acknowledgement_receipt_id LIKE '"+list.get(1)+"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -104,7 +109,7 @@ public class AckReceiptModel extends Model
     {
         try
         {
-            statement = db.createStatement();
+            statement = (PreparedStatement) db.createStatement();
             String sql = "DELETE FROM acknowledgementreceipt WHERE acknowledgement_receipt_id='"+ID+"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
