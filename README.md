@@ -11,7 +11,7 @@ Account Profiles - ~~Model~~ || ~~Integration~~ || Testing <br>
 Purchases - Model || Integration || Testing <br>
 Acknowledgement Receipts - ~~Model~~ || Integration || Testing <br>
 Sales Invoices - Model || Integration || Testing <br>
-Check and Bank Accounts - ~~Model~~ || Integration || Testing  <br>
+Check and Bank Accounts - ~~Model~~ || ~~Integration~~ || Testing  <br>
 
 **Iteration 2 Features:** <br>
 Return Slip <br>
@@ -21,6 +21,7 @@ Payables <br>
 
 **Done & integrated for Testing:** <br>
 Account Profiles <br>
+Check and Bank Accounts<br>
 
 **Done & for Fixing:** <br>
 Inventory and Item Profiles <br>
@@ -29,7 +30,6 @@ Inventory and Item Profiles <br>
 Acknowledgement Receipts <br>
 Payables <br>
 Collectibles <br>
-Check and Bank Accounts <br>
 
 **Models partially done (will continue latur/Ragequitted):** <br>
 Sales Invoices <br>

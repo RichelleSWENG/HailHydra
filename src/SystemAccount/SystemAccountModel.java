@@ -28,7 +28,18 @@ public class SystemAccountModel extends Model
     @Override
     public ResultSet searchDetail(String field, String filter)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql;
+            sql = "SELECT account_name, account_num, bank_name, bank_branch FROM systemaccount WHERE type = '" + field + "'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
     }
 
     @Override
@@ -37,7 +48,7 @@ public class SystemAccountModel extends Model
         try
         {
             statement = con.createStatement();
-            String sql = "INSERT INTO systemaccount(account_num,account_name,bank_name,bank_branch,type) VALUES('" + list.get(0) + "','" + list.get(1) + "','" + list.get(2) + "','" + list.get(3) + "','" + list.get(4)+ "')";
+            String sql = "INSERT INTO systemaccount(account_num,account_name,bank_name,bank_branch,type) VALUES('" + list.get(0) + "','" + list.get(1) + "','" + list.get(2) + "','" + list.get(3) + "','" + list.get(4) + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -57,5 +68,5 @@ public class SystemAccountModel extends Model
     {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
