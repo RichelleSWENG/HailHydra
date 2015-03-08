@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.table.TableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -32,6 +31,11 @@ public abstract class Model
         
     }
     
+    public boolean getConnectionSatus()
+    {
+        return db.getConnectionStatus();
+    }
+    
     abstract public ResultSet getDetail(String ID);
 
     abstract public ResultSet getAllDetail();
@@ -43,12 +47,6 @@ public abstract class Model
     abstract public void editDetail(ArrayList list);
 
     abstract public void deleteDetail(String ID);
-    
-    abstract public boolean getConnectionStatus();
-    
-    
-
-    
 
 
 }

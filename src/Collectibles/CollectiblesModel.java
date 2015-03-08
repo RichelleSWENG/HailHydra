@@ -127,9 +127,4 @@ public class CollectiblesModel extends Model
 	        return rs;
 	}
 
-    @Override
-    public boolean getConnectionStatus()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

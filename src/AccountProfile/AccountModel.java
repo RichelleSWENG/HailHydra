@@ -132,12 +132,6 @@ public class AccountModel extends Model
         return model;
     }
 
-    @Override
-    public boolean getConnectionStatus()
-    {
-        return db.getConnectionStatus();
-    }
-
     public int getItemcount()
     {
         return this.itemCount;
