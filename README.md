@@ -1,6 +1,7 @@
 # HailHydra
 Hail Hydra Project for SPSWENG productivity where r u huhuhu <br>
 Project in NetBeans, SQL in MySQL Workbench <br>
+Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 Iteration 1 and 2 features based on Coding Schedule yeyeye <br>
 
 **Iteration 1 Features:** <br>

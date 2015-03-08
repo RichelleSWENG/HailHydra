@@ -1,10 +1,9 @@
-package Model;
+package Inventory;
 
 import Database.DBConnection;
+import HailHydra.Model;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
@@ -170,7 +169,6 @@ public class ItemModel extends Model
 	}
         
     
-    @Override
          public TableModel myModel(ResultSet rs) 
          {
                 TableModel model=DbUtils.resultSetToTableModel(rs);
@@ -183,35 +181,9 @@ public class ItemModel extends Model
         return db.getConnectionStatus();
     }
     
-
-
-    @Override
     public int getItemcount()
     {
         return this.itemCount;
     }
 
-    @Override
-    public ResultSet getAllSupplier()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ResultSet getAllCustomer()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ResultSet getDetail(String name, String AccountType)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public void editDetail(ArrayList al, String name, String type)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

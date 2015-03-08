@@ -1,6 +1,6 @@
 package HailHydra;
 
-import Model.AccountModel;
+import AccountProfile.AccountModel;
 import AccountProfile.AccountProfileController;
 import AccountProfile.AccountProfileListGUI;
 import AccountProfile.AddAccountProfileGUI;
@@ -28,7 +28,6 @@ import Login.ProfilesGUI;
 import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
-import Model.Model;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesListGUI;
 import Purchases.AddPurchaseTransactionGUI;
@@ -45,7 +44,6 @@ import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import javax.swing.JPanel;
 
 public class GUIModel 
@@ -230,10 +228,8 @@ public class GUIModel
     }
     public void changePanelToAccountProfile()
     {
-            //dbc = new DBConnection();
-            Model tempModel = new AccountModel(dbc);
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
-            AccountProfileController tempController=new AccountProfileController(tempModel,tempGUI); 
+            AccountProfileController tempController=new AccountProfileController(new AccountModel(dbc),tempGUI); 
             this.AccountProfileController = tempController;
             //please connect controller with gui 
             tempGUI.setMainController(AccountProfileController);
