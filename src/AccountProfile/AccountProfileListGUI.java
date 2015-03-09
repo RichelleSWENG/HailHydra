@@ -55,7 +55,7 @@ public class AccountProfileListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
 	private GUIController GUIController;
-        private AccountProfileController mainController;
+        private AccountProfileController accController;
         private int type;
 	private String name;
         private String AccountType;
@@ -149,16 +149,16 @@ public class AccountProfileListGUI extends JPanel
                         type = 1;
                     else if(!chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) //supplier
                         type = 2;
-                    mainController.SearchSomething(tfSearch.getText(), type); //if a key is typed search
+                    accController.SearchSomething(tfSearch.getText(), type); //if a key is typed search
 
                 } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
                 {
                     if(chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) //both
-                    mainController.ViewAll();
+                    accController.ViewAll();
                     else if(chckbxCustomer.isSelected() && !chckbxSupplier.isSelected()) //customer
-                    mainController.ViewCustomer();
+                    accController.ViewCustomer();
                     else if(!chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) //supplier
-                    mainController.ViewSupplier();
+                    accController.ViewSupplier();
                     
                 }
             }
@@ -262,11 +262,11 @@ public class AccountProfileListGUI extends JPanel
                     {
                         tfSearch.setText(""); 
                         if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) {
-                        mainController.ViewAll();
+                        accController.ViewAll();
                     } else if(chckbxCustomer.isSelected() && !chckbxSupplier.isSelected()) {
-                        mainController.ViewCustomer();
+                        accController.ViewCustomer();
                     } else if(!chckbxCustomer.isSelected() && chckbxSupplier.isSelected()){
-                        mainController.ViewSupplier();
+                        accController.ViewSupplier();
                     }
 
                     }
@@ -280,11 +280,11 @@ public class AccountProfileListGUI extends JPanel
                     {
                         tfSearch.setText(""); 
                         if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) {
-                        mainController.ViewAll();
+                        accController.ViewAll();
                     } else if(chckbxCustomer.isSelected() && !chckbxSupplier.isSelected()) {
-                        mainController.ViewCustomer();
+                        accController.ViewCustomer();
                     } else if(!chckbxCustomer.isSelected() && chckbxSupplier.isSelected()){
-                        mainController.ViewSupplier();
+                        accController.ViewSupplier();
                     }
 
                     }
@@ -295,8 +295,7 @@ public class AccountProfileListGUI extends JPanel
 		btnViewAllAccounts.setFont(fntPlainText);
 		btnViewAllAccounts.setBounds(725, 150, 240, 40);
 		add(btnViewAllAccounts);
-                btnViewAllAccounts.addActionListener(
-                    new ActionListener()
+                btnViewAllAccounts.addActionListener(new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e)
                         {
@@ -304,7 +303,7 @@ public class AccountProfileListGUI extends JPanel
                              {
                                  chckbxCustomer.setSelected(true);
                                  chckbxSupplier.setSelected(true);
-                                 mainController.ViewAll();
+                                 accController.ViewAll();
 
                                 JTableHeader th = tbAccountProfile.getTableHeader();     
                                 tbColumnRenderer = th.getColumnModel();
@@ -326,8 +325,7 @@ public class AccountProfileListGUI extends JPanel
 		btnViewCompanyProfile.setFont(fntPlainText);
 		btnViewCompanyProfile.setBounds(30, 545, 250, 40);
 		add(btnViewCompanyProfile);
-                btnViewCompanyProfile.addActionListener(
-                    new ActionListener()
+                btnViewCompanyProfile.addActionListener(new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e)
                         {
@@ -344,7 +342,7 @@ public class AccountProfileListGUI extends JPanel
                 try
                 {
                    
-                        mainController.ViewAccountProfile(name,AccountType);
+                        accController.ViewAccountProfile(name,AccountType);
                 } catch (SQLException ex)
                 {
                     Logger.getLogger(AccountProfileListGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -388,7 +386,7 @@ public class AccountProfileListGUI extends JPanel
         
         
         public void setMainController(AccountProfileController temp){
-            mainController=temp;
+            accController=temp;
         }
             public void setItemCount(int itemcount)
     {
@@ -419,7 +417,7 @@ public class AccountProfileListGUI extends JPanel
     {
         //chckbxCustomer.setSelected(true);
         //chckbxSupplier.setSelected(true);
-        TableModel AllModel = mainController.getAllModel();
+        TableModel AllModel = accController.getAllModel();
         tbAccountProfile.setModel(AllModel);
 
         JTableHeader th = tbAccountProfile.getTableHeader();      // Setting the Headers
