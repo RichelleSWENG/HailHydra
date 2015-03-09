@@ -43,6 +43,8 @@ import Sales.SalesInvoiceListGUI;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
+import SystemAccount.SystemAccountController;
+import SystemAccount.SystemAccountModel;
 import java.sql.SQLException;
 import javax.swing.JPanel;
 
@@ -53,6 +55,7 @@ public class GUIController
     private MainMenuGUI main;
     private MainController controller;
     private AccountProfileController AccountProfileController;
+    private SystemAccountController systemAccountController;
     private DBConnection dbc;
     
     public GUIController()
@@ -316,7 +319,9 @@ public class GUIController
     }
     public void changePanelToAddBankAccount()
     {
-            AddBankAccountGUI tempGUI = new AddBankAccountGUI(this);
+            if (systemAccountController == null)
+                systemAccountController = new SystemAccountController(new SystemAccountModel(dbc));
+            AddBankAccountGUI tempGUI = new AddBankAccountGUI(this, systemAccountController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

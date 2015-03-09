@@ -57,10 +57,10 @@ public class AddBankAccountGUI extends JPanel
     private SystemAccountController sysController;
     private ArrayList<String> bankAccount;
 
-    public AddBankAccountGUI(GUIController temp)
+    public AddBankAccountGUI(GUIController temp, SystemAccountController sys)
     {
         controller = temp;
-        bankAccount = new ArrayList<>();
+        sysController = sys;
         setBounds(0, 0, 1000, 620);
         setLayout(null);
         setBackground(SystemColor.textHighlight);
@@ -192,7 +192,14 @@ public class AddBankAccountGUI extends JPanel
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        controller.changePanelToMainMenu();
+                        bankAccount = new ArrayList<>();
+                        bankAccount.add(tfAccountNumber.getText());
+                        bankAccount.add(tfSupplier.getText());
+                        bankAccount.add(tfBankName.getText());
+                        bankAccount.add(taBankBranch.getText());
+                        bankAccount.add("1");
+                        sysController.AddSystemAccount(bankAccount);
+                        setTableModel(sysController.getSystemAccounts("1"));
                     }
                 });
 
@@ -209,6 +216,7 @@ public class AddBankAccountGUI extends JPanel
                         controller.changePanelToMainMenu();
                     }
                 });
+        setTableModel(sysController.getSystemAccounts("1"));
     }
 
     public void setTableModel(TableModel tbm)

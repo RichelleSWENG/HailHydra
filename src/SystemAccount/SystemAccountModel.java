@@ -33,7 +33,7 @@ public class SystemAccountModel extends Model
         {
             statement = con.createStatement();
             String sql;
-            sql = "SELECT account_name, account_num, bank_name, bank_branch FROM systemaccount WHERE type = '" + field + "'";
+            sql = "SELECT account_name, account_num, bank_name, bank_branch FROM systemaccount WHERE type = " + field + "";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
