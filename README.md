@@ -19,6 +19,7 @@ Credit Memo/Debit Memo <br>
 Collectibles <br>
 Payables <br>
 
+<hr>
 **For Testing:** <br>
 Account Profiles (not running for me idk why po :() <br>
 Check and Bank Accounts (no error checking)<br>
