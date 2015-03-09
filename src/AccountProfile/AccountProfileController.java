@@ -27,7 +27,6 @@ public class AccountProfileController
 
     public TableModel getAllModel()
     {
-
         TableModel tbm = accountModel.myModel(accountModel.getAllDetail());
         this.itemcount = accountModel.getItemcount();
         gui.setItemCount(itemcount);

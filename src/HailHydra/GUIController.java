@@ -54,7 +54,7 @@ public class GUIController
     private HailHydraGUI frame;
     private MainMenuGUI main;
     private MainController controller;
-    private AccountProfileController AccountProfileController;
+    private AccountProfileController accountProfileController;
     private SystemAccountController systemAccountController;
     private DBConnection dbc;
     
@@ -233,9 +233,9 @@ public class GUIController
     {
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
             AccountProfileController tempController=new AccountProfileController(new AccountModel(dbc),tempGUI); 
-            this.AccountProfileController = tempController;
+            accountProfileController = tempController;
             //please connect controller with gui 
-            tempGUI.setMainController(AccountProfileController);
+            tempGUI.setMainController(accountProfileController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -245,14 +245,14 @@ public class GUIController
     {
             Model tempModel = new AccountModel(dbc);
             AddAccountProfileGUI tempGUI= new AddAccountProfileGUI(this);
-            tempGUI.setMainController(AccountProfileController);
+            tempGUI.setMainController(accountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToViewAccountProfile()
     {
-            ViewAccountProfileGUI tempGUI = new ViewAccountProfileGUI (this,AccountProfileController); // needed access to Account controller beacuse it contains what to display
+            ViewAccountProfileGUI tempGUI = new ViewAccountProfileGUI (this,accountProfileController); // needed access to Account controller beacuse it contains what to display
             //tempGUI.setMainController(AccountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -260,7 +260,7 @@ public class GUIController
     
     public void changePanelToModifyAccountProfile()
     {
-            ModifyAccountProfileGUI tempGUI = new ModifyAccountProfileGUI(this,AccountProfileController);
+            ModifyAccountProfileGUI tempGUI = new ModifyAccountProfileGUI(this,accountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

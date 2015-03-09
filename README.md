@@ -20,7 +20,7 @@ Collectibles <br>
 Payables <br>
 
 **For Testing:** <br>
-Account Profiles <br>
+Account Profiles (not running for me idk why po :() <br>
 Check and Bank Accounts (no error checking)<br>
 
 **For Fixing: (Controller in progress/done)** <br>

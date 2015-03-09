@@ -127,7 +127,6 @@ public class AccountModel extends Model
 
     public TableModel myModel(ResultSet rs)
     {     
-        System.out.println("Hi");
         TableModel model = DbUtils.resultSetToTableModel(rs);
         return model;
     }
