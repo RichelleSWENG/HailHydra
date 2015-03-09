@@ -1,5 +1,3 @@
-
-
 package AcknowledgementReceipt;
 
 import TableRenderer.TableRenderer;
@@ -22,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.JComboBox;
 
 
 public class AcknowledgementReceiptGUI extends JPanel
@@ -31,7 +30,7 @@ public class AcknowledgementReceiptGUI extends JPanel
                   lblARNum, lblDate, lblPONum, lblDRNum, lblDiscount,
                   lblBalance, lblSalesperson, lblOrderedBy, lblDeliveryNotes,
 		  lblDeliveredBy, lblTotal;
-	protected JTextField tfCustomer, tfARNum, tfPONum, tfDRNum,
+	protected JTextField tfARNum, tfPONum, tfDRNum,
                   tfSalesperson, tfOrderedBy, tfDeliveredBy;
         protected JFormattedTextField ftfDate, ftfDiscount, ftfTotal, ftfBalance;
         protected JTextArea taAddress, taDeliveryNotes;
@@ -48,6 +47,7 @@ public class AcknowledgementReceiptGUI extends JPanel
 	protected JScrollPane spTable, spAddress, spDeliveryNotes;
         protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
+        protected JComboBox cmbCustomer;
     
         public AcknowledgementReceiptGUI(){
                 setBounds(0, 0, 1000, 620);
@@ -129,11 +129,6 @@ public class AcknowledgementReceiptGUI extends JPanel
 		lblBalance.setFont(fntPlainText);
 		lblBalance.setBounds(700, 505, 97, 30);
 		add(lblBalance);
-                
-                tfCustomer = new JTextField();
-		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(135, 80, 365, 30);
-		add(tfCustomer);
                 
                 tfARNum = new JTextField();
 		tfARNum.setFont(fntPlainText);
@@ -266,5 +261,10 @@ public class AcknowledgementReceiptGUI extends JPanel
 		tbARReceipt.setRowSelectionAllowed(true);
 		tbARReceipt.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbARReceipt.setRowHeight(30);
+		
+		cmbCustomer = new JComboBox();
+		cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
+		cmbCustomer.setBounds(135, 80, 365, 30);
+		add(cmbCustomer);
         }
 }

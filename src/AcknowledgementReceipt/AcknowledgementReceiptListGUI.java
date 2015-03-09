@@ -17,7 +17,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIController;
+import HailHydra.GUIModel;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 
@@ -52,11 +52,12 @@ public class AcknowledgementReceiptListGUI extends JPanel
                 btnAddAckReceipt;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-	private GUIController controller;
+	private GUIModel guiController;
+        private AcknowledgementReceiptController mainController;
 
-	public AcknowledgementReceiptListGUI(GUIController temp) {
+	public AcknowledgementReceiptListGUI(GUIModel temp) {
 		
-                controller=temp;
+                guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -234,7 +235,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToViewAcknowledgementReceipt();
+                                guiController.changePanelToViewAcknowledgementReceipt();
                         }
                     });
                         
@@ -247,7 +248,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToAddAcknowledgementReceipt();
+                                guiController.changePanelToAddAcknowledgementReceipt();
                         }
                     });
 
@@ -260,14 +261,19 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToMainMenu();
+                                guiController.changePanelToMainMenu();
                         }
                     });
 
 	}
         
+        public void setController(AcknowledgementReceiptController temp)
+        {
+            mainController=temp;
+        }
+        
         public static void main(String args[]){
-            GUIController temp=new GUIController();
-           temp.changePanelToAcknowledgementReceipt();
+            GUIModel temp=new GUIModel();
+           temp.changePanelToAcknowledgementReceiptList();
         }
 }
