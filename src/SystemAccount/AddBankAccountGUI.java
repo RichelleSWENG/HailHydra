@@ -24,6 +24,9 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -197,8 +200,26 @@ public class AddBankAccountGUI extends JPanel
                         bankAccount.add(tfBankName.getText());
                         bankAccount.add(taBankBranch.getText());
                         bankAccount.add("1");
-                        sysController.AddSystemAccount(bankAccount);
-                        setTableModel(sysController.getSystemAccounts("1"));
+
+                        boolean error = false;
+
+                        if (tfAccountNumber.getText().equals("") || tfSupplier.getText().equals("") || tfBankName.getText().equals("") || taBankBranch.getText().equals(""))
+                        {
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields");
+                            error = true;
+                        }
+
+                        if (hasSpecial(tfAccountNumber.getText()))
+                        {
+                            JOptionPane.showMessageDialog(null, "Please enter a valid account number");
+                            error = true;
+                        }
+                        if (error == false)
+                        {
+                            sysController.AddSystemAccount(bankAccount);
+                            setTableModel(sysController.getSystemAccounts("1"));
+                        }
+
                     }
                 });
 
@@ -229,6 +250,22 @@ public class AddBankAccountGUI extends JPanel
             tc.setHeaderValue(strHeader[i]);
         }
         th.repaint();
+    }
+
+    private boolean hasSpecial(String s)
+    {
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(s);
+        boolean b = m.find();
+
+        if (b || s.contains(" "))
+        {
+            return true;
+        } 
+        else
+        {
+            return false;
+        }
     }
 
     public static void main(String args[])
