@@ -5,6 +5,8 @@ Files are sorted by feature, each has its own controller and model because yolo 
 Controllers are added during integration <br>
 Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 
+Strikethrough words means doneeee <br>
+
 **Iteration 1 Features:** <br>
 Inventory and Item Profiles - ~~Model~~ || Integration || Testing <br>
 Account Profiles - ~~Model~~ || ~~Integration~~ || Testing <br>
