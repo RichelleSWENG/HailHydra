@@ -20,7 +20,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIController;
+import HailHydra.GUIModel;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -53,9 +53,9 @@ public class SalesInvoiceListGUI extends JPanel
 			btnViewSalesInvoice, btnClose;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIController guiController;
+        private GUIModel guiController;
 	
-	public SalesInvoiceListGUI(GUIController temp) {
+	public SalesInvoiceListGUI(GUIModel temp) {
             
                 guiController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -275,7 +275,7 @@ public class SalesInvoiceListGUI extends JPanel
 	}
         
         public static void main(String args[]){
-           GUIController temp=new GUIController();
+           GUIModel temp=new GUIModel();
            temp.changePanelToSalesInvoice();
         }
 

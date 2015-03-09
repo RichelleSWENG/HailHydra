@@ -1,6 +1,6 @@
 package Sales;
 
-import HailHydra.GUIController;
+import HailHydra.GUIModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -8,10 +8,10 @@ import javax.swing.JButton;
 public class ModifySalesInvoiceGUI extends SalesInvoiceGUI
 {
         private JButton btnAddItem, btnSubmit, btnCancel;
-        private GUIController guiController;
+        private GUIModel guiController;
         private SalesInvoiceController mainController;
     
-    public ModifySalesInvoiceGUI(GUIController temp)
+    public ModifySalesInvoiceGUI(GUIModel temp)
     {
                 guiController=temp;
                 
@@ -55,7 +55,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI
     }
     
     public static void main(String args[]){
-           GUIController temp=new GUIController();
+           GUIModel temp=new GUIModel();
            temp.changePanelToModifySalesInvoice();
         }
     

@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JFormattedTextField;
+import javax.swing.JComboBox;
 
 public class SalesInvoiceGUI extends JPanel
 {
@@ -30,12 +31,12 @@ public class SalesInvoiceGUI extends JPanel
 		  lblSINum, lblDate, lblPONum, lblDRNum, lblDiscount, lblSubtotal,
 		  lblVat, lblBalance, lblSalesperson, lblOrderedBy, lblDeliveryNotes,
 		  lblDeliveredBy, lblTotal;
-        protected JTextField tfCustomer, tfPwdNum, tfSINum, tfPONum, tfDRNum,
+        protected JTextField tfPwdNum, tfSINum, tfPONum, tfDRNum,
 		  tfSalesperson, tfOrderedBy, tfDeliveredBy;
         protected JFormattedTextField ftfDate, ftfDiscount, ftfSubtotal, ftfTotal,
                   ftfVat, ftfBalance;
 	protected JTextArea taAddress, taDeliveryNotes;
-	protected String[] strHeader = { "Quantity", "    Part Number    ", 
+	protected String strHeader[] = { "Quantity", "    Part Number    ", 
                   "        Description        ", 
                   "<html><center>   Unit   <br>   Price   </center></html>",
                   "  Total  "};
@@ -48,6 +49,7 @@ public class SalesInvoiceGUI extends JPanel
         protected JScrollPane spTable, spAddress, spDeliveryNotes;
         protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
+        protected JComboBox cmbCustomer;
         
         public SalesInvoiceGUI()
         {
@@ -145,11 +147,6 @@ public class SalesInvoiceGUI extends JPanel
 		lblBalance.setFont(fntPlainText);
 		lblBalance.setBounds(700, 505, 97, 30);
 		add(lblBalance);
-                
-                tfCustomer = new JTextField();
-		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(135, 80, 365, 30);
-		add(tfCustomer);
 
 		tfPwdNum = new JTextField();
 		tfPwdNum.setFont(fntPlainText);
@@ -230,14 +227,24 @@ public class SalesInvoiceGUI extends JPanel
                 ftfBalance.setEditable(false);
 		ftfBalance.setBounds(790, 505, 175, 30);
 		add(ftfBalance);
+		
+
+		cmbCustomer = new JComboBox();
+		cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
+		cmbCustomer.setBounds(135, 80, 365, 30);
+		add(cmbCustomer);
                 
                 taAddress = new JTextArea();
                 taAddress.setFont(fntPlainText);
+                taAddress.setWrapStyleWord(true);
+                taAddress.setLineWrap(true);
 		taAddress.setBounds(125, 115, 375, 50);
 		add(taAddress);
                 
                 taDeliveryNotes = new JTextArea();
 		taDeliveryNotes.setFont(fntPlainText);
+                taDeliveryNotes.setWrapStyleWord(true);
+                taDeliveryNotes.setLineWrap(true);
 		taDeliveryNotes.setBounds(30, 504, 472, 30);
 		add(taDeliveryNotes);
                 
@@ -298,5 +305,6 @@ public class SalesInvoiceGUI extends JPanel
 		tbSalesInvoice.setRowSelectionAllowed(true);
 		tbSalesInvoice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbSalesInvoice.setRowHeight(30);
+		
         }
 }
