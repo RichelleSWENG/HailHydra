@@ -22,9 +22,9 @@ Payables <br>
 **For Testing:** <br>
 Account Profiles (not running for me idk why po :() <br>
 Check and Bank Accounts (no error checking)<br>
+Inventory and Item Profiles (in a different GUI, but functional)<br>
 
 **For Fixing: (Controller in progress/done)** <br>
-Inventory and Item Profiles <br>
 
 **Model done (needs Controller/for Integration):** <br>
 Acknowledgement Receipts <br>
