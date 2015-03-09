@@ -1,6 +1,6 @@
 package Purchases;
 
-import HailHydra.GUIController;
+import HailHydra.GUIModel;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -54,11 +54,11 @@ public class PurchaseTransactionListGUI extends JPanel
                 btnViewPurchaseTransaction, btnClose;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIController controller;
-
+        private GUIModel controller;
+        public PurchaseTransactionController mainController;
 
 	
-	public PurchaseTransactionListGUI(GUIController temp)
+	public PurchaseTransactionListGUI(GUIModel temp)
 	{
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -259,7 +259,7 @@ public class PurchaseTransactionListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                
+                                controller.changePanelToViewPurchaseTransaction();
                         }
                     });
                 
@@ -288,13 +288,16 @@ public class PurchaseTransactionListGUI extends JPanel
                                 controller.changePanelToMainMenu();
                         }
                     });
-		
-		
 	}
+        
+        public void setController(PurchaseTransactionController temp)
+        {
+            mainController= temp;
+        }
         
         public static void main(String args[])
         {
-           GUIController temp=new GUIController();
+           GUIModel temp=new GUIModel();
            temp.changePanelToPurchaseTransactionList();
         }
 
