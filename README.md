@@ -11,7 +11,7 @@ Account Profiles - ~~Model~~ || ~~Integration~~ || Testing <br>
 Purchases - Model || Integration || Testing <br>
 Acknowledgement Receipts - ~~Model~~ || Integration || Testing <br>
 Sales Invoices - Model || Integration || Testing <br>
-Check and Bank Accounts - ~~Model~~ || Integration || Testing  <br>
+Check and Bank Accounts - ~~Model~~ || ~~Integration~~ || Testing  <br>
 
 **Iteration 2 Features:** <br>
 Return Slip <br>
@@ -21,10 +21,10 @@ Payables <br>
 
 **For Testing:** <br>
 Account Profiles <br>
+Check and Bank Accounts (no error checking)<br>
 
 **For Fixing: (Controller in progress/done)** <br>
 Inventory and Item Profiles <br>
-Check and Bank Accounts<br>
 
 **Model done (needs Controller/for Integration):** <br>
 Acknowledgement Receipts <br>
