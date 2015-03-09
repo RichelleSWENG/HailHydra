@@ -327,7 +327,9 @@ public class GUIController
     }
     public void changePanelToAddCheckAccount()
     {
-            AddCheckAccountGUI tempGUI = new AddCheckAccountGUI(this);
+             if (systemAccountController == null)
+                systemAccountController = new SystemAccountController(new SystemAccountModel(dbc));
+            AddCheckAccountGUI tempGUI = new AddCheckAccountGUI(this, systemAccountController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

@@ -24,6 +24,9 @@ import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class AddCheckAccountGUI extends JPanel
 {
@@ -45,10 +48,13 @@ public class AddCheckAccountGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
+        private SystemAccountController sysController;
+        private ArrayList<String> checkAccount;
 	
-	public AddCheckAccountGUI(GUIController temp)
+	public AddCheckAccountGUI(GUIController temp, SystemAccountController sys)
 	{
 		controller=temp;
+                sysController = sys;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -172,7 +178,22 @@ public class AddCheckAccountGUI extends JPanel
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(655, 545, 110, 40);
 		add(btnSubmit);
-
+                btnSubmit.addActionListener(
+                    new ActionListener()
+                    {
+                        @Override
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            checkAccount = new ArrayList<>();
+                            checkAccount.add(tfAccountNumber.getText());
+                            checkAccount.add(tfSupplier.getText());
+                            checkAccount.add(tfBankName.getText());
+                            checkAccount.add(taBankBranch.getText());
+                            checkAccount.add("0");
+                            sysController.AddSystemAccount(checkAccount);
+                            setTableModel(sysController.getSystemAccounts("0"));
+                        }
+                    });
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);
 		btnCancel.setBounds(855, 545, 110, 40);
@@ -185,7 +206,21 @@ public class AddCheckAccountGUI extends JPanel
                                 controller.changePanelToMainMenu();
                         }
                     });
+                setTableModel(sysController.getSystemAccounts("0"));
 	}
+        
+        public void setTableModel(TableModel tbm)
+    {                  // Setting the Headers
+        tbCheckAccount.setModel(tbm);
+        JTableHeader th = tbCheckAccount.getTableHeader();
+        TableColumnModel tcm = th.getColumnModel();
+        for (int i = 0; i < 4; i++)
+        {
+            TableColumn tc = tcm.getColumn(i);
+            tc.setHeaderValue(strHeader[i]);
+        }
+        th.repaint();
+    }
         
         public static void main(String args[])
         {

@@ -52,7 +52,6 @@ public class AddBankAccountGUI extends JPanel
     private JButton btnSubmit, btnCancel;
     private Font fntPlainText, fntHeaderText, fntHeaderTableText;
     private int modelRow;
-    private int accountCount;
     private GUIController controller;
     private SystemAccountController sysController;
     private ArrayList<String> bankAccount;
