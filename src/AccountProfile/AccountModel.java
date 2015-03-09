@@ -2,7 +2,6 @@ package AccountProfile;
 
 import Database.DBConnection;
 import HailHydra.Model;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
@@ -10,8 +9,6 @@ import net.proteanit.sql.DbUtils;
 
 public class AccountModel extends Model
 {
-
-    private Connection con;
     private int itemCount = 0;
 
     public AccountModel(DBConnection db)

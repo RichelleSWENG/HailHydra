@@ -21,7 +21,7 @@ Payables <br>
 
 <hr>
 **For Testing:** <br>
-Account Profiles (not running for me idk why po :() <br>
+Account Profiles <br>
 Check and Bank Accounts (no error checking)<br>
 Inventory and Item Profiles (in a different GUI, but functional)<br>
 
