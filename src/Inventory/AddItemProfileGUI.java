@@ -1,6 +1,6 @@
 package Inventory;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -41,9 +41,9 @@ public class AddItemProfileGUI extends JPanel {
         private JButton btnSubmit, btnCancel, btnUpdateImage;
         private JScrollPane spNotes;
         private Font fntPlainText, fntHeaderText;
-        private GUIModel controller;
+        private GUIController controller;
 	
-	public AddItemProfileGUI(GUIModel temp) {
+	public AddItemProfileGUI(GUIController temp) {
             
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -258,7 +258,7 @@ public class AddItemProfileGUI extends JPanel {
 	}
         public static void main(String args[])
        {
-                    GUIModel temp=new GUIModel();
+                    GUIController temp=new GUIController();
                     temp.changePanelToAddItemProfile();
         }
         

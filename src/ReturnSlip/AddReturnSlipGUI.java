@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -48,10 +48,10 @@ public class AddReturnSlipGUI extends JPanel {
 	private String headers[] = { "Quantity", "Part Number", "Description",
 		"<html><center>Unit<br>Price</center></html>", "Total" };
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-        private GUIModel GUIController;
+        private GUIController GUIController;
 
 	
-	public AddReturnSlipGUI(GUIModel temp) {
+	public AddReturnSlipGUI(GUIController temp) {
             
                 GUIController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -284,7 +284,7 @@ public class AddReturnSlipGUI extends JPanel {
 	}
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddReturnSlip();
         }
 

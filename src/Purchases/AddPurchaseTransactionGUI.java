@@ -1,6 +1,6 @@
 package Purchases;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -51,10 +51,10 @@ public class AddPurchaseTransactionGUI extends JPanel
         private JScrollPane spTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private JButton  btnSubmit, btnCancel, btnAddItem;
-        private GUIModel guiController;
+        private GUIController guiController;
         protected DateFormat dateFormat;
 	
-	public AddPurchaseTransactionGUI(GUIModel temp)
+	public AddPurchaseTransactionGUI(GUIController temp)
 	{
                 guiController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -324,7 +324,7 @@ public class AddPurchaseTransactionGUI extends JPanel
         
         public static void main(String args[])
         {
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddPurchaseTransaction();
         }
 }

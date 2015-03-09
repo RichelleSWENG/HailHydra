@@ -12,7 +12,7 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.*;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 
@@ -45,9 +45,9 @@ public class CollectiblesListGUI extends JPanel
 			btnAddCollectible;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIModel guiController;
+        private GUIController guiController;
 	
-	public CollectiblesListGUI(GUIModel temp)
+	public CollectiblesListGUI(GUIController temp)
 	{
                 guiController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -254,7 +254,7 @@ public class CollectiblesListGUI extends JPanel
 	}
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToCollectibles();
         }
 }

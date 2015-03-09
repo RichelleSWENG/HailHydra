@@ -1,6 +1,6 @@
 package AcknowledgementReceipt;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -9,10 +9,10 @@ import javax.swing.JButton;
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 {
         private JButton  btnAddItem, btnSubmit, btnCancel;
-        private GUIModel guiController;
+        private GUIController guiController;
         private AcknowledgementReceiptController mainController;
 
-	public AddAcknowledgementReceiptGUI(GUIModel temp) 
+	public AddAcknowledgementReceiptGUI(GUIController temp) 
         {
                 super();
                 guiController=temp;
@@ -57,7 +57,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
         }
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddAcknowledgementReceipt();
         }
 

@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -37,9 +37,9 @@ public class AddDebitMemoGUI extends JPanel
 	private String headers[] = { "Quantity", "Part Number", 
                 "Description", "<html><center>Unit<br>Price</html>", "Total" };
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-        private GUIModel controller;
+        private GUIController controller;
 	
-	public AddDebitMemoGUI(GUIModel temp)
+	public AddDebitMemoGUI(GUIController temp)
 	{
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -230,7 +230,7 @@ public class AddDebitMemoGUI extends JPanel
 	}
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddDebitMemo();
         }
 }

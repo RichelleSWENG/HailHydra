@@ -25,7 +25,7 @@ public class AccountProfileController
         this.accountModel = tempModel;
     }
 
-    TableModel getAllModel()
+    public TableModel getAllModel()
     {
 
         TableModel tbm = accountModel.myModel(accountModel.getAllDetail());

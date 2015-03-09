@@ -1,6 +1,6 @@
 package Login;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.SystemColor;
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -12,9 +12,9 @@ public class PurchasesGUI extends JPanel {
 
 	private JButton purchaseTransBtn, creditMemoBtn, returnSlipBtn, orderReportBtn;
 	private Font fntPlainText;
-        private GUIModel controller;
+        private GUIController controller;
         
-	public PurchasesGUI(GUIModel temp) {
+	public PurchasesGUI(GUIController temp) {
                 controller=temp;
                 
 		setBounds(0, 0, 700, 400);

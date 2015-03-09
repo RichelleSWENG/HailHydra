@@ -2,7 +2,7 @@
 
 package Login;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -14,9 +14,9 @@ public class PaymentsGUI extends JPanel{
     
     private JButton btnPayables, btnCollectibles, btnAddCheckAccount, btnAddBankAccount, btnCreditLimitReport, btnTermsReport;
     private Font fntPlainText;
-    private GUIModel controller;
+    private GUIController controller;
     
-    public PaymentsGUI(GUIModel temp){
+    public PaymentsGUI(GUIController temp){
                 controller=temp;
                 setBounds(0, 0, 700, 400);
 		setBackground(SystemColor.controlHighlight);

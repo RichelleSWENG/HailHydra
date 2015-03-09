@@ -1,5 +1,5 @@
 package Inventory;
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -42,10 +42,10 @@ public class SetInventoryPriceGUI extends JPanel
 	private DefaultTableModel table;
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-        private GUIModel controller;
+        private GUIController controller;
 	
 
-	public SetInventoryPriceGUI(GUIModel temp)
+	public SetInventoryPriceGUI(GUIController temp)
 	{
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -181,7 +181,7 @@ public class SetInventoryPriceGUI extends JPanel
                     });
 	}
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToSetInventoryPrice();
         }
 

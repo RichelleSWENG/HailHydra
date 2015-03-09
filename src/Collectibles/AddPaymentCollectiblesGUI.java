@@ -19,7 +19,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -54,9 +54,9 @@ public class AddPaymentCollectiblesGUI extends JPanel
         private JButton btnSubmit, btnCancel, btnDetails;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private DateFormat dateFormat;
-        private GUIModel GUIController;
+        private GUIController GUIController;
 	
-	public AddPaymentCollectiblesGUI(GUIModel temp)
+	public AddPaymentCollectiblesGUI(GUIController temp)
 	{
 		GUIController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -209,7 +209,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 	}
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddPaymentCollectibles();
         }
 }

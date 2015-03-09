@@ -46,7 +46,7 @@ import SystemAccount.AddCheckAccountGUI;
 import java.sql.SQLException;
 import javax.swing.JPanel;
 
-public class GUIModel 
+public class GUIController 
 {
     
     private HailHydraGUI frame;
@@ -55,7 +55,7 @@ public class GUIModel
     private AccountProfileController AccountProfileController;
     private DBConnection dbc;
     
-    public GUIModel()
+    public GUIController()
     {
             dbc = new DBConnection();
             controller= new MainController(this);
@@ -358,7 +358,7 @@ public class GUIModel
     }
     
     public static void main(String args[]){
-        new GUIModel();
+        new GUIController();
         
     }
     

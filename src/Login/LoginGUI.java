@@ -1,6 +1,6 @@
 package Login;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -25,9 +25,9 @@ public class LoginGUI extends JPanel {
 	private JPasswordField pfPassword;
 	private JButton btnLogin;
         private Font fntPlainText, fntHeaderText;
-        private GUIModel controllerGUI;
+        private GUIController controllerGUI;
 
-	public LoginGUI(GUIModel temp) {
+	public LoginGUI(GUIController temp) {
                 controllerGUI=temp;
                 setBounds(0, 0, 1000, 620);
                 setLayout(null);
@@ -93,7 +93,7 @@ public class LoginGUI extends JPanel {
 	}
         
         public static void main(String args[]){
-            new GUIModel();
+            new GUIController();
         }
         
         

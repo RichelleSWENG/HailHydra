@@ -19,7 +19,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -44,9 +44,9 @@ public class AddCheckAccountGUI extends JPanel
         private JButton btnSubmit, btnCancel;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIModel controller;
+        private GUIController controller;
 	
-	public AddCheckAccountGUI(GUIModel temp)
+	public AddCheckAccountGUI(GUIController temp)
 	{
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -189,7 +189,7 @@ public class AddCheckAccountGUI extends JPanel
         
         public static void main(String args[])
         {
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddCheckAccount();
         }
 

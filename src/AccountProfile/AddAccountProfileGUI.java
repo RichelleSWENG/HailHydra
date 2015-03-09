@@ -1,6 +1,6 @@
 package AccountProfile;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,11 +14,11 @@ import javax.swing.JOptionPane;
 public class AddAccountProfileGUI extends AccountProfileGUI
 {
         private JButton btnSubmit, btnCancel;
-        private GUIModel guiController;
+        private GUIController guiController;
         private AccountProfileController mainController;
         private ArrayList<String> al; 
                 
-	public AddAccountProfileGUI(GUIModel temp )
+	public AddAccountProfileGUI(GUIController temp )
 	{
                 super();
                 guiController=temp;
@@ -141,7 +141,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
 
         
 	public static void main(String args[]){
-            GUIModel temp=new GUIModel();
+            GUIController temp=new GUIController();
             temp.changePanelToAddAccountProfile();
         }
 

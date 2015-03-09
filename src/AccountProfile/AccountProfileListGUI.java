@@ -1,6 +1,6 @@
 package AccountProfile;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import Inventory.InventoryView;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -54,12 +54,12 @@ public class AccountProfileListGUI extends JPanel
                 btnAddAccountProfile, btnClose;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-	private GUIModel GUIController;
+	private GUIController GUIController;
         private AccountProfileController mainController;
         private int type;
 	private String name;
         private String AccountType;
-	public AccountProfileListGUI(GUIModel temp) {
+	public AccountProfileListGUI(GUIController temp) {
 		
                // ViewAll();
                 GUIController=temp;
@@ -411,7 +411,7 @@ public class AccountProfileListGUI extends JPanel
     }
         
         public static void main(String args[]){
-            GUIModel temp=new GUIModel();
+            GUIController temp=new GUIController();
            temp.changePanelToAccountProfile();
         }
 

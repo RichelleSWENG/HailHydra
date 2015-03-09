@@ -5,10 +5,10 @@ import java.sql.SQLException;
 
 public class MainController 
 {
-    private GUIModel view;
+    private GUIController view;
     private MainModel model;
     
-    public MainController(GUIModel view)
+    public MainController(GUIController view)
     {
         model=new MainModel();
         this.view=view;

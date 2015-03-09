@@ -17,7 +17,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
@@ -41,9 +41,9 @@ public class AddCreditMemoGUI extends JPanel
 	private JScrollPane spTable, spAddress;
         private JButton btnSubmit, btnCancel;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-        private GUIModel controller;
+        private GUIController controller;
 
-	public AddCreditMemoGUI(GUIModel temp)
+	public AddCreditMemoGUI(GUIController temp)
 	{
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -196,7 +196,7 @@ public class AddCreditMemoGUI extends JPanel
 	}
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddCreditMemo();
         }
 

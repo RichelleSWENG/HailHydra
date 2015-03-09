@@ -19,7 +19,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -55,12 +55,12 @@ public class InventoryListGUI extends JPanel
 			btnAddItemProfile, btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIModel controller;
+        private GUIController controller;
         private String pkey; // for delete
         private InventoryController ic;
 
 
-	public InventoryListGUI(GUIModel temp)
+	public InventoryListGUI(GUIController temp)
 	{
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -417,7 +417,7 @@ public class InventoryListGUI extends JPanel
 
 	        
         public static void main(String args[]){
-            GUIModel temp=new GUIModel();
+            GUIController temp=new GUIController();
             temp.changePanelToInventory();
         }
 

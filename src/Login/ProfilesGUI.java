@@ -1,7 +1,7 @@
 package Login;
 
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.SystemColor;
@@ -13,9 +13,9 @@ public class ProfilesGUI extends JPanel {
 
 	private JButton btnCompanyProfile, btnInventory, btnSetInventoryPrice, btnSetInventoryQuantity;
 	private Font fntPlainText;
-        private GUIModel controller;
+        private GUIController controller;
         
-	public ProfilesGUI(GUIModel temp) {
+	public ProfilesGUI(GUIController temp) {
                 controller=temp;
             
 		setBounds(0, 0, 700, 400);

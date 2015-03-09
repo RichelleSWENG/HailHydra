@@ -1,7 +1,7 @@
 package Login;
 
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
 import java.awt.Font;
@@ -20,9 +20,9 @@ public class MainMenuGUI extends JPanel {
 	private JButton btnLogout, btnProfiles, btnPurchases, btnSales, btnPayments,
 			systemSettingsBtn;
         private Font fntHeaderText, fntPlainText, fntMarkerText;
-        private GUIModel controller;
+        private GUIController controller;
         
-	public MainMenuGUI(GUIModel temp) 
+	public MainMenuGUI(GUIController temp) 
         {
             
                 controller=temp;
@@ -145,7 +145,7 @@ public class MainMenuGUI extends JPanel {
         
 	public static void main(String args[])
         {
-            GUIModel temp=new GUIModel();
+            GUIController temp=new GUIController();
             temp.changePanelToMainMenu();
         }
        
