@@ -7,23 +7,23 @@ Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 
 Strikethrough words mean doneeee <br>
 
-**Iteration 1 Features:** <br>
-Inventory and Item Profiles - ~~Model~~ || Integration || Testing <br>
-Account Profiles - ~~Model~~ || ~~Integration~~ || Testing <br>
-Purchases - Model || Integration || Testing <br>
-Acknowledgement Receipts - ~~Model~~ || Integration || Testing <br>
-Sales Invoices - Model || Integration || Testing <br>
-Check and Bank Accounts - ~~Model~~ || ~~Integration~~ || Testing  <br>
-Return Slip - Model || Integration || Testing <br>
-Credit Memo/Debit Memo - Model || Integration || Testing <br>
-Collectibles - ~~Model~~ || Integration || Testing <br>
-Payables - ~~Model~~ || Integration || Testing <br>
+**Iteration 1 Progress:** <br>
+Inventory and Item Profiles - ~~Model~~ || Integration <br>
+Account Profiles - ~~Model~~ || ~~Integration~~ <br>
+Purchases - Model || Integration <br>
+Acknowledgement Receipts - ~~Model~~ || Integration <br>
+Sales Invoices - Model || Integration || <br>
+System Accounts - ~~Model~~ || ~~Integration~~ <br>
+Return Slip - Model || Integration <br>
+Credit Memo/Debit Memo - Model || Integration <br>
+Collectibles - ~~Model~~ || Integration <br>
+Payables - ~~Model~~ || Integration <br>
 
 <hr>
 **For Testing:** <br>
 Account Profiles <br>
-Check and Bank Accounts <br>
-Inventory and Item Profiles (in a different GUI, but functional)<br>
+System Accounts <br>
+Inventory and Item Profiles <br>
 
 **For Fixing (Controller in progress/done):** <br>
 -------<br>
