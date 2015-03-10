@@ -101,8 +101,8 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
             {
                 try
                 {
-                    mainController.ModifyItemProfile(al);
                     mainController.setItemProfile(al);
+                    mainController.ModifyItemProfile(al); 
                     guiController.changePanelToViewItemProfile();
                     
                 } catch (Exception ex)

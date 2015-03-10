@@ -144,4 +144,9 @@ public class AckReceiptModel
     {
         return this.itemCount;
     }
+    
+    public void getCustomers()
+    {
+        
+    }
 }

@@ -93,15 +93,17 @@ public class InventoryController {
         rs = inventoryModel.getDetail(pkey);
         ResultSetMetaData metadata = rs.getMetaData();
         int numberOfColumns = metadata.getColumnCount();
+        ArrayList<String> temp = new ArrayList<>();
        
         while (rs.next()) 
         {              
         int i = 1;
         while(i <= numberOfColumns) 
             {
-            this.itemProfile.add(rs.getString(i++));
+            temp.add(rs.getString(i++));
             }
         } 
+        this.itemProfile = temp;
   
        
     }
