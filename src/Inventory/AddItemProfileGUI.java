@@ -321,9 +321,9 @@ public class AddItemProfileGUI extends JPanel {
                     temp.changePanelToAddItemProfile();
         }
 
-    public void setMainController(InventoryController InventoryController)
+    public void setMainController(InventoryController inventoryController)
     {
-        this.mainController = InventoryController;
+        this.mainController = inventoryController;
     }
         
 }

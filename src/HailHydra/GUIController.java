@@ -182,7 +182,9 @@ public class GUIController
     
     public void changePanelToAddItemProfile()
     {
-            getContentPanel().add(new AddItemProfileGUI(this));
+            AddItemProfileGUI tempGUI= new AddItemProfileGUI(this);
+            tempGUI.setMainController(inventoryController);
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
