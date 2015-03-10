@@ -1,4 +1,4 @@
-package Purchases;
+package AcknowledgementReceipt;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -17,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JComboBox;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class AddItemPopUpGUI extends JFrame
 {
@@ -106,6 +107,8 @@ public class AddItemPopUpGUI extends JFrame
 		tfTotal.setColumns(10);
 		
 		cmbPartNumber = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbPartNumber);
+                cmbPartNumber.setEditable(true);
 		cmbPartNumber.setBounds(167, 150, 212, 30);
 		contentPane.add(cmbPartNumber);
 	}

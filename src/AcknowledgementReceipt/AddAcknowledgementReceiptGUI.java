@@ -30,6 +30,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                     {
                         public void actionPerformed(ActionEvent e)
                         {   
+                            AddItemPopUpGUI frame = new AddItemPopUpGUI();
                         }
                     });
 		
