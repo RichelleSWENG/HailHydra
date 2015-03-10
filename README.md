@@ -8,7 +8,7 @@ Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 Strikethrough words mean doneeee <br>
 
 **Iteration 1 Progress:** <br>
-Inventory and Item Profiles - ~~Model~~ || Integration <br>
+Inventory and Item Profiles - ~~Model~~ || ~~Integration~~ <br>
 Account Profiles - ~~Model~~ || ~~Integration~~ <br>
 Purchases - Model || Integration <br>
 Acknowledgement Receipts - ~~Model~~ || Integration <br>
