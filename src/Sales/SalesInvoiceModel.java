@@ -36,7 +36,7 @@ public class SalesInvoiceModel extends Model
         try
         {
             statement = con.createStatement();
-            String sql = "SELECT company.name, salesinvoice.date, salesinvoice.sales_invoice_id, salesinvoice.original_amount, salesinvoice.current_balance FROM company, salesinvoice";
+            String sql = "SELECT company.name, salesinvoice.date, salesinvoice.sales_invoice_id, salesinvoice.original_amount, salesinvoice.current_balance FROM company, salesinvoice WHERE company.company_id=salesinvoice.company_id";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {

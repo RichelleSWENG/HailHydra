@@ -2,7 +2,7 @@ package Sales;
 
 import javax.swing.JButton;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -10,15 +10,17 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI
 {
 
 	private JButton btnAddItem, btnSubmit, btnCancel;
-	private GUIModel guiController;
+	private GUIController guiController;
 	private SalesInvoiceController mainController;
 
-	public AddSalesInvoiceGUI(GUIModel temp)
+	public AddSalesInvoiceGUI(GUIController temp)
 	{
 
 		guiController = temp;
 
 		lblHeader.setText("Add Sales Invoice");
+                
+                cmbCustomer.setEditable(true);
 
 		btnAddItem = new JButton("Add Item");
 		btnAddItem.setFont(fntPlainText);
@@ -57,7 +59,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI
 
 	public static void main(String args[])
 	{
-		GUIModel temp = new GUIModel();
+		GUIController temp = new GUIController();
 		temp.changePanelToAddSalesInvoice();
 	}
 }

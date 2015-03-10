@@ -31,8 +31,10 @@ import Login.SystemSettingsGUI;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesListGUI;
 import Purchases.AddPurchaseTransactionGUI;
+import Purchases.ModifyPurchaseTransactionGUI;
 import ReturnSlip.AddReturnSlipGUI;
 import Purchases.PurchaseTransactionListGUI;
+import Purchases.ViewPurchaseTransactionGUI;
 import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
 import Reports.OrderReportGUI;
@@ -140,6 +142,17 @@ public class GUIController
     public void changePanelToAddPurchaseTransaction()
     {
             getContentPanel().add(new AddPurchaseTransactionGUI(this));
+            frameRevalidate();
+    }
+    
+    public void changePanelToModifyPurchaseTransaction()
+    {
+            getContentPanel().add(new ModifyPurchaseTransactionGUI(this));
+            frameRevalidate();
+    }
+    public void changePanelToViewPurchaseTransaction()
+    {
+            getContentPanel().add(new ViewPurchaseTransactionGUI(this));
             frameRevalidate();
     }
     

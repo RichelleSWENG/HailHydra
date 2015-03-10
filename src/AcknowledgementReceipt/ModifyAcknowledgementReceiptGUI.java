@@ -1,6 +1,6 @@
 package AcknowledgementReceipt;
 
-import HailHydra.GUIModel;
+import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -8,13 +8,15 @@ import javax.swing.JButton;
 public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     
     private JButton  btnSubmit, btnCancel;
-    private GUIModel guiController;
+    private GUIController guiController;
     private AcknowledgementReceiptController mainController;
         
-    public ModifyAcknowledgementReceiptGUI(GUIModel temp)
+    public ModifyAcknowledgementReceiptGUI(GUIController temp)
     {
                 super();
                 guiController=temp;
+                
+                cmbCustomer.setEditable(true);
                 
                 lblHeader.setText("Modify Acknowledgement Receipt");
 		
@@ -51,7 +53,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     }
     
     public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToModifyAcknowledgementReceipt();
         }
 }

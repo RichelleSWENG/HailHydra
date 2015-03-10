@@ -21,6 +21,7 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.JComboBox;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 public class AcknowledgementReceiptGUI extends JPanel
@@ -263,6 +264,7 @@ public class AcknowledgementReceiptGUI extends JPanel
 		tbARReceipt.setRowHeight(30);
 		
 		cmbCustomer = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbCustomer);
 		cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
 		cmbCustomer.setBounds(135, 80, 365, 30);
 		add(cmbCustomer);

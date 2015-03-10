@@ -1,5 +1,6 @@
 package AcknowledgementReceipt;
 
+import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.ButtonGroup;
@@ -17,7 +18,6 @@ import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
-import HailHydra.GUIModel;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 
@@ -52,10 +52,10 @@ public class AcknowledgementReceiptListGUI extends JPanel
                 btnAddAckReceipt;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-	private GUIModel guiController;
+	private GUIController guiController;
         private AcknowledgementReceiptController mainController;
 
-	public AcknowledgementReceiptListGUI(GUIModel temp) {
+	public AcknowledgementReceiptListGUI(GUIController temp) {
 		
                 guiController=temp;
                 setBounds(0, 0, 1000, 620);
@@ -273,7 +273,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
         }
         
         public static void main(String args[]){
-            GUIModel temp=new GUIModel();
-           temp.changePanelToAcknowledgementReceiptList();
+            GUIController temp=new GUIController();
+           temp.changePanelToAcknowledgementReceipt();
         }
 }

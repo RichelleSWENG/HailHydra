@@ -24,6 +24,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class SalesInvoiceGUI extends JPanel
 {
@@ -230,6 +231,7 @@ public class SalesInvoiceGUI extends JPanel
 		
 
 		cmbCustomer = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbCustomer);
 		cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
 		cmbCustomer.setBounds(135, 80, 365, 30);
 		add(cmbCustomer);

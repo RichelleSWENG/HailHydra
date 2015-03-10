@@ -23,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class PurchaseTransactionGUI extends JPanel
 {
@@ -295,6 +296,7 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction.setRowHeight(30);
 		
 		cmbSupplier = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbSupplier);
 		cmbSupplier.setFont(new Font("Arial", Font.PLAIN, 21));
 		cmbSupplier.setBounds(125, 80, 375, 30);
 		add(cmbSupplier);

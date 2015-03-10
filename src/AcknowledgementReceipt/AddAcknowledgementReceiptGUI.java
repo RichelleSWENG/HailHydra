@@ -1,6 +1,7 @@
 package AcknowledgementReceipt;
 
-import HailHydra.GUIModel;
+
+import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -9,13 +10,14 @@ import javax.swing.JButton;
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 {
         private JButton  btnAddItem, btnSubmit, btnCancel;
-        private GUIModel guiController;
+        private GUIController guiController;
         private AcknowledgementReceiptController mainController;
 
-	public AddAcknowledgementReceiptGUI(GUIModel temp) 
+	public AddAcknowledgementReceiptGUI(GUIController temp) 
         {
                 super();
                 guiController=temp;
+                cmbCustomer.setEditable(true);
                 
                 lblHeader.setText("Add Acknowledgement Receipt");
                 
@@ -23,6 +25,13 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		btnAddItem.setFont(fntPlainText);
 		btnAddItem.setBounds(30, 545, 147, 40);
 		add(btnAddItem);
+                btnAddItem.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {   
+                        }
+                    });
 		
                 btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
@@ -33,7 +42,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                guiController.changePanelToAcknowledgementReceiptList();
+                                guiController.changePanelToAcknowledgementReceipt();
                         }
                     });
 
@@ -46,7 +55,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                guiController.changePanelToAcknowledgementReceiptList();
+                                guiController.changePanelToAcknowledgementReceipt();
                         }
                     });	
 	}
@@ -57,7 +66,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
         }
         
         public static void main(String args[]){
-           GUIModel temp=new GUIModel();
+           GUIController temp=new GUIController();
            temp.changePanelToAddAcknowledgementReceipt();
         }
 
