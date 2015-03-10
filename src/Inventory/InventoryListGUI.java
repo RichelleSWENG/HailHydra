@@ -23,7 +23,13 @@ import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -35,7 +41,7 @@ public class InventoryListGUI extends JPanel
 	private JLabel  lblHeader, lblSearchBy, lblSearch, lblItemsFound, 
                         lblNumOfItemsFound;
         private JTextField tfSearch;
-        private String headers[] ={ "Part Number", "Description", 
+        private String strHeader[] ={ "Part Number", "Description", 
                         "<html><center>Quantity<br>(Functional)</center></html>",
 			"<html><center>Quantity<br>(Defective)</center></html>", 
                         "<html><center>Last<br>Cost</center></html>",
@@ -52,17 +58,26 @@ public class InventoryListGUI extends JPanel
         private JRadioButton rdbtnPartNumber, rdbtnDescription;
         private ButtonGroup searchBy;
 	private JButton btnViewAllItems, btnViewItemProfile,
-			btnAddItemProfile, btnClose;
+			btnAddItemProfile, btnDelete, btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIController controller;
+        private GUIController guiController;
         private String pkey; // for delete
-        private InventoryController ic;
+        private InventoryController mainController;
 
 
 	public InventoryListGUI(GUIController temp)
 	{
-		controller=temp;
+            
+                try 
+                {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception e) 
+                {
+			e.printStackTrace();
+		}
+                
+		guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -143,19 +158,19 @@ public class InventoryListGUI extends JPanel
             {
                 if (tfSearch.getText().length() > 0)
                 {
-                    ic.SearchSomething(tfSearch.getText(), searchBy.getSelection().getActionCommand()); //if a key is typed search
+                    mainController.SearchSomething(tfSearch.getText(), searchBy.getSelection().getActionCommand()); //if a key is typed search
 
                 } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
                 {
-                    TableModel AllModel = ic.getAllModel();
+                    TableModel AllModel = mainController.getAllModel();
                     tbInventory.setModel(AllModel);
 
                     JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
                     TableColumnModel tcm = th.getColumnModel();
-                        for (int i = 0; i < 8; i++)
+                        for (int i = 0; i < strHeader.length; i++)
                             {
                         TableColumn tc = tcm.getColumn(i);
-                        tc.setHeaderValue(headers[i]);
+                        tc.setHeaderValue(strHeader[i]);
                  }
                     th.repaint();                }
             }
@@ -174,9 +189,9 @@ public class InventoryListGUI extends JPanel
 
 		tbModel.setRowCount(15);
 
-		for (int i = 0; i < 8; i++)
+		for (int i = 0; i < strHeader.length; i++)
 		{
-			tbModel.addColumn(headers[i]);
+			tbModel.addColumn(strHeader[i]);
 		}
 
 		tbInventory = new JTable(tbModel)
@@ -230,6 +245,7 @@ public class InventoryListGUI extends JPanel
 		tbInventory.setRowHeight(30);
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
+                rdbtnPartNumber.setActionCommand("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
                 rdbtnPartNumber.setBackground(SystemColor.textHighlight);
@@ -243,6 +259,7 @@ public class InventoryListGUI extends JPanel
                 });
                 
 		rdbtnDescription = new JRadioButton("Description");
+                rdbtnDescription.setActionCommand("Description");
 		rdbtnDescription.setFont(fntPlainText);
                 rdbtnDescription.setBackground(SystemColor.textHighlight);
 		rdbtnDescription.setBounds(309, 80, 158, 30);
@@ -263,22 +280,103 @@ public class InventoryListGUI extends JPanel
 		btnViewAllItems.setFont(fntPlainText);
 		btnViewAllItems.setBounds(725, 150, 240, 40);
 		add(btnViewAllItems);
+                btnViewAllItems.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            try
+                            {
+                                mainController.ViewAllItems();
+                            } catch (Exception ex)
+                            {
+                                Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    });
                 
                 btnViewItemProfile = new JButton("View Item Profile");
 		btnViewItemProfile.setFont(fntPlainText);
-		btnViewItemProfile.setBounds(30, 545, 240, 40);
+		btnViewItemProfile.setBounds(30, 545, 210, 40);
 		add(btnViewItemProfile);
+                btnViewItemProfile.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                            try
+                            {
+                                            int row;
+            row = tbInventory.getSelectedRow();
+            
+            if(row == -1 )
+            JOptionPane.showMessageDialog(null, "Please select an item.");
+            else {
+              pkey = tbInventory.getValueAt(row, 0).toString();
+              
+                try
+                {
+                   
+                        mainController.ViewItemProfile(pkey);
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                  
+               
+                            guiController.changePanelToViewItemProfile();
+                }
+                            } catch (IOException ex)
+                            {
+                                Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }
+                    });
 
 		btnAddItemProfile = new JButton("Add Item Profile");
 		btnAddItemProfile.setFont(fntPlainText);
-		btnAddItemProfile.setBounds(450, 545, 217, 40);
+		btnAddItemProfile.setBounds(300, 545, 217, 40);
 		add(btnAddItemProfile);
                 btnAddItemProfile.addActionListener(
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToAddItemProfile();
+                                guiController.changePanelToAddItemProfile();
+                        }
+                    });
+                
+                
+                
+                btnDelete =new JButton("Delete Item Profile");
+                btnDelete.setFont(fntPlainText);
+		btnDelete.setBounds(580, 545, 217, 40);
+		add(btnDelete);
+                btnDelete.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                           pkey = null;
+            int row;
+            row = tbInventory.getSelectedRow();
+            
+            if(row == -1 )
+            JOptionPane.showMessageDialog(null, "Please select an item.");
+            else {
+              pkey = tbInventory.getValueAt(row, 0).toString();
+                try
+                {
+                    confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }
                         }
                     });
 
@@ -291,7 +389,7 @@ public class InventoryListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToMainMenu();
+                                guiController.changePanelToMainMenu();
                         }
                     });
         }
@@ -300,24 +398,52 @@ public class InventoryListGUI extends JPanel
         {
             lblNumOfItemsFound.setText(Integer.toString(itemcount));
         }
-
-
-    public void setController(InventoryController ic)
+        
+               public void confirmMessage(String question) throws SQLException, Exception
     {
-        this.ic = ic;
+        //JDialog.setDefaultLookAndFeelDecorated(true);
+        int response = JOptionPane.showConfirmDialog(null, question, "Confirm",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION)
+        {
+
+        } else if (response == JOptionPane.YES_OPTION)
+        {
+
+            mainController.DeleteItem(pkey);
+            //System.out.println("the key "+pkey);
+            ViewAll();
+            infoMessage("You have DELETED "+pkey+"");
+        } else if (response == JOptionPane.CLOSED_OPTION)
+        {
+            System.out.println("JOptionPane closed");
+        }
     }
 
-    public void viewAll() throws Exception
+    public void infoMessage(String info)
     {
-        TableModel AllModel = ic.getAllModel();
+        JFrame frame = null;
+        JOptionPane.showMessageDialog(frame, info);
+    }
+
+
+    public void setMainController(InventoryController temp)
+    {
+        this.mainController = temp;
+    }
+
+    public void ViewAll() throws Exception
+    {
+        tfSearch.setText("");
+        TableModel AllModel = mainController.getAllModel();
         tbInventory.setModel(AllModel);
 
         JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < strHeader.length; i++)
         {
             TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(headers[i]);
+            tc.setHeaderValue(strHeader[i]);
         }
         th.repaint();
     }
@@ -327,10 +453,10 @@ public class InventoryListGUI extends JPanel
         tbInventory.setModel(tbm);
         JTableHeader th = tbInventory.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < strHeader.length; i++)
         {
             TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(headers[i]);
+            tc.setHeaderValue(strHeader[i]);
         }
         th.repaint();
     }
@@ -377,7 +503,7 @@ public class InventoryListGUI extends JPanel
         {
             try
             {
-                ic.ViewAllItems();
+                mainController.ViewAllItems();
                 tfSearch.setText("");
             } catch (Exception ex)
             {
@@ -390,7 +516,7 @@ public class InventoryListGUI extends JPanel
 
         public void actionPerformed(ActionEvent e)
         {
-            pkey = null;
+                        pkey = null;
             int row;
             row = tbInventory.getSelectedRow();
             
@@ -398,11 +524,24 @@ public class InventoryListGUI extends JPanel
             JOptionPane.showMessageDialog(null, "Please select an item.");
             else {
               pkey = tbInventory.getValueAt(row, 0).toString();
-              //ic.ViewItemProfile(pkey);
+                try
+                {
+                    mainController.ViewItemProfile(pkey);
+                } catch (SQLException ex)
+                {
+                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex)
+                {
+                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
             
             }
+            
+            }
+            
         
     }
+
          
          
          
@@ -410,13 +549,13 @@ public class InventoryListGUI extends JPanel
          
          
 
-    }
+    
 
     
 
 
 	        
-        public static void main(String args[]){
+        public static void main(String args[]) throws Exception{
             GUIController temp=new GUIController();
             temp.changePanelToInventory();
         }

@@ -1,6 +1,5 @@
 package Inventory;
 
-import HailHydra.GUIController;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -16,12 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
-import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -31,28 +25,25 @@ import javax.swing.JScrollPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class AddItemProfileGUI extends JPanel {
-
-	private JLabel  lblHeader, lblPartNumber, lblDescription,
+public class ItemProfileGUI extends JPanel 
+{
+        protected JLabel  lblHeader, lblPartNumber, lblDescription,
                         lblRackLocation, lblNotes, lblRequiredFields, lblImage,
                         lblStockMinimum, lblSisterCompanyPrice, lblRetailPrice, 
                         lblWalkinPrice, lblLastCost, lblAsterisk1, lblAsterisk2, 
                         lblAsterisk3, lblAsterisk4;
-        private JTextField tfPartNumber, tfDescription, tfRackLocation;
-        private JFormattedTextField ftfStockMinimum, ftfSisterCompanyPrice, ftfRetailPrice, ftfWalkinPrice, ftfLastCost;
-        private JTextArea taNotes;
-        private JCheckBox chckbxInactiveItem;
-        private JButton btnSubmit, btnCancel, btnUpdateImage;
-        private JScrollPane spNotes;
-        private Font fntPlainText, fntHeaderText;
-        private GUIController controller;
-        private InventoryController mainController;
-        private String imageLocation;
-        private ArrayList<String> al;
-	
-	public AddItemProfileGUI(GUIController temp) {
-            
-                controller=temp;
+        protected JTextField tfPartNumber, tfDescription, tfRackLocation;
+        protected JFormattedTextField ftfStockMinimum, ftfSisterCompanyPrice, ftfRetailPrice, ftfWalkinPrice, ftfLastCost;
+        protected JTextArea taNotes;
+        protected JScrollPane spNotes;
+        protected JCheckBox chckbxInactiveItem;
+        protected JButton btnUpdateImage;
+        protected Font fntPlainText, fntHeaderText;
+        protected String imageLocation;
+        
+    
+        public ItemProfileGUI()
+        {
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -60,7 +51,7 @@ public class AddItemProfileGUI extends JPanel {
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		
-                lblHeader = new JLabel("Add Item Profile");
+                lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);	
@@ -222,7 +213,10 @@ public class AddItemProfileGUI extends JPanel {
                             fileOpen.addChoosableFileFilter(filter);
                          }
                         int ret = fileOpen.showDialog(null, "Open file");
+                        try
+                        {
                         imageLocation = fileOpen.getSelectedFile().getAbsolutePath();
+                        imageLocation = imageLocation.replace('\\', '/');
                         
                         BufferedImage img = null;
                         try 
@@ -235,95 +229,12 @@ public class AddItemProfileGUI extends JPanel {
                         {
                              JOptionPane.showMessageDialog(null, "Selected file is not an image. Please try again.");
                         }
+                        }catch(Exception exception)
+                        {
+                            
+                        }
                         
                 }
                 });
-                
-                btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(fntPlainText);
-		btnSubmit.setBounds(655, 545, 110, 40);
-		add(btnSubmit);
-                btnSubmit.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
-                {
-                    try
-                    {
-                        //(part_num,description,rack_location,stock_minimum,sister_company_price,traders_price,walk_in_price,last_cost,notes,image,status)
-                        //ftfStockMinimum, ftfSisterCompanyPrice, ftfRetailPrice, ftfWalkinPrice, ftfLastCost;
-                            al = new ArrayList();
-                            al.add(tfPartNumber.getText());
-                            al.add(tfDescription.getText());
-                            al.add(tfRackLocation.getText());
-                            al.add(ftfStockMinimum.getText());
-                            al.add(ftfSisterCompanyPrice.getText());
-                            al.add(ftfRetailPrice.getText());
-                            al.add(ftfWalkinPrice.getText());
-                            al.add(ftfLastCost.getText());
-                            al.add(taNotes.getText());
-                            al.add(imageLocation);
-                            if(chckbxInactiveItem.isSelected())
-                                al.add("0");
-                            else al.add("1");
-                            
-                            boolean error = false;
-            if (tfPartNumber.getText().equals("") || tfDescription.getText().equals("") || ftfStockMinimum.getText().equals(""))
-            {
-
-                JOptionPane.showMessageDialog(null, "Please fill in the required fields");
-                error = true;
-            }
-
-            if (error == false)
-            {
-                try
-                {
-                    mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText(), ftfSisterCompanyPrice.getText(), ftfRetailPrice.getText(), ftfWalkinPrice.getText(), ftfLastCost.getText(), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
-                    controller.changePanelToInventory();
-                } catch (SQLException ex)
-                {
-                    Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex)
-                {
-                    Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-                       
-                    } catch (Exception ex)
-                    {
-                        Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                });
-                
-		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(fntPlainText);
-		btnCancel.setBounds(855, 545, 110, 40);
-		add(btnCancel);
-                btnCancel.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
-                {
-                    try
-                    {
-                        controller.changePanelToInventory();
-                    } catch (Exception ex)
-                    {
-                        Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                });
-               
-                
-                
-	}
-        public static void main(String args[])
-       {
-                    GUIController temp=new GUIController();
-                    temp.changePanelToAddItemProfile();
         }
-
-    public void setMainController(InventoryController InventoryController)
-    {
-        this.mainController = InventoryController;
-    }
-        
 }

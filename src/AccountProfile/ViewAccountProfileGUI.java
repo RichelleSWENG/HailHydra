@@ -13,11 +13,11 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
         private GUIController guiController;
         private AccountProfileController mainController;
         
-        public ViewAccountProfileGUI(GUIController temp,AccountProfileController accountProfileController)
+        public ViewAccountProfileGUI(GUIController temp,AccountProfileController AccountProfileController)
         {
             
                 super();
-                setMainController(accountProfileController);
+                setMainController(AccountProfileController);
                 guiController=temp;
                 
                 lblHeader.setText("View Account Profile");
@@ -104,7 +104,7 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
         }
         
         public static void main(String args[]){
-            //GUIModel temp=new GUIController();
+            //GUIModel temp=new GUIModel();
            //temp.changePanelToViewAccountProfile();
         }
 }

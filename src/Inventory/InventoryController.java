@@ -5,10 +5,12 @@
  */
 package Inventory;
 
+import HailHydra.Model;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 /**
@@ -17,124 +19,106 @@ import javax.swing.table.TableModel;
  */
 public class InventoryController {
     
-    private InventoryModel im;
-    private InventoryView iv;
-    private InventoryController ic;
-    private SQLStatements sql;
     private int itemcount=0;
-    private AddItemProfile aip;
-    private ViewItemProfile vip;
-    private Object btnAddPoster;
+    private ItemModel inventoryModel;
+    private InventoryListGUI gui;
+    private ArrayList<String> itemProfile = new ArrayList<>();
 
     
-   public InventoryController(){
-   sql= new SQLStatements(); 
+   public InventoryController(ItemModel tempModel,InventoryListGUI tempGUI){
+   this.inventoryModel = tempModel;
+        this.gui = tempGUI; 
    }
     
-   public void setModel(InventoryModel im) {
-        this.im=im;
-    }
-   public boolean getConnectionStatus(){
-   return im.getConnectionStatus();
-   }
 
-    public void SearchSomething(String text, String searchBy) throws Exception {
-        TableModel tbm;
-        if(searchBy.equals("Description")){
-            tbm=SearchDescription(text);
-            iv.setTableModel(tbm);
-            iv.setItemCount(im.getItemcount());
-        }
-       else if(searchBy.equals("Part Number")){
-            tbm=SearchPartNumber(text);
-            iv.setTableModel(tbm);
-            iv.setItemCount(im.getItemcount());
-        }
-            }
-        
 
+     
    public TableModel getAllModel() throws Exception {
-       TableModel tbm=im.myModel(sql.getAllInventory());
-       this.itemcount=im.getItemcount();
-       iv.setItemCount(itemcount);
+       TableModel tbm = inventoryModel.myModel(inventoryModel.getAllDetail());
+       this.itemcount = inventoryModel.getItemcount();
+       gui.setItemCount(itemcount);
         return tbm;
     }
    
-   public TableModel SearchPartNumber(String text) throws Exception{
- 
-       TableModel tbm = im.myModel(sql.searchPartNumber(text));
-       this.itemcount=im.getItemcount();
-       iv.setItemCount(itemcount);
-        return tbm;
-   } 
-   
-   private TableModel SearchDescription(String text) throws Exception {
-       TableModel tbm= im.myModel(sql.searchDescription(text));
-       this.itemcount=itemcount;
-       iv.setItemCount(itemcount);
-        return tbm;
-    }
-   public void setView(InventoryView iv) {
-        this.iv=iv;
-    }
-
-    public void AddItemProfileView() {
-       iv.setVisible(false);
-        aip= new AddItemProfile();
-       aip.setVisible(true);
-       aip.setController(ic);
-       aip.setConnectionStatus();
-    }
-
-    public void setController(InventoryController ic) {
-        this.ic=ic;
-    }
-
-    public void ivVisibleAIP() throws Exception {
-        //vip.setVisible(false);
-        aip.setVisible(false);
-        iv.viewAll();
-        iv.setVisible(true);
+       public void SearchSomething(String text, String searchBy) throws Exception {
+            TableModel tbm;
+            tbm = inventoryModel.myModel(inventoryModel.searchDetail(text, searchBy));
+            gui.setTableModel(tbm);
+            gui.setItemCount(inventoryModel.getItemcount());
         
-    }
-    public void ivVisibleVIP() throws Exception {
-        vip.setVisible(false);
-        iv.viewAll();
-        iv.setVisible(true);
-        
-    }
+      
+            }
+
+
 
     public void AddItem(String partnumber, String description, String racklocation, String stockminimum, String sisterprice, String retailprice, String walkprice, String lastcost, String notes, String imagelocation, String status) throws SQLException {
         String tmp = null;
         if(imagelocation!=null)
-        tmp = imagelocation.replace('\\', '/'); //replace \\ with /
-        int statusBit;
-        if(status=="false")
-            statusBit = 1;
-        else statusBit = 0;
             
-       im.AddItemProfile(sql.addItemProfile(partnumber,description,racklocation,stockminimum,sisterprice,retailprice,walkprice,lastcost,notes,tmp,statusBit));
-        
+        tmp = imagelocation.replace('\\', '/'); //replace \\ with /
+        String statusBit;
+        if(status=="false")
+            statusBit = "1";
+        else statusBit = "0";
+        ArrayList<String> al = new ArrayList(); 
+        //part_num,description,rack_location,stock_minimum,sister_company_price,traders_price,walk_in_price,last_cost,notes,image,status
+        al.add(partnumber);
+        al.add(description);
+        al.add(racklocation);
+        al.add(stockminimum);
+        al.add(sisterprice);
+        al.add(retailprice);
+        al.add(walkprice);
+        al.add(lastcost);
+        al.add(notes);
+        al.add(tmp);
+        al.add(statusBit);
+
+       inventoryModel.addDetail(al);
     }
 
     public void ViewAllItems() throws Exception {
-        iv.viewAll();
+        gui.ViewAll();
     }
 
 
     public void DeleteItem(String pkey) throws SQLException
     {
-        im.DeleteItemProfile(sql.deleteItemProfile(pkey));
+        inventoryModel.deleteDetail(pkey);
     }
 
-    public void ViewItemProfile(String pkey) throws SQLException, IOException
+   public void ViewItemProfile(String pkey) throws SQLException, IOException
     {
-        ArrayList<String> itemProfile = im.getItemProfile(sql.getItemProfile(pkey)); // get result of the selected row 
-        vip = new ViewItemProfile(itemProfile);                     // create the view Profile
-        iv.setVisible(false);
-        vip.setVisible(true);
-        vip.setController(ic);
-        vip.setConnectionStatus();
+       ResultSet rs;
+        rs = inventoryModel.getDetail(pkey);
+        ResultSetMetaData metadata = rs.getMetaData();
+        int numberOfColumns = metadata.getColumnCount();
+       
+        while (rs.next()) 
+        {              
+        int i = 1;
+        while(i <= numberOfColumns) 
+            {
+            this.itemProfile.add(rs.getString(i++));
+            }
+        } 
+  
+       
+    }
+    
+        public ArrayList getItemProfile()
+    {
+        return this.itemProfile;
+    }
+    
+    public void setItemProfile(ArrayList<String> itemProfile)
+    {
+        this.itemProfile = itemProfile;
+    }
+
+    public void ModifyItemProfile(ArrayList<String> al)
+    {
+       inventoryModel.editDetail(al);
     }
     }
 

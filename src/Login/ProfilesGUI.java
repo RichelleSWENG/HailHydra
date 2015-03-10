@@ -8,6 +8,8 @@ import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ProfilesGUI extends JPanel {
 
@@ -45,7 +47,13 @@ public class ProfilesGUI extends JPanel {
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e){
-                              controller.changePanelToInventory();
+                            try
+                            {
+                                controller.changePanelToInventory();
+                            } catch (Exception ex)
+                            {
+                               ex.printStackTrace();
+                            }
                        
                         }
                     });

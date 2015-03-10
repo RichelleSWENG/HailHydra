@@ -102,6 +102,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                             {
                             
                             mainController.ModifyAccountProfile(al,realName,realType); // edit the account
+                            mainController.setAccountProfile(al);
                             GUIController.changePanelToViewAccountProfile();
                             }
                         }

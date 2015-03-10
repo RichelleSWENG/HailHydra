@@ -18,6 +18,7 @@ import Database.DBConnection;
 import DebitMemo.AddDebitMemoGUI;
 import DebitMemo.DebitMemoListGUI;
 import Inventory.AddItemProfileGUI;
+import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
 import Inventory.SetInventoryPriceGUI;
 import Inventory.SetInventoryQuantityGUI;
@@ -28,6 +29,9 @@ import Login.ProfilesGUI;
 import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
+import Inventory.ItemModel;
+import Inventory.ModifyItemProfileGUI;
+import Inventory.ViewItemProfileGUI;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesListGUI;
 import Purchases.AddPurchaseTransactionGUI;
@@ -47,6 +51,7 @@ import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
+import java.io.IOException;
 import java.sql.SQLException;
 import javax.swing.JPanel;
 
@@ -55,9 +60,14 @@ public class GUIController
     
     private HailHydraGUI frame;
     private MainMenuGUI main;
+    private InventoryListGUI inventoryGUI;
+    
     private MainController controller;
     private AccountProfileController accountProfileController;
+    private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
+    
+    private ItemModel inventoryModel;
     private DBConnection dbc;
     
     public GUIController()
@@ -65,6 +75,12 @@ public class GUIController
             dbc = new DBConnection();
             controller= new MainController(this);
             frame=new HailHydraGUI();
+            
+            inventoryModel = new ItemModel(dbc);
+            inventoryGUI= new InventoryListGUI (this);
+            inventoryController=new InventoryController(inventoryModel,inventoryGUI);
+            
+            
             changePanelToLogin();
     }
      
@@ -156,14 +172,32 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToInventory()
+    public void changePanelToInventory() throws Exception
     {
-            getContentPanel().add(new InventoryListGUI(this));
+            inventoryGUI.setMainController(inventoryController);
+            inventoryGUI.ViewAll();
+            getContentPanel().add(inventoryGUI);
             frameRevalidate();
     }
+    
     public void changePanelToAddItemProfile()
     {
             getContentPanel().add(new AddItemProfileGUI(this));
+            frameRevalidate();
+    }
+    
+    public void changePanelToViewItemProfile() throws IOException
+    {
+            ViewItemProfileGUI tempGUI= new ViewItemProfileGUI(this,inventoryController);
+            tempGUI.setMainController(inventoryController);
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void changePanelToModifyItemProfile() throws IOException
+    {
+            ModifyItemProfileGUI tempGUI = new ModifyItemProfileGUI(this,inventoryController);
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
