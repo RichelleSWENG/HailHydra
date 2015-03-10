@@ -5,7 +5,7 @@ Files are sorted by feature, each has its own controller and model because yolo 
 Controllers are added during integration <br>
 Iteration 1 and 2 features based on Coding Schedule Feb 23 ver. yeyeye <br>
 
-Strikethrough words means doneeee <br>
+Strikethrough words mean doneeee <br>
 
 **Iteration 1 Features:** <br>
 Inventory and Item Profiles - ~~Model~~ || Integration || Testing <br>
@@ -14,12 +14,10 @@ Purchases - Model || Integration || Testing <br>
 Acknowledgement Receipts - ~~Model~~ || Integration || Testing <br>
 Sales Invoices - Model || Integration || Testing <br>
 Check and Bank Accounts - ~~Model~~ || ~~Integration~~ || Testing  <br>
-
-**Iteration 2 Features:** <br>
-Return Slip <br>
-Credit Memo/Debit Memo <br>
-Collectibles <br>
-Payables <br>
+Return Slip - Model || Integration || Testing <br>
+Credit Memo/Debit Memo - Model || Integration || Testing <br>
+Collectibles - ~~Model~~ || Integration || Testing <br>
+Payables - ~~Model~~ || Integration || Testing <br>
 
 <hr>
 **For Testing:** <br>
