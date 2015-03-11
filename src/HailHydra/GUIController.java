@@ -11,7 +11,9 @@ import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ModifyAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Collectibles.AddPaymentCollectiblesGUI;
+import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
+import Collectibles.CollectiblesModel;
 import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoListGUI;
 import Database.DBConnection;
@@ -69,6 +71,7 @@ public class GUIController
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
     private PayablesController payablesController;
+    private CollectiblesController collectiblesController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -248,8 +251,14 @@ public class GUIController
     
     public void changePanelToCollectibles()
     {
-            getContentPanel().add(new CollectiblesListGUI(this));
+            CollectiblesListGUI tempGUI= new CollectiblesListGUI(this);
+            CollectiblesController tempController=new CollectiblesController(new CollectiblesModel(dbc),tempGUI); 
+            collectiblesController = tempController;
+            tempGUI.setMainController(collectiblesController);
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
+            
     }
     
     public void changePanelToSalesInvoice()
