@@ -155,7 +155,7 @@ public class AckReceiptModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT * FROM company WHERE type='customer'";
+            String sql = "SELECT * FROM company WHERE type LIKE '%customer%'";
             rs = statement.executeQuery(sql);
             Company tempCustomer;
             while (rs.next())
@@ -180,6 +180,7 @@ public class AckReceiptModel
                 tempCustomer.setType("customer");
                 customers.add(tempCustomer);
             }
+            System.out.println(customers.size());
 
         } catch (Exception e)
         {

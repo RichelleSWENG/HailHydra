@@ -26,9 +26,9 @@ Inventory and Item Profiles <br>
 
 **For Fixing (Controller in progress/done):** <br>
 Acknowledgement Receipts <br>
+Payables <br>
 
 **Model done (needs Controller/for Integration):** <br>
-Payables <br>
 Collectibles <br>
 
 **Models partially done (will continue latur/Ragequitted):** <br>

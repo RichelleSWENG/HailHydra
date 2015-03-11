@@ -9,17 +9,20 @@ public class Item
 {
     private String partNum;
     private String description;
+    private float price;
 
     public Item()
     {
         partNum = "";
         description = "";
+        price = 0;
     }
     
-    public Item(String partNum, String description)
+    public Item(String partNum, String description, float price)
     {
         this.partNum = partNum;
         this.description = description;
+        this.price = price;
     }
     
     /**
@@ -53,4 +56,16 @@ public class Item
     {
         this.description = description;
     }
+
+    public float getPrice()
+    {
+        return price;
+    }
+
+    public void setPrice(float price)
+    {
+        this.price = price;
+    }
+    
+    
 }

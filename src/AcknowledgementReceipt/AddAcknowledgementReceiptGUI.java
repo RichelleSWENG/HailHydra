@@ -8,6 +8,7 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
@@ -19,6 +20,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     private int numItems;
+    private float totalBalance;
+    private JComboBox cmbPartNum;
 
     public AddAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
     {
@@ -26,6 +29,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
         numItems = 0;
         guiController = temp;
         mainController = controller;
+        totalBalance = 0;
         cmbCustomer.setEditable(true);
 
         lblHeader.setText("Add Acknowledgement Receipt");
@@ -41,6 +45,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                     {
                         mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbARReceipt.getValueAt(numItems - 1, 0).toString()), tbARReceipt.getValueAt(numItems - 1, 1).toString(), Float.parseFloat(tbARReceipt.getValueAt(numItems - 1, 3).toString()), Float.parseFloat(tbARReceipt.getValueAt(numItems - 1, 4).toString())));
                         numItems++;
+                        tbModel.setRowCount(numItems + 1);
                     }
                 });
 
@@ -84,21 +89,21 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
         {
             public void actionPerformed(ActionEvent e)
             {
-                Company c = mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1);
-                taAddress.setEditable(false);
-                taAddress.setText(c.getAddressLoc());
+                if (cmbCustomer.getSelectedIndex() != 0)
+                {
+                    Company c = mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1);
+                    taAddress.setEditable(false);
+                    taAddress.setText(c.getAddressLoc());
+                }
             }
         });
         
         tbModel.setRowCount(numItems + 1);
-        System.out.println("hallo");
         tbARReceipt = new JTable(tbModel)
         {
             @Override
             public TableCellEditor getCellEditor(int row, int column)
             {
-                int modelColumn = convertColumnIndexToModel(column);
-
                 if (true)
                 {
                     String[] partNums = new String[mainController.getItems().size() + 1];
@@ -110,16 +115,31 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                         partNums[i] = mainController.getItems().get(i - 1).getPartNum();
                     }
                     
-                    JComboBox cmbPartNum = new JComboBox(partNums);
+                    cmbPartNum = new JComboBox(partNums);
+                    cmbPartNum.addActionListener(
+                        new ActionListener()
+                        {
+                            @Override
+                            public void actionPerformed(ActionEvent e)
+                            {
+                                tbModel.setValueAt(mainController.getItems().get(cmbPartNum.getSelectedIndex()-1).getDescription(), numItems, 2);
+                                tbModel.setValueAt(mainController.getItems().get(cmbPartNum.getSelectedIndex()-1).getPrice(), numItems, 3);
+                                float totalItemPrice = Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()) * mainController.getItems().get(cmbPartNum.getSelectedIndex()-1).getPrice();
+                                tbModel.setValueAt(totalItemPrice, numItems, 4);
+                                totalBalance += totalItemPrice;
+                                ftfTotal.setText(String.valueOf(totalBalance));
+                            }
+                        });
                     return new DefaultCellEditor(cmbPartNum);
                 } 
                 
                 else
                 {
+                    System.out.println("hello");
                     return super.getCellEditor(row, column);
                 }
             }
-        }; 
+        };
     }
 
     public void setController(AcknowledgementReceiptController temp)
