@@ -33,7 +33,9 @@ import Inventory.ItemModel;
 import Inventory.ModifyItemProfileGUI;
 import Inventory.ViewItemProfileGUI;
 import Payables.AddPaymentPayablesGUI;
+import Payables.PayablesController;
 import Payables.PayablesListGUI;
+import Payables.PayablesModel;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
 import ReturnSlip.AddReturnSlipGUI;
@@ -66,6 +68,7 @@ public class GUIController
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
+    private PayablesController payablesController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -138,8 +141,12 @@ public class GUIController
     
     public void changePanelToPayablesList()
     {
-            PayablesListGUI temp= new PayablesListGUI(this);
-            getContentPanel().add(temp);
+            PayablesListGUI tempGUI= new PayablesListGUI(this);
+            PayablesController tempController=new PayablesController(new PayablesModel(dbc),tempGUI); 
+            payablesController = tempController;
+            tempGUI.setMainController(payablesController);
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

@@ -9,7 +9,7 @@ import net.proteanit.sql.DbUtils;
 
 public class PayablesModel extends Model
 {
-    private int itemCount = 0;
+    private int itemCount;
     
     public PayablesModel(DBConnection db)
     {
@@ -140,6 +140,7 @@ public class PayablesModel extends Model
             statement = con.createStatement();
             String sql = "SELECT MIN(YEAR(date)) FROM purchasetransaction";
             rs = statement.executeQuery(sql);
+            
         } catch (Exception e)
         {
             e.getMessage();
@@ -155,6 +156,25 @@ public class PayablesModel extends Model
         {
             statement = con.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id";
+            System.out.println(sql);
+            rs = statement.executeQuery(sql);
+            rs.last();                        // Get Item Count
+            itemCount = rs.getRow();
+            rs.beforeFirst();
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+    public ResultSet getPayablesbyDate(String startDate,String endDate)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+            System.out.println(sql);
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -166,7 +186,7 @@ public class PayablesModel extends Model
         return rs;
     }
 
-    public ResultSet searchPayables(String field, String filter)
+    public ResultSet searchPayables(String field, String filter,String startDate,String endDate)
     {
         ResultSet rs = null;
         String sql = "";
@@ -175,14 +195,14 @@ public class PayablesModel extends Model
             statement = con.createStatement();
               if (filter.equalsIgnoreCase("name"))
             {
-                sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND name LIKE '%" + field + "%'";
+                    sql="SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"' AND name LIKE '%"+ field +"%'";
             }
               else if (filter.equalsIgnoreCase("active"))
             {
-                sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Open' AND name LIKE '%" + field + "%'";
+                    sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Open' AND name LIKE '%" + field + "%' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             } else if (filter.equalsIgnoreCase("closed"))
             {
-                sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Closed' AND name LIKE '%" + field + "%'";
+                    sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Closed' AND name LIKE '%" + field + "%' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -194,44 +214,26 @@ public class PayablesModel extends Model
         }
         return rs;
     }
-
-    public ResultSet searchbyDatePayables(ArrayList list)
-    {
-        ResultSet rs = null;
-        try
-        {
-            statement = con.createStatement();
-            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date>='" + list.get(0) + "' AND date <='" + list.get(1) + "'";
-            rs = statement.executeQuery(sql);
-            rs.last();                        // Get Item Count
-            itemCount = rs.getRow();
-            rs.beforeFirst();
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-        return rs;
-    }
-    
+ 
     public TableModel myModel(ResultSet rs)
     {     
         TableModel model = DbUtils.resultSetToTableModel(rs);
         return model;
     }
     
-        public int getItemcount()
+    public int getItemcount()
     {
         return this.itemCount;
     }
 
-    ResultSet getAllActivePayables()
+    ResultSet getAllActivePayables(String startDate,String endDate)
     {
         
         ResultSet rs = null;
         try
         {
             statement = con.createStatement();
-            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open'";
+            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -243,13 +245,13 @@ public class PayablesModel extends Model
         return rs;
     }
 
-    ResultSet getAllClosedPayables()
+    ResultSet getAllClosedPayables(String startDate,String endDate)
     {
         ResultSet rs = null;
         try
         {
             statement = con.createStatement();
-            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Closed'";
+            String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Closed' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();

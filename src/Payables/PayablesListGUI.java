@@ -82,10 +82,138 @@ public class PayablesListGUI extends JPanel
 		lblDisplay.setBounds(30, 74, 87, 30);
 		add(lblDisplay);
 
-		tfSupplier = new JTextField();
+		lblSupplier = new JLabel("Supplier:");
+		lblSupplier.setFont(fntPlainText);
+		lblSupplier.setBounds(30, 115, 107, 30);
+		add(lblSupplier);
+
+		lblRrange = new JLabel("Range:");
+		lblRrange.setFont(fntPlainText);
+		lblRrange.setBounds(30, 156, 87, 30);
+		add(lblRrange);
+                
+                lblPayablesFound = new JLabel("Payable/s Found: ");
+		lblPayablesFound.setFont(fntPlainText);
+		lblPayablesFound.setBounds(30, 197, 176, 30);
+		add(lblPayablesFound);
+
+		lblNumOfPayablesFound = new JLabel("0");
+		lblNumOfPayablesFound.setFont(fntPlainText);
+		lblNumOfPayablesFound.setBounds(198, 197, 26, 30);
+		add(lblNumOfPayablesFound);
+
+		cmbFromMonth = new JComboBox();
+		cmbFromMonth.setFont(fntPlainText);
+		cmbFromMonth.setBounds(104, 156, 155, 30);
+		add(cmbFromMonth);
+
+		cmbFromYear = new JComboBox();
+		cmbFromYear.setFont(fntPlainText);
+		cmbFromYear.setBounds(272, 156, 100, 30);
+		add(cmbFromYear);
+
+		cmbToMonth = new JComboBox();
+		cmbToMonth.setFont(fntPlainText);
+		cmbToMonth.setBounds(408, 156, 155, 30);
+		add(cmbToMonth);
+
+		cmbToYear = new JComboBox();
+		cmbToYear.setFont(fntPlainText);
+		cmbToYear.setBounds(577, 156, 100, 30);
+		add(cmbToYear);
+
+		for (int i = 0; i < strMonths.length; i++)
+		{
+			cmbFromMonth.addItem(strMonths[i]);
+			cmbToMonth.addItem(strMonths[i]);
+		}
+               
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                tfSupplier = new JTextField();
 		tfSupplier.setFont(fntPlainText);
 		tfSupplier.setBounds(126, 115, 545, 30);
 		add(tfSupplier);
+                
         tfSupplier.getDocument().addDocumentListener(new DocumentListener()
         {
             @Override
@@ -135,83 +263,21 @@ public class PayablesListGUI extends JPanel
                         type = 1;
                     else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //supplier
                         type = 2;
-                    mainController.SearchSomething(tfSupplier.getText(), type); //if a key is typed search
+                    mainController.SearchSomething(tfSupplier.getText(), type,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); //if a key is typed search
 
                 } else if (tfSupplier.getText().length() == 0)  //if nothing is typed display all
                 {
                     if(chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //both
                     ViewAll();
                     else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) //customer
-                    mainController.ViewActivePayables();
+                    mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //supplier
-                    mainController.ViewClosedPayables();
+                    mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     
                 }
             }
 
         });
-
-		lblSupplier = new JLabel("Supplier:");
-		lblSupplier.setFont(fntPlainText);
-		lblSupplier.setBounds(30, 115, 107, 30);
-		add(lblSupplier);
-
-		lblRrange = new JLabel("Range:");
-		lblRrange.setFont(fntPlainText);
-		lblRrange.setBounds(30, 156, 87, 30);
-		add(lblRrange);
-                
-                lblPayablesFound = new JLabel("Payable/s Found: ");
-		lblPayablesFound.setFont(fntPlainText);
-		lblPayablesFound.setBounds(30, 197, 176, 30);
-		add(lblPayablesFound);
-
-		lblNumOfPayablesFound = new JLabel("0");
-		lblNumOfPayablesFound.setFont(fntPlainText);
-		lblNumOfPayablesFound.setBounds(198, 197, 26, 30);
-		add(lblNumOfPayablesFound);
-
-		cmbFromMonth = new JComboBox();
-		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(104, 156, 155, 30);
-		add(cmbFromMonth);
-
-		cmbFromYear = new JComboBox();
-		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 156, 100, 30);
-		add(cmbFromYear);
-
-		cmbToMonth = new JComboBox();
-		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(408, 156, 155, 30);
-		add(cmbToMonth);
-
-		cmbToYear = new JComboBox();
-		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(577, 156, 100, 30);
-		add(cmbToYear);
-
-		for (int i = 0; i < strMonths.length; i++)
-		{
-			cmbFromMonth.addItem(strMonths[i]);
-			cmbToMonth.addItem(strMonths[i]);
-		}
-
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
-
 
 		tbModel = new DefaultTableModel()
 		{
@@ -298,9 +364,9 @@ public class PayablesListGUI extends JPanel
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
                         ViewAll();
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
-                        mainController.ViewActivePayables();
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
-                        mainController.ViewClosedPayables();
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
                         tbPayables.setModel(tbModel);
                         lblNumOfPayablesFound.setText("0");
@@ -325,9 +391,9 @@ public class PayablesListGUI extends JPanel
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
                         ViewAll();
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
-                        mainController.ViewActivePayables();
+                        mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
-                        mainController.ViewClosedPayables();
+                        mainController.ViewClosedPayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
                         tbPayables.setModel(tbModel);
                         lblNumOfPayablesFound.setText("0");
@@ -402,26 +468,39 @@ public class PayablesListGUI extends JPanel
         public void setMainController(PayablesController temp){
             mainController=temp;
         }
-        
+        public void setComboBox()
+        {
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
         public void setItemCount(int itemcount)
         {
-        lblNumOfPayablesFound.setText(Integer.toString(itemcount));
+            lblNumOfPayablesFound.setText(Integer.toString(itemcount));
         }
         
         public void ViewAll()
         {
-        TableModel AllModel = mainController.getAllModel();
-        tbPayables.setModel(AllModel);
+            TableModel AllModel = mainController.getAllModel();
+            tbPayables.setModel(AllModel);
 
-        JTableHeader th = tbPayables.getTableHeader();      // Setting the Headers
-        TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 6; i++)
-        {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
-        }
-        th.repaint();
-        
+            JTableHeader th = tbPayables.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
         }
         
         public static void main(String args[]){
