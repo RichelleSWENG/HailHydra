@@ -19,7 +19,27 @@ public class AcknowledgementReceipt
 	private String status;
 	private String address;
 	private ArrayList<ARLineItem> list;
+
+        public AcknowledgementReceipt()
+        {
+                this.acknowledgement_receipt_id="";
+		this.company_id=0;
+		this.date="";
+		this.original_amount=0;
+		this.po_num="";
+		this.ordered_by="";
+		this.sales_person="";
+		this.delivered_by="";
+		this.delivery_notes="";
+		this.delivery_receipt_num="";
+		this.discount=0;
+		this.current_balance=0;
+		this.status="";
+		this.address="";
+		this.list=new ArrayList<>();
+        }
 	
+        
 	public AcknowledgementReceipt(String acknowledgement_receipt_id,int company_id,String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance,String status,String address,ArrayList<ARLineItem> list)
 	{
 		this.acknowledgement_receipt_id=acknowledgement_receipt_id;

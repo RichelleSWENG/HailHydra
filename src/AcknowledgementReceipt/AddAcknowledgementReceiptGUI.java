@@ -18,10 +18,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
     private JButton btnAddItem, btnSubmit, btnCancel;
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
+    private int numItems;
 
     public AddAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
     {
         super();
+        numItems = 0;
         guiController = temp;
         mainController = controller;
         cmbCustomer.setEditable(true);
@@ -37,7 +39,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                 {
                     public void actionPerformed(ActionEvent e)
                     {
-                        AddItemPopUpGUI frame = new AddItemPopUpGUI();
+                        mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbARReceipt.getValueAt(numItems - 1, 0).toString()), tbARReceipt.getValueAt(numItems - 1, 1).toString(), Float.parseFloat(tbARReceipt.getValueAt(numItems - 1, 3).toString()), Float.parseFloat(tbARReceipt.getValueAt(numItems - 1, 4).toString())));
+                        numItems++;
                     }
                 });
 
@@ -50,6 +53,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                 {
                     public void actionPerformed(ActionEvent e)
                     {
+                        mainController.addAR(tfARNum.getText(),mainController.getCustomer(cmbCustomer.getSelectedIndex()-1).getId(),ftfDate.getText(),Float.parseFloat(ftfTotal.getText()),tfPONum.getText(),tfOrderedBy.getText(),tfSalesperson.getText(),tfDeliveredBy.getText(),taDeliveryNotes.getText(),tfDRNum.getText(),Float.parseFloat(ftfDiscount.getText()),Float.parseFloat(ftfBalance.getText()),"open");
                         guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
@@ -63,6 +67,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                 {
                     public void actionPerformed(ActionEvent e)
                     {
+                        mainController.removePending();
                         guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
@@ -85,7 +90,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
             }
         });
         
-        tbModel.setRowCount(1);
+        tbModel.setRowCount(numItems + 1);
         System.out.println("hallo");
         tbARReceipt = new JTable(tbModel)
         {

@@ -161,7 +161,7 @@ public class AckReceiptModel
             while (rs.next())
             {
                 tempCustomer = new Company();
-                tempCustomer.setId(rs.getString("company_id"));
+                tempCustomer.setId(rs.getInt("company_id"));
                 tempCustomer.setName(rs.getString("name"));
                 tempCustomer.setAddressLoc(rs.getString("address_location"));
                 tempCustomer.setAddressCity(rs.getString("address_city"));

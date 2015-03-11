@@ -7,7 +7,7 @@ package AcknowledgementReceipt;
 
 public class Company
 {
-        private String id;
+        private int id;
 	private String name;
 	private String addressLoc;
         private String addressCity;
@@ -27,7 +27,7 @@ public class Company
 
     public Company()
     {
-        this.id = "";
+        this.id = 0;
         this.name = "";
         this.addressLoc = "";
         this.addressCity = "";
@@ -46,7 +46,7 @@ public class Company
         this.type = "";
     }
         
-    public Company(String id, String name, String addressLoc, String addressCity, String addressCountry, String postalCode, String phone1, String phone2, String phone3, String faxNum, String website, String email, String contactPerson, String status, float creditLimit, int terms, String type)
+    public Company(int id, String name, String addressLoc, String addressCity, String addressCountry, String postalCode, String phone1, String phone2, String phone3, String faxNum, String website, String email, String contactPerson, String status, float creditLimit, int terms, String type)
     {
         this.id = id;
         this.name = name;
@@ -67,12 +67,12 @@ public class Company
         this.type = type;
     }
 
-    public String getId()
+    public int getId()
     {
         return id;
     }
 
-    public void setId(String id)
+    public void setId(int id)
     {
         this.id = id;
     }

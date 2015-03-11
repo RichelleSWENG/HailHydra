@@ -16,8 +16,6 @@ public class Item
         description = "";
     }
     
-    
-
     public Item(String partNum, String description)
     {
         this.partNum = partNum;
