@@ -25,11 +25,10 @@ System Accounts <br>
 Inventory and Item Profiles <br>
 
 **For Fixing (Controller in progress/done):** <br>
--------<br>
-
-**Model done (needs Controller/for Integration):** <br>
 Acknowledgement Receipts <br>
 Payables <br>
+
+**Model done (needs Controller/for Integration):** <br>
 Collectibles <br>
 
 **Models partially done (will continue latur/Ragequitted):** <br>

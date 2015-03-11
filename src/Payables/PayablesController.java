@@ -93,7 +93,7 @@ public class PayablesController
         }
          return "";
     }
-    public void DateSeatch(String startDate,String endDate)
+    public void DateSearch(String startDate,String endDate)
     {
         TableModel tbm = payablesModel.myModel(payablesModel.getPayablesbyDate(startDate,endDate));
        this.itemcount = payablesModel.getItemcount();

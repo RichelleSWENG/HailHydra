@@ -135,7 +135,7 @@ public class PayablesListGUI extends JPanel
                     {
                         tfSupplier.setText(""); 
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
-                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
                         mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
@@ -155,7 +155,7 @@ public class PayablesListGUI extends JPanel
                     {
                         tfSupplier.setText(""); 
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
-                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
                         mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
@@ -176,7 +176,7 @@ public class PayablesListGUI extends JPanel
                     {
                         tfSupplier.setText(""); 
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
-                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
                         mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
@@ -196,7 +196,7 @@ public class PayablesListGUI extends JPanel
                     {
                         tfSupplier.setText(""); 
                         if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
-                        mainController.DateSeatch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
                         mainController.ViewActivePayables(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
                     } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){

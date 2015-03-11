@@ -20,13 +20,16 @@ public class AckReceiptModel
 
     protected Connection db;
     protected Statement statement;
-    
 
     private int itemCount = 0;
+    private ArrayList<Company> customers;
+    private ArrayList<Item> items;
 
     public AckReceiptModel(DBConnection db)
     {
         this.db = db.getConnection();
+        customers = new ArrayList<>();
+        items = new ArrayList<>();
     }
 
     public ResultSet getDetail(String ID)
@@ -144,9 +147,80 @@ public class AckReceiptModel
     {
         return this.itemCount;
     }
-    
-    public void getCustomers()
+
+    public ArrayList<Company> getCustomers()
     {
-        
+        customers = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM company WHERE type LIKE '%customer%'";
+            rs = statement.executeQuery(sql);
+            Company tempCustomer;
+            while (rs.next())
+            {
+                tempCustomer = new Company();
+                tempCustomer.setId(rs.getInt("company_id"));
+                tempCustomer.setName(rs.getString("name"));
+                tempCustomer.setAddressLoc(rs.getString("address_location"));
+                tempCustomer.setAddressCity(rs.getString("address_city"));
+                tempCustomer.setAddressCountry(rs.getString("address_country"));
+                tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                tempCustomer.setPhone1(rs.getString("phone1"));
+                tempCustomer.setPhone2(rs.getString("phone2"));
+                tempCustomer.setPhone3(rs.getString("phone3"));
+                tempCustomer.setFaxNum(rs.getString("fax_num"));
+                tempCustomer.setWebsite(rs.getString("website"));
+                tempCustomer.setEmail(rs.getString("email"));
+                tempCustomer.setContactPerson(rs.getString("contact_person"));
+                tempCustomer.setStatus(rs.getString("status"));
+                tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                tempCustomer.setTerms(rs.getInt("terms"));
+                tempCustomer.setType("customer");
+                customers.add(tempCustomer);
+            }
+            System.out.println(customers.size());
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return customers;
+    }
+    
+    public ArrayList<Item> getItems()
+    {
+        items = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM item";
+            rs = statement.executeQuery(sql);
+            Item tempItem;
+            while (rs.next())
+            {
+                tempItem = new Item();
+                tempItem.setPartNum(rs.getString("part_num"));
+                tempItem.setDescription(rs.getString("description"));
+                items.add(tempItem);
+            }
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return items;
+    }
+    
+    public Company getCustomer(int index)
+    {
+        return customers.get(index);
+    }
+    
+    public Item getItem(int index)
+    {
+        return items.get(index);
     }
 }

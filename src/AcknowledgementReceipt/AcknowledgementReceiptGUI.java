@@ -269,4 +269,5 @@ public class AcknowledgementReceiptGUI extends JPanel
 		cmbCustomer.setBounds(135, 80, 365, 30);
 		add(cmbCustomer);
         }
+      
 }

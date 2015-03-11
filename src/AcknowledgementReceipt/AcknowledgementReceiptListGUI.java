@@ -55,9 +55,10 @@ public class AcknowledgementReceiptListGUI extends JPanel
 	private GUIController guiController;
         private AcknowledgementReceiptController mainController;
 
-	public AcknowledgementReceiptListGUI(GUIController temp) {
+	public AcknowledgementReceiptListGUI(GUIController temp, AcknowledgementReceiptController controller) {
 		
                 guiController=temp;
+                mainController = controller;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);

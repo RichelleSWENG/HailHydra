@@ -1,9 +1,16 @@
 package Purchases;
 
 import HailHydra.GUIController;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI
 {
@@ -14,8 +21,10 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI
 	public AddPurchaseTransactionGUI(GUIController temp)
 	{
 		guiController = temp;
-                cmbSupplier.setEditable(true);
+		//temp.changePanelToAddPurchaseTransaction();
+		cmbSupplier.setEditable(true);
 		lblHeader.setText("Add Purchase Transaction");
+		
 
 		btnAddItem = new JButton("Add Item");
 		btnAddItem.setFont(fntPlainText);
@@ -52,6 +61,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI
 				guiController.changePanelToPurchaseTransactionList();
 			}
 		});
+		
 	}
 
 	public void setController(PurchaseTransactionController temp)
@@ -59,9 +69,10 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI
 		mainController = temp;
 	}
 
-	public static void main(String args[])
+	/*public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
 		temp.changePanelToAddPurchaseTransaction();
-	}
+	}*/
+
 }
