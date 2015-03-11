@@ -25,6 +25,12 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class PayablesListGUI extends JPanel
 {
@@ -52,6 +58,7 @@ public class PayablesListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
+        private PayablesController mainController;
         
         
 	public PayablesListGUI(GUIController temp)
@@ -79,6 +86,70 @@ public class PayablesListGUI extends JPanel
 		tfSupplier.setFont(fntPlainText);
 		tfSupplier.setBounds(126, 115, 545, 30);
 		add(tfSupplier);
+        tfSupplier.getDocument().addDocumentListener(new DocumentListener()
+        {
+            @Override
+            public void insertUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(PayablesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(PayablesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(PayablesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            public void done() throws Exception
+            {
+                int type = 0;
+                if (tfSupplier.getText().length() > 0)
+                {
+                    if(chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) // both
+                        type = 0;
+                    else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) // customer
+                        type = 1;
+                    else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //supplier
+                        type = 2;
+                    mainController.SearchSomething(tfSupplier.getText(), type); //if a key is typed search
+
+                } else if (tfSupplier.getText().length() == 0)  //if nothing is typed display all
+                {
+                    if(chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //both
+                    ViewAll();
+                    else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) //customer
+                    mainController.ViewActivePayables();
+                    else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) //supplier
+                    mainController.ViewClosedPayables();
+                    
+                }
+            }
+
+        });
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
@@ -164,6 +235,12 @@ public class PayablesListGUI extends JPanel
 				return new TableRenderer();
 			}
                         
+                      @Override
+                       public boolean isCellEditable (int row, int column)
+                        {
+                        return false;
+                        }
+                        
                         public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
                          {
                             component = super.prepareRenderer(renderer, row, column);
@@ -207,16 +284,58 @@ public class PayablesListGUI extends JPanel
 		tbPayables.setRowHeight(30);
 
 		chckbxActivePayables = new JCheckBox("Active Payables");
+                chckbxActivePayables.setSelected(true);
 		chckbxActivePayables.setFont(fntPlainText);
                 chckbxActivePayables.setBackground(SystemColor.textHighlight);
 		chckbxActivePayables.setBounds(116, 74, 194, 30);
 		add(chckbxActivePayables);
+                 chckbxActivePayables.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        ViewAll();
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables();
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables();
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
 
 		chckbxClosedPayables = new JCheckBox("Closed Payables");
+                chckbxClosedPayables.setSelected(true);
 		chckbxClosedPayables.setFont(fntPlainText);
                 chckbxClosedPayables.setBackground(SystemColor.textHighlight);
 		chckbxClosedPayables.setBounds(312, 74, 201, 30);
 		add(chckbxClosedPayables);
+                 chckbxClosedPayables.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSupplier.setText(""); 
+                        if (chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()) {
+                        ViewAll();
+                    } else if(chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActivePayables();
+                    } else if(!chckbxActivePayables.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedPayables();
+                    } else if(!chckbxActivePayables.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbPayables.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
@@ -227,6 +346,14 @@ public class PayablesListGUI extends JPanel
 		btnViewPayment.setFont(fntPlainText);
 		btnViewPayment.setBounds(431, 543, 216, 40);
 		add(btnViewPayment);
+                btnViewPayment.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                controller.changePanelToAddPaymentPayables();
+                        }
+                    });
 
 		btnAddPayment = new JButton("Add Payment");
 		btnAddPayment.setFont(fntPlainText);
@@ -258,12 +385,60 @@ public class PayablesListGUI extends JPanel
 		btnViewAllPayables.setFont(fntPlainText);
 		btnViewAllPayables.setBounds(724, 187, 239, 40);
 		add(btnViewAllPayables);
+                btnViewAllPayables.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                 chckbxActivePayables.setSelected(true);
+                                 chckbxClosedPayables.setSelected(true);
+                                 ViewAll();
+                        }
+                    });
+                
 
 	}
         
+        public void setMainController(PayablesController temp){
+            mainController=temp;
+        }
+        
+        public void setItemCount(int itemcount)
+        {
+        lblNumOfPayablesFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void ViewAll()
+        {
+        TableModel AllModel = mainController.getAllModel();
+        tbPayables.setModel(AllModel);
+
+        JTableHeader th = tbPayables.getTableHeader();      // Setting the Headers
+        TableColumnModel tcm = th.getColumnModel();
+        for (int i = 0; i < 6; i++)
+        {
+            TableColumn tc = tcm.getColumn(i);
+            tc.setHeaderValue(strHeader[i]);
+        }
+        th.repaint();
+        
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToPayablesList();
         }
+
+    public void setTableModel(TableModel tbm)
+    {                  // Setting the Headers
+        tbPayables.setModel(tbm);
+        JTableHeader th = tbPayables.getTableHeader();
+        TableColumnModel tcm = th.getColumnModel();
+        for (int i = 0; i < 6; i++)
+        {
+            TableColumn tc = tcm.getColumn(i);
+            tc.setHeaderValue(strHeader[i]);
+        }
+        th.repaint();
+    }
 }
