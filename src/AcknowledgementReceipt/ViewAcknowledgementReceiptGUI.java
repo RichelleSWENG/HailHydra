@@ -12,10 +12,11 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     
-    public ViewAcknowledgementReceiptGUI(GUIController temp)
+    public ViewAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
     {
                 super();
-                guiController=temp;
+                guiController = temp;
+                mainController = controller;
                 
                 lblHeader.setText("View Acknowledgement Receipt");
 		

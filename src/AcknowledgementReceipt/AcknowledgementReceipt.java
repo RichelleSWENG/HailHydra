@@ -186,5 +186,10 @@ public class AcknowledgementReceipt
 	{
 		list.remove(line);
 	}
+        
+        public ArrayList<ARLineItem> getItems()
+        {
+                return list;
+        }
 
 }

@@ -23,8 +23,29 @@ public class Company
         private String status;
         private float creditLimit;
         private int terms;
-        private String type;     
+        private String type;
 
+    public Company()
+    {
+        this.id = "";
+        this.name = "";
+        this.addressLoc = "";
+        this.addressCity = "";
+        this.addressCountry = "";
+        this.postalCode = "";
+        this.phone1 = "";
+        this.phone2 = "";
+        this.phone3 = "";
+        this.faxNum = "";
+        this.website = "";
+        this.email = "";
+        this.contactPerson = "";
+        this.status = "";
+        this.creditLimit = 0;
+        this.terms = 0;
+        this.type = "";
+    }
+        
     public Company(String id, String name, String addressLoc, String addressCity, String addressCountry, String postalCode, String phone1, String phone2, String phone3, String faxNum, String website, String email, String contactPerson, String status, float creditLimit, int terms, String type)
     {
         this.id = id;

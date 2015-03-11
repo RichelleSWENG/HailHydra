@@ -25,10 +25,9 @@ System Accounts <br>
 Inventory and Item Profiles <br>
 
 **For Fixing (Controller in progress/done):** <br>
--------<br>
+Acknowledgement Receipts <br>
 
 **Model done (needs Controller/for Integration):** <br>
-Acknowledgement Receipts <br>
 Payables <br>
 Collectibles <br>
 
