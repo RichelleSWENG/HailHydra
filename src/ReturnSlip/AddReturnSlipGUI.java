@@ -22,8 +22,10 @@ import java.awt.Dimension;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JComboBox;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 
 public class AddReturnSlipGUI extends JPanel {
@@ -37,6 +39,7 @@ public class AddReturnSlipGUI extends JPanel {
                 tfReturnedBy, tfApprovedBy, tfReceivedBy, tfReturnedByDate, 
                 tfApprovedByDate, tfReceivedByDate, tfTotal;
 	private JTextArea taNotes;
+        private JComboBox cmbSupplier;
 	private JButton btnAddItem, btnSubmit, btnCancel;
 	protected DefaultTableModel tbModel;
         protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
@@ -137,10 +140,12 @@ public class AddReturnSlipGUI extends JPanel {
 		lblNotes.setBounds(30, 454, 63, 30);
 		add(lblNotes);
                 
-                tfSupplier = new JTextField();
-		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(121, 80, 392, 30);
-		add(tfSupplier);
+                cmbSupplier = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbSupplier);
+                cmbSupplier.setEditable(true);
+		cmbSupplier.setFont(new Font("Arial", Font.PLAIN, 21));
+		cmbSupplier.setBounds(121, 80, 392, 30);
+		add(cmbSupplier);
 		
 		taAddress = new JTextArea();
 		taAddress.setFont(fntPlainText);
