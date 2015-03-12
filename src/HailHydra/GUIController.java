@@ -230,7 +230,7 @@ public class GUIController
     
     public void changePanelToAcknowledgementReceipt()
     {
-            getContentPanel().add(new AcknowledgementReceiptListGUI(this));
+            getContentPanel().add(new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AcknowledgementReceiptListGUI tempGUI = new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController);
@@ -240,7 +240,7 @@ public class GUIController
     
     public void changePanelToAddAcknowledgementReceipt()
     {
-            getContentPanel().add(new AddAcknowledgementReceiptGUI(this));
+            getContentPanel().add(new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
@@ -250,7 +250,7 @@ public class GUIController
     
     public void changePanelToViewAcknowledgementReceipt()
     {
-            getContentPanel().add(new ViewAcknowledgementReceiptGUI(this));
+            getContentPanel().add(new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             ViewAcknowledgementReceiptGUI tempGUI = new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
@@ -263,7 +263,7 @@ public class GUIController
             getContentPanel().add(new ModifyAcknowledgementReceiptGUI(this));
              if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
-            ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
+            ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
