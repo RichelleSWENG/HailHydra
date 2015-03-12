@@ -8,6 +8,7 @@ import java.awt.SystemColor;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -59,7 +60,7 @@ public class AcknowledgementReceiptGUI extends JPanel
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
                 fntHeaderTableText= new Font("Arial", Font.BOLD, 16);
                 
-                dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 
                 lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
