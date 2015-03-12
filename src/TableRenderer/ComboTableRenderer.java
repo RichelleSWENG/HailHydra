@@ -56,6 +56,11 @@ public class ComboTableRenderer extends AbstractCellEditor implements TableCellR
 		// TODO Auto-generated method stub
 		return val;
 	}
+        
+        public boolean cellEditable()
+                {
+                    return false;
+                }
 
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)

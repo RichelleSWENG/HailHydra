@@ -150,35 +150,56 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             }
                             
                             
+
                             if(!isFloat(ftfCreditLimit.getText()) || Float.parseFloat(ftfCreditLimit.getText())<0.00f)
                             {
                                 JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
+
+                           
+                            {
+                                JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
+
                                 error = true;
                             }
                             
                             if(!"".equals(tfPhone1.getText()))
+
                             if(!isInteger(tfPhone1.getText()) || Integer.parseInt(tfPhone1.getText())<0)
+
+                            
+
                             {
                                 JOptionPane.showMessageDialog(null, "Tel Phone 1 # is invalid");
                                 error = true;
                             }
                             
                             if(!"".equals(tfPhone2.getText()))
+
                             if(!isInteger(tfPhone2.getText()) || Integer.parseInt(tfPhone2.getText())<0)
+               
+                           
+
                             {
                                 JOptionPane.showMessageDialog(null, "Tel Phone 2 # is invalid");
                                 error = true;
                             }
                             
                             if(!"".equals(tfPhone3.getText()))
+
                             if(!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText())<0)
+
+
                             {
                                 JOptionPane.showMessageDialog(null, "Tel Phone 3 # is invalid");
                                 error = true;
                             }
                             
                             if(!"".equals(tfFaxNumber.getText()))
+
                             if(!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText())<0)
+
+                           
+
                             {
                                 JOptionPane.showMessageDialog(null, "Fax Number is invalid");
                                 error = true;
@@ -196,8 +217,10 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             mainController.AddAccountProfile(al); // add the account
                             guiController.changePanelToAccountProfile();
                             }
-                        }
-                    });
+                            
+                        
+                            }
+                        }});
 
                 
 		btnCancel = new JButton("Cancel");
