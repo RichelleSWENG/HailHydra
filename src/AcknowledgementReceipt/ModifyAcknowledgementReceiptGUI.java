@@ -11,11 +11,11 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
         
-    public ModifyAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
+    public ModifyAcknowledgementReceiptGUI(GUIController temp)
     {
                 super();
-                guiController = temp;
-                mainController = controller;
+                guiController=temp;
+                
                 cmbCustomer.setEditable(true);
                 
                 lblHeader.setText("Modify Acknowledgement Receipt");

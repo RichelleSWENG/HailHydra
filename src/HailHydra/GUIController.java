@@ -13,7 +13,9 @@ import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ModifyAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Collectibles.AddPaymentCollectiblesGUI;
+import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
+import Collectibles.CollectiblesModel;
 import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoListGUI;
 import Database.DBConnection;
@@ -35,7 +37,9 @@ import Inventory.ItemModel;
 import Inventory.ModifyItemProfileGUI;
 import Inventory.ViewItemProfileGUI;
 import Payables.AddPaymentPayablesGUI;
+import Payables.PayablesController;
 import Payables.PayablesListGUI;
+import Payables.PayablesModel;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
 import ReturnSlip.AddReturnSlipGUI;
@@ -68,6 +72,8 @@ public class GUIController
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
+    private PayablesController payablesController;
+    private CollectiblesController collectiblesController;
     private AcknowledgementReceiptController acknowledgementReceiptController;
     
     private ItemModel inventoryModel;
@@ -141,8 +147,12 @@ public class GUIController
     
     public void changePanelToPayablesList()
     {
-            PayablesListGUI temp= new PayablesListGUI(this);
-            getContentPanel().add(temp);
+            PayablesListGUI tempGUI= new PayablesListGUI(this);
+            PayablesController tempController=new PayablesController(new PayablesModel(dbc),tempGUI); 
+            payablesController = tempController;
+            tempGUI.setMainController(payablesController);
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -220,6 +230,7 @@ public class GUIController
     
     public void changePanelToAcknowledgementReceipt()
     {
+            getContentPanel().add(new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AcknowledgementReceiptListGUI tempGUI = new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController);
@@ -229,6 +240,7 @@ public class GUIController
     
     public void changePanelToAddAcknowledgementReceipt()
     {
+            getContentPanel().add(new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
@@ -238,6 +250,7 @@ public class GUIController
     
     public void changePanelToViewAcknowledgementReceipt()
     {
+            getContentPanel().add(new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
             if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             ViewAcknowledgementReceiptGUI tempGUI = new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
@@ -247,17 +260,24 @@ public class GUIController
     
     public void changePanelToModifyAcknowledgementReceipt()
     {
+            getContentPanel().add(new ModifyAcknowledgementReceiptGUI(this));
              if (acknowledgementReceiptController == null)
                 acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
-            ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
+            ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToCollectibles()
     {
-            getContentPanel().add(new CollectiblesListGUI(this));
+            CollectiblesListGUI tempGUI= new CollectiblesListGUI(this);
+            CollectiblesController tempController=new CollectiblesController(new CollectiblesModel(dbc),tempGUI); 
+            collectiblesController = tempController;
+            tempGUI.setMainController(collectiblesController);
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
+            
     }
     
     public void changePanelToSalesInvoice()

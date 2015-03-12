@@ -13,6 +13,8 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.*;
 
 import HailHydra.GUIController;
+import Payables.PayablesController;
+import Payables.PayablesListGUI;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 
@@ -20,6 +22,12 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class CollectiblesListGUI extends JPanel
 {
@@ -46,6 +54,7 @@ public class CollectiblesListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController guiController;
+        private CollectiblesController mainController;
 	
 	public CollectiblesListGUI(GUIController temp)
 	{
@@ -68,10 +77,7 @@ public class CollectiblesListGUI extends JPanel
 		lblDisplay.setBounds(30, 73, 91, 30);
 		add(lblDisplay);
 
-		tfCustomer = new JTextField();
-		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(140, 114, 550, 30);
-		add(tfCustomer);
+		
 
 		lblCustomer = new JLabel("Customer:");
 		lblCustomer.setFont(fntPlainText);
@@ -123,22 +129,155 @@ public class CollectiblesListGUI extends JPanel
 			cmbFromMonth.addItem(strMonths[i]);
 			cmbToMonth.addItem(strMonths[i]);
 		}
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
 
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
+                    }
 
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        mainController.DateSearch(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
+                tfCustomer = new JTextField();
+		tfCustomer.setFont(fntPlainText);
+		tfCustomer.setBounds(140, 114, 550, 30);
+		add(tfCustomer);
+                tfCustomer.getDocument().addDocumentListener(new DocumentListener()
+        {
+            @Override
+            public void insertUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(CollectiblesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(CollectiblesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent de)
+            {
+                try
+                {
+                    done();
+                } catch (Exception ex)
+                {
+                    Logger.getLogger(CollectiblesListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            public void done() throws Exception
+            {
+                int type = 0;
+                if (tfCustomer.getText().length() > 0)
+                {
+                    if(chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) // both
+                        type = 0;
+                    else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) // customer
+                        type = 1;
+                    else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) //supplier
+                        type = 2;
+                    mainController.SearchSomething(tfCustomer.getText(), type,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); //if a key is typed search
+
+                } else if (tfCustomer.getText().length() == 0)  //if nothing is typed display all
+                {
+                    if(chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) //both
+                    ViewAll();
+                    else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) //customer
+                    mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) //supplier
+                    mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    
+                }
+            }
+
+        });
 
                 tbModel = new DefaultTableModel()
 		{
@@ -206,20 +345,72 @@ public class CollectiblesListGUI extends JPanel
                 
 		 chckbxActiveCollectibles = new JCheckBox("Active Collectibles");
 		chckbxActiveCollectibles.setFont(fntPlainText);
+                chckbxActiveCollectibles.setSelected(true);
                 chckbxActiveCollectibles.setBackground(SystemColor.textHighlight);
 		chckbxActiveCollectibles.setBounds(110, 73, 222, 30);
 		add(chckbxActiveCollectibles);
+                chckbxActiveCollectibles.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        ViewAll();
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
 
 		chckbxClosedPayables = new JCheckBox("Closed Collectibles");
 		chckbxClosedPayables.setFont(fntPlainText);
+                chckbxClosedPayables.setSelected(true);
                 chckbxClosedPayables.setBackground(SystemColor.textHighlight);
 		chckbxClosedPayables.setBounds(334, 73, 228, 30);
 		add(chckbxClosedPayables);
+                chckbxClosedPayables.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfCustomer.setText(""); 
+                        if (chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()) {
+                        ViewAll();
+                    } else if(chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()) {
+                        mainController.ViewActiveCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && chckbxClosedPayables.isSelected()){
+                        mainController.ViewClosedCollectibles(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                    } else if(!chckbxActiveCollectibles.isSelected() && !chckbxClosedPayables.isSelected()){
+                        tbCollectibles.setModel(tbModel);
+                        lblNumOfPayablesFound.setText("0");
+                    }
+
+                    }
+
+                });
 
                 btnViewAllCollectibles = new JButton("View All Collectibles");
 		btnViewAllCollectibles.setFont(fntPlainText);
 		btnViewAllCollectibles.setBounds(725, 191, 240, 40);
 		add(btnViewAllCollectibles);
+                btnViewAllCollectibles.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                 chckbxActiveCollectibles.setSelected(true);
+                                 chckbxClosedPayables.setSelected(true);
+                                 ViewAll();
+                        }
+                    });
                 
 		btnViewCollectible = new JButton("View Payment");
 		btnViewCollectible.setFont(fntPlainText);
@@ -252,9 +443,62 @@ public class CollectiblesListGUI extends JPanel
                         }
                     });
 	}
+        public void setMainController(CollectiblesController temp){
+            mainController=temp;
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void setItemCount(int itemcount)
+        {
+            System.out.println(Integer.toString(itemcount));
+            lblNumOfPayablesFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void ViewAll()
+        {
+        TableModel AllModel = mainController.getAllModel();
+        tbCollectibles.setModel(AllModel);
+
+        JTableHeader th = tbCollectibles.getTableHeader();      // Setting the Headers
+        TableColumnModel tcm = th.getColumnModel();
+        for (int i = 0; i < 6; i++)
+        {
+            TableColumn tc = tcm.getColumn(i);
+            tc.setHeaderValue(strHeader[i]);
+        }
+        th.repaint();
+        setComboBox();
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToCollectibles();
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbCollectibles.setModel(tbm);
+            JTableHeader th = tbCollectibles.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+        th.repaint();
         }
 }

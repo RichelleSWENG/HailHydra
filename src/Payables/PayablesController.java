@@ -5,6 +5,10 @@
  */
 package Payables;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
 /**
@@ -36,25 +40,24 @@ public class PayablesController
         return tbm;
     }
 
-    public void ViewActivePayables()
+    public void ViewActivePayables(String startDate,String endDate)
     {
-       TableModel tbm = payablesModel.myModel(payablesModel.getAllActivePayables());
+       TableModel tbm = payablesModel.myModel(payablesModel.getAllActivePayables(startDate,endDate));
        this.itemcount = payablesModel.getItemcount();
        gui.setItemCount(itemcount);
        gui.setTableModel(tbm);
     }
 
-    public void ViewClosedPayables()
+    public void ViewClosedPayables(String startDate,String endDate)
     {
-       TableModel tbm = payablesModel.myModel(payablesModel.getAllClosedPayables());
+       TableModel tbm = payablesModel.myModel(payablesModel.getAllClosedPayables(startDate,endDate));
        this.itemcount = payablesModel.getItemcount();
        gui.setItemCount(itemcount);
        gui.setTableModel(tbm);
     }
 
-    public void SearchSomething(String text, int type)
+    public void SearchSomething(String text, int type,String startDate,String endDate)
     {
-        
         String searchBy = null;
             if(type == 0)
                 searchBy = "name";
@@ -63,8 +66,39 @@ public class PayablesController
             else if(type == 2)
                 searchBy = "closed";
             TableModel tbm;
-            tbm = payablesModel.myModel(payablesModel.searchPayables(text, searchBy));
+            tbm = payablesModel.myModel(payablesModel.searchPayables(text, searchBy,startDate,endDate));
+            this.itemcount = payablesModel.getItemcount();
+            gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
+    }
+    public String getMaxYear()
+    {
+        ResultSet resultset=payablesModel.getMaxYear();
+        try {
+            resultset.next();
+            return resultset.getString("MAX(YEAR(date))");
+        } catch (SQLException ex) {
+            Logger.getLogger(PayablesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    public String getMinYear()
+    {
+        ResultSet resultset=payablesModel.getMinYear();
+        try {
+            resultset.next();
+            return resultset.getString("MIN(YEAR(date))");
+        } catch (SQLException ex) {
+            Logger.getLogger(PayablesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         return "";
+    }
+    public void DateSearch(String startDate,String endDate)
+    {
+        TableModel tbm = payablesModel.myModel(payablesModel.getPayablesbyDate(startDate,endDate));
+       this.itemcount = payablesModel.getItemcount();
+       gui.setItemCount(itemcount);
+       gui.setTableModel(tbm);
     }
     
 }
