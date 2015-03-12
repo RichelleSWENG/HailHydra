@@ -24,12 +24,14 @@ public class AckReceiptModel
     private int itemCount = 0;
     private ArrayList<Company> customers;
     private ArrayList<Item> items;
+    private ARLineItemModel arLineItemModel;
 
     public AckReceiptModel(DBConnection db)
     {
         this.db = db.getConnection();
         customers = new ArrayList<>();
         items = new ArrayList<>();
+        arLineItemModel = new ARLineItemModel(db);
     }
 
     public ResultSet getDetail(String ID)
@@ -100,17 +102,26 @@ public class AckReceiptModel
         return rs;
     }
 
-    public void addDetail(Object obj)
+    public void addDetail(AcknowledgementReceipt obj)
     {
-        AcknowledgementReceipt ar = (AcknowledgementReceipt) obj;
+ 
+        AcknowledgementReceipt ar = obj;
         try
         {
+        
             statement = db.createStatement();
-            String sql = "INSERT INTO acknowledgementreceipt(acknowledgementreceipt.company_id,acknowledgement_receipt_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status,address) VALUES('" + ar.getCompany_id() + "','" + ar.getAcknowledgement_receipt_id() + "','" + ar.getDate() + "','" + ar.getPo_num() + "','" + ar.getDelivery_receipt_num() + "','" + ar.getSales_person() + "','" + ar.getOrdered_by() + "','" + ar.getDelivered_by() + "','" + ar.getDelivery_notes() + "','" + ar.getDiscount() + "','" + ar.getOriginal_amount() + "','" + ar.getCurrent_balance() + "','" + ar.getStatus() + "','" + ar.getAddress() + "')";
+            String sql = "INSERT INTO acknowledgementreceipt(acknowledgement_receipt_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES('" + ar.getAcknowledgement_receipt_id() + "','" + ar.getCompany_id()  + "','" + ar.getDate() + "','" + ar.getPo_num() + "','" + ar.getDelivery_receipt_num() + "','" + ar.getSales_person() + "','" + ar.getOrdered_by() + "','" + ar.getDelivered_by() + "','" + ar.getDelivery_notes() + "','" + ar.getDiscount() + "','" + ar.getOriginal_amount() + "','" + ar.getCurrent_balance() + "','" + ar.getStatus()+"')";
+            System.out.println(sql);
             statement.executeUpdate(sql);
+            int i;
+            for (i = 0; i < ar.getItems().size(); i++)
+            {
+                ar.getItems().get(i).setAcknowledgement_receipt_id(ar.getAcknowledgement_receipt_id());
+                arLineItemModel.addDetail(ar.getItems().get(i));
+            }
         } catch (Exception e)
         {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 

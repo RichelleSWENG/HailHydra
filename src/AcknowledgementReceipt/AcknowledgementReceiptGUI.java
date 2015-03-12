@@ -213,9 +213,13 @@ public class AcknowledgementReceiptGUI extends JPanel
 
 		tbModel = new DefaultTableModel() 
                 {
+                        @Override
 			public boolean isCellEditable(int rowIndex, int mColIndex) 
                         {
-				return mColIndex != 2 ? true : false;
+                            if (mColIndex == 2 || mColIndex == 4 || rowIndex != getRowCount()-1)
+				return false;
+                            else
+                                return true;
 			}
 		};
 

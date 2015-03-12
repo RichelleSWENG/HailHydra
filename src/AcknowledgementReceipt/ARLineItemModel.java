@@ -64,6 +64,7 @@ public class ARLineItemModel
             statement = db.createStatement();
             String sql = "INSERT INTO arlineitem(acknowledgement_receipt_id,quantity,part_num,unit_price,line_total) VALUES('"+lineitem.getAcknowledgement_receipt_id()+"','"+lineitem.getQuantity()+"','"+lineitem.getPart_num()+"','"+lineitem.getUnit_price()+"','"+lineitem.getLine_total()+"')";
             statement.executeUpdate(sql);
+            System.out.println(sql);
         } catch (Exception e)
         {
             e.getMessage();
