@@ -266,12 +266,70 @@ public class AddItemProfileGUI extends JPanel {
                             else al.add("1");
                             
                             boolean error = false;
+
             if (tfPartNumber.getText().equals("") || tfDescription.getText().equals("") || ftfStockMinimum.getText().equals(""))
             {
 
                 JOptionPane.showMessageDialog(null, "Please fill in the required fields");
                 error = true;
             }
+
+            if (!isInteger(ftfStockMinimum.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid value for stock minimum");
+                error = true;
+            }
+            if (!isFloat(ftfSisterCompanyPrice.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
+                error = true;
+            }
+            if (!isFloat(ftfRetailPrice.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
+                error = true;
+
+            }
+            if (!isFloat(ftfWalkinPrice.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
+                error = true;
+
+            }
+            if (!isFloat(ftfLastCost.getText()))
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost Price");
+                error = true;
+
+            }
+
+            if (Integer.parseInt(ftfStockMinimum.getText())<0)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Stock Minimum");
+                error = true;
+            }
+       
+            if (Float.valueOf(ftfSisterCompanyPrice.getText())<0.00f)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
+                error = true;
+            }
+            if (Float.parseFloat(ftfRetailPrice.getText())<0.00f)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
+                error = true;
+            }
+            if (Float.parseFloat(ftfWalkinPrice.getText())<0.00f)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
+                error = true;
+            }
+            if (Float.parseFloat(ftfLastCost.getText())<0.00f)
+            {
+                JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost");
+                error = true;
+            }
+
 
             if (error == false)
             {
@@ -293,6 +351,35 @@ public class AddItemProfileGUI extends JPanel {
                         Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }
+                
+                  private boolean isInteger(String s)
+        {
+
+            try
+            {
+                Integer.parseInt(s);
+            } catch (NumberFormatException e)
+            {
+                return false;
+            }
+            // only got here if we didn't return false
+            return true;
+
+        }
+
+        private boolean isFloat(String s)
+        {
+
+            try
+            {
+                Float.parseFloat(s);
+            } catch (NumberFormatException e)
+            {
+                return false;
+            }
+            return true;
+        }
+
                 });
                 
 		btnCancel = new JButton("Cancel");
