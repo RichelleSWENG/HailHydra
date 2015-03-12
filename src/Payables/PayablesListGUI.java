@@ -470,6 +470,8 @@ public class PayablesListGUI extends JPanel
         }
         public void setComboBox()
         {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
             int cnt=0;
             for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
             {
