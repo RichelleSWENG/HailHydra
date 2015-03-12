@@ -111,7 +111,7 @@ public class CollectiblesModel extends Model
             try
             {
                 statement = con.createStatement();
-                String sql = "SELECT MIN(YEAR(date)) FROM salesinvoice UNION ALL SELECT MIN(YEAR(date)) FROM acknowledgementreceipt";
+                String sql = "SELECT MIN(YEAR(date)) FROM salesinvoice UNION ALL SELECT MIN(YEAR(date)) FROM acknowledgementreceipt order by 1";
                 rs = statement.executeQuery(sql);
             } catch (Exception e)
             {

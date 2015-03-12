@@ -87,7 +87,7 @@ public class CollectiblesController {
     {
         ResultSet resultset=collectiblesModel.getMinYear();
         try {
-            resultset.last();
+            resultset.next();
             return resultset.getString(1);
         } catch (SQLException ex) {
             Logger.getLogger(CollectiblesController.class.getName()).log(Level.SEVERE, null, ex);
