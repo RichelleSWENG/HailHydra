@@ -58,7 +58,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             else al.add("Active");
                             
                            boolean error = false;
-                            
+                            System.out.println("hi");
                            if(tfName.getText().equals("") || ftfCreditLimit.getText().equals("") || ftfTerms.getText().equals(""))
                             {
                                 JOptionPane.showMessageDialog(null, "Please fill in the required fields");
@@ -147,38 +147,22 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             {
                                 JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
                                 error = true;
-                            }
-                            
-                            
+                            }  
 
-                            if(!isFloat(ftfCreditLimit.getText()) || Float.parseFloat(ftfCreditLimit.getText())<0.00f)
+                            if(/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText())<0.00f)
                             {
                                 JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
-
-                           
-                            {
-                                JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
-
-                                error = true;
                             }
                             
                             if(!"".equals(tfPhone1.getText()))
-
-                            if(!isInteger(tfPhone1.getText()) || Integer.parseInt(tfPhone1.getText())<0)
-
-                            
-
-                            {
-                                JOptionPane.showMessageDialog(null, "Tel Phone 1 # is invalid");
-                                error = true;
-                            }
+                                if(!isInteger(tfPhone1.getText()) || Integer.parseInt(tfPhone1.getText())<0)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Tel Phone 1 # is invalid");
+                                    error = true;
+                                }
                             
                             if(!"".equals(tfPhone2.getText()))
-
                             if(!isInteger(tfPhone2.getText()) || Integer.parseInt(tfPhone2.getText())<0)
-               
-                           
-
                             {
                                 JOptionPane.showMessageDialog(null, "Tel Phone 2 # is invalid");
                                 error = true;
@@ -197,30 +181,27 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             if(!"".equals(tfFaxNumber.getText()))
 
                             if(!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText())<0)
-
-                           
-
                             {
                                 JOptionPane.showMessageDialog(null, "Fax Number is invalid");
                                 error = true;
                             }
-
-                                                       
+                     
                             if(hasSpecial(tfPostCode.getText()))
                             {
                                 JOptionPane.showMessageDialog(null, "Please enter a valid postal code");
                                 error = true;
                             }      
+                            
                             if(error == false)
                             {
-                            
-                            mainController.AddAccountProfile(al); // add the account
-                            guiController.changePanelToAccountProfile();
+                                System.out.println("hillo");
+                                mainController.AddAccountProfile(al); // add the account
+                                guiController.changePanelToAccountProfile();
                             }
                             
                         
                             }
-                        }});
+                        });
 
                 
 		btnCancel = new JButton("Cancel");
