@@ -22,6 +22,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -329,6 +331,8 @@ public class AddItemProfileGUI extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost");
                 error = true;
             }
+            
+            //if (hasSpecial())
 
 
             if (error == false)
@@ -379,6 +383,19 @@ public class AddItemProfileGUI extends JPanel {
             }
             return true;
         }
+        
+        private boolean hasSpecial(String s)
+        {
+            Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+            Matcher m = p.matcher(s);
+            boolean b = m.find();
+
+        if (b || s.contains(" "))
+         return true;
+        else 
+         return false;
+        }
+
 
                 });
                 
