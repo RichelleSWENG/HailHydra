@@ -16,7 +16,7 @@ import javax.swing.JTextArea;
 
 public class AccountProfileGUI extends JPanel{
      protected JLabel  lblHeader, lblType, lblName, lblAddress, lblCity, 
-               lblPostcode, lblCountry, lblCreditLimit, lblTermsDays, 
+               lblPostCode, lblCountry, lblCreditLimit, lblTermsDays, 
                lblRequiredFields, lblPhone1, lblPhone2, lblPhone3, lblFaxNumber,
                lblEmailAddress, lblWebsite, lblContactPerson, 
                lblAsterisk1, lblAsterisk2, lblAsterisk3, lblAsterisk4, 
@@ -66,10 +66,10 @@ public class AccountProfileGUI extends JPanel{
 		lblCity.setBounds(30, 310, 52, 30);
 		add(lblCity);
 
-		lblPostcode = new JLabel("Post Code:");
-		lblPostcode.setFont(fntPlainText);
-		lblPostcode.setBounds(30, 355, 122, 30);
-		add(lblPostcode);
+		lblPostCode = new JLabel("Post Code:");
+		lblPostCode.setFont(fntPlainText);
+		lblPostCode.setBounds(30, 355, 122, 30);
+		add(lblPostCode);
 
 		lblCountry = new JLabel("Country:");
 		lblCountry.setFont(fntPlainText);
