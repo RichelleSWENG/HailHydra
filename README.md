@@ -22,11 +22,11 @@ Payables - ~~Model~~ || ~~Integration~~ <br>
 **For Testing:** <br>
 Account Profiles <br>
 Inventory and Item Profiles <br>
+Payables <br>
+Collectibles <br>
 
 **For Fixing (Controller in progress/done):** <br>
 Acknowledgement Receipts <br>
-Payables <br>
-Collectibles <br>
 
 **Model done (needs Controller/for Integration):** <br>
 -----<br>
