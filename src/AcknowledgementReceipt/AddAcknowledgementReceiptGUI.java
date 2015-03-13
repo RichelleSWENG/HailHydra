@@ -136,7 +136,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         
         partNums = new String[mainController.getItems().size() + 1];
         partNums[0] = "";
-        System.out.println("hallo");
         for (i = 1; i < mainController.getItems().size() + 1; i++)
         {
             partNums[i] = mainController.getItems().get(i - 1).getPartNum();
