@@ -275,33 +275,97 @@ public class AddItemProfileGUI extends JPanel {
                 JOptionPane.showMessageDialog(null, "Please fill in the required fields");
                 error = true;
             }
+            
+            if(tfPartNumber.getText().length()>20)
+            {
+                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
+                error = true;
+                lblPartNumber.setForeground(Color.orange);
+            }
+            
+            if(tfDescription.getText().length()>100)
+            {
+                JOptionPane.showMessageDialog(null, "Description can not exceed 100 characters. Please re-input the Description.");
+                error = true;
+                lblDescription.setForeground(Color.orange);
+            }
+                        
+            if(tfRackLocation.getText().length()>45)
+            {
+                JOptionPane.showMessageDialog(null, "Rack Location can not exceed 45 characters. Please re-input the Rack Location.");
+                error = true;
+                lblRackLocation.setForeground(Color.orange);
+            }
+            
+            if(ftfStockMinimum.getText().length()>11)
+            {
+                JOptionPane.showMessageDialog(null, "Stock Minimum can not exceed 11 characters. Please re-input the Stock Minimum.");
+                error = true;
+                lblStockMinimum.setForeground(Color.orange);
+            }
+                
+            /*if(ftfSisterCompanyPrice.getText().length()>20)
+            {
+                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
+                error = true;
+            }
+                        
+            if(ftfRetailPrice.getText().length()>20)
+            {
+                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
+                error = true;
+            }
+                        
+            if(ftfWalkinPrice.getText().length()>20)
+            {
+                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
+                error = true;
+            }
+                        
+            if(ftfLastCost.getText().length()>20)
+            {
+                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
+                error = true;
+            }
+            */             
+            if(taNotes.getText().length()>500)
+            {
+                JOptionPane.showMessageDialog(null, "Notes can not exceed 500 characters. Please re-input the Notes.");
+                error = true;
+                lblNotes.setForeground(Color.orange);
+            }
 
             if (!isInteger(ftfStockMinimum.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid value for stock minimum");
                 error = true;
+                lblStockMinimum.setForeground(Color.orange);
             }
             if (!isFloat(ftfSisterCompanyPrice.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
                 error = true;
+                lblSisterCompanyPrice.setForeground(Color.orange);
             }
             if (!isFloat(ftfRetailPrice.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
                 error = true;
+                lblRetailPrice.setForeground(Color.orange);
 
             }
             if (!isFloat(ftfWalkinPrice.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
                 error = true;
+                lblWalkinPrice.setForeground(Color.orange);
 
             }
             if (!isFloat(ftfLastCost.getText()))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost Price");
                 error = true;
+                lblLastCost.setForeground(Color.orange);
 
             }
 
@@ -309,30 +373,35 @@ public class AddItemProfileGUI extends JPanel {
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Stock Minimum");
                 error = true;
+                lblStockMinimum.setForeground(Color.orange);
             }
        
             if (Float.valueOf(ftfSisterCompanyPrice.getText())<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
                 error = true;
+                lblSisterCompanyPrice.setForeground(Color.orange);
             }
             if (Float.parseFloat(ftfRetailPrice.getText())<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
                 error = true;
+                lblRetailPrice.setForeground(Color.orange);
             }
             if (Float.parseFloat(ftfWalkinPrice.getText())<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
                 error = true;
+                lblWalkinPrice.setForeground(Color.orange);
             }
             if (Float.parseFloat(ftfLastCost.getText())<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost");
                 error = true;
+                lblLastCost.setForeground(Color.orange);
             }
             
-            //if (hasSpecial())
+            
 
 
             if (error == false)
