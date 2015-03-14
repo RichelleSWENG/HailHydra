@@ -276,3 +276,4 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     }
 
 }
+
