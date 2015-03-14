@@ -9,9 +9,9 @@ Strikethrough words mean completed <br>
 **Iteration 1 Progress:** <br>
 Inventory and Item Profiles - ~~Model~~ || ~~Integration~~ <br>
 Account Profiles - ~~Model~~ || ~~Integration~~ <br>
-Purchases - Model || Integration <br>
+Purchases - ~~Model~~ || Integration <br>
 Acknowledgement Receipts - ~~Model~~ || ~~Integration~~ <br>
-Sales Invoices - Model || Integration <br>
+Sales Invoices - ~~Model~~ || Integration <br>
 [DI NA DAW TO KASAMA :'(] ~~System Accounts - Model || Integration~~ <br>
 Return Slip - Model || Integration <br>
 Credit Memo/Debit Memo - Model || Integration <br>
@@ -27,10 +27,8 @@ Collectibles <br>
 
 **For Fixing (Controller in progress/done):** <br>
 Acknowledgement Receipts <br>
+Sales Invoices <br>
+Purchases <br>
 
 **Model done (needs Controller/for Integration):** <br>
 -----<br>
-
-**Models partially done (will continue latur/Ragequitted):** <br>
-Sales Invoices <br>
-Purchases <br>
