@@ -32,6 +32,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     private float discount;
     private float dedBalance;
     private String partNums[];
+    private Company c;
 
     public AddAcknowledgementReceiptGUI(GUIController temp)
     {
@@ -43,6 +44,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         dedBalance = 0;
         guiController = temp;
         totalBalance = 0;
+        c = null;
         cmbCustomer.setEditable(true);
 
         lblHeader.setText("Add Acknowledgement Receipt");
@@ -60,7 +62,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                         try
                         {
                             mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()), tbModel.getValueAt(numItems, 1).toString(), Float.parseFloat(tbModel.getValueAt(numItems, 3).toString()), Float.parseFloat(tbModel.getValueAt(numItems, 4).toString())));
+                            Arrays.asList(partNums).remove(tbModel.getValueAt(numItems, 0).toString());
+                            System.out.println(partNums.length);
                             numItems++;
+                            TableColumn col = tbARReceipt.getColumnModel().getColumn(1);
+                            col.setCellEditor(new MyComboBoxEditor(partNums));
+                            col.setCellRenderer(new MyComboBoxRenderer(partNums));
                             tbModel.setRowCount(numItems + 1);
                             totalItemPrice = 0;
                             tentativeTotal = 0;
@@ -82,7 +89,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "open", taAddress.getText());
+                        mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), taAddress.getText(), "open");
                         guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
@@ -100,23 +107,33 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                         guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
-        String[] customerNames = new String[mainController.getCustomers().size() + 1];
-        int i;
-        customerNames[0] = "";
-        for (i = 1; i < mainController.getCustomers().size() + 1; i++)
-        {
-            customerNames[i] = mainController.getCustomers().get(i - 1).getName();
-        }
-        cmbCustomer.setModel(new DefaultComboBoxModel(customerNames));
 
         cmbCustomer.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
             {
+                int i, rowCount;
+                rowCount = tbModel.getRowCount();
+                for (i = 0; i < rowCount; i++)
+                    tbModel.removeRow(0);
+                tbModel.setRowCount(1);
+                mainController.removePending();
                 if (cmbCustomer.getSelectedIndex() != 0)
                 {
-                    Company c = mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1);
+                    c = mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
+                    
+                    
+                    partNums = new String[mainController.getItems(c.getType()).size() + 1];
+                    partNums[0] = "";
+                    for (i = 1; i < mainController.getItems(c.getType()).size() + 1; i++)
+                    {
+                        partNums[i] = mainController.getItems(c.getType()).get(i - 1).getPartNum();
+                    }
+        
+                    TableColumn col = tbARReceipt.getColumnModel().getColumn(1);
+                    col.setCellEditor(new MyComboBoxEditor(partNums));
+                    col.setCellRenderer(new MyComboBoxRenderer(partNums));
                 }
             }
         });
@@ -132,25 +149,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         });
 
         tbModel.setRowCount(1);
-        
-        partNums = new String[mainController.getItems().size() + 1];
-        partNums[0] = "";
-        for (i = 1; i < mainController.getItems().size() + 1; i++)
-        {
-            partNums[i] = mainController.getItems().get(i - 1).getPartNum();
-        }
-        
-        TableColumn col = tbARReceipt.getColumnModel().getColumn(1);
-        col.setCellEditor(new MyComboBoxEditor(partNums));
-        col.setCellRenderer(new MyComboBoxRenderer(partNums));
-        
         tbModel.addTableModelListener(this);
     
     }
-    
-    public void setMainController(AcknowledgementReceiptController temp)
+    public void setController(AcknowledgementReceiptController temp)
     {
-            mainController=temp;
+        mainController = temp;
     }
     
     public static void main(String args[])
@@ -187,8 +191,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 String cmb = tbModel.getValueAt(numItems, 1).toString();
                 if (!cmb.equals(""))
                 {
-                    tbModel.setValueAt(mainController.getItems().get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), numItems, 2);
-                    tbModel.setValueAt(mainController.getItems().get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), numItems, 3);
+                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), numItems, 2);
+                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), numItems, 3);
                 }
                 if (tbModel.getValueAt(numItems, 0) != null && !cmb.equals("") && !tbModel.getValueAt(numItems, 0).toString().equals(""))
                 {    
@@ -212,6 +216,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 {    
                     totalItemPrice = Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()) * Float.parseFloat(tbModel.getValueAt(numItems, 3).toString());
                     tbModel.setValueAt(totalItemPrice, numItems, 4);
+                    //tbModel.setValueAt(Float.parseFloat(tbModel.getValueAt(numItems, 3).toString()), numItems, 3);
                     totalBalance = totalBalance + totalItemPrice - tentativeTotal;
                     dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance; 
                     tentativeTotal = totalItemPrice;
@@ -219,7 +224,25 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     ftfBalance.setText(String.valueOf(dedBalance));
                 }
             }
+            
         }
+    }
+    
+    public void setMainController(AcknowledgementReceiptController temp)
+    {
+            mainController=temp;
+    }
+    
+    public void setDataComponents()
+    {
+        String[] customerNames = new String[mainController.getCustomers().size() + 1];
+        int i;
+        customerNames[0] = "";
+        for (i = 1; i < mainController.getCustomers().size() + 1; i++)
+        {
+            customerNames[i] = mainController.getCustomers().get(i - 1).getName();
+        }
+        cmbCustomer.setModel(new DefaultComboBoxModel(customerNames));
     }
 
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
