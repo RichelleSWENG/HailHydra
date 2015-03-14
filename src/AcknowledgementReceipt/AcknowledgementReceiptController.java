@@ -24,9 +24,9 @@ public class AcknowledgementReceiptController
         return ackReceiptModel.getCustomer(index);
     }
     
-    public ArrayList<Item> getItems()
+    public ArrayList<Item> getItems(String customerType)
     {
-        return ackReceiptModel.getItems();
+        return ackReceiptModel.getItems(customerType);
     }
     
     public Item getItem(int index)

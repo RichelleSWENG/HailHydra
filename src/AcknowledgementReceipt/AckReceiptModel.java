@@ -188,7 +188,7 @@ public class AckReceiptModel
                 tempCustomer.setStatus(rs.getString("status"));
                 tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
                 tempCustomer.setTerms(rs.getInt("terms"));
-                tempCustomer.setType("customer");
+                tempCustomer.setType(rs.getString("type"));
                 customers.add(tempCustomer);
             }
             System.out.println(customers.size());
@@ -200,7 +200,7 @@ public class AckReceiptModel
         return customers;
     }
     
-    public ArrayList<Item> getItems()
+    public ArrayList<Item> getItems(String customerType)
     {
         items = new ArrayList<>();
         ResultSet rs;
@@ -215,7 +215,15 @@ public class AckReceiptModel
                 tempItem = new Item();
                 tempItem.setPartNum(rs.getString("part_num"));
                 tempItem.setDescription(rs.getString("description"));
+                
+                if (customerType.equals("Walk-in Customer"))
+                    tempItem.setPrice(rs.getFloat("walk_in_price"));
+                if (customerType.equals("Retail Customer"))
+                    tempItem.setPrice(rs.getFloat("traders_price"));
+                if (customerType.equals("Sister Company Customer"))
+                    tempItem.setPrice(rs.getFloat("sister_company_price"));
                 items.add(tempItem);
+                System.out.println(tempItem.getPrice());
             }
 
         } catch (Exception e)
