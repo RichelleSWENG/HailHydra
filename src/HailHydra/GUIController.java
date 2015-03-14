@@ -42,8 +42,10 @@ import Payables.PayablesListGUI;
 import Payables.PayablesModel;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
+import Purchases.PurchaseTransactionController;
 import ReturnSlip.AddReturnSlipGUI;
 import Purchases.PurchaseTransactionListGUI;
+import Purchases.PurchasesModel;
 import Purchases.ViewPurchaseTransactionGUI;
 import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
@@ -78,6 +80,7 @@ public class GUIController
     private CollectiblesController collectiblesController;
     private AcknowledgementReceiptController acknowledgementReceiptController;
     private SalesInvoiceController salesInvoiceController;
+    private PurchaseTransactionController purchasetransactionController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -167,7 +170,12 @@ public class GUIController
     
     public void changePanelToPurchaseTransactionList()
     {
-            getContentPanel().add(new PurchaseTransactionListGUI(this));
+            PurchaseTransactionListGUI tempGUI= new PurchaseTransactionListGUI(this);
+            PurchaseTransactionController tempController=new PurchaseTransactionController(new PurchasesModel(dbc),tempGUI); 
+            purchasetransactionController = tempController;
+            tempGUI.setMainController(purchasetransactionController);
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

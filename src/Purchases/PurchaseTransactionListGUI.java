@@ -25,6 +25,10 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 
 public class PurchaseTransactionListGUI extends JPanel
@@ -132,23 +136,104 @@ public class PurchaseTransactionListGUI extends JPanel
 		{
 			cmbFromMonth.addItem(months[i]);
 			cmbToMonth.addItem(months[i]);
-		}
+                }
+                cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
 
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
-                
+                });
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(null); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnSupplierName.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),0,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); 
+                            else if(rdbtnPurchaseTransactionNum.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),1,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                            else if(rdbtnPartNumber.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),2,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        }
+                    }});
 		tbModel = new DefaultTableModel()
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
@@ -219,23 +304,42 @@ public class PurchaseTransactionListGUI extends JPanel
 		rdbtnSupplierName.setSelected(true);
 		rdbtnSupplierName.setBounds(150, 80, 184, 30);
 		add(rdbtnSupplierName);
+                rdbtnSupplierName.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		rdbtnPurchaseTransactionNum = new JRadioButton("Purchase Transaction Number");
 		rdbtnPurchaseTransactionNum.setFont(fntPlainText);
                 rdbtnPurchaseTransactionNum.setBackground(SystemColor.textHighlight);
 		rdbtnPurchaseTransactionNum.setBounds(336, 80, 340, 30);
 		add(rdbtnPurchaseTransactionNum);
+                rdbtnPurchaseTransactionNum.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
                 rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setBounds(675, 80, 352, 30);
 		add(rdbtnPartNumber);
+                rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnSupplierName);
 		searchBy.add(rdbtnPurchaseTransactionNum);
                 searchBy.add(rdbtnPartNumber);
+                
 
 		btnViewAllTransactions = new JButton("View All Transactions");
 		btnViewAllTransactions.setFont(fntPlainText);
@@ -246,7 +350,7 @@ public class PurchaseTransactionListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                
+                                ViewAll();
                         }
                     });
 
@@ -289,12 +393,58 @@ public class PurchaseTransactionListGUI extends JPanel
                         }
                     });
 	}
-        
-        public void setController(PurchaseTransactionController temp)
+        public void setItemCount(int itemcount)
         {
-            mainController= temp;
+            lblNumofTransactions.setText(Integer.toString(itemcount));
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbPurchaseTransaction.setModel(tbm);
+            JTableHeader th = tbPurchaseTransaction.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
         }
         
+        public void setMainController(PurchaseTransactionController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbPurchaseTransaction.setModel(AllModel);
+
+            JTableHeader th = tbPurchaseTransaction.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
+        }
         public static void main(String args[])
         {
            GUIController temp=new GUIController();
