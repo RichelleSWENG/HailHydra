@@ -39,7 +39,7 @@ public class AcknowledgementReceiptGUI extends JPanel
         protected String[] strHeader = { "Quantity", "    Part Number    ", 
                 "        Description        ", 
                 "<html><center>   Unit   <br>   Price   </center></html>",
-                "  Total  "};
+                "  Subtotal  "};
         protected DefaultTableModel tbModel;
         protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
         protected TableColumnModel tbColumnRenderer;
@@ -217,6 +217,8 @@ public class AcknowledgementReceiptGUI extends JPanel
                         @Override
 			public boolean isCellEditable(int rowIndex, int mColIndex) 
                         {
+                            if (cmbCustomer.getSelectedItem() == null || cmbCustomer.getSelectedItem().equals(""))
+                                return false;
                             if (mColIndex == 2 || mColIndex == 4 || rowIndex != getRowCount()-1)
 				return false;
                             else
