@@ -51,7 +51,9 @@ import Reports.OrderReportGUI;
 import Reports.TermsReportGUI;
 import Sales.AddSalesInvoiceGUI;
 import Sales.ModifySalesInvoiceGUI;
+import Sales.SalesInvoiceController;
 import Sales.SalesInvoiceListGUI;
+import Sales.SalesInvoiceModel;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
@@ -75,6 +77,7 @@ public class GUIController
     private PayablesController payablesController;
     private CollectiblesController collectiblesController;
     private AcknowledgementReceiptController acknowledgementReceiptController;
+    private SalesInvoiceController salesInvoiceController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -283,6 +286,10 @@ public class GUIController
     public void changePanelToSalesInvoice()
     {
             SalesInvoiceListGUI tempGUI= new SalesInvoiceListGUI(this);
+            SalesInvoiceController tempController = new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI);
+            salesInvoiceController =tempController;
+            tempGUI.setMainController(salesInvoiceController);
+            tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

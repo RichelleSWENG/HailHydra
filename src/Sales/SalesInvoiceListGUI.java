@@ -26,6 +26,10 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class SalesInvoiceListGUI extends JPanel 
 {
@@ -54,6 +58,7 @@ public class SalesInvoiceListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController guiController;
+        private SalesInvoiceController mainController;
 	
 	public SalesInvoiceListGUI(GUIController temp) {
             
@@ -101,11 +106,6 @@ public class SalesInvoiceListGUI extends JPanel
 		lblNumofTransactions.setBounds(200, 200, 46, 30);
 		add(lblNumofTransactions);
                 
-                tfSearch = new JTextField();
-		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(117, 120, 579, 30);
-		add(tfSearch);
-
                 
 		tbModel = new DefaultTableModel() 
                 {
@@ -170,11 +170,17 @@ public class SalesInvoiceListGUI extends JPanel
 		tbSalesInvoice.setRowSelectionAllowed(true);
 		tbSalesInvoice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbSalesInvoice.setRowHeight(30);
+                
+                tfSearch = new JTextField();
+		tfSearch.setFont(fntPlainText);
+		tfSearch.setBounds(117, 120, 579, 30);
+		add(tfSearch);
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
 		cmbFromMonth.setBounds(113, 160, 155, 30);
 		add(cmbFromMonth);
+                
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
@@ -190,26 +196,111 @@ public class SalesInvoiceListGUI extends JPanel
 		cmbToYear.setFont(fntPlainText);
 		cmbToYear.setBounds(596, 160, 100, 30);
 		add(cmbToYear);
-
-		for (int i = 0; i < strMonths.length; i++) 
+                
+                for (int i = 0; i < strMonths.length; i++) 
                 {
 			cmbFromMonth.addItem(strMonths[i]);
 			cmbToMonth.addItem(strMonths[i]);
 		}
+                
+                cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.ViewSalesInvoicebyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
 
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++) {
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
+                });
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.ViewSalesInvoicebyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.ViewSalesInvoicebyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(null); 
+                        mainController.ViewSalesInvoicebyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+
+		
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnCustomerName.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),0,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); 
+                            else if(rdbtnTransactionNo.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),1,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            mainController.ViewSalesInvoicebyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        }
+                    }});
 
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
@@ -217,12 +308,25 @@ public class SalesInvoiceListGUI extends JPanel
 		rdbtnCustomerName.setSelected(true);
 		rdbtnCustomerName.setBounds(149, 80, 195, 30);
 		add(rdbtnCustomerName);
+                rdbtnCustomerName.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		rdbtnTransactionNo = new JRadioButton("Transaction Number");
                 rdbtnTransactionNo.setBackground(SystemColor.textHighlight);
 		rdbtnTransactionNo.setFont(fntPlainText);
 		rdbtnTransactionNo.setBounds(346, 80, 257, 30);
-		add(rdbtnTransactionNo);
+                add(rdbtnTransactionNo);
+                rdbtnTransactionNo.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
+                
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnCustomerName);
@@ -232,6 +336,15 @@ public class SalesInvoiceListGUI extends JPanel
 		btnViewAllInvoices.setFont(fntPlainText);
 		btnViewAllInvoices.setBounds(725, 190, 240, 40);
 		add(btnViewAllInvoices);
+                btnViewAllInvoices.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                rdbtnCustomerName.setSelected(true);
+                                ViewAll();
+                        }
+                    });
 
 		btnViewSalesInvoice = new JButton("View Sales Invoice");
 		btnViewSalesInvoice.setFont(fntPlainText);
@@ -273,6 +386,58 @@ public class SalesInvoiceListGUI extends JPanel
                     });
 		
 	}
+        public void setItemCount(int itemcount)
+        {
+            lblNumofTransactions.setText(Integer.toString(itemcount));
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbSalesInvoice.setModel(AllModel);
+
+            JTableHeader th = tbSalesInvoice.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbSalesInvoice.setModel(tbm);
+            JTableHeader th = tbSalesInvoice.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(SalesInvoiceController temp){
+            mainController=temp;
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();
