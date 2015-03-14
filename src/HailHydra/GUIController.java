@@ -76,11 +76,6 @@ public class GUIController
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
-    private PayablesController payablesController;
-    private CollectiblesController collectiblesController;
-    private AcknowledgementReceiptController acknowledgementReceiptController;
-    private SalesInvoiceController salesInvoiceController;
-    private PurchaseTransactionController purchasetransactionController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -154,9 +149,7 @@ public class GUIController
     public void changePanelToPayablesList()
     {
             PayablesListGUI tempGUI= new PayablesListGUI(this);
-            PayablesController tempController=new PayablesController(new PayablesModel(dbc),tempGUI); 
-            payablesController = tempController;
-            tempGUI.setMainController(payablesController);
+            tempGUI.setMainController(new PayablesController(new PayablesModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -171,9 +164,7 @@ public class GUIController
     public void changePanelToPurchaseTransactionList()
     {
             PurchaseTransactionListGUI tempGUI= new PurchaseTransactionListGUI(this);
-            PurchaseTransactionController tempController=new PurchaseTransactionController(new PurchasesModel(dbc),tempGUI); 
-            purchasetransactionController = tempController;
-            tempGUI.setMainController(purchasetransactionController);
+            tempGUI.setMainController(new PurchaseTransactionController(new PurchasesModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -240,41 +231,34 @@ public class GUIController
     }
     
     public void changePanelToAcknowledgementReceipt()
-    {
-            if (acknowledgementReceiptController == null)
-                acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
-            AcknowledgementReceiptListGUI tempGUI = new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController);
-            getContentPanel().add(new AcknowledgementReceiptListGUI(this, acknowledgementReceiptController));
+    {       
+            AcknowledgementReceiptListGUI tempGUI = new AcknowledgementReceiptListGUI(this);
+            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),tempGUI));
+            tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToAddAcknowledgementReceipt()
     {
-            if (acknowledgementReceiptController == null)
-                acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
-            AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
-            getContentPanel().add(new AddAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
+            AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this);
+            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToViewAcknowledgementReceipt()
     {
-            if (acknowledgementReceiptController == null)
-                acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
-            ViewAcknowledgementReceiptGUI tempGUI = new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController);
-            getContentPanel().add(new ViewAcknowledgementReceiptGUI(this, acknowledgementReceiptController));
+            ViewAcknowledgementReceiptGUI tempGUI = new ViewAcknowledgementReceiptGUI(this);
+            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToModifyAcknowledgementReceipt()
     {
-             if (acknowledgementReceiptController == null)
-                acknowledgementReceiptController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this);
-            getContentPanel().add(new ModifyAcknowledgementReceiptGUI(this));
+            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
@@ -282,9 +266,7 @@ public class GUIController
     public void changePanelToCollectibles()
     {
             CollectiblesListGUI tempGUI= new CollectiblesListGUI(this);
-            CollectiblesController tempController=new CollectiblesController(new CollectiblesModel(dbc),tempGUI); 
-            collectiblesController = tempController;
-            tempGUI.setMainController(collectiblesController);
+            tempGUI.setMainController(new CollectiblesController(new CollectiblesModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -294,9 +276,7 @@ public class GUIController
     public void changePanelToSalesInvoice()
     {
             SalesInvoiceListGUI tempGUI= new SalesInvoiceListGUI(this);
-            SalesInvoiceController tempController = new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI);
-            salesInvoiceController =tempController;
-            tempGUI.setMainController(salesInvoiceController);
+            tempGUI.setMainController(new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -331,10 +311,7 @@ public class GUIController
     public void changePanelToAccountProfile()
     {
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
-            AccountProfileController tempController=new AccountProfileController(new AccountModel(dbc),tempGUI); 
-            accountProfileController = tempController;
-            //please connect controller with gui 
-            tempGUI.setMainController(accountProfileController);
+            tempGUI.setMainController(new AccountProfileController(new AccountModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();

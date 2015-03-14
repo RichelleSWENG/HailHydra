@@ -12,11 +12,10 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     
-    public ViewAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
+    public ViewAcknowledgementReceiptGUI(GUIController temp)
     {
                 super();
                 guiController = temp;
-                mainController = controller;
                 
                 lblHeader.setText("View Acknowledgement Receipt");
 		
@@ -61,7 +60,7 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
                     });
     }
     
-    public void setController(AcknowledgementReceiptController temp)
+    public void setMainController(AcknowledgementReceiptController temp)
     {
             mainController=temp;
     }

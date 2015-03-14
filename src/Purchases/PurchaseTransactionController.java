@@ -45,7 +45,7 @@ public class PurchaseTransactionController {
     public void searchbyDate(String startDate,String endDate)
     {
         TableModel tbm;
-            tbm = purchasetransactionModel.myModel(purchasetransactionModel.getAllDetalbyDate(startDate,endDate));
+            tbm = purchasetransactionModel.myModel(purchasetransactionModel.getAllDetailbyDate(startDate,endDate));
             this.itemcount = purchasetransactionModel.getItemcount();
             gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
@@ -59,7 +59,7 @@ public class PurchaseTransactionController {
             resultset.next();
             return resultset.getString("MAX(YEAR(date))");
         } catch (SQLException ex) {
-            Logger.getLogger(SalesInvoiceController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PurchaseTransactionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
@@ -71,11 +71,8 @@ public class PurchaseTransactionController {
             resultset.next();
             return resultset.getString("MIN(YEAR(date))");
         } catch (SQLException ex) {
-            Logger.getLogger(SalesInvoiceController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(PurchaseTransactionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
     }
-    
-    
-    
 }

@@ -42,7 +42,7 @@ public class PurchasesModel
         }
         return rs;
     }
-    public ResultSet getAllDetalbyDate(String startDate,String endDate)
+    public ResultSet getAllDetailbyDate(String startDate,String endDate)
     {
         ResultSet rs = null;
         try

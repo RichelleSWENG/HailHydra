@@ -1,19 +1,28 @@
 
 package AcknowledgementReceipt;
 
+import Sales.SalesInvoiceController;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.TableModel;
 
 public class AcknowledgementReceiptController 
 {
     private AckReceiptModel ackReceiptModel;
+    private AcknowledgementReceiptListGUI gui;
     private ArrayList<ARLineItem> pendingItems;
+    private int itemcount;
     
-    public AcknowledgementReceiptController(AckReceiptModel ackReceiptModel)
+    public AcknowledgementReceiptController(AckReceiptModel ackReceiptModel,AcknowledgementReceiptListGUI tempGUI)
     {
         this.ackReceiptModel = ackReceiptModel;
         pendingItems = new ArrayList<>();
+        gui=tempGUI;
+               
     }
-    
     public ArrayList<Company> getCustomers()
     {
         return ackReceiptModel.getCustomers();
@@ -50,5 +59,61 @@ public class AcknowledgementReceiptController
         ackReceiptModel.addDetail(rcpt);
         //ackReceiptModel.addDetail(rcpt);
     }
+    
+    TableModel getAllModel()
+    {
+            TableModel tbm = ackReceiptModel.myModel(ackReceiptModel.getAllDetail());
+            this.itemcount = ackReceiptModel.getItemcount();
+            gui.setItemCount(itemcount);
+            return tbm;     
+    }
+    
+    public void SearchSomething(String text, int type,String startDate,String endDate)
+    {
+            String searchBy = null;
+            if(type == 0)
+                searchBy = "name";
+            else if(type == 1)
+                searchBy = "acknowledgement number";
+            TableModel tbm;
+            tbm = ackReceiptModel.myModel(ackReceiptModel.searchDetail(text, searchBy,startDate,endDate));
+            this.itemcount = ackReceiptModel.getItemcount();
+            gui.setItemCount(itemcount);
+            gui.setTableModel(tbm);
+    }
+    public void searchbyDate(String startDate,String endDate)
+    {
+            TableModel tbm;
+            tbm = ackReceiptModel.myModel(ackReceiptModel.getAllDetailbyDate(startDate,endDate));
+            this.itemcount =  ackReceiptModel.getItemcount();
+            gui.setItemCount(itemcount);
+            gui.setTableModel(tbm);
+    }
+    
+    public String getMaxYear()
+    {
+        ResultSet resultset =ackReceiptModel.getMaxYear();
+          
+        try {
+            resultset.next();
+            return resultset.getString("MAX(YEAR(date))");
+        } catch (SQLException ex) {
+            Logger.getLogger(AcknowledgementReceiptController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    public String getMinYear()
+    {
+        ResultSet resultset =ackReceiptModel.getMinYear();
+        
+        try {
+            resultset.next();
+            return resultset.getString("MIN(YEAR(date))");
+        } catch (SQLException ex) {
+            Logger.getLogger(AcknowledgementReceiptController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
     
 }

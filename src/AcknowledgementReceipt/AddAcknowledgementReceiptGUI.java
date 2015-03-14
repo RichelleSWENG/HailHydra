@@ -33,7 +33,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     private float dedBalance;
     private String partNums[];
 
-    public AddAcknowledgementReceiptGUI(GUIController temp, AcknowledgementReceiptController controller)
+    public AddAcknowledgementReceiptGUI(GUIController temp)
     {
         super();
         numItems = 0;
@@ -42,7 +42,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         discount = 0;
         dedBalance = 0;
         guiController = temp;
-        mainController = controller;
         totalBalance = 0;
         cmbCustomer.setEditable(true);
 
@@ -148,9 +147,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         tbModel.addTableModelListener(this);
     
     }
-    public void setController(AcknowledgementReceiptController temp)
+    
+    public void setMainController(AcknowledgementReceiptController temp)
     {
-        mainController = temp;
+            mainController=temp;
     }
     
     public static void main(String args[])

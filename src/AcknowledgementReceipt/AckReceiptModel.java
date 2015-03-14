@@ -5,6 +5,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Database.DBConnection;
+import javax.swing.table.TableModel;
+import net.proteanit.sql.DbUtils;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -55,17 +57,35 @@ public class AckReceiptModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT customer.name, address, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id";
+            String sql = "SELECT company.name,date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
+            rs.beforeFirst();
         } catch (Exception e)
         {
             e.getMessage();
         }
         return rs;
     }
-
+    
+    public ResultSet getAllDetailbyDate(String startDate,String endDate)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+            rs = statement.executeQuery(sql);
+            rs.last();                        // Get Item Count
+            itemCount = rs.getRow();
+            rs.beforeFirst();
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
     public ResultSet searchDetail(String field, String filter, String startDate, String endDate)
     {
         ResultSet rs = null;
@@ -73,28 +93,17 @@ public class AckReceiptModel
         {
             statement = db.createStatement();
             String sql = "";
-            if (filter == "name")
+            if (filter.equalsIgnoreCase("name"))
             {
-                if (startDate != null && endDate != null)
-                {
-                    sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id AND customer.name LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-                } else
-                {
-                    sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id AND customer.name LIKE '%" + field + "%'";
-                }
-            } else
+                    sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND company.name LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            } else if(filter.equalsIgnoreCase("acknowledgement number"))
             {
-                if (startDate != null && endDate != null)
-                {
-                    sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id AND acknowledgement_receipt_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-                } else
-                {
-                    sql = "SELECT customer.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM customer,acknowledgementreceipt WHERE acknowledgementreceipt.customer_id=customer.customer_id AND acknowledgement_receipt_id LIKE '%" + field + "%'";
-                }
+                    sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND acknowledgement_receipt_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
+            rs.beforeFirst();
         } catch (Exception e)
         {
             e.getMessage();
@@ -233,5 +242,41 @@ public class AckReceiptModel
     public Item getItem(int index)
     {
         return items.get(index);
+    }
+    
+    public TableModel myModel(ResultSet rs)
+    {     
+        TableModel model = DbUtils.resultSetToTableModel(rs);
+        return model;
+    }
+    
+    public ResultSet getMinYear()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT MIN(YEAR(date)) FROM acknowledgementreceipt";
+            rs = statement.executeQuery(sql);
+            
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+     public ResultSet getMaxYear()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT MAX(YEAR(date)) FROM acknowledgementreceipt";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
     }
 }

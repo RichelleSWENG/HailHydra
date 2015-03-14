@@ -47,7 +47,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
                     });
     }
     
-    public void setController(AcknowledgementReceiptController temp)
+    public void setMainController(AcknowledgementReceiptController temp)
     {
             mainController=temp;
     }

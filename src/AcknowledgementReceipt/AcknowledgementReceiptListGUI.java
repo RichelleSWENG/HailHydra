@@ -25,6 +25,10 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class AcknowledgementReceiptListGUI extends JPanel 
 {
@@ -55,10 +59,9 @@ public class AcknowledgementReceiptListGUI extends JPanel
 	private GUIController guiController;
         private AcknowledgementReceiptController mainController;
 
-	public AcknowledgementReceiptListGUI(GUIController temp, AcknowledgementReceiptController controller) {
+	public AcknowledgementReceiptListGUI(GUIController temp) {
 		
                 guiController=temp;
-                mainController = controller;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -132,13 +135,57 @@ public class AcknowledgementReceiptListGUI extends JPanel
 			cmbToMonth.addItem(strMonths[i]);
 		}
 		
-		int yr = 1985;
-		for (int j = 0; j < 100; j++) {
-			cmbFromYear.addItem(new Integer(yr).toString());
-			cmbToYear.addItem(new Integer(yr).toString());
-			yr++;
-		}
-		
+		tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnName.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),0,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); 
+                            else if(rdbtnAckReceiptNum.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),1,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        }
+                    }});
 		tbModel = new DefaultTableModel() 
                 {
 			public boolean isCellEditable(int rowIndex, int mColIndex) 
@@ -211,12 +258,24 @@ public class AcknowledgementReceiptListGUI extends JPanel
 		rdbtnName.setSelected(true);
 		rdbtnName.setBounds(140, 80, 93, 30);
 		add(rdbtnName);
+                rdbtnName.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		rdbtnAckReceiptNum = new JRadioButton("Acknowledgement Receipt Number");
                 rdbtnAckReceiptNum.setBackground(SystemColor.textHighlight);
 		rdbtnAckReceiptNum.setFont(fntPlainText);
 		rdbtnAckReceiptNum.setBounds(235, 80, 401, 30);
 		add(rdbtnAckReceiptNum);
+                rdbtnAckReceiptNum.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnName);
@@ -226,6 +285,14 @@ public class AcknowledgementReceiptListGUI extends JPanel
 		btnViewAllReceipts.setFont(fntPlainText);
 		btnViewAllReceipts.setBounds(725, 190, 240, 40);
 		add(btnViewAllReceipts);
+                btnViewAllReceipts.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                ViewAll();
+                        }
+                    });
 		
 		btnViewAckReceipt = new JButton("View Acknowledgement Receipt");
 		btnViewAckReceipt.setFont(fntPlainText);
@@ -267,8 +334,55 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     });
 
 	}
-        
-        public void setController(AcknowledgementReceiptController temp)
+        public void setItemCount(int itemcount)
+        {
+            lblNumOfReceiptsFound.setText(Integer.toString(itemcount));
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbAckReceipt.setModel(tbm);
+            JTableHeader th = tbAckReceipt.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbAckReceipt.setModel(AllModel);
+
+            JTableHeader th = tbAckReceipt.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
+        }
+         
+        public void setMainController(AcknowledgementReceiptController temp)
         {
             mainController=temp;
         }
