@@ -236,7 +236,7 @@ public class ReturnSlipListGUI extends JPanel {
 		btnViewAllSlips.setBounds(725, 190, 240, 40);
 		add(btnViewAllSlips);
                 
-                btnViewReturnSlip = new JButton("View Return Slips");
+                btnViewReturnSlip = new JButton("View Return Slip");
 		btnViewReturnSlip.setFont(fntPlainText);
 		btnViewReturnSlip.setBounds(30, 545, 230, 40);
 		add(btnViewReturnSlip);
@@ -258,6 +258,14 @@ public class ReturnSlipListGUI extends JPanel {
 		btnAddCreditMemo.setFont(fntPlainText);
 		btnAddCreditMemo.setBounds(580, 545, 210, 40);
 		add(btnAddCreditMemo);
+                btnAddCreditMemo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                controller.changePanelToAddCreditMemo();
+                        }
+                    });
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
