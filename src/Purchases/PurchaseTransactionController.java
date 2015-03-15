@@ -42,6 +42,7 @@ public class PurchaseTransactionController {
             gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
     }
+    
     public void searchbyDate(String startDate,String endDate)
     {
         TableModel tbm;

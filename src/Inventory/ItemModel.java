@@ -128,46 +128,7 @@ public class ItemModel extends Model
 		}
 
 	}
-        
-        public ResultSet OrderReport()
-	{
-		ResultSet rs = null;
-		try
-		{
-			con = db.getConnection();
-			statement = con.createStatement();
-			String sql = "SELECT part_num, description,stock_minimum,quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum";
-			rs = statement.executeQuery(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-		return rs;
-	}
-	public ResultSet searchOrderReport(String field, String filter)
-	{
-		ResultSet rs = null;
-		String sql = "";
-		try
-		{
-			con = db.getConnection();
-			statement = con.createStatement();
-			if ("Part Number".equals(filter))
-				sql = "SELECT part_num, description,stock_minimum,quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND part_num LIKE '%"
-						+ field + "%'";
-			else
-				sql = "SELECT part_num, description,stock_minimum,quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND description LIKE '%"
-						+ field + "%'";
-			rs = statement.executeQuery(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-		return rs;
-		
-	}
-        
-    
+
          public TableModel myModel(ResultSet rs) 
          {
                 TableModel model=DbUtils.resultSetToTableModel(rs);
@@ -179,8 +140,6 @@ public class ItemModel extends Model
         return db.getConnectionStatus();
     }
     
-
-
     public int getItemcount()
     {
         return this.itemCount;

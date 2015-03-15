@@ -19,6 +19,12 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.SystemColor;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 
 public class CreditLimitReportGUI extends JPanel {
     
@@ -35,7 +41,7 @@ public class CreditLimitReportGUI extends JPanel {
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
-	
+	private ReportController mainController;
 	
 
 	public CreditLimitReportGUI(GUIController temp) {
@@ -73,6 +79,53 @@ public class CreditLimitReportGUI extends JPanel {
 		tfCustomer.setFont(fntPlainText);
 		tfCustomer.setBounds(135, 80, 307, 30);
 		add(tfCustomer);
+                tfCustomer.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfCustomer.getText().length() > 0)
+                        {
+                          
+                        } else if (tfCustomer.getText().length() == 0)  //if nothing is typed display all
+                        {
+                        }
+                    }});
 
 		tbModel = new DefaultTableModel() 
                 {
@@ -131,11 +184,25 @@ public class CreditLimitReportGUI extends JPanel {
 		btnViewAllReports.setFont(fntPlainText);
 		btnViewAllReports.setBounds(725, 110, 240, 40);
 		add(btnViewAllReports);
+                btnViewAllReports.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
                 
                 btnAddPayment = new JButton("Add Payment");
 		btnAddPayment.setFont(fntPlainText);
 		btnAddPayment.setBounds(600, 545, 165, 40);
 		add(btnAddPayment);
+                btnAddPayment.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
@@ -154,7 +221,42 @@ public class CreditLimitReportGUI extends JPanel {
 		
 		
 	}
-	
+	public void setItemCount(int itemcount)
+        {
+            lblNumOfReportsFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbCreditLimit.setModel(tbm);
+            JTableHeader th = tbCreditLimit.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(ReportController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllCreditModel();
+            tbCreditLimit.setModel(AllModel);
+
+            JTableHeader th = tbCreditLimit.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 3; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
         
         public static void main(String args[]){
             GUIController temp=new GUIController();

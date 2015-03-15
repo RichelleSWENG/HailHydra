@@ -19,11 +19,16 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
+import Purchases.PurchaseTransactionController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class OrderReportGUI extends JPanel {
 
@@ -48,6 +53,7 @@ public class OrderReportGUI extends JPanel {
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
+        private ReportController mainController;
 	
 
 	
@@ -91,6 +97,57 @@ public class OrderReportGUI extends JPanel {
 		tfSearch.setFont(fntPlainText);
 		tfSearch.setBounds(110, 120, 339, 30);
 		add(tfSearch);
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnPartNumber.isSelected())
+                                mainController.SearchSomethingfromOrder(tfSearch.getText(),0); 
+                            else if(rdbtnDescription.isSelected())
+                                mainController.SearchSomethingfromOrder(tfSearch.getText(),1);
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            ViewAll();
+                        }
+                    }});
 
                 tbModel = new DefaultTableModel();
                 
@@ -157,12 +214,24 @@ public class OrderReportGUI extends JPanel {
 		rdbtnPartNumber.setSelected(true);
 		rdbtnPartNumber.setBounds(144, 76, 157, 30);
 		add(rdbtnPartNumber);
+                rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
                 rdbtnDescription.setBackground(SystemColor.textHighlight);
 		rdbtnDescription.setBounds(299, 76, 157, 30);
 		add(rdbtnDescription);
+                rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         tfSearch.setText(null);
+                }
+                });
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnPartNumber);
@@ -172,6 +241,12 @@ public class OrderReportGUI extends JPanel {
 		btnViewAllItems.setFont(fntPlainText);
 		btnViewAllItems.setBounds(725, 150, 240, 40);
 		add(btnViewAllItems);
+                btnViewAllItems.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         ViewAll();
+                }
+                });
 
                 btnAddPurchaseTransaction = new JButton("Add Purchase Transaction");
 		btnAddPurchaseTransaction.setFont(fntPlainText);
@@ -199,6 +274,43 @@ public class OrderReportGUI extends JPanel {
 		
 		
 	}
+        
+        public void setItemCount(int itemcount)
+        {
+            lblNumOfItemsFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbOrderReport.setModel(tbm);
+            JTableHeader th = tbOrderReport.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(ReportController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllOrderModel();
+            tbOrderReport.setModel(AllModel);
+
+            JTableHeader th = tbOrderReport.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
         
         public static void main(String args[]){
           GUIController temp=new GUIController();

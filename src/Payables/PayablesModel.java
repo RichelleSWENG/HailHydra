@@ -2,27 +2,30 @@ package Payables;
 
 import Database.DBConnection;
 import HailHydra.Model;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-public class PayablesModel extends Model
+public class PayablesModel 
 {
     private int itemCount;
+    protected Connection db;
+    protected Statement statement;
     
     public PayablesModel(DBConnection db)
     {
-        super(db);
+        this.db=db.getConnection();
     }
 
-    @Override
     public ResultSet getDetail(String ID)
     {
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT payment_id,payment_type_id,amount,purchase_transaction_id,notes,date,approved_by,prepared_by,received_by FROM payments WHERE id='" + ID + "'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -34,14 +37,13 @@ public class PayablesModel extends Model
         }
         return rs;
     }
-
-    @Override
+    
     public ResultSet getAllDetail()
     {
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT payment_id,payment_type_id,amount,purchase_transaction_id,notes FROM payments";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -54,13 +56,12 @@ public class PayablesModel extends Model
         return rs;
     }
 
-    @Override
     public ResultSet searchDetail(String field, String filter)
     {
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -73,12 +74,11 @@ public class PayablesModel extends Model
         return rs;
     }
 
-    @Override
     public void addDetail(ArrayList list)
     {
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "";
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -87,12 +87,11 @@ public class PayablesModel extends Model
         }
     }
 
-    @Override
     public void editDetail(ArrayList list)
     {
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "";
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -102,12 +101,12 @@ public class PayablesModel extends Model
 
     }
 
-    @Override
+    
     public void deleteDetail(String ID)
     {
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "DELETE FROM payments WHERE payment_id='" + ID + "'";
             statement.executeUpdate(sql);
         } catch (Exception e)
@@ -122,7 +121,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT MAX(YEAR(date)) FROM purchasetransaction";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
@@ -137,7 +136,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT MIN(YEAR(date)) FROM purchasetransaction";
             rs = statement.executeQuery(sql);
             
@@ -154,7 +153,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id";
             System.out.println(sql);
             rs = statement.executeQuery(sql);
@@ -172,7 +171,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             System.out.println(sql);
             rs = statement.executeQuery(sql);
@@ -192,7 +191,7 @@ public class PayablesModel extends Model
         String sql = "";
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
               if (filter.equalsIgnoreCase("name"))
             {
                     sql="SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"' AND name LIKE '%"+ field +"%'";
@@ -232,7 +231,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -250,7 +249,7 @@ public class PayablesModel extends Model
         ResultSet rs = null;
         try
         {
-            statement = con.createStatement();
+            statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Closed' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count

@@ -20,7 +20,10 @@ import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoListGUI;
 import Database.DBConnection;
 import DebitMemo.AddDebitMemoGUI;
+import DebitMemo.DebitMemoController;
 import DebitMemo.DebitMemoListGUI;
+import DebitMemo.DebitMemoModel;
+//import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
@@ -51,6 +54,8 @@ import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
 import Reports.OrderReportGUI;
 import Reports.TermsReportGUI;
+import ReturnSlip.ReturnSlipController;
+import ReturnSlip.ReturnSlipModel;
 import Sales.AddSalesInvoiceGUI;
 import Sales.ModifySalesInvoiceGUI;
 import Sales.SalesInvoiceController;
@@ -350,7 +355,10 @@ public class GUIController
     }
     public void changePanelToReturnSlip()
     {
-            getContentPanel().add(new ReturnSlipListGUI(this));
+            ReturnSlipListGUI tempGUI = new ReturnSlipListGUI(this);
+            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     public void changePanelToAddReturnSlip()
@@ -373,7 +381,10 @@ public class GUIController
     
     public void changePanelToDebitMemo()
     {
-            getContentPanel().add(new DebitMemoListGUI(this));
+            DebitMemoListGUI tempGUI = new DebitMemoListGUI(this);
+            tempGUI.setMainController(new DebitMemoController(new DebitMemoModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -382,6 +393,12 @@ public class GUIController
             getContentPanel().add(new AddDebitMemoGUI(this));
             frameRevalidate();
     }
+    
+    /*public void changePanelToViewDebitMemo()
+    {
+            getContentPanel().add(new ViewDebitMemoGUI(this));
+            frameRevalidate();
+    }*/
     
     public void changePanelToCreditMemo()
     {
