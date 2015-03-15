@@ -220,11 +220,4 @@ public class CreditMemoGUI extends JPanel
 		chckbxReplacement.setBounds(30, 70, 200, 30);
 		pnlType.add(chckbxReplacement);
         }
-        
-        
-        
-        public static void main(String args[]){
-           GUIController temp=new GUIController();
-           temp.changePanelToAddCreditMemo();
-        }
 }
