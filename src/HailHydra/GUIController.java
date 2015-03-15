@@ -25,6 +25,7 @@ import DebitMemo.AddDebitMemoGUI;
 import DebitMemo.DebitMemoController;
 import DebitMemo.DebitMemoListGUI;
 import DebitMemo.DebitMemoModel;
+import DebitMemo.ViewDebitMemoGUI;
 //import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
