@@ -407,11 +407,11 @@ public class GUIController
             frameRevalidate();
     }
     
-    /*public void changePanelToViewDebitMemo()
+    public void changePanelToViewDebitMemo()
     {
             getContentPanel().add(new ViewDebitMemoGUI(this));
             frameRevalidate();
-    }*/
+    }
     
     public void changePanelToCreditMemo()
     {
