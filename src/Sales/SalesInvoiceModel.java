@@ -25,6 +25,9 @@ public class SalesInvoiceModel
     public SalesInvoiceModel(DBConnection db)
     {
         this.db = db.getConnection();
+        customers = new ArrayList<>();
+        items = new ArrayList<>();
+        siLineItemModel = new SILineItemModel(db);
     }
 
     public ResultSet getDetail(String ID)

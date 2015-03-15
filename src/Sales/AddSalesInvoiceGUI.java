@@ -77,7 +77,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
                                 mainController.addPendingItem(new SILineItem(tfSINum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
                             mainController.addSI(tfSINum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open", tfPwdNum.getText(), Float.parseFloat(ftfVat.getText()));
-                            guiController.changePanelToAcknowledgementReceipt();
+                            guiController.changePanelToSalesInvoice();
                         } catch (NullPointerException exception)
                         {
                             JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. I do not like you po", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
