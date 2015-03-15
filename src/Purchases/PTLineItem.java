@@ -20,11 +20,12 @@ public class PTLineItem extends Item
         this.line_total = 0;
     }
 
-    public PTLineItem(String purchase_transaction_id, int quantity, float unit_price, float line_total)
+    public PTLineItem(String purchase_transaction_id, int quantity, String partNum, float unit_price, float line_total)
     {
         super();
         this.purchase_transaction_id = purchase_transaction_id;
         this.quantity = quantity;
+        this.partNum = partNum;
         this.unit_price = unit_price;
         this.line_total = line_total;
     }

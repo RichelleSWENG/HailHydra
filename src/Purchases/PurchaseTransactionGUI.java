@@ -35,7 +35,7 @@ public class PurchaseTransactionGUI extends JPanel
 	protected JLabel lblHeader, lblPurchaseTransactionNum, lblSupplier, lblAddress, lblDate, lblPONum, lblSINum,
 			lblORNum, lblOrderedBy, lblReceivedBy, lblReceivingNotes, lblDiscount, lblSubtotal, lblVat, lblTotal,
 			lblBalance;
-	protected JTextField tfPurchaseTransactionNum, tfPONum, tfSINum, tfORNum, tfOrderedBy, tfReceivedBy;
+	protected JTextField tfPurchaseTransactionNum, tfPONum, tfSINum, tfDRNum, tfOrderedBy, tfReceivedBy;
 	protected JFormattedTextField ftfDate, ftfDiscount, ftfSubtotal, ftfTotal, ftfVat, ftfBalance;
 	protected JTextArea taAddress, taReceivingNotes;
 	protected String strHeader[] =
@@ -166,10 +166,10 @@ public class PurchaseTransactionGUI extends JPanel
 		tfSINum.setBounds(656, 170, 309, 30);
 		add(tfSINum);
 
-		tfORNum = new JTextField();
-		tfORNum.setFont(fntPlainText);
-		tfORNum.setBounds(665, 200, 300, 30);
-		add(tfORNum);
+		tfDRNum = new JTextField();
+		tfDRNum.setFont(fntPlainText);
+		tfDRNum.setBounds(665, 200, 300, 30);
+		add(tfDRNum);
 
 		tfOrderedBy = new JTextField();
 		tfOrderedBy.setFont(fntPlainText);

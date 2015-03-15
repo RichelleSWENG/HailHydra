@@ -21,7 +21,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI
 		tfPurchaseTransactionNum.setEditable(false);
 		tfPONum.setEditable(false);
 		tfSINum.setEditable(false);
-		tfORNum.setEditable(false);
+		tfDRNum.setEditable(false);
 		tfOrderedBy.setEditable(false);
 		tfReceivedBy.setEditable(false);
 		ftfDate.setEditable(false);
