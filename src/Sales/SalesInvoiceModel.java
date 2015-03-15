@@ -19,7 +19,7 @@ public class SalesInvoiceModel
     
     private int itemCount = 0;
     private ArrayList<Company> customers;
-    private ArrayList<Item> items;
+    private ArrayList<SILineItem> items;
     private SILineItemModel siLineItemModel;
     
     public SalesInvoiceModel(DBConnection db)
@@ -127,14 +127,33 @@ public class SalesInvoiceModel
         }
     }
     
-    public void editDetail(ArrayList list)
+    public void editDetail(SalesInvoice obj)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        SalesInvoice si = obj;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "UPDATE salesinvoice SET salesinvoice.company_id='" + si.getCompany_id() + "',date='" + si.getDate() + "',po_num='" + si.getPo_num() + "',delivery_receipt_num='" + si.getDelivery_receipt_num() + "',sales_person='" + si.getSales_person() + "',ordered_by='" + si.getOrdered_by() + "',delivered_by='" + si.getDelivered_by() + "',delivery_notes='" + si.getDelivery_notes() + "',discount='" + si.getDiscount() + "',original_amount='" + si.getOriginal_amount() + "',current_balance='" + si.getCurrent_balance() + "' WHERE sales_invoice_id LIKE '" + si.getSales_invoice_id() + "'";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+
     }
 
     public void deleteDetail(String ID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            statement = db.createStatement();
+            String sql = "DELETE FROM salesinvoice WHERE sales_invoice_id='" + ID + "'";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+
     }
     
     public ResultSet getMinYear()
@@ -177,5 +196,96 @@ public class SalesInvoiceModel
     {     
         TableModel model = DbUtils.resultSetToTableModel(rs);
         return model;
+    }
+    
+    public ArrayList<Company> getCustomers()
+    {
+        customers = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM company WHERE type LIKE '%customer%'";
+            rs = statement.executeQuery(sql);
+            Company tempCustomer;
+            while (rs.next())
+            {
+                tempCustomer = new Company();
+                tempCustomer.setId(rs.getInt("company_id"));
+                tempCustomer.setName(rs.getString("name"));
+                tempCustomer.setAddressLoc(rs.getString("address_location"));
+                tempCustomer.setAddressCity(rs.getString("address_city"));
+                tempCustomer.setAddressCountry(rs.getString("address_country"));
+                tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                tempCustomer.setPhone1(rs.getString("phone1"));
+                tempCustomer.setPhone2(rs.getString("phone2"));
+                tempCustomer.setPhone3(rs.getString("phone3"));
+                tempCustomer.setFaxNum(rs.getString("fax_num"));
+                tempCustomer.setWebsite(rs.getString("website"));
+                tempCustomer.setEmail(rs.getString("email"));
+                tempCustomer.setContactPerson(rs.getString("contact_person"));
+                tempCustomer.setStatus(rs.getString("status"));
+                tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                tempCustomer.setTerms(rs.getInt("terms"));
+                tempCustomer.setType(rs.getString("type"));
+                customers.add(tempCustomer);
+            }
+            System.out.println(customers.size());
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return customers;
+    }
+    
+     public ArrayList<SILineItem> getItems(String customerType)
+    {
+        items = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM item";
+            rs = statement.executeQuery(sql);
+            SILineItem tempItem;
+            while (rs.next())
+            {
+                tempItem = new SILineItem();
+                tempItem.setPartNum(rs.getString("part_num"));
+                tempItem.setDescription(rs.getString("description"));
+                
+                if (customerType.equals("Walk-in Customer"))
+                    tempItem.setPrice(rs.getFloat("walk_in_price"));
+                if (customerType.equals("Retail Customer"))
+                    tempItem.setPrice(rs.getFloat("traders_price"));
+                if (customerType.equals("Sister Company Customer"))
+                    tempItem.setPrice(rs.getFloat("sister_company_price"));
+                items.add(tempItem);
+                
+                tempItem.setMinimum(rs.getInt("stock_minimum"));
+                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+            }
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return items;
+    }
+    
+    public Company getCustomer(int index)
+    {
+        return customers.get(index);
+    }
+    
+    public Item getItem(int index)
+    {
+        return items.get(index);
+    }
+    
+    public int getAvailQuantity(int index)
+    {
+        return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
 }

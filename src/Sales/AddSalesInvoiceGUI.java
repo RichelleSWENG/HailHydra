@@ -23,6 +23,15 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI
 	private JButton btnAddItem, btnSubmit, btnCancel;
 	private GUIController guiController;
 	private SalesInvoiceController mainController;
+        private int numItems;
+        private float totalBalance;
+        private float totalItemPrice;
+        private float tentativeTotal;
+        private float discount;
+        private final float defaultVal = 0;
+        private float dedBalance;
+        private String partNums[];
+        private Company c;
 
 	public AddSalesInvoiceGUI(GUIController temp)
 	{
