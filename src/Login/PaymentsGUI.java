@@ -1,5 +1,3 @@
-
-
 package Login;
 
 import HailHydra.GUIController;
