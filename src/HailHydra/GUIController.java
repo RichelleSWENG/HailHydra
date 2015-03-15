@@ -57,6 +57,8 @@ import Purchases.ViewPurchaseTransactionGUI;
 import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
 import Reports.OrderReportGUI;
+import Reports.ReportController;
+import Reports.ReportModel;
 import Reports.TermsReportGUI;
 import ReturnSlip.ReturnSlipController;
 import ReturnSlip.ReturnSlipModel;
@@ -387,7 +389,10 @@ public class GUIController
     
     public void changePanelToOrderReport()
     {
-            getContentPanel().add(new OrderReportGUI(this));
+            OrderReportGUI tempGUI=new OrderReportGUI(this);
+            tempGUI.setMainController(new ReportController(new ReportModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
