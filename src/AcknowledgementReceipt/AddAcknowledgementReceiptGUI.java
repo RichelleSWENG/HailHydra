@@ -30,6 +30,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     private float totalItemPrice;
     private float tentativeTotal;
     private float discount;
+    private final float defaultVal = 0;
     private float dedBalance;
     private String partNums[];
     private Company c;
@@ -62,15 +63,9 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                         try
                         {
                             mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()), tbModel.getValueAt(numItems, 1).toString(), Float.parseFloat(tbModel.getValueAt(numItems, 3).toString()), Float.parseFloat(tbModel.getValueAt(numItems, 4).toString())));
-                            Arrays.asList(partNums).remove(tbModel.getValueAt(numItems, 0).toString());
-                            System.out.println(partNums.length);
                             numItems++;
-                            TableColumn col = tbARReceipt.getColumnModel().getColumn(1);
-                            col.setCellEditor(new MyComboBoxEditor(partNums));
-                            col.setCellRenderer(new MyComboBoxRenderer(partNums));
                             tbModel.setRowCount(numItems + 1);
-                            totalItemPrice = 0;
-                            tentativeTotal = 0;
+                            tbModel.setValueAt(defaultVal, numItems, 4);
                         }
                         catch (NullPointerException exception)
                         {
@@ -135,6 +130,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     col.setCellEditor(new MyComboBoxEditor(partNums));
                     col.setCellRenderer(new MyComboBoxRenderer(partNums));
                 }
+                numItems = 0;
+                tbModel.setValueAt(defaultVal, numItems, 4);
             }
         });
         
@@ -149,6 +146,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         });
 
         tbModel.setRowCount(1);
+        tbModel.setValueAt(defaultVal, numItems, 4);
         tbModel.addTableModelListener(this);
     
     }
@@ -168,60 +166,56 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     {
         if (e.getColumn() == 0)
         {
-            if (tbModel.getValueAt(numItems, 1) != null)
+            
+            if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
             {
-                String cmb = tbModel.getValueAt(numItems, 1).toString();
-                if (tbModel.getValueAt(numItems, 0) != null && !cmb.equals("") && !tbModel.getValueAt(numItems, 0).toString().equals(""))
-                {    
-                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()) * Float.parseFloat(tbModel.getValueAt(numItems, 3).toString());
-                    tbModel.setValueAt(totalItemPrice, numItems, 4);
-                    totalBalance = totalBalance + totalItemPrice - tentativeTotal;
-                    dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance; 
-                    tentativeTotal = totalItemPrice;
-                    ftfTotal.setText(String.valueOf(totalBalance));
-                    ftfBalance.setText(String.valueOf(dedBalance));
+                String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
+                if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1))
+                {
+                    if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
+                    {    
+                        totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
+                        tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+                        calcTotalBalance();
+                    }
+                }
+                else
+                {
+                    JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy" + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
                 }
             }
         }
         
         if (e.getColumn() == 1)
         {
-            if (tbModel.getValueAt(numItems, 1) != null)
+            if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
             {
-                String cmb = tbModel.getValueAt(numItems, 1).toString();
+                String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
                 if (!cmb.equals(""))
                 {
-                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), numItems, 2);
-                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), numItems, 3);
+                    tbModel.setValueAt("0", e.getFirstRow(), 0);
+                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), e.getFirstRow(), 2);
+                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), e.getFirstRow(), 3);
                 }
-                if (tbModel.getValueAt(numItems, 0) != null && !cmb.equals("") && !tbModel.getValueAt(numItems, 0).toString().equals(""))
+                if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {    
-                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()) * Float.parseFloat(tbModel.getValueAt(numItems, 3).toString());
-                    tbModel.setValueAt(totalItemPrice, numItems, 4);
-                    totalBalance = totalBalance + totalItemPrice - tentativeTotal;
-                    dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance; 
-                    tentativeTotal = totalItemPrice;
-                    ftfTotal.setText(String.valueOf(totalBalance));
-                    ftfBalance.setText(String.valueOf(dedBalance));
+                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
+                    tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+                    calcTotalBalance();
                 }
             }
         }
         
         if (e.getColumn() == 3)
         {
-            if (tbModel.getValueAt(numItems, 1) != null)
+            if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
             {
-                String cmb = tbModel.getValueAt(numItems, 1).toString();
-                if (tbModel.getValueAt(numItems, 0) != null && !cmb.equals("") && !tbModel.getValueAt(numItems, 0).toString().equals(""))
+                String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
+                if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {    
-                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()) * Float.parseFloat(tbModel.getValueAt(numItems, 3).toString());
-                    tbModel.setValueAt(totalItemPrice, numItems, 4);
-                    //tbModel.setValueAt(Float.parseFloat(tbModel.getValueAt(numItems, 3).toString()), numItems, 3);
-                    totalBalance = totalBalance + totalItemPrice - tentativeTotal;
-                    dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance; 
-                    tentativeTotal = totalItemPrice;
-                    ftfTotal.setText(String.valueOf(totalBalance));
-                    ftfBalance.setText(String.valueOf(dedBalance));
+                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
+                    tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+                    calcTotalBalance();
                 }
             }
             
@@ -243,6 +237,19 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
             customerNames[i] = mainController.getCustomers().get(i - 1).getName();
         }
         cmbCustomer.setModel(new DefaultComboBoxModel(customerNames));
+    }
+    
+    public void calcTotalBalance()
+    {
+        int i;
+        totalBalance = 0;
+        for (i = 0; i < tbModel.getRowCount(); i ++)
+        {
+            totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
+        }
+        dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance;
+        ftfTotal.setText(String.valueOf(totalBalance));
+        ftfBalance.setText(String.valueOf(dedBalance));
     }
 
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer

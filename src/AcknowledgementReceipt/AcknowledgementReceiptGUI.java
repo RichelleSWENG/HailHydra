@@ -219,7 +219,7 @@ public class AcknowledgementReceiptGUI extends JPanel
                         {
                             if (cmbCustomer.getSelectedItem() == null || cmbCustomer.getSelectedItem().equals(""))
                                 return false;
-                            if (mColIndex == 2 || mColIndex == 4 || rowIndex != getRowCount()-1)
+                            if (mColIndex == 2 || mColIndex == 4)
 				return false;
                             else
                                 return true;

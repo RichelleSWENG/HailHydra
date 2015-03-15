@@ -10,6 +10,8 @@ public class Item
     private String partNum;
     private String description;
     private float price;
+    private int minimum;
+    private int quantityFunc;
 
     public Item()
     {
@@ -18,11 +20,13 @@ public class Item
         price = 0;
     }
     
-    public Item(String partNum, String description, float price)
+    public Item(String partNum, String description, float price, int minimum, int quantityFunc)
     {
         this.partNum = partNum;
         this.description = description;
         this.price = price;
+        this.minimum = minimum;
+        this.quantityFunc = quantityFunc;
     }
     
     /**
@@ -65,6 +69,26 @@ public class Item
     public void setPrice(float price)
     {
         this.price = price;
+    }
+
+    public int getMinimum()
+    {
+        return minimum;
+    }
+
+    public void setMinimum(int minimum)
+    {
+        this.minimum = minimum;
+    }
+
+    public int getQuantityFunc()
+    {
+        return quantityFunc;
+    }
+
+    public void setQuantityFunc(int quantityFunc)
+    {
+        this.quantityFunc = quantityFunc;
     }
     
     

@@ -60,6 +60,11 @@ public class AcknowledgementReceiptController
         //ackReceiptModel.addDetail(rcpt);
     }
     
+    public int getAvailQuantity(int index)
+    {
+        return ackReceiptModel.getAvailQuantity(index);
+    }
+    
     TableModel getAllModel()
     {
             TableModel tbm = ackReceiptModel.myModel(ackReceiptModel.getAllDetail());

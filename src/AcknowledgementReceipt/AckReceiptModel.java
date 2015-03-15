@@ -197,7 +197,7 @@ public class AckReceiptModel
                 tempCustomer.setStatus(rs.getString("status"));
                 tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
                 tempCustomer.setTerms(rs.getInt("terms"));
-                tempCustomer.setType("customer");
+                tempCustomer.setType(rs.getString("type"));
                 customers.add(tempCustomer);
             }
             System.out.println(customers.size());
@@ -232,7 +232,9 @@ public class AckReceiptModel
                 if (customerType.equals("Sister Company Customer"))
                     tempItem.setPrice(rs.getFloat("sister_company_price"));
                 items.add(tempItem);
-                System.out.println(tempItem.getPrice());
+                
+                tempItem.setMinimum(rs.getInt("stock_minimum"));
+                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
             }
 
         } catch (Exception e)
@@ -250,6 +252,11 @@ public class AckReceiptModel
     public Item getItem(int index)
     {
         return items.get(index);
+    }
+    
+    public int getAvailQuantity(int index)
+    {
+        return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
     
     public TableModel myModel(ResultSet rs)
