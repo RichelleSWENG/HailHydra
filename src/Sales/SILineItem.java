@@ -1,42 +1,32 @@
-package AcknowledgementReceipt;
+package Sales;
 
 import Classes.Item;
 
-public class ARLineItem extends Item
+public class SILineItem extends Item
 {
-	private String acknowledgement_receipt_id;
+	private String sales_invoice_id;
 	private int quantity;
         private float unit_price;
 	private float line_total;
 
-        public ARLineItem()
+        public SILineItem()
         {
                 super();
-                this.acknowledgement_receipt_id="";
+                this.sales_invoice_id="";
                 this.quantity=0;
                 this.partNum = "";
 		this.unit_price=0;
 		this.line_total=0;
         }
 	
-        public ARLineItem(String acknowledgement_receipt_id,int quantity,String part_num,float unit_price,float line_total)
+        public SILineItem(String sales_invoice_id,int quantity,String part_num,float unit_price,float line_total)
 	{
                 super();
-		this.acknowledgement_receipt_id=acknowledgement_receipt_id;
+		this.sales_invoice_id=sales_invoice_id;
 		this.quantity=quantity;
 		this.partNum = part_num;
 		this.unit_price=unit_price;
 		this.line_total=line_total;
-	}
-
-	public String getAcknowledgement_receipt_id()
-	{
-		return acknowledgement_receipt_id;
-	}
-
-	public void setAcknowledgement_receipt_id(String acknowledgement_receipt_id)
-	{
-		this.acknowledgement_receipt_id = acknowledgement_receipt_id;
 	}
 
 	public int getQuantity()
@@ -68,6 +58,16 @@ public class ARLineItem extends Item
 	{
 		this.line_total = line_total;
 	}
+
+        public String getSales_invoice_id()
+        {
+            return sales_invoice_id;
+        }
+
+        public void setSales_invoice_id(String sales_invoice_id)
+        {
+            this.sales_invoice_id = sales_invoice_id;
+        }
 	
 	
 }

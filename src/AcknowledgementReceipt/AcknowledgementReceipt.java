@@ -17,7 +17,6 @@ public class AcknowledgementReceipt
 	private float discount;
 	private float current_balance;
 	private String status;
-	private String address;
 	private ArrayList<ARLineItem> list;
 
         public AcknowledgementReceipt()
@@ -35,12 +34,11 @@ public class AcknowledgementReceipt
 		this.discount=0;
 		this.current_balance=0;
 		this.status="";
-		this.address="";
 		this.list=new ArrayList<>();
         }
 	
         
-	public AcknowledgementReceipt(String acknowledgement_receipt_id,int company_id,String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance,String status,String address,ArrayList<ARLineItem> list)
+	public AcknowledgementReceipt(String acknowledgement_receipt_id,int company_id,String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance,String status,ArrayList<ARLineItem> list)
 	{
 		this.acknowledgement_receipt_id=acknowledgement_receipt_id;
 		this.company_id=company_id;
@@ -55,7 +53,6 @@ public class AcknowledgementReceipt
 		this.discount=discount;
 		this.current_balance=current_balance;
 		this.status=status;
-		this.address=address;
 		this.list=list;
 	}
 
@@ -189,19 +186,11 @@ public class AcknowledgementReceipt
 		this.status = status;
 	}
 
-	public String getAddress()
-	{
-		return address;
-	}
-
-	public void setAddress(String address)
-	{
-		this.address = address;
-	}
 	public void addItem(ARLineItem line)
 	{
 		list.add(line);
 	}
+        
 	public void removeItem(ARLineItem line)
 	{
 		list.remove(line);

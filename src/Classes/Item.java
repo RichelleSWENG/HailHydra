@@ -7,17 +7,19 @@ package Classes;
 
 public class Item
 {
-    private String partNum;
-    private String description;
-    private float price;
-    private int minimum;
-    private int quantityFunc;
+    protected String partNum;
+    protected String description;
+    protected float price;
+    protected int minimum;
+    protected int quantityFunc;
 
     public Item()
     {
         partNum = "";
         description = "";
         price = 0;
+        minimum = 0;
+        quantityFunc = 0;
     }
     
     public Item(String partNum, String description, float price, int minimum, int quantityFunc)

@@ -1,5 +1,6 @@
-package AcknowledgementReceipt;
+package Sales;
 
+import Classes.Item;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -7,21 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import Database.DBConnection;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Jolo Simeon
- */
-public class ARLineItemModel 
+
+public class SILineItemModel 
 {
 	protected Connection db;
 	protected Statement statement;
 
-    public ARLineItemModel(DBConnection db)
+    public SILineItemModel(DBConnection db)
     {
         this.db=db.getConnection();
     }
@@ -32,7 +25,7 @@ public class ARLineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT quantity,part_num,unit_price,line_total FROM arlineitem WHERE acknowledgement_receipt_id='"+ID+"' AND part_num='"+partnum+"'";
+            String sql = "SELECT quantity,part_num,unit_price,line_total FROM silineitem WHERE acknowledgement_receipt_id='"+ID+"' AND part_num='"+partnum+"'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
@@ -47,7 +40,7 @@ public class ARLineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT quantity,part_num,unit_price,line_total FROM arlineitem WHERE acknowledgement_receipt_id='"+ID+"'";
+            String sql = "SELECT quantity,part_num,unit_price,line_total FROM silineitem WHERE acknowledgement_receipt_id='"+ID+"'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
@@ -56,13 +49,12 @@ public class ARLineItemModel
         return rs;
     }
 
-    public void addDetail(Object obj)
+    public void addDetail(SILineItem lineitem)
     {
-    	ARLineItem lineitem=(ARLineItem)obj;
         try
         {
             statement = db.createStatement();
-            String sql = "INSERT INTO arlineitem(acknowledgement_receipt_id,quantity,part_num,unit_price,line_total) VALUES('"+lineitem.getAcknowledgement_receipt_id()+"','"+lineitem.getQuantity()+"','"+lineitem.getPartNum()+"','"+lineitem.getUnit_price()+"','"+lineitem.getLine_total()+"')";
+            String sql = "INSERT INTO silineitem(sales_invoice_id,quantity,part_num,unit_price,line_total) VALUES('"+lineitem.getSales_invoice_id()+"','"+lineitem.getQuantityFunc()+"','"+lineitem.getPartNum()+"','"+lineitem.getPrice()+"','"+lineitem.getLine_total()+"')";
             statement.executeUpdate(sql);
             System.out.println(sql);
         } catch (Exception e)
@@ -71,13 +63,12 @@ public class ARLineItemModel
         }
     }
 
-    public void editDetail(Object obj)
+    public void editDetail(SILineItem lineitem)
     {
-    	ARLineItem lineitem=(ARLineItem)obj;
         try
         {
             statement = db.createStatement();
-            String sql = "UPDATE arlineitem SET quantity='"+lineitem.getQuantity()+"',unit_price='"+lineitem.getUnit_price()+",line_total='"+lineitem.getLine_total()+"' WHERE acknowledgement_receipt_id='"+lineitem.getAcknowledgement_receipt_id()+"' AND part_num='"+lineitem.getPartNum()+"'";
+            String sql = "UPDATE silineitem SET quantity='"+lineitem.getQuantity()+"',unit_price='"+lineitem.getUnit_price()+",line_total='"+lineitem.getLine_total()+"' WHERE acknowledgement_receipt_id='"+lineitem.getSales_invoice_id()+"' AND part_num='"+lineitem.getPartNum()+"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
@@ -91,7 +82,7 @@ public class ARLineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "DELETE FROM arlineitem WHERE acknowledgement_receipt_id='"+ID+"' AND part_num='"+partnum+"'";
+            String sql = "DELETE FROM silineitem WHERE sales_invoice_id='"+ID+"' AND part_num='"+partnum+"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
@@ -104,7 +95,7 @@ public class ARLineItemModel
     	try
         {
             statement = db.createStatement();
-            String sql = "DELETE FROM arlineitem WHERE acknowledgement_receipt_id='"+ID+"'";
+            String sql = "DELETE FROM silineitem WHERE sales_invoice_id='"+ID+"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {

@@ -78,8 +78,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                         {
                             int i;
                             for (i = 0; i < tbModel.getRowCount(); i++)
-                                mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
-                            mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), taAddress.getText(), "open");
+                            {
+                                mainController.addPendingItem(new ARLineItem(tfARNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
+                            }
+                            mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open");
                             guiController.changePanelToAcknowledgementReceipt();
                         }
                         catch (NullPointerException exception)
@@ -140,7 +142,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance; 
+                dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100; 
                 ftfBalance.setText(String.valueOf(dedBalance));
             }
         });
@@ -262,7 +264,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         {
             totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
-        dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100 * totalBalance;
+        dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
         ftfTotal.setText(String.valueOf(totalBalance));
         ftfBalance.setText(String.valueOf(dedBalance));
     }

@@ -1,5 +1,8 @@
 package Sales;
 
+import AcknowledgementReceipt.ARLineItemModel;
+import Classes.Company;
+import Classes.Item;
 import Database.DBConnection;
 import HailHydra.Model;
 import java.sql.Connection;
@@ -13,7 +16,12 @@ public class SalesInvoiceModel
 {   
     protected Connection db;
     protected Statement statement;
-    private int itemCount=0;
+    
+    private int itemCount = 0;
+    private ArrayList<Company> customers;
+    private ArrayList<Item> items;
+    private SILineItemModel siLineItemModel;
+    
     public SalesInvoiceModel(DBConnection db)
     {
         this.db = db.getConnection();
@@ -97,9 +105,26 @@ public class SalesInvoiceModel
     }
     
     
-    public void addDetail(ArrayList list)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public void addDetail(SalesInvoice obj)
+     {
+ 
+        SalesInvoice si = obj;
+        try
+        {
+        
+            statement = db.createStatement();
+            String sql = "INSERT INTO salesinvoice(sales_invoice_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES('" + si.getSales_invoice_id() + "','" + si.getCompany_id()  + "','" + si.getDate() + "','" + si.getPo_num() + "','" + si.getDelivery_receipt_num() + "','" + si.getSales_person() + "','" + si.getOrdered_by() + "','" + si.getDelivered_by() + "','" + si.getDelivery_notes() + "','" + si.getDiscount() + "','" + si.getOriginal_amount() + "','" + si.getCurrent_balance() + "','" + si.getStatus()+"')";
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            int i;
+            for (i = 0; i < si.getItems().size(); i++)
+            {
+                siLineItemModel.addDetail(si.getItems().get(i));
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
     
     public void editDetail(ArrayList list)

@@ -10,15 +10,6 @@ import Database.DBConnection;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-/**
- *
- * @author Jolo Simeon
- */
 public class AckReceiptModel
 {
 
@@ -27,7 +18,7 @@ public class AckReceiptModel
 
     private int itemCount = 0;
     private ArrayList<Company> customers;
-    private ArrayList<Item> items;
+    private ArrayList<ARLineItem> items;
     private ARLineItemModel arLineItemModel;
 
     public AckReceiptModel(DBConnection db)
@@ -113,7 +104,7 @@ public class AckReceiptModel
         return rs;
     }
 
-     public void addDetail(AcknowledgementReceipt obj)
+    public void addDetail(AcknowledgementReceipt obj)
     {
  
         AcknowledgementReceipt ar = obj;
@@ -127,7 +118,6 @@ public class AckReceiptModel
             int i;
             for (i = 0; i < ar.getItems().size(); i++)
             {
-                ar.getItems().get(i).setAcknowledgement_receipt_id(ar.getAcknowledgement_receipt_id());
                 arLineItemModel.addDetail(ar.getItems().get(i));
             }
         } catch (Exception e)
@@ -142,7 +132,7 @@ public class AckReceiptModel
         try
         {
             statement = db.createStatement();
-            String sql = "UPDATE acknowledgementreceipt SET acknowledgementreceipt.company_id='" + ar.getCompany_id() + "',date='" + ar.getDate() + "',po_num='" + ar.getPo_num() + "',delivery_receipt_num='" + ar.getDelivery_receipt_num() + "',sales_person='" + ar.getSales_person() + "',ordered_by='" + ar.getOrdered_by() + "',delivered_by='" + ar.getDelivered_by() + "',delivery_notes='" + ar.getDelivery_notes() + "',discount='" + ar.getDiscount() + "',original_amount='" + ar.getOriginal_amount() + "',current_balance='" + ar.getCurrent_balance() + "',address='" + ar.getAddress() + "' WHERE acknowledgement_receipt_id LIKE '" + ar.getAcknowledgement_receipt_id() + "'";
+            String sql = "UPDATE acknowledgementreceipt SET acknowledgementreceipt.company_id='" + ar.getCompany_id() + "',date='" + ar.getDate() + "',po_num='" + ar.getPo_num() + "',delivery_receipt_num='" + ar.getDelivery_receipt_num() + "',sales_person='" + ar.getSales_person() + "',ordered_by='" + ar.getOrdered_by() + "',delivered_by='" + ar.getDelivered_by() + "',delivery_notes='" + ar.getDelivery_notes() + "',discount='" + ar.getDiscount() + "',original_amount='" + ar.getOriginal_amount() + "',current_balance='" + ar.getCurrent_balance() + "' WHERE acknowledgement_receipt_id LIKE '" + ar.getAcknowledgement_receipt_id() + "'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
@@ -211,7 +201,7 @@ public class AckReceiptModel
         return customers;
     }
     
-     public ArrayList<Item> getItems(String customerType)
+     public ArrayList<ARLineItem> getItems(String customerType)
     {
         items = new ArrayList<>();
         ResultSet rs;
@@ -220,10 +210,10 @@ public class AckReceiptModel
             statement = db.createStatement();
             String sql = "SELECT * FROM item";
             rs = statement.executeQuery(sql);
-            Item tempItem;
+            ARLineItem tempItem;
             while (rs.next())
             {
-                tempItem = new Item();
+                tempItem = new ARLineItem();
                 tempItem.setPartNum(rs.getString("part_num"));
                 tempItem.setDescription(rs.getString("description"));
                 
