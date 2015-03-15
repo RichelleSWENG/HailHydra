@@ -273,15 +273,8 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction = new JTable(tbModel)
 		{
 			public TableCellRenderer getCellRenderer(int row, int column)
-			{
-				return new ComboTableRenderer();
-			}
-			
-			public boolean isCellEditable(int rowIndex, int mColIndex)
-			{
-				if( mColIndex != 2 && mColIndex != 4)
-					return true;
-				return false;
+                        {
+				return new TableRenderer();
 			}
 		};
 		//setUpComboColumn(tbPurchaseTransaction, tbPurchaseTransaction.getColumnModel().getColumn(1));

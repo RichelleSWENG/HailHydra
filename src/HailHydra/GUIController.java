@@ -181,7 +181,10 @@ public class GUIController
     
     public void changePanelToAddPurchaseTransaction()
     {
-            getContentPanel().add(new AddPurchaseTransactionGUI(this));
+            AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
+            tempGUI.setController(new PurchaseTransactionController(new PurchasesModel(dbc), null));
+            tempGUI.setDataComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
