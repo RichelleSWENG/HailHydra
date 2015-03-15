@@ -20,8 +20,10 @@ import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoListGUI;
 import Database.DBConnection;
 import DebitMemo.AddDebitMemoGUI;
+import DebitMemo.DebitMemoController;
 import DebitMemo.DebitMemoListGUI;
-import DebitMemo.ViewDebitMemoGUI;
+import DebitMemo.DebitMemoModel;
+//import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
@@ -379,7 +381,10 @@ public class GUIController
     
     public void changePanelToDebitMemo()
     {
-            getContentPanel().add(new DebitMemoListGUI(this));
+            DebitMemoListGUI tempGUI = new DebitMemoListGUI(this);
+            tempGUI.setMainController(new DebitMemoController(new DebitMemoModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -389,11 +394,11 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToViewDebitMemo()
+    /*public void changePanelToViewDebitMemo()
     {
             getContentPanel().add(new ViewDebitMemoGUI(this));
             frameRevalidate();
-    }
+    }*/
     
     public void changePanelToCreditMemo()
     {

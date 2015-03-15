@@ -23,9 +23,14 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
+import ReturnSlip.ReturnSlipController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class DebitMemoListGUI extends JPanel
 {
@@ -55,6 +60,7 @@ public class DebitMemoListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
+        private DebitMemoController mainController;
 
 	
 	public DebitMemoListGUI(GUIController temp)
@@ -199,20 +205,104 @@ public class DebitMemoListGUI extends JPanel
 			cmbToMonth.addItem(strMonths[i]);
 		}
 
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
+		cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(null); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnCustomerName.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),0,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); 
+                            else if(rdbtnDebitMemoNo.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),1,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                            else if(rdbtnPartNo.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),2,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        }
+                    }});
 
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
@@ -220,28 +310,59 @@ public class DebitMemoListGUI extends JPanel
 		rdbtnCustomerName.setSelected(true);
 		rdbtnCustomerName.setBounds(139, 88, 195, 25);
 		add(rdbtnCustomerName);
-
+                rdbtnCustomerName.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 		rdbtnDebitMemoNo = new JRadioButton("Debit Memo Number");
 		rdbtnDebitMemoNo.setFont(fntPlainText);
                 rdbtnDebitMemoNo.setBackground(SystemColor.textHighlight);
 		rdbtnDebitMemoNo.setBounds(343, 88, 232, 25);
 		add(rdbtnDebitMemoNo);
-
+                rdbtnDebitMemoNo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 		rdbtnPartNo = new JRadioButton("Part Number");
 		rdbtnPartNo.setFont(fntPlainText);
                 rdbtnPartNo.setBackground(SystemColor.textHighlight);
 		rdbtnPartNo.setBounds(576, 88, 168, 25);
 		add(rdbtnPartNo);
-
+                rdbtnPartNo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnCustomerName);
 		searchBy.add(rdbtnDebitMemoNo);
 		searchBy.add(rdbtnPartNo);
+                
 
 		btnViewAllMemos = new JButton("View All Memos");
 		btnViewAllMemos.setFont(fntPlainText);
 		btnViewAllMemos.setBounds(764, 177, 196, 40);
 		add(btnViewAllMemos);
+                btnViewAllMemos.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                ViewAll();
+                        }
+                    });
+                
                 
                 btnViewDebitMemo = new JButton("View Debit Memos");
 		btnViewDebitMemo.setFont(fntPlainText);
@@ -276,7 +397,58 @@ public class DebitMemoListGUI extends JPanel
                     });
 
 	}
+        public void setItemCount(int itemcount)
+        {
+            lblNumofMemos.setText(Integer.toString(itemcount));
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbDebitMemo.setModel(tbm);
+            JTableHeader th = tbDebitMemo.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(DebitMemoController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbDebitMemo.setModel(AllModel);
 
+            JTableHeader th = tbDebitMemo.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
+        }
 
         public static void main(String args[]){
            GUIController temp=new GUIController();
