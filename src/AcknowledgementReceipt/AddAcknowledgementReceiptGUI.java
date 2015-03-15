@@ -82,12 +82,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                             for (i = 0; i < tbModel.getRowCount(); i++)
                                 mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), taAddress.getText(), "open");
+                            guiController.changePanelToAcknowledgementReceipt();
                         }
                         catch (NullPointerException exception)
                         {
-                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. Fuck you po");
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. I do not like you po", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
                         }
-                        guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
 
@@ -198,8 +198,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 {
                     int i;
                     boolean unique = true;
-                    for (i= 0; i < tbModel.getRowCount()-1; i++)
-                        if (tbModel.getValueAt(i, 1) != null && tbModel.getValueAt(i, 1).toString().equals(cmb))
+                    for (i= 0; i < tbModel.getRowCount(); i++)
+                        if (tbModel.getValueAt(i, 1) != null && tbModel.getValueAt(i, 1).toString().equals(cmb) && i != e.getFirstRow())
                             unique = false;
                     if (unique)
                     {
@@ -210,8 +210,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     {
                         JOptionPane.showMessageDialog(null, "You've already chosen that item. Edit the quantity previously or select another pls", "Duplicate Items", JOptionPane.ERROR_MESSAGE);
                         tbModel.removeRow(e.getFirstRow());
-                        tbModel.setRowCount(numItems);
-                        tbModel.moveRow(numItems-1, numItems-1, e.getFirstRow());
+                        tbModel.setRowCount(numItems+1);
+                        tbModel.moveRow(numItems, numItems, e.getFirstRow());
                     }
                 }
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
