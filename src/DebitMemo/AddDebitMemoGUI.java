@@ -19,7 +19,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI
                 
 		btnAddItem = new JButton("Add Item");
 		btnAddItem.setFont(fntPlainText);
-		btnAddItem.setBounds(30, 545, 216, 40);
+		btnAddItem.setBounds(30, 545, 150, 40);
 		add(btnAddItem);
 
 		btnSubmit = new JButton("Submit");
