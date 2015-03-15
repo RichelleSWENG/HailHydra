@@ -1,21 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package DebitMemo;
 
-import ReturnSlip.ReturnSlipController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
-/**
- *
- * @author Janine
- */
+
 public class DebitMemoController {
     private DebitMemoModel debitmemoModel;
     private DebitMemoListGUI gui;
