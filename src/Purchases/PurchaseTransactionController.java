@@ -91,9 +91,9 @@ public class PurchaseTransactionController {
         return purchasesModel.getSupplier(index);
     }
     
-     public ArrayList<PTLineItem> getItems(String customerType)
+     public ArrayList<PTLineItem> getItems()
     {
-        return purchasesModel.getItems(customerType);
+        return purchasesModel.getItems();
     }
     
     public Item getItem(int index)

@@ -238,7 +238,7 @@ public class PurchasesModel
         return suppliers;
     }
     
-     public ArrayList<PTLineItem> getItems(String customerType)
+     public ArrayList<PTLineItem> getItems()
     {
         items = new ArrayList<>();
         ResultSet rs;
@@ -253,15 +253,8 @@ public class PurchasesModel
                 tempItem = new PTLineItem();
                 tempItem.setPartNum(rs.getString("part_num"));
                 tempItem.setDescription(rs.getString("description"));
-                
-                if (customerType.equals("Walk-in Customer"))
-                    tempItem.setPrice(rs.getFloat("walk_in_price"));
-                if (customerType.equals("Retail Customer"))
-                    tempItem.setPrice(rs.getFloat("traders_price"));
-                if (customerType.equals("Sister Company Customer"))
-                    tempItem.setPrice(rs.getFloat("sister_company_price"));
+                tempItem.setPrice(rs.getFloat("last_cost"));
                 items.add(tempItem);
-                
                 tempItem.setMinimum(rs.getInt("stock_minimum"));
                 tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
             }

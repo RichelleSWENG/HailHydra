@@ -112,11 +112,11 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                     c = mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
 
-                    partNums = new String[mainController.getItems(c.getType()).size() + 1];
+                    partNums = new String[mainController.getItems().size() + 1];
                     partNums[0] = "";
-                    for (i = 1; i < mainController.getItems(c.getType()).size() + 1; i++)
+                    for (i = 1; i < mainController.getItems().size() + 1; i++)
                     {
-                        partNums[i] = mainController.getItems(c.getType()).get(i - 1).getPartNum();
+                        partNums[i] = mainController.getItems().get(i - 1).getPartNum();
                     }
 
                     TableColumn col = tbPurchaseTransaction.getColumnModel().getColumn(1);
@@ -216,8 +216,8 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                             unique = false;
                     if (unique)
                     {
-                        tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), e.getFirstRow(), 2);
-                        tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), e.getFirstRow(), 3);
+                        tbModel.setValueAt(mainController.getItems().get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), e.getFirstRow(), 2);
+                        tbModel.setValueAt(mainController.getItems().get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), e.getFirstRow(), 3);
                     }
                     else
                     {
