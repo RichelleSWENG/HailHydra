@@ -282,4 +282,5 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
             super(new JComboBox(str));
         }
     }
+    
 }
