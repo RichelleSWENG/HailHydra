@@ -19,9 +19,10 @@ public class SalesInvoice
     private float current_balance;
     private String status;
     private String pwd_id_number_notes;
+    private float vat;
     private ArrayList<SILineItem> list;
 
-    public SalesInvoice(String sales_invoice_id, int company_id, String date, float original_amount, String po_num, String ordered_by, String sales_person, String delivered_by, String delivery_notes, String delivery_receipt_num, float discount, float current_balance, String status, String pwd_id_number_notes, ArrayList<SILineItem> list)
+    public SalesInvoice(String sales_invoice_id, int company_id, String date, float original_amount, String po_num, String ordered_by, String sales_person, String delivered_by, String delivery_notes, String delivery_receipt_num, float discount, float current_balance, String status, String pwd_id_number_notes, float vat, ArrayList<SILineItem> list)
     {
         this.sales_invoice_id = sales_invoice_id;
         this.company_id = company_id;
@@ -37,6 +38,7 @@ public class SalesInvoice
         this.current_balance = current_balance;
         this.status = status;
         this.pwd_id_number_notes = pwd_id_number_notes;
+        this.vat = vat;
         this.list = list;
     }
 
@@ -198,6 +200,16 @@ public class SalesInvoice
     public void removeItem(SILineItem line)
     {
         list.remove(line);
+    }
+
+    public float getVat()
+    {
+        return vat;
+    }
+
+    public void setVat(float vat)
+    {
+        this.vat = vat;
     }
 
 }

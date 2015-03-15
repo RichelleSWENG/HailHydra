@@ -226,8 +226,6 @@ public class AcknowledgementReceiptGUI extends JPanel
 			}
 		};
 
-		tbModel.setRowCount(15);
-
 		for (int i = 0; i < strHeader.length; i++) 
                 {
 			tbModel.addColumn(strHeader[i]);

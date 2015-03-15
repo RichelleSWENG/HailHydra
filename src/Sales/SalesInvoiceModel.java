@@ -113,7 +113,7 @@ public class SalesInvoiceModel
         {
         
             statement = db.createStatement();
-            String sql = "INSERT INTO salesinvoice(sales_invoice_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES('" + si.getSales_invoice_id() + "','" + si.getCompany_id()  + "','" + si.getDate() + "','" + si.getPo_num() + "','" + si.getDelivery_receipt_num() + "','" + si.getSales_person() + "','" + si.getOrdered_by() + "','" + si.getDelivered_by() + "','" + si.getDelivery_notes() + "','" + si.getDiscount() + "','" + si.getOriginal_amount() + "','" + si.getCurrent_balance() + "','" + si.getStatus()+"')";
+            String sql = "INSERT INTO salesinvoice(sales_invoice_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status,pwd_id_number_notes, vat) VALUES('" + si.getSales_invoice_id() + "','" + si.getCompany_id()  + "','" + si.getDate() + "','" + si.getPo_num() + "','" + si.getDelivery_receipt_num() + "','" + si.getSales_person() + "','" + si.getOrdered_by() + "','" + si.getDelivered_by() + "','" + si.getDelivery_notes() + "','" + si.getDiscount() + "','" + si.getOriginal_amount() + "','" + si.getCurrent_balance() + "','" + si.getStatus()+ "','" + si.getPwd_id_number_notes() + "','" + si.getVat() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;

@@ -40,7 +40,7 @@ public class SalesInvoiceGUI extends JPanel
 	protected String strHeader[] = { "Quantity", "    Part Number    ", 
                   "        Description        ", 
                   "<html><center>   Unit   <br>   Price   </center></html>",
-                  "  Total  "};
+                  "  Subtotal  "};
 	protected DefaultTableModel tbModel;
         protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
         protected TableColumnModel tbColumnRenderer;
@@ -62,7 +62,7 @@ public class SalesInvoiceGUI extends JPanel
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
                 fntHeaderTableText= new Font("Arial", Font.BOLD, 16);
                 
-                dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 
                 lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
@@ -259,22 +259,30 @@ public class SalesInvoiceGUI extends JPanel
 		add(spDeliveryNotes);
                 
  
-		tbModel = new DefaultTableModel() {
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
-				return mColIndex != 2 ? true : false;
+		tbModel = new DefaultTableModel() 
+                {
+                        @Override
+			public boolean isCellEditable(int rowIndex, int mColIndex) 
+                        {
+                            if (cmbCustomer.getSelectedItem() == null || cmbCustomer.getSelectedItem().equals(""))
+                                return false;
+                            if (mColIndex == 2 || mColIndex == 4)
+				return false;
+                            else
+                                return true;
 			}
-                        
 		};
-
-		tbModel.setRowCount(15);
                 
-                for (int i = 0; i < strHeader.length; i++) {
+                for (int i = 0; i < strHeader.length; i++) 
+                {
 			tbModel.addColumn(strHeader[i]);
              
 		}
 
-		tbSalesInvoice = new JTable(tbModel) {
-			public TableCellRenderer getCellRenderer(int row, int column) {
+		tbSalesInvoice = new JTable(tbModel)
+                {
+			public TableCellRenderer getCellRenderer(int row, int column)
+                        {
 				return new TableRenderer();
 			}
 		};
