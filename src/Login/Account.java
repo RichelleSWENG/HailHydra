@@ -1,6 +1,4 @@
-
 package Login;
-
 
 public class Account 
 {
@@ -52,7 +50,5 @@ public class Account
     public void modifyPassword(String password){
         this.password=password;
     }
-    
-    
     
 }
