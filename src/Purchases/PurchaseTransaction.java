@@ -13,6 +13,7 @@ public class PurchaseTransaction
     private String ordered_by;
     private String receiving_notes;
     private String delivery_receipt_num;
+    private String ref_sales_invoice_num;
     private float discount;
     private float vat;
     private float current_balance;
@@ -33,11 +34,12 @@ public class PurchaseTransaction
         this.discount = 0;
         this.vat = 0;
         this.current_balance = 0;
+        this.ref_sales_invoice_num = "";
         this.status = "";
         this.list = new ArrayList<>();
     }
 
-    public PurchaseTransaction(String purchase_transaction_id, int company_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, float discount, float vat, float current_balance, String status, ArrayList<PTLineItem> list)
+    public PurchaseTransaction(String purchase_transaction_id, int company_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status, ArrayList<PTLineItem> list)
     {
         this.purchase_transaction_id = purchase_transaction_id;
         this.company_id = company_id;
@@ -48,6 +50,7 @@ public class PurchaseTransaction
         this.ordered_by = ordered_by;
         this.receiving_notes = receiving_notes;
         this.delivery_receipt_num = delivery_receipt_num;
+        this.ref_sales_invoice_num = ref_sales_invoice_num;
         this.discount = discount;
         this.vat = vat;
         this.current_balance = current_balance;
@@ -185,7 +188,7 @@ public class PurchaseTransaction
         this.status = status;
     }
 
-    public ArrayList<PTLineItem> getList()
+    public ArrayList<PTLineItem> getItems()
     {
         return list;
     }
@@ -193,6 +196,26 @@ public class PurchaseTransaction
     public void setList(ArrayList<PTLineItem> list)
     {
         this.list = list;
+    }
+    
+    public void addItem(PTLineItem line)
+    {
+        list.add(line);
+    }
+
+    public void removeItem(PTLineItem line)
+    {
+        list.remove(line);
+    }
+
+    public String getRef_sales_invoice_num()
+    {
+        return ref_sales_invoice_num;
+    }
+
+    public void setRef_sales_invoice_num(String ref_sales_invoice_num)
+    {
+        this.ref_sales_invoice_num = ref_sales_invoice_num;
     }
 
 }

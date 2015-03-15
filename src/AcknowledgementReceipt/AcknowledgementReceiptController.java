@@ -3,7 +3,6 @@ package AcknowledgementReceipt;
 
 import Classes.Company;
 import Classes.Item;
-import Sales.SalesInvoiceController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ public class AcknowledgementReceiptController
         gui = tempGUI;
                
     }
+    
     public ArrayList<Company> getCustomers()
     {
         return ackReceiptModel.getCustomers();

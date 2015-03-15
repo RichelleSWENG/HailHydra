@@ -1,5 +1,6 @@
 package Purchases;
 
+import Classes.Company;
 import Database.DBConnection;
 import HailHydra.Model;
 import java.sql.Connection;
@@ -13,7 +14,11 @@ public class PurchasesModel
 {
     protected Connection db;
     protected Statement statement;
-    private int itemCount=0;
+    private int itemCount = 0;
+    
+    private ArrayList<Company> suppliers;
+    private ArrayList<PTLineItem> items;
+    private PTLineItemModel ptLineItemModel;
     
     public PurchasesModel(DBConnection db)
     {
@@ -22,7 +27,17 @@ public class PurchasesModel
 
     public ResultSet getDetail(String ID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
     }
 
     public ResultSet getAllDetail()
@@ -92,19 +107,52 @@ public class PurchasesModel
            
     }
 
-    public void addDetail(ArrayList list)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     public void addDetail(PurchaseTransaction obj)
+     {
+ 
+        PurchaseTransaction pt = obj;
+        try
+        {
+        
+            statement = db.createStatement();
+            String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, rceiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id()  + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance()+ "','" + pt.getStatus() + "')";
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+            int i;
+            for (i = 0; i < pt.getItems().size(); i++)
+            {
+                ptLineItemModel.addDetail(pt.getItems().get(i));
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     public void editDetail(ArrayList list)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try
+        {
+            statement = db.createStatement();
+            String sql = "";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
 
     public void deleteDetail(String ID)
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         try
+        {
+            statement = db.createStatement();
+            String sql = "DELETE FROM purchasetransaction WHERE purchase_transaction_id='" + ID + "'";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
     }
     
     public TableModel myModel(ResultSet rs)
@@ -128,7 +176,8 @@ public class PurchasesModel
         }
         return rs;
     }
-     public ResultSet getMaxYear()
+    
+    public ResultSet getMaxYear()
     {
         ResultSet rs = null;
         try
@@ -146,6 +195,97 @@ public class PurchasesModel
     public int getItemcount()
     {
         return this.itemCount;
+    }
+    
+    public ArrayList<Company> getSuppliers()
+    {
+        suppliers = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM company WHERE type LIKE '%supplier%'";
+            rs = statement.executeQuery(sql);
+            Company tempSupplier;
+            while (rs.next())
+            {
+                tempSupplier = new Company();
+                tempSupplier.setId(rs.getInt("company_id"));
+                tempSupplier.setName(rs.getString("name"));
+                tempSupplier.setAddressLoc(rs.getString("address_location"));
+                tempSupplier.setAddressCity(rs.getString("address_city"));
+                tempSupplier.setAddressCountry(rs.getString("address_country"));
+                tempSupplier.setPostalCode(rs.getString("address_postal_code"));
+                tempSupplier.setPhone1(rs.getString("phone1"));
+                tempSupplier.setPhone2(rs.getString("phone2"));
+                tempSupplier.setPhone3(rs.getString("phone3"));
+                tempSupplier.setFaxNum(rs.getString("fax_num"));
+                tempSupplier.setWebsite(rs.getString("website"));
+                tempSupplier.setEmail(rs.getString("email"));
+                tempSupplier.setContactPerson(rs.getString("contact_person"));
+                tempSupplier.setStatus(rs.getString("status"));
+                tempSupplier.setCreditLimit(rs.getFloat("credit_limit"));
+                tempSupplier.setTerms(rs.getInt("terms"));
+                tempSupplier.setType(rs.getString("type"));
+                suppliers.add(tempSupplier);
+            }
+            System.out.println(suppliers.size());
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return suppliers;
+    }
+    
+     public ArrayList<PTLineItem> getItems(String customerType)
+    {
+        items = new ArrayList<>();
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM item";
+            rs = statement.executeQuery(sql);
+            PTLineItem tempItem;
+            while (rs.next())
+            {
+                tempItem = new PTLineItem();
+                tempItem.setPartNum(rs.getString("part_num"));
+                tempItem.setDescription(rs.getString("description"));
+                
+                if (customerType.equals("Walk-in Customer"))
+                    tempItem.setPrice(rs.getFloat("walk_in_price"));
+                if (customerType.equals("Retail Customer"))
+                    tempItem.setPrice(rs.getFloat("traders_price"));
+                if (customerType.equals("Sister Company Customer"))
+                    tempItem.setPrice(rs.getFloat("sister_company_price"));
+                items.add(tempItem);
+                
+                tempItem.setMinimum(rs.getInt("stock_minimum"));
+                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+            }
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return items;
+    }
+    
+    public Company getSupplier(int index)
+    {
+        return suppliers.get(index);
+    }
+    
+    public PTLineItem getItem(int index)
+    {
+        return items.get(index);
+    }
+    
+    public int getAvailQuantity(int index)
+    {
+        return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
     
 }

@@ -1,28 +1,32 @@
 package Purchases;
 
-import Sales.SalesInvoiceController;
+import Classes.Company;
+import Classes.Item;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
 
 public class PurchaseTransactionController {
-    private PurchasesModel purchasetransactionModel;
+    private PurchasesModel purchasesModel;
     private PurchaseTransactionListGUI gui;
+    private ArrayList<PTLineItem> pendingItems;
     private int itemcount;
     
     public PurchaseTransactionController(PurchasesModel tempModel,PurchaseTransactionListGUI tempGUI)
     {
-        this.purchasetransactionModel=tempModel;
+        this.purchasesModel = tempModel;
+        pendingItems = new ArrayList<>();
         this.gui=tempGUI;
     }
     
     TableModel getAllModel()
     {
-       TableModel tbm = purchasetransactionModel.myModel(purchasetransactionModel.getAllDetail());
-       this.itemcount = purchasetransactionModel.getItemcount();
+       TableModel tbm = purchasesModel.myModel(purchasesModel.getAllDetail());
+       this.itemcount = purchasesModel.getItemcount();
        gui.setItemCount(itemcount);
         return tbm;
     }
@@ -37,8 +41,8 @@ public class PurchaseTransactionController {
             else if(type==2)
                 searchBy = "part number";
             TableModel tbm;
-            tbm = purchasetransactionModel.myModel(purchasetransactionModel.searchDetail(text, searchBy,startDate,endDate));
-            this.itemcount = purchasetransactionModel.getItemcount();
+            tbm = purchasesModel.myModel(purchasesModel.searchDetail(text, searchBy,startDate,endDate));
+            this.itemcount = purchasesModel.getItemcount();
             gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
     }
@@ -46,15 +50,15 @@ public class PurchaseTransactionController {
     public void searchbyDate(String startDate,String endDate)
     {
         TableModel tbm;
-            tbm = purchasetransactionModel.myModel(purchasetransactionModel.getAllDetailbyDate(startDate,endDate));
-            this.itemcount = purchasetransactionModel.getItemcount();
+            tbm = purchasesModel.myModel(purchasesModel.getAllDetailbyDate(startDate,endDate));
+            this.itemcount = purchasesModel.getItemcount();
             gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
     }
     
     public String getMaxYear()
     {
-        ResultSet resultset =purchasetransactionModel.getMaxYear();
+        ResultSet resultset =purchasesModel.getMaxYear();
           
         try {
             resultset.next();
@@ -66,7 +70,7 @@ public class PurchaseTransactionController {
     }
     public String getMinYear()
     {
-        ResultSet resultset =purchasetransactionModel.getMinYear();
+        ResultSet resultset =purchasesModel.getMinYear();
         
         try {
             resultset.next();
@@ -75,5 +79,47 @@ public class PurchaseTransactionController {
             Logger.getLogger(PurchaseTransactionController.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
+    }
+    
+    public ArrayList<Company> getSuppliers()
+    {
+        return purchasesModel.getSuppliers();
+    }
+    
+    public Company getCustomer(int index)
+    {
+        return purchasesModel.getSupplier(index);
+    }
+    
+     public ArrayList<PTLineItem> getItems(String customerType)
+    {
+        return purchasesModel.getItems(customerType);
+    }
+    
+    public Item getItem(int index)
+    {
+        return purchasesModel.getItem(index);
+    }
+    
+    public void addPendingItem(PTLineItem item)
+    {
+        pendingItems.add(item);
+    }
+    
+    public void removePending()
+    {
+        pendingItems.clear();
+    }
+    
+    public int getAvailQuantity(int index)
+    {
+        return purchasesModel.getAvailQuantity(index);
+    }
+    
+    public void addPT(String purchase_transaction_id, int company_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status)
+    {
+        PurchaseTransaction pt = new PurchaseTransaction(purchase_transaction_id, company_id, date, original_amount, po_num, received_by, ordered_by, receiving_notes, delivery_receipt_num, ref_sales_invoice_num, discount, vat, current_balance, status, pendingItems);
+        purchasesModel.addDetail(pt);
+        //ackReceiptModel.addDetail(rcpt);
     }
 }

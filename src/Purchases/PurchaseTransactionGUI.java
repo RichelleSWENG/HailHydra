@@ -40,7 +40,7 @@ public class PurchaseTransactionGUI extends JPanel
 	protected JTextArea taAddress, taReceivingNotes;
 	protected String strHeader[] =
 	{ "Quantity", "    Part Number    ", "        Description        ",
-			"<html><center>   Unit   <br>   Price   </center></html>", "  Total  " };
+			"<html><center>   Unit   <br>   Price   </center></html>", "  Subtotal  " };
 	protected DefaultTableModel tbModel;
 	protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	protected TableColumnModel tbColumnRenderer;
@@ -63,7 +63,7 @@ public class PurchaseTransactionGUI extends JPanel
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
 
-		dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
@@ -100,7 +100,7 @@ public class PurchaseTransactionGUI extends JPanel
 		lblSINum.setBounds(530, 170, 134, 30);
 		add(lblSINum);
 
-		lblORNum = new JLabel("O.R. Number:");
+		lblORNum = new JLabel("D.R. Number:");
 		lblORNum.setFont(fntPlainText);
 		lblORNum.setBounds(530, 200, 134, 30);
 		add(lblORNum);
@@ -241,14 +241,24 @@ public class PurchaseTransactionGUI extends JPanel
 		spReceivingNotes = new JScrollPane(taReceivingNotes);
 		spReceivingNotes.setBounds(30, 495, 470, 40);
 		add(spReceivingNotes);
+                
+                cmbSupplier = new JComboBox();
+		AutoCompleteDecorator.decorate(cmbSupplier);
+		cmbSupplier.setFont(new Font("Arial", Font.PLAIN, 21));
+		cmbSupplier.setBounds(125, 80, 375, 30);
+		add(cmbSupplier);
 
-		tbModel = new DefaultTableModel()
-		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
-			{
-				if(mColIndex != 2 && mColIndex != 4)
-					return true;
+		tbModel = new DefaultTableModel() 
+                {
+                        @Override
+			public boolean isCellEditable(int rowIndex, int mColIndex) 
+                        {
+                            if (cmbSupplier.getSelectedItem() == null || cmbSupplier.getSelectedItem().equals(""))
+                                return false;
+                            if (mColIndex == 2 || mColIndex == 4)
 				return false;
+                            else
+                                return true;
 			}
 		};
 
@@ -303,13 +313,6 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction.setRowSelectionAllowed(true);
 		tbPurchaseTransaction.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPurchaseTransaction.setRowHeight(30);
-
-		cmbSupplier = new JComboBox();
-		AutoCompleteDecorator.decorate(cmbSupplier);
-		cmbSupplier.setFont(new Font("Arial", Font.PLAIN, 21));
-		cmbSupplier.setBounds(125, 80, 375, 30);
-		add(cmbSupplier);
-
 	}
 
 }

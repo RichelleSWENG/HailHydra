@@ -174,7 +174,8 @@ public class SalesInvoiceModel
         }
         return rs;
     }
-     public ResultSet getMaxYear()
+    
+    public ResultSet getMaxYear()
     {
         ResultSet rs = null;
         try
@@ -282,7 +283,7 @@ public class SalesInvoiceModel
         return customers.get(index);
     }
     
-    public Item getItem(int index)
+    public SILineItem getItem(int index)
     {
         return items.get(index);
     }
