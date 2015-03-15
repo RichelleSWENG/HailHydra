@@ -21,11 +21,16 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
+import Purchases.PurchaseTransactionController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class CreditMemoListGUI extends JPanel
 {
@@ -53,7 +58,8 @@ public class CreditMemoListGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
-	
+	private CreditMemoController mainController;
+        
 	public CreditMemoListGUI(GUIController temp)
 	{
                 controller=temp;
@@ -130,21 +136,104 @@ public class CreditMemoListGUI extends JPanel
 			cmbFromMonth.addItem(strMonths[i]);
 			cmbToMonth.addItem(strMonths[i]);
 		}
+                
+                cmbToYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
 
-		Calendar date = Calendar.getInstance();
-		int yr = date.get(Calendar.YEAR);
-		for (int j = 0; j < 5; j++)
-		{
-			cmbFromYear.addItem(Integer.toString(yr - 2));
-			cmbToYear.addItem(Integer.toString(yr - 2));
-			yr++;
-		}
-		String yearBefore = String.valueOf(date.get(Calendar.YEAR) - 1);
-		String yearToday = String.valueOf(date.get(Calendar.YEAR));
-		cmbFromMonth.setSelectedIndex(0);
-		cmbFromYear.setSelectedItem(yearBefore);
-		cmbToMonth.setSelectedIndex(date.get(Calendar.MONTH));
-		cmbToYear.setSelectedItem(yearToday);
+                });
+                cmbToMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromMonth.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(""); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    @Override
+                    public void actionPerformed(ActionEvent ae)
+                    {
+                        tfSearch.setText(null); 
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                       
+                    }
+
+                });
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            if(rdbtnSupplierName.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),0,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31"); 
+                            else if(rdbtnCreditMemoNo.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),1,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                            else if(rdbtnReturnSlipNo.isSelected())
+                                mainController.SearchSomething(tfSearch.getText(),2,cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                            mainController.searchbyDate(cmbFromYear.getSelectedItem()+"-"+(cmbFromMonth.getSelectedIndex()+1)+"-01",cmbToYear.getSelectedItem()+"-"+(cmbToMonth.getSelectedIndex()+1)+"-31");
+                        }
+                    }});
 
 		tbModel = new DefaultTableModel()
 		{
@@ -219,18 +308,42 @@ public class CreditMemoListGUI extends JPanel
 		rdbtnSupplierName.setSelected(true);
 		rdbtnSupplierName.setBounds(139, 80, 177, 25);
 		add(rdbtnSupplierName);
+                rdbtnSupplierName.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 
 		rdbtnCreditMemoNo = new JRadioButton("Credit Memo Number");
 		rdbtnCreditMemoNo.setFont(fntPlainText);
                 rdbtnCreditMemoNo.setBackground(SystemColor.textHighlight);
 		rdbtnCreditMemoNo.setBounds(318, 80, 232, 25);
 		add(rdbtnCreditMemoNo);
+                rdbtnCreditMemoNo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
 		rdbtnReturnSlipNo.setFont(fntPlainText);
                 rdbtnReturnSlipNo.setBackground(SystemColor.textHighlight);
 		rdbtnReturnSlipNo.setBounds(552, 80, 226, 25);
 		add(rdbtnReturnSlipNo);
+                rdbtnReturnSlipNo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                tfSearch.setText(null);
+                        }
+                    });
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnSupplierName);
@@ -241,6 +354,14 @@ public class CreditMemoListGUI extends JPanel
 		btnViewAllMemos.setFont(fntPlainText);
 		btnViewAllMemos.setBounds(725, 190, 240, 40);
 		add(btnViewAllMemos);
+                btnViewAllMemos.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                ViewAll();
+                        }
+                    });
 
 		btnViewCreditMemo = new JButton("View Credit Memo");
 		btnViewCreditMemo.setFont(fntPlainText);
@@ -263,6 +384,58 @@ public class CreditMemoListGUI extends JPanel
 		
 
 	}
+        public void setItemCount(int itemcount)
+        {
+            lblNumOfMemosFound.setText(Integer.toString(itemcount));
+        }
+        public void setComboBox()
+        {
+            cmbToYear.removeAllItems();
+            cmbFromYear.removeAllItems();
+            int cnt=0;
+            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            {
+                cmbToYear.addItem(i);
+                cmbFromYear.addItem(i);
+                cnt++;
+            }
+            cmbToYear.setSelectedIndex(cnt-1);
+            cmbFromYear.setSelectedIndex(0);
+            cmbFromMonth.setSelectedIndex(0);
+            cmbToMonth.setSelectedIndex(11);
+        }
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbCreditMemo.setModel(tbm);
+            JTableHeader th = tbCreditMemo.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(CreditMemoController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbCreditMemo.setModel(AllModel);
+
+            JTableHeader th = tbCreditMemo.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            setComboBox();
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();

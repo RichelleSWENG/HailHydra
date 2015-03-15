@@ -17,7 +17,9 @@ import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
 import Collectibles.CollectiblesModel;
 import CreditMemo.AddCreditMemoGUI;
+import CreditMemo.CreditMemoController;
 import CreditMemo.CreditMemoListGUI;
+import CreditMemo.CreditMemoModel;
 import Database.DBConnection;
 import DebitMemo.AddDebitMemoGUI;
 import DebitMemo.DebitMemoController;
@@ -405,7 +407,10 @@ public class GUIController
     
     public void changePanelToCreditMemo()
     {
-            getContentPanel().add(new CreditMemoListGUI(this));
+            CreditMemoListGUI tempGUI = new CreditMemoListGUI(this);
+            tempGUI.setMainController(new CreditMemoController(new CreditMemoModel(dbc), tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
