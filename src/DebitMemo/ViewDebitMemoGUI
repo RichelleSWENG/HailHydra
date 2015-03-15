@@ -1,38 +1,35 @@
-package ReturnSlip;
+package DebitMemo;
 
 import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 
-public class ViewReturnSlipGUI extends ReturnSlipGUI
+public class ViewDebitMemoGUI extends DebitMemoGUI
 {
     private JButton btnClose;
     private GUIController guiController;
-    private ReturnSlipController mainController;
+    private DebitMemoController mainController;
     
-    public ViewReturnSlipGUI(GUIController temp)
+    public ViewDebitMemoGUI(GUIController temp)
     {
-                super();
                 guiController=temp;
+
+                lblHeader.setText("View Debit Memo");
                 
-		lblHeader.setText("View Return Slip");
-                
-                cmbSupplier.setEditable(false);
-                tfRSNum.setEditable(false);
+                tfDBNum.setEditable(false);
                 tfSINum.setEditable(false);
-                tfPONum.setEditable(false);
-                ftfDate.setEditable(false);
-                tfReturnedBy.setEditable(false);
                 tfApprovedBy.setEditable(false);
                 tfReceivedBy.setEditable(false);
-                ftfReturnedDate.setEditable(false);
+                ftfDate.setEditable(false);
                 ftfApprovedDate.setEditable(false);
                 ftfReceivedDate.setEditable(false);
-                taAddress.setEditable(false);
                 taNotes.setEditable(false);
-		
-                        
+                taAddress.setEditable(false);
+                cmbCustomer.setEditable(false);
+                chckbxDefective.setEnabled(false);
+                chckbxReplacement.setEnabled(false);
+                
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
@@ -42,19 +39,18 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                guiController.changePanelToReturnSlip();
+                                guiController.changePanelToDebitMemo();
                         }
-                    });
+                    });   
     }
     
-    public void setController(ReturnSlipController temp)
-    {
+        public void setController(DebitMemoController temp)
+        {
             mainController=temp;
-    }
-    
-    public static void main(String args[])
-    {
+        }
+        
+        public static void main(String args[]){
            GUIController temp=new GUIController();
-           temp.changePanelToViewReturnSlip();
-    }
+           temp.changePanelToViewDebitMemo();
+        }
 }
