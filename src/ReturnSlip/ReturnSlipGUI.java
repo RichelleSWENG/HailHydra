@@ -60,6 +60,7 @@ public class ReturnSlipGUI extends JPanel
         protected ButtonGroup type;
         protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
+        private TitledBorder title;
         
         public ReturnSlipGUI()
         {
@@ -229,6 +230,12 @@ public class ReturnSlipGUI extends JPanel
                 spNotes.setBounds(30, 495, 490, 40);
                 add(spNotes);
                 
+                cmbSupplier = new JComboBox();
+		AutoCompleteDecorator.decorate(cmbSupplier);
+		cmbSupplier.setFont(fntPlainText);
+		cmbSupplier.setBounds(125, 80, 375, 30);
+		add(cmbSupplier);
+                
 		tbModel = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
 				if(mColIndex !=2)
@@ -278,20 +285,20 @@ public class ReturnSlipGUI extends JPanel
 		}
                 
                 pnlType= new JPanel();
-                pnlType.setBounds(550, 415,415, 120);
+                pnlType.setBounds(550, 405,415, 130);
                 pnlType.setLayout(null);
                 pnlType.setBackground(SystemColor.textHighlight);
                 add(pnlType);
-                TitledBorder title;
                 title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Type");
                 title.setTitleJustification(TitledBorder.LEFT);
+                title.setTitleFont(fntPlainText);
                 pnlType.setBorder(title);
                 
                 rdbtnFunctional = new JRadioButton("Functional");
 		rdbtnFunctional.setFont(fntPlainText);
                 rdbtnFunctional.setBackground(SystemColor.textHighlight);
 		rdbtnFunctional.setSelected(true);
-		rdbtnFunctional.setBounds(30, 20, 184, 30);
+		rdbtnFunctional.setBounds(30, 25, 184, 30);
 		pnlType.add(rdbtnFunctional);
                 rdbtnFunctional.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) 
@@ -303,7 +310,7 @@ public class ReturnSlipGUI extends JPanel
 		rdbtnDefectiveWithOutDebitMemo.setFont(fntPlainText);
                 rdbtnDefectiveWithOutDebitMemo.setBackground(SystemColor.textHighlight);
 		rdbtnDefectiveWithOutDebitMemo.setSelected(true);
-		rdbtnDefectiveWithOutDebitMemo.setBounds(30, 50, 300, 30);
+		rdbtnDefectiveWithOutDebitMemo.setBounds(30, 55, 300, 30);
 		pnlType.add(rdbtnDefectiveWithOutDebitMemo);
                 rdbtnDefectiveWithOutDebitMemo.addActionListener(new ActionListener(){ 
                 public void actionPerformed(ActionEvent e) 
@@ -315,7 +322,7 @@ public class ReturnSlipGUI extends JPanel
 		rdbtnDefectiveWithDebitMemo.setFont(fntPlainText);
                 rdbtnDefectiveWithDebitMemo.setBackground(SystemColor.textHighlight);
 		rdbtnDefectiveWithDebitMemo.setSelected(true);
-		rdbtnDefectiveWithDebitMemo.setBounds(30, 80, 300, 30);
+		rdbtnDefectiveWithDebitMemo.setBounds(30, 85, 300, 30);
 		pnlType.add(rdbtnDefectiveWithDebitMemo);
                 rdbtnDefectiveWithDebitMemo.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) 
@@ -328,11 +335,6 @@ public class ReturnSlipGUI extends JPanel
 		type.add(rdbtnDefectiveWithOutDebitMemo);
                 type.add(rdbtnDefectiveWithDebitMemo);
         
-                cmbSupplier = new JComboBox();
-		AutoCompleteDecorator.decorate(cmbSupplier);
-		cmbSupplier.setFont(fntPlainText);
-		cmbSupplier.setBounds(125, 80, 375, 30);
-		add(cmbSupplier);
         }
         
         public static void main(String args[])
