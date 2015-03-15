@@ -82,6 +82,8 @@ public class AcknowledgementReceiptController
                 searchBy = "name";
             else if(type == 1)
                 searchBy = "acknowledgement number";
+            else if(type == 2)
+                searchBy = "part number";
             TableModel tbm;
             tbm = ackReceiptModel.myModel(ackReceiptModel.searchDetail(text, searchBy,startDate,endDate));
             this.itemcount = ackReceiptModel.getItemcount();
