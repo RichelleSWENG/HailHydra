@@ -60,17 +60,9 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        try
-                        {
-                            mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(numItems, 0).toString()), tbModel.getValueAt(numItems, 1).toString(), Float.parseFloat(tbModel.getValueAt(numItems, 3).toString()), Float.parseFloat(tbModel.getValueAt(numItems, 4).toString())));
-                            numItems++;
-                            tbModel.setRowCount(numItems + 1);
-                            tbModel.setValueAt(defaultVal, numItems, 4);
-                        }
-                        catch (NullPointerException exception)
-                        {
-                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. Fuck you po");
-                        }
+                        numItems++;
+                        tbModel.setRowCount(numItems + 1);
+                        tbModel.setValueAt(defaultVal, numItems, 4);
                     }
                 });
 
@@ -84,7 +76,17 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                     @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), taAddress.getText(), "open");
+                        try
+                        {
+                            int i;
+                            for (i = 0; i < tbModel.getRowCount(); i++)
+                                mainController.addPendingItem(new ARLineItem("", Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
+                            mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), taAddress.getText(), "open");
+                        }
+                        catch (NullPointerException exception)
+                        {
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. Fuck you po");
+                        }
                         guiController.changePanelToAcknowledgementReceipt();
                     }
                 });
@@ -181,7 +183,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 }
                 else
                 {
-                    JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy" + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
+                    JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy " + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
+                    tbModel.setValueAt("0", e.getFirstRow(), 0);
                 }
             }
         }
@@ -193,9 +196,23 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
                 if (!cmb.equals(""))
                 {
-                    tbModel.setValueAt("0", e.getFirstRow(), 0);
-                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), e.getFirstRow(), 2);
-                    tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), e.getFirstRow(), 3);
+                    int i;
+                    boolean unique = true;
+                    for (i= 0; i < tbModel.getRowCount()-1; i++)
+                        if (tbModel.getValueAt(i, 1) != null && tbModel.getValueAt(i, 1).toString().equals(cmb))
+                            unique = false;
+                    if (unique)
+                    {
+                        tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getDescription(), e.getFirstRow(), 2);
+                        tbModel.setValueAt(mainController.getItems(c.getType()).get(Arrays.asList(partNums).indexOf(cmb)-1).getPrice(), e.getFirstRow(), 3);
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "You've already chosen that item. Edit the quantity previously or select another pls", "Duplicate Items", JOptionPane.ERROR_MESSAGE);
+                        tbModel.removeRow(e.getFirstRow());
+                        tbModel.setRowCount(numItems);
+                        tbModel.moveRow(numItems-1, numItems-1, e.getFirstRow());
+                    }
                 }
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {    

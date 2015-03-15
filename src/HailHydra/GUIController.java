@@ -88,8 +88,8 @@ public class GUIController
             
             inventoryModel = new ItemModel(dbc);
             inventoryGUI= new InventoryListGUI (this);
-            inventoryController=new InventoryController(inventoryModel,inventoryGUI);
-            
+            inventoryController = new InventoryController(inventoryModel,inventoryGUI);
+           
             
             changePanelToLogin();
     }
@@ -312,7 +312,8 @@ public class GUIController
     public void changePanelToAccountProfile()
     {
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
-            tempGUI.setMainController(new AccountProfileController(new AccountModel(dbc),tempGUI));
+            accountProfileController = new AccountProfileController(new AccountModel(dbc),tempGUI);
+            tempGUI.setMainController(accountProfileController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -330,7 +331,7 @@ public class GUIController
     public void changePanelToViewAccountProfile()
     {
             ViewAccountProfileGUI tempGUI = new ViewAccountProfileGUI (this,accountProfileController); // needed access to Account controller beacuse it contains what to display
-            //tempGUI.setMainController(AccountProfileController);
+            tempGUI.setMainController(accountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
