@@ -1,5 +1,3 @@
-
-
 package AccountProfile;
 
 public class AccountProfile 
