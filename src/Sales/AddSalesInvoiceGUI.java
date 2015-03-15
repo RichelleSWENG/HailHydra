@@ -28,6 +28,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
     private float totalItemPrice;
     private float tentativeTotal;
     private float discount;
+    private float vat;
     private final float defaultVal = 0;
     private float VATpercent = 12;
     private float everythingwithVAT;
@@ -76,7 +77,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
                             {
                                 mainController.addPendingItem(new SILineItem(tfSINum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addSI(tfSINum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open", tfPwdNum.getText(), Float.parseFloat(ftfVat.getText()));
+                            mainController.addSI(tfSINum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open", tfPwdNum.getText(), Float.parseFloat(ftfVat.getText()));
                             guiController.changePanelToSalesInvoice();
                         } catch (NullPointerException exception)
                         {
@@ -131,6 +132,15 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
             }
         });
         
+        ftfDiscount.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                calcTotalBalance();
+            }
+        });
+        
         tbModel.setRowCount(1);
         tbModel.setValueAt(defaultVal, numItems, 4);
         tbModel.addTableModelListener(this);
@@ -168,7 +178,9 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
             totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
         ftfSubtotal.setText(String.valueOf(totalOfEverything - Float.parseFloat(ftfDiscount.getText())));
-        everythingwithVAT = totalOfEverything - Float.parseFloat(ftfDiscount.getText()) + VATpercent/100 * (totalOfEverything - Float.parseFloat(ftfDiscount.getText())) ;
+        vat = VATpercent/100 * (totalOfEverything - Float.parseFloat(ftfDiscount.getText())) ;
+        ftfVat.setText(String.valueOf(vat));
+        everythingwithVAT = totalOfEverything - Float.parseFloat(ftfDiscount.getText()) + vat;
         ftfTotal.setText(String.valueOf(everythingwithVAT));
         ftfBalance.setText(String.valueOf(everythingwithVAT));
     }
