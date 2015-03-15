@@ -25,6 +25,10 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class TermsReportGUI extends JPanel {
 
@@ -53,6 +57,7 @@ public class TermsReportGUI extends JPanel {
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
+        private ReportController mainController;
 	
 
 	public TermsReportGUI(GUIController temp) 
@@ -101,6 +106,54 @@ public class TermsReportGUI extends JPanel {
 		tfSearch.setFont(fntPlainText);
 		tfSearch.setBounds(115, 163, 600, 30);
 		add(tfSearch);
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+                {
+                    @Override
+                    public void insertUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+  
+                        }
+                    }   
+
+                    @Override
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                   
+                        }
+                    }
+
+                    @Override
+                     public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+                    
+                        }
+                    }       
+
+                    public void done() throws Exception
+                    {
+                        if (tfSearch.getText().length() > 0)
+                        {
+                            
+                        } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+                        {
+                      
+                        }
+                    }});
 
 		tbModel = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
@@ -169,6 +222,13 @@ public class TermsReportGUI extends JPanel {
                 chckbxNearTerms.setSelected(true);
 		chckbxNearTerms.setBounds(115, 80, 153, 30);
 		add(chckbxNearTerms);
+                chckbxNearTerms.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 		
                 chckbxExceededTerms = new JCheckBox("Exceeded Terms");
 		chckbxExceededTerms.setFont(fntPlainText);
@@ -176,6 +236,13 @@ public class TermsReportGUI extends JPanel {
                 chckbxExceededTerms.setSelected(true);
 		chckbxExceededTerms.setBounds(270, 80, 220, 30);
 		add(chckbxExceededTerms);
+                chckbxExceededTerms.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
                 
                 rdbtnCustomer = new JRadioButton("Customer");
 		rdbtnCustomer.setFont(fntPlainText);
@@ -183,18 +250,39 @@ public class TermsReportGUI extends JPanel {
 		rdbtnCustomer.setBounds(143, 121, 130, 30);
 		rdbtnCustomer.setSelected(true);
 		add(rdbtnCustomer);
+                rdbtnCustomer.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 
 		rdbtnSalesInvoice = new JRadioButton("Sales Invoice");
 		rdbtnSalesInvoice.setFont(fntPlainText);
                 rdbtnSalesInvoice.setBackground(SystemColor.textHighlight);
 		rdbtnSalesInvoice.setBounds(274, 121, 167, 30);
 		add(rdbtnSalesInvoice);
+                rdbtnSalesInvoice.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 
 		rdbtnAcknowledgementReceipt = new JRadioButton("Acknowledgement Receipt");
 		rdbtnAcknowledgementReceipt.setFont(fntPlainText);
                 rdbtnAcknowledgementReceipt.setBackground(SystemColor.textHighlight);
 		rdbtnAcknowledgementReceipt.setBounds(438, 121, 292, 30);
 		add(rdbtnAcknowledgementReceipt);
+                rdbtnAcknowledgementReceipt.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnCustomer);
@@ -205,16 +293,37 @@ public class TermsReportGUI extends JPanel {
 		btnViewAllReports.setFont(fntPlainText);
 		btnViewAllReports.setBounds(725, 190, 240, 40);
 		add(btnViewAllReports);
+                btnViewAllReports.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
                 
                 btnViewAckReceipt = new JButton("View Acknowledgement Receipt");
 		btnViewAckReceipt.setFont(fntPlainText);
 		btnViewAckReceipt.setBounds(380, 545, 353, 40);
 		add(btnViewAckReceipt);
+                btnViewAckReceipt.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
                 
                 btnViewSalesInvoice = new JButton("View Sales Invoice");
 		btnViewSalesInvoice.setFont(fntPlainText);
 		btnViewSalesInvoice.setBounds(30, 545, 225, 40);
 		add(btnViewSalesInvoice);
+                btnViewSalesInvoice.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                        }
+                    });
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
@@ -232,7 +341,42 @@ public class TermsReportGUI extends JPanel {
 		
 		
 	}
+        public void setItemCount(int itemcount)
+        {
+            lblNumofReportsFound.setText(Integer.toString(itemcount));
+        }
         
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbTermsReport.setModel(tbm);
+            JTableHeader th = tbTermsReport.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setMainController(ReportController temp){
+            mainController=temp;
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllTermsModel();
+            tbTermsReport.setModel(AllModel);
+
+            JTableHeader th = tbTermsReport.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 5; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();
