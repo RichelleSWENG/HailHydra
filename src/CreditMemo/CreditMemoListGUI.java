@@ -3,7 +3,6 @@ package CreditMemo;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Calendar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
-import Purchases.PurchaseTransactionController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -365,9 +363,17 @@ public class CreditMemoListGUI extends JPanel
 
 		btnViewCreditMemo = new JButton("View Credit Memo");
 		btnViewCreditMemo.setFont(fntPlainText);
-		btnViewCreditMemo.setBounds(23, 545, 238, 40);
+		btnViewCreditMemo.setBounds(30, 540, 238, 40);
 		add(btnViewCreditMemo);
-
+                btnViewCreditMemo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                controller.changePanelToViewCreditMemo();
+                        }
+                    });
+                
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(850, 545, 110, 40);
