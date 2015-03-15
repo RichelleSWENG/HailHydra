@@ -7,7 +7,7 @@ import javax.swing.JButton;
 
 public class ViewReturnSlipGUI extends ReturnSlipGUI
 {
-    private JButton btnModify, btnClose;
+    private JButton btnClose;
     private GUIController guiController;
     private ReturnSlipController mainController;
     
@@ -32,18 +32,6 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI
                 taAddress.setEditable(false);
                 taNotes.setEditable(false);
 		
-		btnModify = new JButton("Add Credit Memo");
-		btnModify.setFont(fntPlainText);
-		btnModify.setBounds(550, 545, 215, 40);
-		add(btnModify);
-		btnModify.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                guiController.changePanelToAddCreditMemo();
-                        }
-                    });
                         
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
