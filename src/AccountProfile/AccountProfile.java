@@ -15,8 +15,8 @@ public class AccountProfile
     {
         private final String type, name;
         private String address, city, postCode, country, 
-            phone1, phone2, phone3, faxNumber, emailAddress,
-            website, contactPerson;
+                phone1, phone2, phone3, faxNumber, emailAddress,
+                website, contactPerson;
         private final Float creditLimit;
         public final int terms;
         public final boolean status;
