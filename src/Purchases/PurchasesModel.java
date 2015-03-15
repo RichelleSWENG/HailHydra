@@ -23,6 +23,9 @@ public class PurchasesModel
     public PurchasesModel(DBConnection db)
     {
         this.db = db.getConnection();
+        suppliers = new ArrayList<>();
+        items = new ArrayList<>();
+        ptLineItemModel = new PTLineItemModel(db);
     }
 
     public ResultSet getDetail(String ID)
@@ -115,13 +118,14 @@ public class PurchasesModel
         {
         
             statement = db.createStatement();
-            String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, rceiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id()  + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance()+ "','" + pt.getStatus() + "')";
+            String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, receiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id()  + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance()+ "','" + pt.getStatus() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
             for (i = 0; i < pt.getItems().size(); i++)
             {
                 ptLineItemModel.addDetail(pt.getItems().get(i));
+                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(),pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
             }
         } catch (Exception e)
         {
@@ -144,7 +148,7 @@ public class PurchasesModel
 
     public void deleteDetail(String ID)
     {
-         try
+        try
         {
             statement = db.createStatement();
             String sql = "DELETE FROM purchasetransaction WHERE purchase_transaction_id='" + ID + "'";
@@ -280,5 +284,5 @@ public class PurchasesModel
     {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
-    
+        
 }

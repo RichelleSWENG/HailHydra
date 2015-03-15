@@ -51,7 +51,7 @@ public class SILineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "INSERT INTO silineitem(sales_invoice_id,quantity,part_num,unit_price,line_total) VALUES('" + lineitem.getSales_invoice_id() + "','" + lineitem.getQuantityFunc() + "','" + lineitem.getPartNum() + "','" + lineitem.getPrice() + "','" + lineitem.getLine_total() + "')";
+            String sql = "INSERT INTO silineitem(sales_invoice_id,quantity,part_num,unit_price,line_total) VALUES('" + lineitem.getSales_invoice_id() + "','" + lineitem.getQuantity() + "','" + lineitem.getPartNum() + "','" + lineitem.getUnit_price() + "','" + lineitem.getLine_total() + "')";
             statement.executeUpdate(sql);
             System.out.println(sql);
         } catch (Exception e)
@@ -94,6 +94,19 @@ public class SILineItemModel
         {
             statement = db.createStatement();
             String sql = "DELETE FROM silineitem WHERE sales_invoice_id='" + ID + "'";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+    }
+    
+    public void updateQuantity(String partNum, int quantity)
+    {
+        try
+        {
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional ='" + quantity + "' WHERE part_num = '" + partNum +"'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {

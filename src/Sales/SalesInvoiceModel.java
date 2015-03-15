@@ -123,6 +123,7 @@ public class SalesInvoiceModel
             for (i = 0; i < si.getItems().size(); i++)
             {
                 siLineItemModel.addDetail(si.getItems().get(i));
+                siLineItemModel.updateQuantity(si.getItems().get(i).getPartNum(), si.getItems().get(i).getQuantityFunc()-si.getItems().get(i).getQuantity());
             }
         } catch (Exception e)
         {
