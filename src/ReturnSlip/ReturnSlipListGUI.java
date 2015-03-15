@@ -53,7 +53,7 @@ public class ReturnSlipListGUI extends JPanel {
 	private ButtonGroup searchBy;
 	private JTextField tfSearch;
 	private JButton btnViewAllSlips, btnAddReturnSlip, btnViewReturnSlip, 
-                btnAddCreditMemo, btnClose;
+                btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
         private GUIController controller;
@@ -365,10 +365,18 @@ public class ReturnSlipListGUI extends JPanel {
 		btnViewReturnSlip.setFont(fntPlainText);
 		btnViewReturnSlip.setBounds(30, 545, 230, 40);
 		add(btnViewReturnSlip);
+                btnViewReturnSlip.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                controller.changePanelToViewReturnSlip();
+                        }
+                    });
 
 		btnAddReturnSlip = new JButton("Add Return Slip");
 		btnAddReturnSlip.setFont(fntPlainText);
-		btnAddReturnSlip.setBounds(320, 545, 190, 40);
+		btnAddReturnSlip.setBounds(450, 545, 190, 40);
 		add(btnAddReturnSlip);
                 btnAddReturnSlip.addActionListener(
                     new ActionListener()
@@ -379,18 +387,6 @@ public class ReturnSlipListGUI extends JPanel {
                         }
                     });
 
-                btnAddCreditMemo = new JButton("Add Credit Memo");
-		btnAddCreditMemo.setFont(fntPlainText);
-		btnAddCreditMemo.setBounds(580, 545, 210, 40);
-		add(btnAddCreditMemo);
-                btnAddCreditMemo.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                controller.changePanelToAddCreditMemo();
-                        }
-                    });
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
