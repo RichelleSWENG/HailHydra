@@ -20,6 +20,7 @@ import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoController;
 import CreditMemo.CreditMemoListGUI;
 import CreditMemo.CreditMemoModel;
+import CreditMemo.ViewCreditMemoGUI;
 import Database.DBConnection;
 import DebitMemo.AddDebitMemoGUI;
 import DebitMemo.DebitMemoController;
@@ -432,6 +433,13 @@ public class GUIController
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
+    
+    public void changePanelToViewCreditMemo()
+    {
+            getSectionsPanel().add(new ViewCreditMemoGUI(this));
+            mainMenuRevalidate();
+    }
+    
     public void changePanelToAddBankAccount()
     {
             if (systemAccountController == null)
