@@ -293,8 +293,11 @@ public class GUIController
     public void changePanelToAddSalesInvoice()
     {
             AddSalesInvoiceGUI tempGUI= new AddSalesInvoiceGUI(this);
+            tempGUI.setController(new SalesInvoiceController(new SalesInvoiceModel(dbc), null));
+            tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+
     }
     
     public void changePanelToViewSalesInvoice()

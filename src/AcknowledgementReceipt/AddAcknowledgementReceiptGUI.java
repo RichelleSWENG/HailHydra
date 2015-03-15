@@ -265,7 +265,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
             totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
         dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-        ftfTotal.setText(String.valueOf(totalBalance));
+        ftfTotal.setText(String.valueOf(dedBalance));
         ftfBalance.setText(String.valueOf(dedBalance));
     }
 
