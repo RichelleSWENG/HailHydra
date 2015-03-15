@@ -24,11 +24,12 @@ Account Profiles <br>
 Inventory and Item Profiles <br>
 Payables <br>
 Collectibles <br>
+Acknowledgement Receipts (Add/View Only) <br>
+Sales Invoices (Add/View Only) <br>
+Purchases (Add/View Only)<br>
 
 **For Fixing (Controller in progress/done):** <br>
-Acknowledgement Receipts <br>
-Sales Invoices <br>
-Purchases <br>
+-----<br>
 
 **Model done (needs Controller/for Integration):** <br>
 -----<br>

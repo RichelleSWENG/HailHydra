@@ -150,6 +150,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         tbModel.setRowCount(1);
         tbModel.setValueAt(defaultVal, numItems, 4);
         tbModel.addTableModelListener(this);
+        
     
     }
     public void setController(AcknowledgementReceiptController temp)

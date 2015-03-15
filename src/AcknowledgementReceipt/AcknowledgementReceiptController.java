@@ -16,13 +16,14 @@ public class AcknowledgementReceiptController
     private AcknowledgementReceiptListGUI gui;
     private ArrayList<ARLineItem> pendingItems;
     private int itemcount;
+    private AcknowledgementReceipt receipt;
     
     public AcknowledgementReceiptController(AckReceiptModel ackReceiptModel,AcknowledgementReceiptListGUI tempGUI)
     {
         this.ackReceiptModel = ackReceiptModel;
         pendingItems = new ArrayList<>();
         gui = tempGUI;
-               
+        receipt = null;
     }
     
     public ArrayList<Company> getCustomers()
@@ -124,5 +125,13 @@ public class AcknowledgementReceiptController
         return "";
     }
     
+    public void setReceiptTarget(AcknowledgementReceipt rcpt)
+    {
+        receipt = rcpt;
+    }
     
+    public AcknowledgementReceipt getReceiptTarget()
+    {
+        return receipt;
+    }
 }
