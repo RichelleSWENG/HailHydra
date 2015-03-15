@@ -9,11 +9,11 @@ Strikethrough words mean completed <br>
 **Iteration 1 Progress:** <br>
 Inventory and Item Profiles - ~~Model~~ || ~~Integration~~ <br>
 Account Profiles - ~~Model~~ || ~~Integration~~ <br>
-Purchases - ~~Model~~ || Integration <br>
+Purchases - ~~Model~~ || ~~Integration~~ <br>
 Acknowledgement Receipts - ~~Model~~ || ~~Integration~~ <br>
-Sales Invoices - ~~Model~~ || Integration <br>
+Sales Invoices - ~~Model~~ || ~~Integration~~ <br>
 [DI NA DAW TO KASAMA :'(] ~~System Accounts - Model || Integration~~ <br>
-Return Slip - Model || Integration <br>
+Return Slip - ~~Model~~ || Integration <br>
 Credit Memo/Debit Memo - Model || Integration <br>
 Collectibles - ~~Model~~ || ~~Integration~~ <br>
 Payables - ~~Model~~ || ~~Integration~~ <br>
@@ -29,7 +29,4 @@ Sales Invoices (Add/View Only) <br>
 Purchases (Add/View Only)<br>
 
 **For Fixing (Controller in progress/done):** <br>
------<br>
-
-**Model done (needs Controller/for Integration):** <br>
------<br>
+Return Slip <br>
