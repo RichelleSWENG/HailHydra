@@ -3,7 +3,6 @@ package ReturnSlip;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Calendar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -21,7 +20,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
-import Purchases.PurchaseTransactionController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
@@ -52,17 +50,17 @@ public class ReturnSlipListGUI extends JPanel {
 	private JRadioButton rdbtnSupplierName, rdbtnReturnSlipNo, rdbtnPartNo;
 	private ButtonGroup searchBy;
 	private JTextField tfSearch;
-	private JButton btnViewAllSlips, btnAddReturnSlip, btnViewReturnSlip, 
+	private JButton btnViewAllSlips, btnAddCreditMemo, btnAddReturnSlip, btnViewReturnSlip, 
                 btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private int modelRow;
-        private GUIController controller;
+        private GUIController guiController;
         private ReturnSlipController mainController;
 
 	
 	public ReturnSlipListGUI(GUIController temp) {
 		
-                controller=temp;
+                guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
 		setBackground(SystemColor.textHighlight);
@@ -370,24 +368,36 @@ public class ReturnSlipListGUI extends JPanel {
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToViewReturnSlip();
+                                guiController.changePanelToViewReturnSlip();
                         }
                     });
 
 		btnAddReturnSlip = new JButton("Add Return Slip");
 		btnAddReturnSlip.setFont(fntPlainText);
-		btnAddReturnSlip.setBounds(450, 545, 190, 40);
+		btnAddReturnSlip.setBounds(325, 545, 190, 40);
 		add(btnAddReturnSlip);
                 btnAddReturnSlip.addActionListener(
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToAddReturnSlip();
+                                guiController.changePanelToAddReturnSlip();
                         }
                     });
 
-
+                btnAddCreditMemo = new JButton("Add Credit Memo");
+		btnAddCreditMemo.setFont(fntPlainText);
+		btnAddCreditMemo.setBounds(575, 545, 215, 40);
+		add(btnAddCreditMemo);
+		btnAddCreditMemo.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                guiController.changePanelToAddCreditMemo();
+                        }
+                    });
+                
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
@@ -397,7 +407,7 @@ public class ReturnSlipListGUI extends JPanel {
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToMainMenu();
+                                guiController.changePanelToMainMenu();
                         }
                     });
 		
