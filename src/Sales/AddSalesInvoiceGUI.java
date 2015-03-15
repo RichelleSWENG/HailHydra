@@ -1,10 +1,21 @@
 package Sales;
 
-import javax.swing.JButton;
-
+import Classes.Company;
 import HailHydra.GUIController;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
 
 public class AddSalesInvoiceGUI extends SalesInvoiceGUI
 {
