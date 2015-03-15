@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CreditMemo;
 
 import Database.DBConnection;
@@ -12,11 +7,8 @@ import java.sql.Statement;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-/**
- *
- * @author Janine
- */
-public class CreditMemoModel {
+public class CreditMemoModel 
+{
     protected Connection db;
     protected Statement statement;
     private int itemCount=0;
