@@ -25,6 +25,7 @@ import DebitMemo.AddDebitMemoGUI;
 import DebitMemo.DebitMemoController;
 import DebitMemo.DebitMemoListGUI;
 import DebitMemo.DebitMemoModel;
+import DebitMemo.ViewDebitMemoGUI;
 //import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
@@ -407,11 +408,11 @@ public class GUIController
             frameRevalidate();
     }
     
-    /*public void changePanelToViewDebitMemo()
+    public void changePanelToViewDebitMemo()
     {
             getContentPanel().add(new ViewDebitMemoGUI(this));
             frameRevalidate();
-    }*/
+    }
     
     public void changePanelToCreditMemo()
     {
