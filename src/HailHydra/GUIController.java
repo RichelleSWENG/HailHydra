@@ -51,6 +51,8 @@ import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
 import Reports.OrderReportGUI;
 import Reports.TermsReportGUI;
+import ReturnSlip.ReturnSlipController;
+import ReturnSlip.ReturnSlipModel;
 import Sales.AddSalesInvoiceGUI;
 import Sales.ModifySalesInvoiceGUI;
 import Sales.SalesInvoiceController;
@@ -350,7 +352,10 @@ public class GUIController
     }
     public void changePanelToReturnSlip()
     {
-            getContentPanel().add(new ReturnSlipListGUI(this));
+            ReturnSlipListGUI tempGUI = new ReturnSlipListGUI(this);
+            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     public void changePanelToAddReturnSlip()
