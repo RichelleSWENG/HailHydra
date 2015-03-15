@@ -92,10 +92,12 @@ public class SalesInvoiceModel
             {
                     sql = "SELECT company.name, salesinvoice.date, salesinvoice.sales_invoice_id, salesinvoice.original_amount, salesinvoice.current_balance FROM company, salesinvoice WHERE company.company_id= salesinvoice.company_id AND company.name LIKE '%" + field + "%' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }	
-            else if(filter.equalsIgnoreCase("transaction number"))
+            else if(filter.equalsIgnoreCase("sales invoice number"))
             {
                     sql = "SELECT company.name, salesinvoice.date, salesinvoice.sales_invoice_id, salesinvoice.original_amount, salesinvoice.current_balance FROM company, salesinvoice WHERE company.company_id= salesinvoice.company_id AND salesinvoice.sales_invoice_id LIKE '%" + field + "%' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
+            else if(filter.equalsIgnoreCase("part number"))
+                    sql = "SELECT company.name, salesinvoice.date, salesinvoice.sales_invoice_id, salesinvoice.original_amount, salesinvoice.current_balance FROM company, salesinvoice,silineitem WHERE company.company_id= salesinvoice.company_id AND silineitem.sales_invoice_id=salesinvoice.sales_invoice_id AND silineitem.part_num LIKE '%" + field + "%' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();

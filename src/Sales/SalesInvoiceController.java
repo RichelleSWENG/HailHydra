@@ -48,7 +48,9 @@ public class SalesInvoiceController {
             if(type == 0)
                 searchBy = "name";
             else if(type == 1)
-                searchBy = "transaction number";
+                searchBy = "sales invoice number";
+            else if(type==2)
+                searchBy = "part number";
             TableModel tbm;
             tbm = salesinvoiceModel.myModel(salesinvoiceModel.searchDetail(text, searchBy,startDate,endDate));
             this.itemcount = salesinvoiceModel.getItemcount();
