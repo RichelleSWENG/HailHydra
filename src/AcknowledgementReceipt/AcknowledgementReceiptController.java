@@ -1,6 +1,8 @@
 
 package AcknowledgementReceipt;
 
+import HailHydra.Company;
+import HailHydra.Item;
 import Sales.SalesInvoiceController;
 import java.sql.ResultSet;
 import java.sql.SQLException;

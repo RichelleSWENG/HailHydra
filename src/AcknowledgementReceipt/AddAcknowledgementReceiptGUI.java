@@ -1,5 +1,6 @@
 package AcknowledgementReceipt;
 
+import HailHydra.Company;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Component;

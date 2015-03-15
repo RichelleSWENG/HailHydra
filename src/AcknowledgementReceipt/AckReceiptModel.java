@@ -1,5 +1,7 @@
 package AcknowledgementReceipt;
 
+import HailHydra.Company;
+import HailHydra.Item;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
