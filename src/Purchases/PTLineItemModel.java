@@ -1,17 +1,17 @@
-package Sales;
+package Purchases;
 
+import Database.DBConnection;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.sql.Connection;
-import Database.DBConnection;
 
-public class SILineItemModel
+
+public class PTLineItemModel
 {
-
     protected Connection db;
     protected Statement statement;
 
-    public SILineItemModel(DBConnection db)
+    public PTLineItemModel(DBConnection db)
     {
         this.db = db.getConnection();
     }
@@ -22,7 +22,7 @@ public class SILineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT quantity,part_num,unit_price,line_total FROM silineitem WHERE sales_invoice_id='" + ID + "' AND part_num='" + partnum + "'";
+            String sql = "SELECT quantity,part_num,unit_price,line_total FROM ptlineitem WHERE purchase_transaction_id='" + ID + "' AND part_num='" + partnum + "'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
@@ -37,7 +37,7 @@ public class SILineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT quantity,part_num,unit_price,line_total FROM silineitem WHERE sales_invoice_id='" + ID + "'";
+            String sql = "SELECT quantity,part_num,unit_price,line_total FROM ptlineitem WHERE purchase_transaction_id='" + ID + "'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
@@ -46,12 +46,12 @@ public class SILineItemModel
         return rs;
     }
 
-    public void addDetail(SILineItem lineitem)
+    public void addDetail(PTLineItem lineitem)
     {
         try
         {
             statement = db.createStatement();
-            String sql = "INSERT INTO silineitem(sales_invoice_id,quantity,part_num,unit_price,line_total) VALUES('" + lineitem.getSales_invoice_id() + "','" + lineitem.getQuantityFunc() + "','" + lineitem.getPartNum() + "','" + lineitem.getPrice() + "','" + lineitem.getLine_total() + "')";
+            String sql = "INSERT INTO ptlineitem(purchase_transaction_id,quantity,part_num,unit_price,line_total) VALUES('" + lineitem.getPurchase_transaction_id() + "','" + lineitem.getQuantityFunc() + "','" + lineitem.getPartNum() + "','" + lineitem.getPrice() + "','" + lineitem.getLine_total() + "')";
             statement.executeUpdate(sql);
             System.out.println(sql);
         } catch (Exception e)
@@ -60,12 +60,12 @@ public class SILineItemModel
         }
     }
 
-    public void editDetail(SILineItem lineitem)
+    public void editDetail(PTLineItem lineitem)
     {
         try
         {
             statement = db.createStatement();
-            String sql = "UPDATE silineitem SET quantity='" + lineitem.getQuantity() + "',unit_price='" + lineitem.getUnit_price() + ",line_total='" + lineitem.getLine_total() + "' WHERE acknowledgement_receipt_id='" + lineitem.getSales_invoice_id() + "' AND part_num='" + lineitem.getPartNum() + "'";
+            String sql = "UPDATE ptlineitem SET quantity='" + lineitem.getQuantity() + "',unit_price='" + lineitem.getUnit_price() + ",line_total='" + lineitem.getLine_total() + "' WHERE acknowledgement_receipt_id='" + lineitem.getPurchase_transaction_id() + "' AND part_num='" + lineitem.getPartNum() + "'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
@@ -79,7 +79,7 @@ public class SILineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "DELETE FROM silineitem WHERE sales_invoice_id='" + ID + "' AND part_num='" + partnum + "'";
+            String sql = "DELETE FROM ptlineitem WHERE purchase_transaction_id='" + ID + "' AND part_num='" + partnum + "'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
@@ -93,7 +93,7 @@ public class SILineItemModel
         try
         {
             statement = db.createStatement();
-            String sql = "DELETE FROM silineitem WHERE sales_invoice_id='" + ID + "'";
+            String sql = "DELETE FROM ptlineitem WHERE purchase_transaction_id='" + ID + "'";
             statement.executeUpdate(sql);
         } catch (Exception e)
         {
