@@ -34,8 +34,6 @@ public class AccountProfileController {
         return tbm;
     
     }
-    
-      
 
     public void SearchSomething(String text, int type)
     {
