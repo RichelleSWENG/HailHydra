@@ -37,7 +37,7 @@ public class TermsReportGUI extends JPanel
 	private String strHeader[] =
 	{
 			"Customer Name",
-			"<html><center>Sales Invoice<br>Acknowledgement Receipt<br>Number</center></html>",
+			"Receipt Number",
 			"<html><center>Terms<br>(Days)</html></center>",
 			"<html><center>Due<br>Date</center><html>",
 			"<html><center>Current<br>Balance</center></html>" };

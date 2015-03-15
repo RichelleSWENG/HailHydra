@@ -252,6 +252,12 @@ public class OrderReportGUI extends JPanel {
 		btnAddPurchaseTransaction.setFont(fntPlainText);
 		btnAddPurchaseTransaction.setBounds(455, 545, 310, 40);
 		add(btnAddPurchaseTransaction);
+                btnAddPurchaseTransaction.addActionListener(new ActionListener(){//Everytime All is selected 
+                public void actionPerformed(ActionEvent e) 
+                {
+                         controller.changePanelToAddPurchaseTransaction();
+                }
+                });
 
 		tbModel = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
