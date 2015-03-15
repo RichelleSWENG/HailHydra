@@ -92,6 +92,9 @@ public class AckReceiptModel
             } else if(filter.equalsIgnoreCase("acknowledgement number"))
             {
                     sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND acknowledgement_receipt_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            }else if(filter.equalsIgnoreCase("part number"))
+            {
+                    sql = "SELECT company.name, date,acknowledgementreceipt.acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt,arlineitem WHERE acknowledgementreceipt.company_id=company.company_id AND arlineitem.acknowledgement_receipt_id=acknowledgementreceipt.acknowledgement_receipt_id AND arlineitem.part_num LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
