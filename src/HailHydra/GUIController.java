@@ -58,6 +58,7 @@ import Reports.OrderReportGUI;
 import Reports.TermsReportGUI;
 import ReturnSlip.ReturnSlipController;
 import ReturnSlip.ReturnSlipModel;
+import ReturnSlip.ViewReturnSlipGUI;
 import Sales.AddSalesInvoiceGUI;
 import Sales.ModifySalesInvoiceGUI;
 import Sales.SalesInvoiceController;
@@ -366,9 +367,16 @@ public class GUIController
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
+    
     public void changePanelToAddReturnSlip()
     {
             getContentPanel().add(new AddReturnSlipGUI(this));
+            frameRevalidate();
+    }
+    
+    public void changePanelToViewReturnSlip()
+    {
+            getContentPanel().add(new ViewReturnSlipGUI(this));
             frameRevalidate();
     }
     
