@@ -441,8 +441,9 @@ public class GUIController
     
     public void changePanelToViewCreditMemo()
     {
-            getSectionsPanel().add(new ViewCreditMemoGUI(this));
-            mainMenuRevalidate();
+            ViewCreditMemoGUI tempGUI= new ViewCreditMemoGUI(this);
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
     }
     
     public void changePanelToAddBankAccount()
