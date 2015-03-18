@@ -370,6 +370,8 @@ public class AcknowledgementReceiptListGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                                String selectedID = tbModel.getValueAt(tbAckReceipt.getSelectedRow(), 2).toString();
+                                mainController.setReceiptTarget(mainController.getAR(selectedID));
 				guiController.changePanelToViewAcknowledgementReceipt();
 			}
 		});

@@ -289,4 +289,21 @@ public class AckReceiptModel
         }
         return rs;
     }
+     
+     public AcknowledgementReceipt getAR(String ID)
+     {
+        ArrayList<ARLineItem> stuff; 
+        AcknowledgementReceipt rcpt;
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * WHERE acknowledgement_receipt_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rcpt;
+     }
 }

@@ -134,4 +134,9 @@ public class AcknowledgementReceiptController
     {
         return receipt;
     }
+    
+    public AcknowledgementReceipt getAR(String ID)
+    {
+        return ackReceiptModel.getAR(ID);
+    }
 }

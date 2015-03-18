@@ -11,12 +11,13 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     private JButton  btnModify, btnClose;
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
+    private AcknowledgementReceipt rcpt;
     
     public ViewAcknowledgementReceiptGUI(GUIController temp)
     {
                 super();
                 guiController = temp;
-                
+                rcpt = mainController.getReceiptTarget();
                 lblHeader.setText("View Acknowledgement Receipt");
 		
                 cmbCustomer.setEditable(false);
