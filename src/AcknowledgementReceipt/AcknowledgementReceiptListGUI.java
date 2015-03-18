@@ -322,7 +322,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
 		rdbtnAckReceiptNum = new JRadioButton("Acknowledgement Receipt Number");
 		rdbtnAckReceiptNum.setBackground(SystemColor.textHighlight);
 		rdbtnAckReceiptNum.setFont(fntPlainText);
-		rdbtnAckReceiptNum.setBounds(235, 80, 401, 30);
+		rdbtnAckReceiptNum.setBounds(235, 80, 350, 30);
 		add(rdbtnAckReceiptNum);
 		rdbtnAckReceiptNum.addActionListener(new ActionListener()
 		{// Everytime All is selected
@@ -335,7 +335,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
 		rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBounds(638, 80, 109, 30);
+		rdbtnPartNumber.setBounds(620, 80, 170, 30);
 		add(rdbtnPartNumber);
 		rdbtnPartNumber.addActionListener(new ActionListener()
 		{// Everytime All is selected
