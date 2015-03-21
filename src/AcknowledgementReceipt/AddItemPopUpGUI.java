@@ -82,27 +82,27 @@ public class AddItemPopUpGUI extends JFrame
 			}
 		});
 		btnCancel.setFont(new Font("Arial", Font.PLAIN, 21));
-		btnCancel.setBounds(294, 361, 119, 40);
+		btnCancel.setBounds(260, 361, 119, 40);
 		contentPane.add(btnCancel);
 		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
-		btnSubmit.setBounds(134, 361, 119, 40);
+		btnSubmit.setBounds(30, 361, 119, 40);
 		contentPane.add(btnSubmit);
 		
 		tfQuantity = new JTextField();
-		tfQuantity.setBounds(124, 100, 255, 30);
+		tfQuantity.setBounds(167, 100, 212, 30);
 		contentPane.add(tfQuantity);
 		tfQuantity.setColumns(10);
 		
 		tfUnitPrice = new JTextField();
-		tfUnitPrice.setBounds(139, 204, 240, 30);
+		tfUnitPrice.setBounds(167, 204, 212, 30);
 		contentPane.add(tfUnitPrice);
 		tfUnitPrice.setColumns(10);
 		
 		tfTotal = new JTextField();
 		tfTotal.setEditable(false);
-		tfTotal.setBounds(91, 254, 288, 30);
+		tfTotal.setBounds(167, 254, 212, 30);
 		contentPane.add(tfTotal);
 		tfTotal.setColumns(10);
 		

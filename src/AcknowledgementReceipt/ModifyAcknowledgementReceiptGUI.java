@@ -4,6 +4,7 @@ import HailHydra.GUIController;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import java.awt.Font;
 
 public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     
@@ -21,7 +22,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
                 lblHeader.setText("Modify Acknowledgement Receipt");
 		
                 btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(fntPlainText);
+		btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
 		btnSubmit.setBounds(655, 545, 110, 40);
 		add(btnSubmit);
                 btnSubmit.addActionListener(
@@ -34,7 +35,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
                     });
 
 		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(fntPlainText);
+		btnCancel.setFont(new Font("Arial", Font.PLAIN, 21));
 		btnCancel.setBounds(855, 545, 110, 40);
 		add(btnCancel);
 		btnCancel.addActionListener(

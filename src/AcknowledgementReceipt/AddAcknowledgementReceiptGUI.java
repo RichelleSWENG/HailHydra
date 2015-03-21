@@ -16,6 +16,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
+import java.awt.Font;
 
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI implements TableModelListener
 {
@@ -49,7 +50,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         lblHeader.setText("Add Acknowledgement Receipt");
 
         btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
+        btnAddItem.setFont(new Font("Arial", Font.PLAIN, 21));
         btnAddItem.setBounds(30, 545, 147, 40);
         add(btnAddItem);
         btnAddItem.addActionListener(
@@ -65,7 +66,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 });
 
         btnSubmit = new JButton("Submit");
-        btnSubmit.setFont(fntPlainText);
+        btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
         btnSubmit.setBounds(655, 545, 110, 40);
         add(btnSubmit);
         btnSubmit.addActionListener(
@@ -92,7 +93,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                 });
 
         btnCancel = new JButton("Cancel");
-        btnCancel.setFont(fntPlainText);
+        btnCancel.setFont(new Font("Arial", Font.PLAIN, 21));
         btnCancel.setBounds(855, 545, 110, 40);
         add(btnCancel);
         btnCancel.addActionListener(
