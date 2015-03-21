@@ -21,6 +21,9 @@ Payables - ~~Model~~ || ~~Integration~~ <br>
 **Iteration 2 Progress:** <br>
 Login - Model || Integration <br>
 Basic System Settings - Model || Integration <br>
+Set Selling Price - Model || Integration <br>
+Set Last Cost Price - Model || Integration <br>
+Set Inventory Quantity - Model || Integration <br>
 Modify Password - Model || Integration <br>
 Modify Company Profile - Model || Integration <br>
 Modify VAT - Model || Integration <br>
