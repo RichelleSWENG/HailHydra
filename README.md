@@ -12,11 +12,22 @@ Account Profiles - ~~Model~~ || ~~Integration~~ <br>
 Purchases - ~~Model~~ || ~~Integration~~ <br>
 Acknowledgement Receipts - ~~Model~~ || ~~Integration~~ <br>
 Sales Invoices - ~~Model~~ || ~~Integration~~ <br>
-[DI NA DAW TO KASAMA :'(] ~~System Accounts - Model || Integration~~ <br>
+System Accounts - ~~Model~~ || ~~Integration~~ <br>
 Return Slip - ~~Model~~ || Integration <br>
 Credit Memo/Debit Memo - Model || Integration <br>
 Collectibles - ~~Model~~ || ~~Integration~~ <br>
 Payables - ~~Model~~ || ~~Integration~~ <br>
+
+**Iteration 2 Progress:** <br>
+Login - Model || Integration <br>
+Basic System Settings - Model || Integration <br>
+Modify Password - Model || Integration <br>
+Modify Company Profile - Model || Integration <br>
+Modify VAT - Model || Integration <br>
+Modify Alert (terms and credit limit) - Model || Integration <br>
+Order Notification - Model || Integration <br>
+Credit Limit Notification - Model || Integration <br>
+Terms Notification - Model || Integration <br>
 
 <hr>
 **For Testing:** <br>
