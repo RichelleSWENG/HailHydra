@@ -20,6 +20,7 @@ Payables - ~~Model~~ || ~~Integration~~ <br>
 
 **Iteration 2 Progress:** <br>
 Login - Model || Integration <br>
+Access Restriction in Main Memu - Model || Integration <br>
 Basic System Settings - Model || Integration <br>
 Set Selling Price - Model || Integration <br>
 Set Last Cost Price - Model || Integration <br>
