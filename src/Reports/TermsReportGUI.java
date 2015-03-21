@@ -97,12 +97,12 @@ public class TermsReportGUI extends JPanel
 
 		lblNumofReportsFound = new JLabel("0");
 		lblNumofReportsFound.setFont(fntPlainText);
-		lblNumofReportsFound.setBounds(194, 200, 250, 30);
+		lblNumofReportsFound.setBounds(190, 200, 250, 30);
 		add(lblNumofReportsFound);
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(115, 163, 600, 30);
+		tfSearch.setBounds(145, 163, 630, 30);
 		add(tfSearch);
 		tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
@@ -214,7 +214,7 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.setFont(fntPlainText);
 
 		spTermsReportTable = new JScrollPane(tbTermsReport);
-		spTermsReportTable.setBounds(30, 245, 935, 280);
+		spTermsReportTable.setBounds(30, 253, 935, 280);
 		add(spTermsReportTable);
 
 		tbTermsReport.getParent().setBackground(tbTermsReport.getBackground());
@@ -228,7 +228,7 @@ public class TermsReportGUI extends JPanel
 		chckbxNearTerms = new JCheckBox("Near Terms");
 		chckbxNearTerms.setFont(fntPlainText);
 		chckbxNearTerms.setSelected(true);
-		chckbxNearTerms.setBounds(115, 80, 153, 30);
+		chckbxNearTerms.setBounds(145, 80, 153, 30);
 		add(chckbxNearTerms);
 		chckbxNearTerms.addActionListener(new ActionListener()
 		{
@@ -240,7 +240,7 @@ public class TermsReportGUI extends JPanel
 		chckbxExceededTerms = new JCheckBox("Exceeded Terms");
 		chckbxExceededTerms.setFont(fntPlainText);
 		chckbxExceededTerms.setSelected(true);
-		chckbxExceededTerms.setBounds(270, 80, 220, 30);
+		chckbxExceededTerms.setBounds(300, 80, 220, 30);
 		add(chckbxExceededTerms);
 		chckbxExceededTerms.addActionListener(new ActionListener()
 		{
@@ -251,7 +251,7 @@ public class TermsReportGUI extends JPanel
 
 		rdbtnCustomer = new JRadioButton("Customer");
 		rdbtnCustomer.setFont(fntPlainText);
-		rdbtnCustomer.setBounds(143, 121, 130, 30);
+		rdbtnCustomer.setBounds(145, 121, 130, 30);
 		rdbtnCustomer.setSelected(true);
 		add(rdbtnCustomer);
 		rdbtnCustomer.addActionListener(new ActionListener()
@@ -279,7 +279,7 @@ public class TermsReportGUI extends JPanel
 
 		btnViewAllReports = new JButton("View All Reports");
 		btnViewAllReports.setFont(fntPlainText);
-		btnViewAllReports.setBounds(725, 190, 240, 40);
+		btnViewAllReports.setBounds(725, 200, 240, 40);
 		add(btnViewAllReports);
 		btnViewAllReports.addActionListener(new ActionListener()
 		{
