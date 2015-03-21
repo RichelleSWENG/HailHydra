@@ -432,6 +432,7 @@ public class AccountProfileListGUI extends JPanel
             tc.setHeaderValue(strHeader[i]);
         }
         th.repaint();
+        System.out.println("Hello");
     }
 
 
