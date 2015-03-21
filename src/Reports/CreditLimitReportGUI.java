@@ -49,7 +49,6 @@ public class CreditLimitReportGUI extends JPanel {
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
