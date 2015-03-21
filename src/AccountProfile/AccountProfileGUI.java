@@ -269,7 +269,5 @@ public class AccountProfileGUI extends JPanel {
         type.add(rdbtnSisterCompanyCustomer);
         type.add(rdbtnWalkinCustomer);
         type.add(rdbtnSupplier);
-        
-        System.out.println("Hello");
     }
 }
