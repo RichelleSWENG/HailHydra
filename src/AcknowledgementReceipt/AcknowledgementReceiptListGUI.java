@@ -65,7 +65,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         guiController = temp;
         setBounds(0, 0, 1000, 620);
         setLayout(null);
-        setBackground(SystemColor.textHighlight);
 
         fntPlainText = new Font("Arial", Font.PLAIN, 21);
         fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -293,7 +292,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         tbAckReceipt.setRowHeight(30);
 
         rdbtnName = new JRadioButton("Name");
-        rdbtnName.setBackground(SystemColor.textHighlight);
         rdbtnName.setFont(fntPlainText);
         rdbtnName.setSelected(true);
         rdbtnName.setBounds(215, 80, 93, 30);
@@ -305,7 +303,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         });
 
         rdbtnAckReceiptNum = new JRadioButton("Acknowledgement Receipt Number");
-        rdbtnAckReceiptNum.setBackground(SystemColor.textHighlight);
         rdbtnAckReceiptNum.setFont(fntPlainText);
         rdbtnAckReceiptNum.setBounds(310, 80, 350, 30);
         add(rdbtnAckReceiptNum);
@@ -316,7 +313,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         });
 
         rdbtnPartNumber = new JRadioButton("Part Number");
-        rdbtnPartNumber.setBackground(SystemColor.textHighlight);
         rdbtnPartNumber.setFont(fntPlainText);
         rdbtnPartNumber.setBounds(620, 80, 170, 30);
         add(rdbtnPartNumber);
