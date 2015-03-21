@@ -62,7 +62,6 @@ public class OrderReportGUI extends JPanel {
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -210,7 +209,6 @@ public class OrderReportGUI extends JPanel {
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-                rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setSelected(true);
 		rdbtnPartNumber.setBounds(144, 76, 157, 30);
 		add(rdbtnPartNumber);
@@ -223,7 +221,6 @@ public class OrderReportGUI extends JPanel {
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-                rdbtnDescription.setBackground(SystemColor.textHighlight);
 		rdbtnDescription.setBounds(299, 76, 157, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
