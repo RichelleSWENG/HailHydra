@@ -436,7 +436,7 @@ public class PayablesListGUI extends JPanel
 
 		btnAddPayment = new JButton("Add Payment");
 		btnAddPayment.setFont(fntPlainText);
-		btnAddPayment.setBounds(431, 545, 216, 40);
+		btnAddPayment.setBounds(431, 545, 190, 40);
 		add(btnAddPayment);
                 btnAddPayment.addActionListener(
                     new ActionListener()
