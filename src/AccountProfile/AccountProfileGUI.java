@@ -37,7 +37,6 @@ public class AccountProfileGUI extends JPanel {
     {
         setBounds(0, 0, 1000, 620);
         setLayout(null);
-        setBackground(SystemColor.textHighlight);
 
         fntPlainText = new Font("Arial", Font.PLAIN, 21);
         fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -236,7 +235,6 @@ public class AccountProfileGUI extends JPanel {
         //The following codes are for JCheckBoxes
         chckbxInactiveAccount = new JCheckBox("Inactive Account");
         chckbxInactiveAccount.setFont(fntPlainText);
-        chckbxInactiveAccount.setBackground(SystemColor.textHighlight);
         chckbxInactiveAccount.setBounds(29, 80, 200, 30);
         add(chckbxInactiveAccount);
 
@@ -244,7 +242,6 @@ public class AccountProfileGUI extends JPanel {
         rdbtnSisterCompanyCustomer = new JRadioButton("Sister Company Customer ");
         rdbtnSisterCompanyCustomer.setActionCommand("Sister Company Customer");
         rdbtnSisterCompanyCustomer.setFont(fntPlainText);
-        rdbtnSisterCompanyCustomer.setBackground(SystemColor.textHighlight);
         rdbtnSisterCompanyCustomer.setSelected(true);
         rdbtnSisterCompanyCustomer.setBounds(175, 115, 277, 30);
         add(rdbtnSisterCompanyCustomer);
@@ -252,21 +249,18 @@ public class AccountProfileGUI extends JPanel {
         rdbtnRetailCustomer = new JRadioButton("Retail Customer");
         rdbtnRetailCustomer.setActionCommand("Retail Customer");
         rdbtnRetailCustomer.setFont(fntPlainText);
-        rdbtnRetailCustomer.setBackground(SystemColor.textHighlight);
         rdbtnRetailCustomer.setBounds(456, 115, 183, 30);
         add(rdbtnRetailCustomer);
 
         rdbtnWalkinCustomer = new JRadioButton("Walk-in Customer");
         rdbtnWalkinCustomer.setActionCommand("Walk-in Customer");
         rdbtnWalkinCustomer.setFont(fntPlainText);
-        rdbtnWalkinCustomer.setBackground(SystemColor.textHighlight);
         rdbtnWalkinCustomer.setBounds(643, 115, 200, 30);
         add(rdbtnWalkinCustomer);
 
         rdbtnSupplier = new JRadioButton("Supplier");
         rdbtnSupplier.setActionCommand("Supplier");
         rdbtnSupplier.setFont(fntPlainText);
-        rdbtnSupplier.setBackground(SystemColor.textHighlight);
         rdbtnSupplier.setBounds(856, 115, 109, 30);
         add(rdbtnSupplier);
 
