@@ -36,11 +36,12 @@ public class TermsReportGUI extends JPanel
 	private JTextField tfSearch;
 	private String strHeader[] =
 	{
-			"Customer Name",
-			"Receipt Number",
-			"<html><center>Terms<br>(Days)</html></center>",
-			"<html><center>Due<br>Date</center><html>",
-			"<html><center>Current<br>Balance</center></html>" };
+		"     Customer Name     ", 
+                "<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>",
+		"<html><center>Terms<br>(Days)</html></center>",
+		"<html><center>Due<br>Date</center><html>",
+		"<html><center>Current<br>Balance</center></html>" 
+        };
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
@@ -64,7 +65,6 @@ public class TermsReportGUI extends JPanel
 		controller = temp;
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
 
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -227,7 +227,6 @@ public class TermsReportGUI extends JPanel
 
 		chckbxNearTerms = new JCheckBox("Near Terms");
 		chckbxNearTerms.setFont(fntPlainText);
-		chckbxNearTerms.setBackground(SystemColor.textHighlight);
 		chckbxNearTerms.setSelected(true);
 		chckbxNearTerms.setBounds(115, 80, 153, 30);
 		add(chckbxNearTerms);
@@ -240,7 +239,6 @@ public class TermsReportGUI extends JPanel
 
 		chckbxExceededTerms = new JCheckBox("Exceeded Terms");
 		chckbxExceededTerms.setFont(fntPlainText);
-		chckbxExceededTerms.setBackground(SystemColor.textHighlight);
 		chckbxExceededTerms.setSelected(true);
 		chckbxExceededTerms.setBounds(270, 80, 220, 30);
 		add(chckbxExceededTerms);
@@ -253,7 +251,6 @@ public class TermsReportGUI extends JPanel
 
 		rdbtnCustomer = new JRadioButton("Customer");
 		rdbtnCustomer.setFont(fntPlainText);
-		rdbtnCustomer.setBackground(SystemColor.textHighlight);
 		rdbtnCustomer.setBounds(143, 121, 130, 30);
 		rdbtnCustomer.setSelected(true);
 		add(rdbtnCustomer);
@@ -265,10 +262,9 @@ public class TermsReportGUI extends JPanel
 		});
 
 		rdbtnReceiptNumber = new JRadioButton(
-				"Sales Invoice/Acknowledgement Receipt Number");
+				"Sales Invoice/ Acknowledgement Receipt Number");
 		rdbtnReceiptNumber.setFont(fntPlainText);
-		rdbtnReceiptNumber.setBackground(SystemColor.textHighlight);
-		rdbtnReceiptNumber.setBounds(274, 121, 491, 30);
+		rdbtnReceiptNumber.setBounds(274, 121, 520, 30);
 		add(rdbtnReceiptNumber);
 		rdbtnReceiptNumber.addActionListener(new ActionListener()
 		{
