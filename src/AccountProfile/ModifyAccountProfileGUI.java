@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
 public class ModifyAccountProfileGUI extends AccountProfileGUI 
 {
         private JButton btnSubmit, btnCancel;
+        private JLabel lblHeader;
         private GUIController GUIController;
         private AccountProfileController mainController;
         private String realName;

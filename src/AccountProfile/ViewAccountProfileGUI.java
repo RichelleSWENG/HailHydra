@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 
 
 public class ViewAccountProfileGUI extends AccountProfileGUI
 {
         private JButton btnEdit, btnClose;
+        private JLabel lblHeader;
         private GUIController guiController;
         private AccountProfileController mainController;
         
