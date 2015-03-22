@@ -14,8 +14,8 @@ private static DBConnection instance;
     public  DBConnection()
     {
         this.username="root";
-        this.password="password";
-        this.url="jdbc:mysql://localhost:1527/hydraforce_db";   
+        this.password="";
+        this.url="jdbc:mysql://localhost:3306/hydraforce_db";   
 
             try 
             {
