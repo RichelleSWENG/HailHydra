@@ -66,7 +66,6 @@ public class ReturnSlipGUI extends JPanel
         {
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -287,7 +286,6 @@ public class ReturnSlipGUI extends JPanel
                 pnlType= new JPanel();
                 pnlType.setBounds(550, 405,415, 130);
                 pnlType.setLayout(null);
-                pnlType.setBackground(SystemColor.textHighlight);
                 add(pnlType);
                 title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Type");
                 title.setTitleJustification(TitledBorder.LEFT);
@@ -296,7 +294,6 @@ public class ReturnSlipGUI extends JPanel
                 
                 rdbtnFunctional = new JRadioButton("Functional");
 		rdbtnFunctional.setFont(fntPlainText);
-                rdbtnFunctional.setBackground(SystemColor.textHighlight);
 		rdbtnFunctional.setSelected(true);
 		rdbtnFunctional.setBounds(30, 25, 184, 30);
 		pnlType.add(rdbtnFunctional);
@@ -308,7 +305,6 @@ public class ReturnSlipGUI extends JPanel
                 
                 rdbtnDefectiveWithOutDebitMemo = new JRadioButton("Defective w/out Debit Memo");
 		rdbtnDefectiveWithOutDebitMemo.setFont(fntPlainText);
-                rdbtnDefectiveWithOutDebitMemo.setBackground(SystemColor.textHighlight);
 		rdbtnDefectiveWithOutDebitMemo.setSelected(true);
 		rdbtnDefectiveWithOutDebitMemo.setBounds(30, 55, 300, 30);
 		pnlType.add(rdbtnDefectiveWithOutDebitMemo);
@@ -320,7 +316,6 @@ public class ReturnSlipGUI extends JPanel
                         
                 rdbtnDefectiveWithDebitMemo = new JRadioButton("Defective w/Debit Memo");
 		rdbtnDefectiveWithDebitMemo.setFont(fntPlainText);
-                rdbtnDefectiveWithDebitMemo.setBackground(SystemColor.textHighlight);
 		rdbtnDefectiveWithDebitMemo.setSelected(true);
 		rdbtnDefectiveWithDebitMemo.setBounds(30, 85, 300, 30);
 		pnlType.add(rdbtnDefectiveWithDebitMemo);
