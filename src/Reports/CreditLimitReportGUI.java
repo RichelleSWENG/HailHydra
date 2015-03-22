@@ -120,9 +120,10 @@ public class CreditLimitReportGUI extends JPanel {
                     {
                         if (tfCustomer.getText().length() > 0)
                         {
-                          
+                            mainController.SearchSomethingfromTerms(tfCustomer.getText());
                         } else if (tfCustomer.getText().length() == 0)  //if nothing is typed display all
                         {
+                            ViewAll();
                         }
                     }});
 
@@ -188,6 +189,7 @@ public class CreditLimitReportGUI extends JPanel {
                     {
                         public void actionPerformed(ActionEvent e)
                         {
+                            ViewAll();
                         }
                     });
                 
@@ -230,7 +232,7 @@ public class CreditLimitReportGUI extends JPanel {
             tbCreditLimit.setModel(tbm);
             JTableHeader th = tbCreditLimit.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < 3; i++)
             {
                 TableColumn tc = tcm.getColumn(i);
                 tc.setHeaderValue(strHeader[i]);

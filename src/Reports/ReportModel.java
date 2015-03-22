@@ -101,7 +101,24 @@ public class ReportModel {
 		try
 		{
 			statement = db.createStatement();
-			String sql = "";
+			String sql = "SELECT name,credit_limit, (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) FROM company WHERE type LIKE '%customer'";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow();
+                        rs.beforeFirst();
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+        }
+        public ResultSet searchCreditReport(String name)
+        {
+            ResultSet rs = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT name,credit_limit, (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) FROM company WHERE type LIKE '%customer' AND name LIKE '%"+name+"%'";
 			rs = statement.executeQuery(sql);
                         rs.last();                        // Get Item Count
                         itemCount = rs.getRow();

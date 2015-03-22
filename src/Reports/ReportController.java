@@ -23,7 +23,16 @@ public class ReportController {
         reportModel=model;
         ordergui=gui;
     }    
-    
+    public ReportController(ReportModel model,TermsReportGUI gui)
+    {
+        reportModel=model;
+        termsgui=gui;
+    }  
+    public ReportController(ReportModel model,CreditLimitReportGUI gui)
+    {
+        reportModel=model;
+        creditgui=gui;
+    } 
     TableModel getAllCreditModel()
     {
        TableModel tbm = reportModel.myModel(reportModel.CreditReport());
@@ -58,6 +67,13 @@ public class ReportController {
             ordergui.setItemCount(itemcount);
             ordergui.setTableModel(tbm);
     }
-    
+    public void SearchSomethingfromTerms(String name)
+    {
+            TableModel tbm;
+            tbm = reportModel.myModel(reportModel.searchCreditReport(name));
+            this.itemcount = reportModel.getItemcount();
+            creditgui.setItemCount(itemcount);
+            creditgui.setTableModel(tbm);
+    }
     
 }

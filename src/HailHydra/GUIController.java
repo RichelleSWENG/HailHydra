@@ -363,7 +363,10 @@ public class GUIController
     
     public void changePanelToCreditLimitReport()
     {
-            getContentPanel().add(new CreditLimitReportGUI(this));
+            CreditLimitReportGUI tempGUI = new CreditLimitReportGUI(this);
+            tempGUI.setMainController(new ReportController(new ReportModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     public void changePanelToReturnSlip()
