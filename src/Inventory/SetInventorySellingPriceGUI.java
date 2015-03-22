@@ -2,51 +2,56 @@ package Inventory;
 import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import javax.swing.JLabel;
-
-import java.awt.Font;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JRadioButton;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
 
 import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 
-public class SetInventoryQuantityGUI extends JPanel
+
+public class SetInventorySellingPriceGUI extends JPanel
 {
 
 	private JLabel  lblHeader, lblSearch, lblSearchBy, lblItemsFound,
 			lblNumOfItemsFound;
 	private JTextField tfSearch;
-	private JButton btnViewAllItems, btnSubmit, btnCancel;
+	private JButton btnViewAllItems, btnCancel, btnSubmit;
 	private JRadioButton rdbtnPartNumber, rdbtnDescription;
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
 	private String headers[] ={ "Part Number", "Description", 
-                        "<html><center>Quantity<br>(Functional)</center></html>", 
-                        "Counted","<html><center>Quantity<br>(Defective)</center></html>",
-                        "Counted" };
+                        "<html><center>Reference<br>Sister Company<br>Price</center></html>", 
+                        "<html><center>Current<br>Sister Company<br>Price</center></html>",
+                        "<html><center>Reference<br>Retail Price</center></html>", 
+                        "<html><center>Current<br>Retail Price</center></html>",
+                        "<html><center>Reference<br>Walk-in Price</center></html>", 
+                        "<html><center>Current<br>Walk-in Price</center></html>" };
 	private DefaultTableModel table;
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
-
 	
-	public SetInventoryQuantityGUI(GUIController temp)
+
+	public SetInventorySellingPriceGUI(GUIController temp)
 	{
-                controller=temp;
+		controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
                 
@@ -54,7 +59,7 @@ public class SetInventoryQuantityGUI extends JPanel
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
                 fntHeaderTableText= new Font("Arial", Font.BOLD, 16);
 
-		lblHeader = new JLabel("Set Inventory Quantity");
+		lblHeader = new JLabel("Set Inventory Selling Price");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
@@ -78,7 +83,7 @@ public class SetInventoryQuantityGUI extends JPanel
 		lblNumOfItemsFound.setFont(fntPlainText);
 		lblNumOfItemsFound.setBounds(165, 160, 250, 30);
 		add(lblNumOfItemsFound);
-                
+
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
 		tfSearch.setBounds(110, 120, 360, 30);
@@ -88,16 +93,15 @@ public class SetInventoryQuantityGUI extends JPanel
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
-				if (mColIndex == 3 || mColIndex == 5)
+				if(mColIndex == 3)
 					return true;
-				else
-					return false;
+				return false;
 			}
 		};
 
 		table.setRowCount(15);
 
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			table.addColumn(headers[i]);
 		}
@@ -109,11 +113,17 @@ public class SetInventoryQuantityGUI extends JPanel
 				return new TableRenderer();
 			}
 		};
+                DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+                rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+                setQuantityTable.getColumnModel().getColumn(3).setCellRenderer(rightRenderer);
+
 		
 		setQuantityTable.getTableHeader().setFont(fntHeaderTableText);
-		setQuantityTable.getTableHeader().setPreferredSize(new Dimension(100, 55));
+		setQuantityTable.getTableHeader().setPreferredSize(
+				new Dimension(100, 55));
 		setQuantityTable.getTableHeader().setResizingAllowed(false);
-		TableCellRenderer rend = setQuantityTable.getTableHeader().getDefaultRenderer();
+		TableCellRenderer rend = setQuantityTable.getTableHeader()
+				.getDefaultRenderer();
 		TableColumnModel tcm = setQuantityTable.getColumnModel();
 		for (int j = 0; j < tcm.getColumnCount(); j += 1)
 		{
@@ -126,7 +136,7 @@ public class SetInventoryQuantityGUI extends JPanel
 			tc.setPreferredWidth(c.getPreferredSize().width);
 		}
 		setQuantityTable.setFont(fntPlainText);
-
+                
 		spQuantityTable = new JScrollPane(setQuantityTable);
 		spQuantityTable.setBounds(30, 205, 935, 320);
 		add(spQuantityTable);
@@ -141,12 +151,12 @@ public class SetInventoryQuantityGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBounds(155, 80, 169, 30);
+		rdbtnPartNumber.setBounds(155, 81, 169, 30);
 		add(rdbtnPartNumber);
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(341, 80, 157, 30);
+		rdbtnDescription.setBounds(341, 81, 157, 30);
 		add(rdbtnDescription);
 		
 		searchBy = new ButtonGroup();
@@ -184,9 +194,8 @@ public class SetInventoryQuantityGUI extends JPanel
                         }
                     });
 	}
-        
         public static void main(String args[]){
            GUIController temp=new GUIController();
-           temp.changePanelToSetInventoryQuantity();
+           temp.changePanelToSetInventorySellingPrice();
         }
 }

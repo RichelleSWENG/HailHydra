@@ -26,37 +26,36 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 
 
-public class SetInventoryPriceGUI extends JPanel
+public class SetInventoryLastCostGUI extends JPanel
 {
 
 	private JLabel  lblHeader, lblSearch, lblSearchBy, lblItemsFound,
 			lblNumOfItemsFound;
 	private JTextField tfSearch;
-	private JButton btnViewAllItems, btnSubmit;
+	private JButton btnViewAllItems, btnSubmit, btnCancel;
 	private JRadioButton rdbtnPartNumber, rdbtnDescription;
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
 	private String headers[] ={ "Part Number", "Description", 
-                        "<html><center>Reference<br>Price</center></html>", 
-                        "<html><center>Current<br>Price</center></html>" };
+                        "<html><center>Reference<br>Last Cost</center></html>", 
+                        "<html><center>Current<br>Last Cost</center></html>" };
 	private DefaultTableModel table;
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
 	
 
-	public SetInventoryPriceGUI(GUIController temp)
+	public SetInventoryLastCostGUI(GUIController temp)
 	{
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
                 fntHeaderTableText= new Font("Arial", Font.BOLD, 16);
 
-		lblHeader = new JLabel("Set Inventory Price");
+		lblHeader = new JLabel("Set Inventory Last Cost");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
@@ -148,13 +147,11 @@ public class SetInventoryPriceGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-                rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setBounds(155, 81, 169, 30);
 		add(rdbtnPartNumber);
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-                rdbtnDescription.setBackground(SystemColor.textHighlight);
 		rdbtnDescription.setBounds(341, 81, 157, 30);
 		add(rdbtnDescription);
 		
@@ -167,9 +164,22 @@ public class SetInventoryPriceGUI extends JPanel
 		btnViewAllItems.setBounds(725, 150, 240, 40);
 		add(btnViewAllItems);
 
+		btnCancel = new JButton("Cancel");
+		btnCancel.setFont(fntPlainText);
+		btnCancel.setBounds(855, 545, 110, 40);
+		add(btnCancel);
+		btnCancel.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                            controller.changePanelToMainMenu();
+                    }
+                });
+		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
-		btnSubmit.setBounds(855, 545, 110, 40);
+		btnSubmit.setBounds(719, 545, 110, 40);
 		add(btnSubmit);
                 btnSubmit.addActionListener(
                     new ActionListener()
@@ -182,7 +192,7 @@ public class SetInventoryPriceGUI extends JPanel
 	}
         public static void main(String args[]){
            GUIController temp=new GUIController();
-           temp.changePanelToSetInventoryPrice();
+           temp.changePanelToSetInventoryLastCost();
         }
 
 }

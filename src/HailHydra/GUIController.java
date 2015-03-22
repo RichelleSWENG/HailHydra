@@ -31,8 +31,9 @@ import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
-import Inventory.SetInventoryPriceGUI;
+import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
+import Inventory.SetInventorySellingPriceGUI;
 import Login.LoginGUI;
 import Login.MainMenuGUI;
 import Login.PaymentsGUI;
@@ -236,9 +237,15 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToSetInventoryPrice()
+    public void changePanelToSetInventoryLastCost()
     {
-            getContentPanel().add(new SetInventoryPriceGUI(this));
+            getContentPanel().add(new SetInventoryLastCostGUI(this));
+            frameRevalidate();
+    }
+    
+    public void changePanelToSetInventorySellingPrice()
+    {
+            getContentPanel().add(new SetInventorySellingPriceGUI(this));
             frameRevalidate();
     }
     
