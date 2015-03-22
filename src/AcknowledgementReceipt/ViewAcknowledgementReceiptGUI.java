@@ -17,7 +17,7 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI{
     {
                 super();
                 guiController = temp;
-                rcpt = mainController.getReceiptTarget();
+                AcknowledgementReceipt rcpt = new AcknowledgementReceipt();
                 lblHeader.setText("View Acknowledgement Receipt");
 		
                 cmbCustomer.setEditable(false);
