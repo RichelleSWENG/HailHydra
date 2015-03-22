@@ -21,7 +21,10 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                 setMainController(AccountProfileController);
                 guiController=temp;
                 
-                lblHeader.setText("View Account Profile");
+                lblHeader = new JLabel("View Account Profile");
+                lblHeader.setFont(fntHeaderText);
+                lblHeader.setBounds(30, 0, 600, 86);
+                add(lblHeader);
                 
                 tfName.setEditable(false);
                 tfCity.setEditable(false);
