@@ -46,7 +46,6 @@ public class ItemProfileGUI extends JPanel
         {
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -194,7 +193,6 @@ public class ItemProfileGUI extends JPanel
                 
                 chckbxInactiveItem = new JCheckBox("Inactive Item");
 		chckbxInactiveItem.setFont(fntPlainText);
-                chckbxInactiveItem.setBackground(SystemColor.textHighlight);
 		chckbxInactiveItem.setBounds(30, 80, 182, 30);
 		add(chckbxInactiveItem);
                 

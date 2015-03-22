@@ -80,7 +80,6 @@ public class InventoryListGUI extends JPanel
 		guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -248,7 +247,6 @@ public class InventoryListGUI extends JPanel
                 rdbtnPartNumber.setActionCommand("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
-                rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setBounds(142, 80, 158, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
@@ -261,7 +259,6 @@ public class InventoryListGUI extends JPanel
 		rdbtnDescription = new JRadioButton("Description");
                 rdbtnDescription.setActionCommand("Description");
 		rdbtnDescription.setFont(fntPlainText);
-                rdbtnDescription.setBackground(SystemColor.textHighlight);
 		rdbtnDescription.setBounds(309, 80, 158, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
