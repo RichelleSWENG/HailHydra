@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 
 public class ModifyAccountProfileGUI extends AccountProfileGUI 
 {
         private JButton btnSubmit, btnCancel;
+        private JLabel lblHeader;
         private GUIController GUIController;
         private AccountProfileController mainController;
         private String realName;
@@ -204,17 +206,19 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                                 error = true;
                             }
                             
-                            if(!"".equals(tfPhone3.getText()))
+                            if(!"".equals(tfPhone3.getText())) {
+                                
+                            }
 
                             if(!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText())<0)
-
-
                             {
                                 JOptionPane.showMessageDialog(null, "Tel Phone 3 # is invalid");
                                 error = true;
                             }
                             
-                            if(!"".equals(tfFaxNumber.getText()))
+                            if(!"".equals(tfFaxNumber.getText())) {
+                                
+                            }
 
                             if(!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText())<0)
                             {
@@ -231,10 +235,9 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 
                             if(error == false)
                             {
-                            
-                            mainController.ModifyAccountProfile(al,realName,realType); // edit the account
-                            mainController.setAccountProfile(al);
-                            GUIController.changePanelToViewAccountProfile();
+                                mainController.ModifyAccountProfile(al,realName,realType); // edit the account
+                                mainController.setAccountProfile(al);
+                                GUIController.changePanelToViewAccountProfile();
                             }
                         }
                     });
@@ -253,13 +256,12 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                     });
         }
         
-             public void setMainController(AccountProfileController temp){
+        public void setMainController(AccountProfileController temp){
             mainController=temp;
         }
         
-             private boolean isInteger(String s)
+        private boolean isInteger(String s)
         {
-
             try
             {
                 Integer.parseInt(s);
@@ -269,12 +271,10 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
             }
             // only got here if we didn't return false
             return true;
-
         }
 
         private boolean isFloat(String s)
         {
-
             try
             {
                 Float.parseFloat(s);
@@ -291,11 +291,12 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
             Matcher m = p.matcher(s);
             boolean b = m.find();
 
-        if (b || s.contains(" "))
-         return true;
-        else 
-         return false;
+            if (b || s.contains(" "))
+             return true;
+            else 
+             return false;
         }
+        
         public static void main(String args[]){
             GUIController temp=new GUIController();
            temp.changePanelToModifyAccountProfile();

@@ -5,11 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-
+import javax.swing.JLabel;
 
 public class ViewAccountProfileGUI extends AccountProfileGUI
 {
         private JButton btnEdit, btnClose;
+        private JLabel lblHeader;
         private GUIController guiController;
         private AccountProfileController mainController;
         
@@ -43,7 +44,7 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                 rdbtnSupplier.setEnabled(false);
                 chckbxInactiveAccount.setEnabled(false);
                 
-            ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
+                ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
 
                 tfName.setText(accountProfile.get(0).toString());
                 taAddress.setText(accountProfile.get(1).toString());

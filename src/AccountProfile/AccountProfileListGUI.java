@@ -64,7 +64,6 @@ public class AccountProfileListGUI extends JPanel
                 GUIController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -240,16 +239,12 @@ public class AccountProfileListGUI extends JPanel
                 
 		chckbxCustomer = new JCheckBox("Customer");
 		chckbxCustomer.setFont(fntPlainText);
-                chckbxCustomer.setBackground(SystemColor.textHighlight);
                 chckbxCustomer.setSelected(true);
 		chckbxCustomer.setBounds(120, 80, 137, 30);
 		add(chckbxCustomer);
-                
-              
 
 		chckbxSupplier = new JCheckBox("Supplier");
 		chckbxSupplier.setFont(fntPlainText);
-                chckbxSupplier.setBackground(SystemColor.textHighlight);
                 chckbxSupplier.setSelected(true);
 		chckbxSupplier.setBounds(280, 80, 167, 30);
 		add(chckbxSupplier);

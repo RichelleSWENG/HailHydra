@@ -22,7 +22,6 @@ import javax.swing.table.TableColumnModel;
 
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
@@ -66,7 +65,6 @@ public class PayablesListGUI extends JPanel
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -79,47 +77,57 @@ public class PayablesListGUI extends JPanel
                 
 		lblDisplay = new JLabel("Display: ");
 		lblDisplay.setFont(fntPlainText);
-		lblDisplay.setBounds(30, 74, 87, 30);
+		lblDisplay.setBounds(30, 80, 87, 30);
 		add(lblDisplay);
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
-		lblSupplier.setBounds(30, 115, 107, 30);
+		lblSupplier.setBounds(30, 120, 107, 30);
 		add(lblSupplier);
 
 		lblRrange = new JLabel("Range:");
 		lblRrange.setFont(fntPlainText);
-		lblRrange.setBounds(30, 156, 87, 30);
+		lblRrange.setBounds(30, 160, 87, 30);
 		add(lblRrange);
+                
+                lblTo = new JLabel("TO");
+		lblTo.setFont(fntPlainText);
+		lblTo.setBounds(405, 160, 36, 30);
+		add(lblTo);
                 
                 lblPayablesFound = new JLabel("Payable/s Found: ");
 		lblPayablesFound.setFont(fntPlainText);
-		lblPayablesFound.setBounds(30, 197, 176, 30);
+		lblPayablesFound.setBounds(30, 200, 176, 30);
 		add(lblPayablesFound);
 
 		lblNumOfPayablesFound = new JLabel("0");
 		lblNumOfPayablesFound.setFont(fntPlainText);
-		lblNumOfPayablesFound.setBounds(198, 197, 26, 30);
+		lblNumOfPayablesFound.setBounds(205, 200, 250, 30);
 		add(lblNumOfPayablesFound);
 
+                tfSupplier = new JTextField();
+		tfSupplier.setFont(fntPlainText);
+		tfSupplier.setBounds(125, 120, 585, 30);
+		add(tfSupplier);
+                
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(104, 156, 155, 30);
+		cmbFromMonth.setBounds(125, 160, 155, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 156, 100, 30);
+		cmbFromYear.setBounds(295, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(408, 156, 155, 30);
+		cmbToMonth.setBounds(440, 160, 155, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(577, 156, 100, 30);
+		cmbToYear.setBounds(610, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
@@ -209,10 +217,7 @@ public class PayablesListGUI extends JPanel
                     }
 
                 });
-                tfSupplier = new JTextField();
-		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(126, 115, 545, 30);
-		add(tfSupplier);
+                
                 
         tfSupplier.getDocument().addDocumentListener(new DocumentListener()
         {
@@ -352,8 +357,7 @@ public class PayablesListGUI extends JPanel
 		chckbxActivePayables = new JCheckBox("Active Payables");
                 chckbxActivePayables.setSelected(true);
 		chckbxActivePayables.setFont(fntPlainText);
-                chckbxActivePayables.setBackground(SystemColor.textHighlight);
-		chckbxActivePayables.setBounds(116, 74, 194, 30);
+		chckbxActivePayables.setBounds(125, 80, 194, 30);
 		add(chckbxActivePayables);
                  chckbxActivePayables.addActionListener(new ActionListener() 
                 {
@@ -379,8 +383,7 @@ public class PayablesListGUI extends JPanel
 		chckbxClosedPayables = new JCheckBox("Closed Payables");
                 chckbxClosedPayables.setSelected(true);
 		chckbxClosedPayables.setFont(fntPlainText);
-                chckbxClosedPayables.setBackground(SystemColor.textHighlight);
-		chckbxClosedPayables.setBounds(312, 74, 201, 30);
+		chckbxClosedPayables.setBounds(315, 80, 201, 30);
 		add(chckbxClosedPayables);
                  chckbxClosedPayables.addActionListener(new ActionListener() 
                 {
@@ -403,14 +406,24 @@ public class PayablesListGUI extends JPanel
 
                 });
 
-		lblTo = new JLabel("TO");
-		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(382, 156, 36, 30);
-		add(lblTo);
+		btnViewAllPayables = new JButton("View All Payables");
+		btnViewAllPayables.setFont(fntPlainText);
+		btnViewAllPayables.setBounds(725, 190, 240, 40);
+		add(btnViewAllPayables);
+                btnViewAllPayables.addActionListener(
+                    new ActionListener()
+                    {
+                        public void actionPerformed(ActionEvent e)
+                        {
+                                 chckbxActivePayables.setSelected(true);
+                                 chckbxClosedPayables.setSelected(true);
+                                 ViewAll();
+                        }
+                    });
 
 		btnViewPayment = new JButton("View Payment");
 		btnViewPayment.setFont(fntPlainText);
-		btnViewPayment.setBounds(23, 543, 216, 40);
+		btnViewPayment.setBounds(30, 545, 180, 40);
 		add(btnViewPayment);
                 btnViewPayment.addActionListener(
                     new ActionListener()
@@ -423,7 +436,7 @@ public class PayablesListGUI extends JPanel
 
 		btnAddPayment = new JButton("Add Payment");
 		btnAddPayment.setFont(fntPlainText);
-		btnAddPayment.setBounds(431, 543, 216, 40);
+		btnAddPayment.setBounds(431, 545, 190, 40);
 		add(btnAddPayment);
                 btnAddPayment.addActionListener(
                     new ActionListener()
@@ -436,7 +449,7 @@ public class PayablesListGUI extends JPanel
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
-		btnClose.setBounds(836, 543, 127, 40);
+		btnClose.setBounds(855, 545, 110, 40);
 		add(btnClose);
                 btnClose.addActionListener(
                     new ActionListener()
@@ -447,20 +460,7 @@ public class PayablesListGUI extends JPanel
                         }
                     });
 
-		btnViewAllPayables = new JButton("View All Payables");
-		btnViewAllPayables.setFont(fntPlainText);
-		btnViewAllPayables.setBounds(724, 187, 239, 40);
-		add(btnViewAllPayables);
-                btnViewAllPayables.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                 chckbxActivePayables.setSelected(true);
-                                 chckbxClosedPayables.setSelected(true);
-                                 ViewAll();
-                        }
-                    });
+		
                 
 
 	}

@@ -11,7 +11,11 @@ Account Profiles - ~~Model~~ || ~~Integration~~ <br>
 Purchases - ~~Model~~ || ~~Integration~~ <br>
 Acknowledgement Receipts - ~~Model~~ || ~~Integration~~ <br>
 Sales Invoices - ~~Model~~ || ~~Integration~~ <br>
+<<<<<<< HEAD
 ~~System Accounts - Model || Integration~~ <br>
+=======
+System Accounts - ~~Model~~ || ~~Integration~~ <br>
+>>>>>>> d9771b2dfb3a64ea21f0e7dd3de0756c9c835820
 Return Slip - ~~Model~~ || Integration <br>
 Credit Memo/Debit Memo - Model || Integration <br>
 Collectibles - ~~Model~~ || ~~Integration~~ <br>
@@ -19,6 +23,21 @@ Payables - ~~Model~~ || ~~Integration~~ <br>
 Login - Model || Integration <br>
 System Settings - Model || Integration <br>
 Order Report - Model || Integration <br>
+
+**Iteration 2 Progress:** <br>
+Login - Model || Integration <br>
+Access Restriction in Main Memu - Model || Integration <br>
+Basic System Settings - Model || Integration <br>
+Set Selling Price - Model || Integration <br>
+Set Last Cost Price - Model || Integration <br>
+Set Inventory Quantity - Model || Integration <br>
+Modify Password - Model || Integration <br>
+Modify Company Profile - Model || Integration <br>
+Modify VAT - Model || Integration <br>
+Modify Alert (terms and credit limit) - Model || Integration <br>
+Order Notification - Model || Integration <br>
+Credit Limit Notification - Model || Integration <br>
+Terms Notification - Model || Integration <br>
 
 <hr>
 **For Testing:** <br>

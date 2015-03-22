@@ -2,7 +2,6 @@ package Collectibles;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.util.Calendar;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -13,8 +12,6 @@ import javax.swing.table.TableColumnModel;
 import javax.swing.*;
 
 import HailHydra.GUIController;
-import Payables.PayablesController;
-import Payables.PayablesListGUI;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 
@@ -34,12 +31,17 @@ public class CollectiblesListGUI extends JPanel
         private JLabel  lblHeader, lblDisplay, lblCustomer, lblRange, lblCollectiblesFound,
                         lblNumOfPayablesFound, lblTo;
 	private JTextField tfCustomer;
-        private String strMonths[] = { "January", "February", "March", "April", "May", 
-                "June", "July", "August", "September", "October", "November", "December" },
-                strHeader[] = { "Customer Name", "Date", 
-                "<html><center>Receipt<br>Number</center></html>",
+        private String strMonths[] = 
+        {       
+                "January", "February", "March", "April", "May", 
+                "June", "July", "August", "September", "October", "November", "December" 
+        },
+                strHeader[] = 
+        {       "Customer Name", "Date", 
+                "<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></html>",
 		"<html><center>Original<br>Amount</center></html>", 
-                "<html><center>Current<br>Balance</center></html>", "Status" };
+                "<html><center>Current<br>Balance</center></html>", "Status" 
+        };
         private JComboBox cmbToYear, cmbToMonth, cmbFromMonth, cmbFromYear;
 	private DefaultTableModel tbModel;
         private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
@@ -61,7 +63,6 @@ public class CollectiblesListGUI extends JPanel
                 guiController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -74,54 +75,57 @@ public class CollectiblesListGUI extends JPanel
                 
 		lblDisplay = new JLabel("Display: ");
 		lblDisplay.setFont(fntPlainText);
-		lblDisplay.setBounds(30, 73, 91, 30);
+		lblDisplay.setBounds(30, 80, 91, 30);
 		add(lblDisplay);
-
-		
 
 		lblCustomer = new JLabel("Customer:");
 		lblCustomer.setFont(fntPlainText);
-		lblCustomer.setBounds(30, 114, 111, 30);
+		lblCustomer.setBounds(30, 120, 111, 30);
 		add(lblCustomer);
 
 		lblRange = new JLabel("Range:");
 		lblRange.setFont(fntPlainText);
-		lblRange.setBounds(30, 155, 80, 30);
+		lblRange.setBounds(30, 160, 80, 30);
 		add(lblRange);
                 
                 lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(382, 155, 38, 30);
+		lblTo.setBounds(425, 160, 38, 30);
 		add(lblTo);
 
 		lblCollectiblesFound = new JLabel("Collectible/s Found: ");
 		lblCollectiblesFound.setFont(fntPlainText);
-		lblCollectiblesFound.setBounds(30, 196, 203, 30);
+		lblCollectiblesFound.setBounds(30, 200, 203, 30);
 		add(lblCollectiblesFound);
 
 		lblNumOfPayablesFound = new JLabel("0");
 		lblNumOfPayablesFound.setFont(fntPlainText);
-		lblNumOfPayablesFound.setBounds(220, 196, 250, 30);
+		lblNumOfPayablesFound.setBounds(230, 200, 250, 30);
 		add(lblNumOfPayablesFound);
 
+                tfCustomer = new JTextField();
+		tfCustomer.setFont(fntPlainText);
+		tfCustomer.setBounds(140, 120, 600, 30);
+		add(tfCustomer);
+                
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(104, 156, 155, 30);
+		cmbFromMonth.setBounds(140, 160, 155, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 156, 100, 30);
+		cmbFromYear.setBounds(315, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(419, 155, 155, 30);
+		cmbToMonth.setBounds(465, 160, 155, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(588, 155, 100, 30);
+		cmbToYear.setBounds(640, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
@@ -210,10 +214,7 @@ public class CollectiblesListGUI extends JPanel
                     }
 
                 });
-                tfCustomer = new JTextField();
-		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(140, 114, 550, 30);
-		add(tfCustomer);
+                
                 tfCustomer.getDocument().addDocumentListener(new DocumentListener()
         {
             @Override
@@ -332,7 +333,7 @@ public class CollectiblesListGUI extends JPanel
 		tbCollectibles.setFont(fntPlainText);
 
 		spTable = new JScrollPane(tbCollectibles);
-		spTable.setBounds(30, 238, 935, 290);
+		spTable.setBounds(30, 255, 935, 280);
 		add(spTable);
 
 		tbCollectibles.getParent().setBackground(tbCollectibles.getBackground());
@@ -343,11 +344,10 @@ public class CollectiblesListGUI extends JPanel
 		tbCollectibles.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbCollectibles.setRowHeight(30);
                 
-		 chckbxActiveCollectibles = new JCheckBox("Active Collectibles");
+		chckbxActiveCollectibles = new JCheckBox("Active Collectibles");
 		chckbxActiveCollectibles.setFont(fntPlainText);
                 chckbxActiveCollectibles.setSelected(true);
-                chckbxActiveCollectibles.setBackground(SystemColor.textHighlight);
-		chckbxActiveCollectibles.setBounds(110, 73, 222, 30);
+		chckbxActiveCollectibles.setBounds(140, 80, 222, 30);
 		add(chckbxActiveCollectibles);
                 chckbxActiveCollectibles.addActionListener(new ActionListener() 
                 {
@@ -373,8 +373,7 @@ public class CollectiblesListGUI extends JPanel
 		chckbxClosedPayables = new JCheckBox("Closed Collectibles");
 		chckbxClosedPayables.setFont(fntPlainText);
                 chckbxClosedPayables.setSelected(true);
-                chckbxClosedPayables.setBackground(SystemColor.textHighlight);
-		chckbxClosedPayables.setBounds(334, 73, 228, 30);
+		chckbxClosedPayables.setBounds(360, 80, 228, 30);
 		add(chckbxClosedPayables);
                 chckbxClosedPayables.addActionListener(new ActionListener() 
                 {
@@ -399,7 +398,7 @@ public class CollectiblesListGUI extends JPanel
 
                 btnViewAllCollectibles = new JButton("View All Collectibles");
 		btnViewAllCollectibles.setFont(fntPlainText);
-		btnViewAllCollectibles.setBounds(725, 191, 240, 40);
+		btnViewAllCollectibles.setBounds(725, 200, 240, 40);
 		add(btnViewAllCollectibles);
                 btnViewAllCollectibles.addActionListener(
                     new ActionListener()
@@ -443,14 +442,18 @@ public class CollectiblesListGUI extends JPanel
                         }
                     });
 	}
-        public void setMainController(CollectiblesController temp){
+        
+        public void setMainController(CollectiblesController temp)
+        {
             mainController=temp;
         }
+        
         public void setComboBox()
         {
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
+          
             for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
             {
                 cmbToYear.addItem(i);
@@ -462,6 +465,7 @@ public class CollectiblesListGUI extends JPanel
             cmbFromMonth.setSelectedIndex(0);
             cmbToMonth.setSelectedIndex(11);
         }
+        
         public void setItemCount(int itemcount)
         {
             System.out.println(Integer.toString(itemcount));
@@ -484,11 +488,6 @@ public class CollectiblesListGUI extends JPanel
         setComboBox();
         }
         
-        public static void main(String args[]){
-           GUIController temp=new GUIController();
-           temp.changePanelToCollectibles();
-        }
-        
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
             tbCollectibles.setModel(tbm);
@@ -500,5 +499,10 @@ public class CollectiblesListGUI extends JPanel
                 tc.setHeaderValue(strHeader[i]);
             }
         th.repaint();
+        }
+        
+        public static void main(String args[]){
+           GUIController temp=new GUIController();
+           temp.changePanelToCollectibles();
         }
 }
