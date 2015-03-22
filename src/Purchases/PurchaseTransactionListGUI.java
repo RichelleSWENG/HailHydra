@@ -67,7 +67,6 @@ public class PurchaseTransactionListGUI extends JPanel
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -300,7 +299,6 @@ public class PurchaseTransactionListGUI extends JPanel
 
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
-                rdbtnSupplierName.setBackground(SystemColor.textHighlight);
 		rdbtnSupplierName.setSelected(true);
 		rdbtnSupplierName.setBounds(150, 80, 184, 30);
 		add(rdbtnSupplierName);
@@ -313,7 +311,6 @@ public class PurchaseTransactionListGUI extends JPanel
 
 		rdbtnPurchaseTransactionNum = new JRadioButton("Purchase Transaction Number");
 		rdbtnPurchaseTransactionNum.setFont(fntPlainText);
-                rdbtnPurchaseTransactionNum.setBackground(SystemColor.textHighlight);
 		rdbtnPurchaseTransactionNum.setBounds(336, 80, 340, 30);
 		add(rdbtnPurchaseTransactionNum);
                 rdbtnPurchaseTransactionNum.addActionListener(new ActionListener(){//Everytime All is selected 
@@ -325,7 +322,6 @@ public class PurchaseTransactionListGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-                rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		rdbtnPartNumber.setBounds(675, 80, 352, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
