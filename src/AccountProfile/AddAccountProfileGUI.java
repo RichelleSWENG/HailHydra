@@ -23,7 +23,10 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
         super();
         guiController = temp;
 
-        lblHeader.setText("Add Account Profile");
+        lblHeader = new JLabel("Add Account Profile");
+        lblHeader.setFont(fntHeaderText);
+        lblHeader.setBounds(30, 0, 600, 86);
+        add(lblHeader);
 
         //The following code are for JButtons
         btnSubmit = new JButton("Submit");
