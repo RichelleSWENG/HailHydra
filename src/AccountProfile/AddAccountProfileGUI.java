@@ -1,15 +1,21 @@
 package AccountProfile;
 
 import HailHydra.GUIController;
+
 import java.awt.Color;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 public class AddAccountProfileGUI extends AccountProfileGUI {
 
@@ -18,6 +24,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
     private GUIController guiController;
     private AccountProfileController mainController;
     private ArrayList<String> al;
+    private Border blackline;
 
     public AddAccountProfileGUI(GUIController temp) {
         super();
@@ -195,6 +202,13 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
         btnCancel.setFont(fntPlainText);
         btnCancel.setBounds(855, 545, 110, 40);
         add(btnCancel);
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(10, 66, 980, 470);
+        panel.setLayout(null);
+        blackline = BorderFactory.createLineBorder(Color.black);
+        panel.setBorder(blackline);
+        add(panel);
         btnCancel.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -246,5 +260,4 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
         GUIController temp = new GUIController();
         temp.changePanelToAddAccountProfile();
     }
-
 }

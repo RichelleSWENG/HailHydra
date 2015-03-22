@@ -26,7 +26,10 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 setMainController(AccountProfileController);
                 GUIController=temp;
                 
-                lblHeader.setText("Modify Account Profile");
+                lblHeader = new JLabel("Modify Account Profile");
+                lblHeader.setFont(fntHeaderText);
+                lblHeader.setBounds(30, 0, 600, 86);
+                add(lblHeader);
                 
                 ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
                 realName = accountProfile.get(0).toString(); //for pkey
