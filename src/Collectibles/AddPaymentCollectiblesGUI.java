@@ -61,7 +61,6 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		GUIController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -180,7 +179,6 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		
 		chckbxClosedCollectibes = new JCheckBox("Closed Collectibles");
 		chckbxClosedCollectibes.setFont(fntPlainText);
-                chckbxClosedCollectibes.setBackground(SystemColor.textHighlight);
 		chckbxClosedCollectibes.setBounds(124, 80, 261, 30);
 		add(chckbxClosedCollectibes);
                 

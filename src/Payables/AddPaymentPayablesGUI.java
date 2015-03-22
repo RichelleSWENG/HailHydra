@@ -60,7 +60,6 @@ public class AddPaymentPayablesGUI extends JPanel
 		controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -176,7 +175,6 @@ public class AddPaymentPayablesGUI extends JPanel
 
 		chckbxClosedPayables = new JCheckBox("Closed Payables");
 		chckbxClosedPayables.setFont(fntPlainText);
-                chckbxClosedPayables.setBackground(SystemColor.textHighlight);
 		chckbxClosedPayables.setBounds(124, 80, 261, 30);
 		add(chckbxClosedPayables);
                 
