@@ -66,7 +66,6 @@ public class DebitMemoListGUI extends JPanel
 		GUIController=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -306,7 +305,6 @@ public class DebitMemoListGUI extends JPanel
 
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
-                rdbtnCustomerName.setBackground(SystemColor.textHighlight);
 		rdbtnCustomerName.setSelected(true);
 		rdbtnCustomerName.setBounds(145, 85, 195, 25);
 		add(rdbtnCustomerName);
@@ -320,7 +318,6 @@ public class DebitMemoListGUI extends JPanel
                     });
 		rdbtnDebitMemoNo = new JRadioButton("Debit Memo Number");
 		rdbtnDebitMemoNo.setFont(fntPlainText);
-                rdbtnDebitMemoNo.setBackground(SystemColor.textHighlight);
 		rdbtnDebitMemoNo.setBounds(343, 85, 232, 25);
 		add(rdbtnDebitMemoNo);
                 rdbtnDebitMemoNo.addActionListener(
@@ -333,7 +330,6 @@ public class DebitMemoListGUI extends JPanel
                     });
 		rdbtnPartNo = new JRadioButton("Part Number");
 		rdbtnPartNo.setFont(fntPlainText);
-                rdbtnPartNo.setBackground(SystemColor.textHighlight);
 		rdbtnPartNo.setBounds(576, 85, 168, 25);
 		add(rdbtnPartNo);
                 rdbtnPartNo.addActionListener(
