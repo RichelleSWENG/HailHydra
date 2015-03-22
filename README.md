@@ -11,11 +11,7 @@ Account Profiles - ~~Model~~ || ~~Integration~~ <br>
 Purchases - ~~Model~~ || ~~Integration~~ <br>
 Acknowledgement Receipts - ~~Model~~ || ~~Integration~~ <br>
 Sales Invoices - ~~Model~~ || ~~Integration~~ <br>
-<<<<<<< HEAD
-~~System Accounts - Model || Integration~~ <br>
-=======
 System Accounts - ~~Model~~ || ~~Integration~~ <br>
->>>>>>> d9771b2dfb3a64ea21f0e7dd3de0756c9c835820
 Return Slip - ~~Model~~ || Integration <br>
 Credit Memo/Debit Memo - Model || Integration <br>
 Collectibles - ~~Model~~ || ~~Integration~~ <br>
