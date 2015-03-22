@@ -63,7 +63,6 @@ public class CreditMemoListGUI extends JPanel
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -302,7 +301,6 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
-                rdbtnSupplierName.setBackground(SystemColor.textHighlight);
 		rdbtnSupplierName.setSelected(true);
 		rdbtnSupplierName.setBounds(139, 80, 177, 25);
 		add(rdbtnSupplierName);
@@ -317,7 +315,6 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnCreditMemoNo = new JRadioButton("Credit Memo Number");
 		rdbtnCreditMemoNo.setFont(fntPlainText);
-                rdbtnCreditMemoNo.setBackground(SystemColor.textHighlight);
 		rdbtnCreditMemoNo.setBounds(318, 80, 232, 25);
 		add(rdbtnCreditMemoNo);
                 rdbtnCreditMemoNo.addActionListener(
@@ -331,7 +328,6 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
 		rdbtnReturnSlipNo.setFont(fntPlainText);
-                rdbtnReturnSlipNo.setBackground(SystemColor.textHighlight);
 		rdbtnReturnSlipNo.setBounds(552, 80, 226, 25);
 		add(rdbtnReturnSlipNo);
                 rdbtnReturnSlipNo.addActionListener(

@@ -58,7 +58,6 @@ public class CreditMemoGUI extends JPanel
         {
                 setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -200,7 +199,6 @@ public class CreditMemoGUI extends JPanel
                 pnlType= new JPanel();
                 pnlType.setBounds(30, 405,415, 130);
                 pnlType.setLayout(null);
-                pnlType.setBackground(SystemColor.textHighlight);
                 add(pnlType);
                 title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Transaction Type");
                 title.setTitleJustification(TitledBorder.LEFT);
@@ -209,14 +207,12 @@ public class CreditMemoGUI extends JPanel
                 
                 chckbxDefective = new JCheckBox("Defective");
 		chckbxDefective.setFont(fntPlainText);
-                chckbxDefective.setBackground(SystemColor.textHighlight);
                 chckbxDefective.setEnabled(false);
 		chckbxDefective.setBounds(30, 40, 200, 30);
 		pnlType.add(chckbxDefective);
                 
                 chckbxReplacement = new JCheckBox("Replacement");
 		chckbxReplacement.setFont(fntPlainText);
-                chckbxReplacement.setBackground(SystemColor.textHighlight);
 		chckbxReplacement.setBounds(30, 70, 200, 30);
 		pnlType.add(chckbxReplacement);
         }
