@@ -25,7 +25,7 @@ public class PurchasesGUI extends JPanel {
                 
 		purchaseTransBtn = new JButton("Purchase Transactions");
 		purchaseTransBtn.setFont(fntPlainText);
-		purchaseTransBtn.setBounds(170, 90, 260, 40);
+		purchaseTransBtn.setBounds(165, 90, 260, 40);
 		add(purchaseTransBtn);
                 purchaseTransBtn.addActionListener(
                     new ActionListener()
@@ -38,7 +38,7 @@ public class PurchasesGUI extends JPanel {
 		
                 orderReportBtn = new JButton("Order Report");
 		orderReportBtn.setFont(fntPlainText);
-		orderReportBtn.setBounds(200, 150, 200, 40);
+		orderReportBtn.setBounds(165, 150, 260, 40);
 		add(orderReportBtn);
                 orderReportBtn.addActionListener(
                     new ActionListener()
@@ -51,7 +51,7 @@ public class PurchasesGUI extends JPanel {
                 
                 returnSlipBtn = new JButton("Return Slip");
 		returnSlipBtn.setFont(fntPlainText);
-		returnSlipBtn.setBounds(200, 210, 200, 40);
+		returnSlipBtn.setBounds(165, 210, 260, 40);
 		add(returnSlipBtn);
                 returnSlipBtn.addActionListener(
                     new ActionListener()
@@ -64,7 +64,7 @@ public class PurchasesGUI extends JPanel {
                 
 		creditMemoBtn = new JButton("Credit Memo");
 		creditMemoBtn.setFont(fntPlainText);
-		creditMemoBtn.setBounds(200,270 , 200, 40);
+		creditMemoBtn.setBounds(165,270 , 260, 40);
 		add(creditMemoBtn);
                 creditMemoBtn.addActionListener(
                     new ActionListener()

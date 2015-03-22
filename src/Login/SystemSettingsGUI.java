@@ -1,47 +1,75 @@
 package Login;
 
 import java.awt.SystemColor;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
+
+import HailHydra.GUIController;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SystemSettingsGUI extends JPanel {
-	
-	private JButton adminAccBtn, empAccBtn, companyProfileBtn, vatBtn, credLimAlertBtn, termAlertBtn;
-        private Font fntPlainText;
-        
-	public SystemSettingsGUI() 
-	{
+
+	private JButton adminAccBtn, empAccBtn, companyProfileBtn, vatBtn,
+			credLimAlertBtn, termsAlertBtn;
+	private Font fntPlainText;
+	private GUIController controller;
+
+	public SystemSettingsGUI(GUIController temp) {
+		controller=temp;
 		setBounds(0, 0, 700, 400);
 		setBackground(SystemColor.controlHighlight);
 		setLayout(null);
-		
-                fntPlainText=new Font("Arial", Font.PLAIN, 21);
-		
+
+		fntPlainText = new Font("Arial", Font.PLAIN, 21);
+
 		adminAccBtn = new JButton("Modify Administrator Account");
 		adminAccBtn.setFont(fntPlainText);
-		adminAccBtn.setBounds(130, 70, 330, 40);
+		adminAccBtn.setBounds(130, 45, 330, 40);
 		add(adminAccBtn);
-		
+
 		empAccBtn = new JButton("Modify Employee Account");
 		empAccBtn.setFont(fntPlainText);
-		empAccBtn.setBounds(140, 130, 300, 40);
+		empAccBtn.setBounds(130, 105, 330, 40);
 		add(empAccBtn);
-		
+
 		companyProfileBtn = new JButton("Modify Company Profile");
 		companyProfileBtn.setFont(fntPlainText);
-		companyProfileBtn.setBounds(140, 190, 300, 40);
+		companyProfileBtn.setBounds(130, 165, 330, 40);
 		add(companyProfileBtn);
-		
+
 		vatBtn = new JButton("Modify VAT");
 		vatBtn.setFont(fntPlainText);
-		vatBtn.setBounds(190, 250, 200, 40);
+		vatBtn.setBounds(130, 225, 330, 40);
 		add(vatBtn);
-		
-		credLimAlertBtn = new JButton("Modify Alert");
+		vatBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getAlert("VAT");
+			}
+		});
+
+		credLimAlertBtn = new JButton("Modify Credit Limit Alert");
 		credLimAlertBtn.setFont(fntPlainText);
-		credLimAlertBtn.setBounds(190, 310, 200, 40);
+		credLimAlertBtn.setBounds(130, 285, 330, 40);
 		add(credLimAlertBtn);
-		
+		credLimAlertBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getAlert("CreditLimit");
+			}
+		});
+
+		termsAlertBtn = new JButton("Modify Terms Alert");
+		termsAlertBtn.setFont(fntPlainText);
+		termsAlertBtn.setBounds(130, 345, 330, 40);
+		add(termsAlertBtn);
+		termsAlertBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.getAlert("Terms");
+			}
+		});
+
 	}
 }

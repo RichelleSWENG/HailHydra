@@ -40,6 +40,7 @@ import Login.ProfilesGUI;
 import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
+import ModifyAlertVAT.FactoryModify;
 import Inventory.ItemModel;
 import Inventory.ModifyItemProfileGUI;
 import Inventory.ViewItemProfileGUI;
@@ -73,8 +74,10 @@ import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
+
 import java.io.IOException;
 import java.sql.SQLException;
+
 import javax.swing.JPanel;
 
 public class GUIController 
@@ -492,8 +495,14 @@ public class GUIController
     
     public void changePanelToSystemSettings()
     {
-            getSectionsPanel().add(new SystemSettingsGUI());
+            getSectionsPanel().add(new SystemSettingsGUI(this));
             mainMenuRevalidate();
+    }
+    
+    public void getAlert(String type){
+    	FactoryModify fm= new FactoryModify();
+    	String i = fm.createProduct(type);
+    	System.out.println("input is " + i);
     }
     
     public static void main(String args[]){
