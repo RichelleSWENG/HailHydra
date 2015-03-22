@@ -1,6 +1,5 @@
 package Login;
 
-
 import HailHydra.GUIController;
 import javax.swing.JLabel;
 import javax.swing.UIManager;
@@ -17,31 +16,28 @@ public class MainMenuGUI extends JPanel {
 
 	private JLabel lblHeader, lblNotifications;
 	private JPanel pnlNotifications, pnlSections;
-	private JButton btnLogout, btnProfiles, btnPurchases, btnSales, btnPayments,
-			systemSettingsBtn;
-        private Font fntHeaderText, fntPlainText, fntMarkerText;
-        private GUIController controller;
-        
-	public MainMenuGUI(GUIController temp) 
-        {
-            
-                controller=temp;
-		try 
-                {
-			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e) 
-                {
+	private JButton btnLogout, btnProfiles, btnPurchases, btnSales,
+			btnPayments, systemSettingsBtn;
+	private Font fntHeaderText, fntPlainText, fntMarkerText;
+	private GUIController controller;
+
+	public MainMenuGUI(GUIController temp) {
+
+		controller = temp;
+		try {
+			UIManager.setLookAndFeel(UIManager
+					.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-                
-                setBounds(0, 0, 1000, 620);
-		setLayout(null);
-		setBackground(SystemColor.textHighlight);
 
-                fntPlainText=new Font("Arial", Font.PLAIN, 21);
-                fntMarkerText = new Font("Arial", Font.BOLD, 30);
-                fntHeaderText = new Font("Arial", Font.BOLD, 40);
-                
+		setBounds(0, 0, 1000, 620);
+		setLayout(null);
+
+		fntPlainText = new Font("Arial", Font.PLAIN, 21);
+		fntMarkerText = new Font("Arial", Font.BOLD, 30);
+		fntHeaderText = new Font("Arial", Font.BOLD, 40);
+
 		lblHeader = new JLabel("Main Menu");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
@@ -67,86 +63,76 @@ public class MainMenuGUI extends JPanel {
 		btnLogout.setFont(fntPlainText);
 		btnLogout.setBounds(850, 30, 113, 40);
 		add(btnLogout);
-                btnLogout.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                controller.changePanelToLogin();
-                        }
-                    });
+		btnLogout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToLogin();
+			}
+		});
 
 		btnProfiles = new JButton("Profiles");
 		btnProfiles.setFont(fntPlainText);
-		btnProfiles.setBackground(SystemColor.activeCaption);
 		btnProfiles.setForeground(Color.BLACK);
 		btnProfiles.setBounds(370, 97, 110, 82);
 		add(btnProfiles);
-                btnProfiles.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                                controller.changePanelToProfiles();
-                        }});
-                btnProfiles.setSelected(true);
+		btnProfiles.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToProfiles();
+			}
+		});
+		btnProfiles.setSelected(true);
 
 		btnPurchases = new JButton("Purchases");
 		btnPurchases.setFont(fntPlainText);
-		btnPurchases.setBackground(SystemColor.activeCaption);
 		btnPurchases.setForeground(Color.BLACK);
 		btnPurchases.setBounds(480, 97, 140, 82);
 		add(btnPurchases);
-                btnPurchases.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                                controller.changePanelToPurchases();
-                        }});
-               
+		btnPurchases.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToPurchases();
+			}
+		});
+
 		btnSales = new JButton("Sales");
 		btnSales.setFont(fntPlainText);
-		btnSales.setBackground(SystemColor.activeCaption);
 		btnSales.setForeground(Color.BLACK);
 		btnSales.setBounds(620, 97, 100, 82);
 		add(btnSales);
-                btnSales.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                                controller.changePanelToSales();
-                        }});
-                
+		btnSales.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToSales();
+			}
+		});
+
 		btnPayments = new JButton("Payments");
 		btnPayments.setFont(fntPlainText);
-		btnPayments.setBackground(SystemColor.activeCaption);
 		btnPayments.setForeground(Color.BLACK);
 		btnPayments.setBounds(720, 97, 130, 82);
 		add(btnPayments);
-                btnPayments.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                                controller.changePanelToPayments();
-                        }});
+		btnPayments.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToPayments();
+			}
+		});
 
 		systemSettingsBtn = new JButton("<html>System<br />Settings</html>");
 		systemSettingsBtn.setFont(fntPlainText);
-		systemSettingsBtn.setBackground(SystemColor.activeCaption);
 		systemSettingsBtn.setForeground(Color.BLACK);
 		systemSettingsBtn.setBounds(850, 97, 110, 82);
 		add(systemSettingsBtn);
-                systemSettingsBtn.addActionListener(
-                    new ActionListener(){
-                        public void actionPerformed(ActionEvent e){
-                                controller.changePanelToSystemSettings();
-                        }});
+		systemSettingsBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.changePanelToSystemSettings();
+			}
+		});
 	}
 
-        public JPanel getSectionsPanel()
-        {
-            return pnlSections;
-        }
-        
-	public static void main(String args[])
-        {
-            GUIController temp=new GUIController();
-            temp.changePanelToMainMenu();
-        }
-       
+	public JPanel getSectionsPanel() {
+		return pnlSections;
+	}
+
+	public static void main(String args[]) {
+		GUIController temp = new GUIController();
+		temp.changePanelToMainMenu();
+	}
+
 }

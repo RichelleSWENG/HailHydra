@@ -31,7 +31,6 @@ public class LoginGUI extends JPanel {
                 controllerGUI=temp;
                 setBounds(0, 0, 1000, 620);
                 setLayout(null);
-                setBackground(SystemColor.textHighlight);
 		setBorder(new BevelBorder(BevelBorder.RAISED));
 		
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
