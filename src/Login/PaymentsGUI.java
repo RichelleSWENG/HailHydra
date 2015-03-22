@@ -24,7 +24,7 @@ public class PaymentsGUI extends JPanel{
                 
                 btnPayables = new JButton("Payables");
 		btnPayables.setFont(fntPlainText);
-		btnPayables.setBounds(190, 30, 200, 40);
+		btnPayables.setBounds(165, 30, 250, 40);
 		add(btnPayables);
                 btnPayables.addActionListener(
                     new ActionListener()
@@ -37,7 +37,7 @@ public class PaymentsGUI extends JPanel{
                 
                 btnCollectibles = new JButton("Collectibles");
 		btnCollectibles.setFont(fntPlainText);
-		btnCollectibles.setBounds(190, 90, 200, 40);
+		btnCollectibles.setBounds(165, 90, 250, 40);
 		add(btnCollectibles);
                 btnCollectibles.addActionListener(
                     new ActionListener()

@@ -26,7 +26,7 @@ public class SalesGUI extends JPanel {
                 
 		salesInvoiceBtn = new JButton("Sales Invoice");
 		salesInvoiceBtn.setFont(fntPlainText);
-		salesInvoiceBtn.setBounds(190, 100, 200, 40);
+		salesInvoiceBtn.setBounds(150, 100, 300, 40);
 		add(salesInvoiceBtn);
                 salesInvoiceBtn.addActionListener(
                     new ActionListener()
@@ -39,7 +39,7 @@ public class SalesGUI extends JPanel {
 		
 		ackReceiptBtn = new JButton("Acknowledgement Receipt");
 		ackReceiptBtn.setFont(fntPlainText);
-		ackReceiptBtn.setBounds(150, 160, 290, 40);
+		ackReceiptBtn.setBounds(150, 160, 300, 40);
 		add(ackReceiptBtn);
                 ackReceiptBtn.addActionListener(
                     new ActionListener()
@@ -53,7 +53,7 @@ public class SalesGUI extends JPanel {
 		
 		debitMemoBtn = new JButton("Debit Memo");
 		debitMemoBtn.setFont(fntPlainText);
-		debitMemoBtn.setBounds(200, 220, 200, 40);
+		debitMemoBtn.setBounds(150, 220, 300, 40);
 		add(debitMemoBtn);
                 debitMemoBtn.addActionListener(
                     new ActionListener()

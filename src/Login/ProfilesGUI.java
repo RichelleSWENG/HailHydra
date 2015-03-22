@@ -28,7 +28,7 @@ public class ProfilesGUI extends JPanel {
                 
 		btnCompanyProfile = new JButton("Account Profile");
 		btnCompanyProfile.setFont(fntPlainText);
-		btnCompanyProfile.setBounds(190, 90, 200, 40);
+		btnCompanyProfile.setBounds(165, 90, 250, 40);
 		add(btnCompanyProfile);
                 btnCompanyProfile.addActionListener(
                     new ActionListener()
@@ -41,7 +41,7 @@ public class ProfilesGUI extends JPanel {
 		
 		btnInventory = new JButton("Inventory");
 		btnInventory.setFont(fntPlainText);
-		btnInventory.setBounds(190, 150, 200, 40);
+		btnInventory.setBounds(165, 150, 250, 40);
 		add(btnInventory);
 		btnInventory.addActionListener(
                     new ActionListener()
