@@ -64,7 +64,6 @@ public class SalesInvoiceListGUI extends JPanel {
 		guiController = temp;
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
-		setBackground(SystemColor.textHighlight);
 
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -298,7 +297,6 @@ public class SalesInvoiceListGUI extends JPanel {
 
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
-		rdbtnCustomerName.setBackground(SystemColor.textHighlight);
 		rdbtnCustomerName.setSelected(true);
 		rdbtnCustomerName.setBounds(149, 80, 195, 30);
 		add(rdbtnCustomerName);
@@ -311,7 +309,6 @@ public class SalesInvoiceListGUI extends JPanel {
                 });
 
 		rdbtnSalesInvoiceNo = new JRadioButton("Sales Invoice Number");
-		rdbtnSalesInvoiceNo.setBackground(SystemColor.textHighlight);
 		rdbtnSalesInvoiceNo.setFont(fntPlainText);
 		rdbtnSalesInvoiceNo.setBounds(346, 80, 248, 30);
 		add(rdbtnSalesInvoiceNo);
@@ -327,7 +324,6 @@ public class SalesInvoiceListGUI extends JPanel {
 		rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setBounds(596, 80, 251, 30);
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBackground(SystemColor.textHighlight);
 		add(rdbtnPartNumber);
 		rdbtnPartNumber.addActionListener(new ActionListener() 
                 {// Everytime												// selected
