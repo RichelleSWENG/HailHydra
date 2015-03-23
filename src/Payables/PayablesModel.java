@@ -155,7 +155,6 @@ public class PayablesModel
         {
             statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id";
-            System.out.println(sql);
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -173,7 +172,6 @@ public class PayablesModel
         {
             statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
-            System.out.println(sql);
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
