@@ -411,7 +411,10 @@ public class GUIController
     
     public void changePanelToTermsReport()
     {
-            getContentPanel().add(new TermsReportGUI(this));
+            TermsReportGUI tempGUI = new TermsReportGUI(this);
+            tempGUI.setMainController(new ReportController(new ReportModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
