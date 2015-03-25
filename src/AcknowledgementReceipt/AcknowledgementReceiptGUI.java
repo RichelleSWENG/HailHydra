@@ -95,22 +95,22 @@ public class AcknowledgementReceiptGUI extends JPanel {
 
         lblSalesperson = new JLabel("Salesperson:");
         lblSalesperson.setFont(fntPlainText);
-        lblSalesperson.setBounds(30, 385, 147, 30);
+        lblSalesperson.setBounds(28, 403, 147, 30);
         add(lblSalesperson);
 
         lblOrderedBy = new JLabel("Ordered By:");
         lblOrderedBy.setFont(fntPlainText);
-        lblOrderedBy.setBounds(30, 415, 133, 30);
+        lblOrderedBy.setBounds(28, 433, 133, 30);
         add(lblOrderedBy);
 
         lblDeliveredBy = new JLabel("Delivered By:");
         lblDeliveredBy.setFont(fntPlainText);
-        lblDeliveredBy.setBounds(30, 445, 147, 30);
+        lblDeliveredBy.setBounds(28, 463, 147, 30);
         add(lblDeliveredBy);
 
         lblDeliveryNotes = new JLabel("Delivery Notes:");
         lblDeliveryNotes.setFont(fntPlainText);
-        lblDeliveryNotes.setBounds(30, 475, 147, 30);
+        lblDeliveryNotes.setBounds(28, 493, 147, 30);
         add(lblDeliveryNotes);
 
         lblDiscount = new JLabel("Discount:");
@@ -151,17 +151,17 @@ public class AcknowledgementReceiptGUI extends JPanel {
 
         tfSalesperson = new JTextField();
         tfSalesperson.setFont(fntPlainText);
-        tfSalesperson.setBounds(165, 385, 335, 30);
+        tfSalesperson.setBounds(163, 403, 335, 30);
         add(tfSalesperson);
 
         tfOrderedBy = new JTextField();
         tfOrderedBy.setFont(fntPlainText);
-        tfOrderedBy.setBounds(165, 415, 335, 30);
+        tfOrderedBy.setBounds(163, 433, 335, 30);
         add(tfOrderedBy);
 
         tfDeliveredBy = new JTextField();
         tfDeliveredBy.setFont(fntPlainText);
-        tfDeliveredBy.setBounds(165, 445, 335, 30);
+        tfDeliveredBy.setBounds(163, 463, 335, 30);
         add(tfDeliveredBy);
 
         ftfDiscount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -204,7 +204,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
         add(spAddress);
 
         spDeliveryNotes = new JScrollPane(taDeliveryNotes);
-        spDeliveryNotes.setBounds(30, 504, 472, 30);
+        spDeliveryNotes.setBounds(28, 522, 472, 30);
         add(spDeliveryNotes);
 
         tbModel = new DefaultTableModel() {
