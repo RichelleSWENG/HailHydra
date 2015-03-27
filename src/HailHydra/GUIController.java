@@ -509,6 +509,18 @@ public class GUIController
             mainMenuRevalidate();
     }
     
+    public void changePanelToModifyPassword()
+    {
+            getSectionsPanel().add(new ModifyPasswordPanel(this));
+            mainMenuRevalidate();
+    }
+    
+    public void changePanelToModifyCompanyProfile()
+    {
+            getSectionsPanel().add(new ModifyCompanyProfilePanel(this));
+            mainMenuRevalidate();
+    }
+    
     public void getAlert(String type){
     	FactoryModify fm= new FactoryModify();
     	String i = fm.createProduct(type);
