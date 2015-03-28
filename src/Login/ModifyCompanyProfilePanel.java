@@ -1,5 +1,6 @@
 package SystemAccount;
 
+import HailHydra.GUIController;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -20,8 +21,11 @@ public class ModifyCompanyProfilePanel extends JPanel {
 	private JTextField tfCompanyName;
 	private JButton btnSubmit, btnCancel;
 	private JScrollPane spAddress;
+        private GUIController controller;
 	
-	public ModifyCompanyProfilePanel() {
+	public ModifyCompanyProfilePanel(GUIController temp) {
+            
+                controller=temp;
 		setLayout(null);
 		lblHeader = new JLabel("Modify Password");
 		lblHeader.setFont(new Font("Arial", Font.BOLD, 40));

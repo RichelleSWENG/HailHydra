@@ -73,6 +73,8 @@ import Sales.SalesInvoiceModel;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
+import SystemAccount.ModifyCompanyProfilePanel;
+import SystemAccount.ModifyPasswordPanel;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
 

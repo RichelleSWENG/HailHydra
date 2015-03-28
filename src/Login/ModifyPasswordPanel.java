@@ -1,5 +1,6 @@
 package SystemAccount;
 
+import HailHydra.GUIController;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -19,8 +20,10 @@ public class ModifyPasswordPanel extends JPanel {
 	private JPasswordField pfNewPass;
 	private JPasswordField pfConfPass;
 	private JButton btnSubmit, btnCancel;
+        private GUIController controller;
 	
-	public ModifyPasswordPanel() {
+	public ModifyPasswordPanel(GUIController temp) {
+                controller=temp;
 		setLayout(null);
 		
 		lblHeader = new JLabel("Modify Password");
