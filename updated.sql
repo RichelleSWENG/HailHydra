@@ -424,6 +424,7 @@ CREATE TABLE `returnslip` (
   `type` varchar(45) DEFAULT NULL,
   `approved_date` date DEFAULT NULL,
   `received_date` varchar(45) DEFAULT NULL,
+  `po_num` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`return_slip_id`),
   KEY `company_id_idx` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -435,7 +436,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('1','2014-02-26',20,1,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL);
+INSERT INTO `returnslip` VALUES ('1','2014-02-26',20,1,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -452,7 +453,7 @@ CREATE TABLE `rslineitem` (
   `part_num` varchar(20) NOT NULL,
   `unit_price` float NOT NULL,
   `line_total` float NOT NULL,
-  `status` int(1) NOT NULL,
+  `status` int(1) NOT NULL DEFAULT '0',
   KEY `return_slip_id_idx` (`return_slip_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -558,6 +559,7 @@ CREATE TABLE `systeminfo` (
 
 LOCK TABLES `systeminfo` WRITE;
 /*!40000 ALTER TABLE `systeminfo` DISABLE KEYS */;
+INSERT INTO `systeminfo` VALUES ('Hydraforce Enterprises','206 Rizal Ave. Ext., 117 Caloocan City, Manila, Philippines',12,12,12);
 /*!40000 ALTER TABLE `systeminfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -570,4 +572,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 21:44:50
+-- Dump completed on 2015-03-28 23:35:22
