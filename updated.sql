@@ -424,7 +424,6 @@ CREATE TABLE `returnslip` (
   `type` varchar(45) DEFAULT NULL,
   `approved_date` date DEFAULT NULL,
   `received_date` varchar(45) DEFAULT NULL,
-  `po_num` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`return_slip_id`),
   KEY `company_id_idx` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -436,7 +435,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('1','2014-02-26',20,1,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL,NULL);
+INSERT INTO `returnslip` VALUES ('1','2014-02-26',20,1,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -572,4 +571,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-28 23:35:22
+-- Dump completed on 2015-03-28 23:46:50
