@@ -142,7 +142,7 @@ public class ReturnSlipController {
         return returnslipModel.getRS(ID);
     }
 
-    public void addRS(String return_slip_id, int company_id, String date, float total, int PTNum, int PONum, String Returned_by, String Returned_date, String Approved_by, String Approved_date, String Received_by, String Received_date, String notes, String type)
+    public void addRS(String return_slip_id, int company_id, String date, float total, int PTNum, String PONum, String Returned_by, String Returned_date, String Approved_by, String Approved_date, String Received_by, String Received_date, String notes, String type)
     {
         /*public ReturnSlip( String return_slip_id, int company_id, String date, float total_amount, String sales_invoice_num, int purchase_transaction_num, String returned_by, String returned_date, String approved_by, String approved_date, String received_by, String received_date, String notes, String type, ArrayList<RSLineItem> list)*/
        ReturnSlip slp = new ReturnSlip(return_slip_id,company_id,date,total,PTNum,PONum,Returned_by,Returned_date,Approved_by,Approved_date, Received_by,Received_date,notes,type, pendingItems);

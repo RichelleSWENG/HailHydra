@@ -9,7 +9,7 @@ public class ReturnSlip
     private float total_amount;
     private int company_id;
     private int purchase_transaction_num;
-    private int purchase_order_num;
+    private String purchase_order_num;
     private String returned_by;
     private String returned_date;
     private String approved_by;
@@ -39,7 +39,7 @@ public class ReturnSlip
         this.list = new ArrayList<>();;
     }
 
-    public ReturnSlip( String return_slip_id, int company_id, String date, float total_amount, int purchase_transaction_num, int purchase_order_num, String returned_by, String returned_date, String approved_by, String approved_date, String received_by, String received_date, String notes, String type, ArrayList<RSLineItem> list)
+    public ReturnSlip( String return_slip_id, int company_id, String date, float total_amount, int purchase_transaction_num, String purchase_order_num, String returned_by, String returned_date, String approved_by, String approved_date, String received_by, String received_date, String notes, String type, ArrayList<RSLineItem> list)
     {
         this.return_slip_id = return_slip_id;
         this.date = date;
@@ -108,12 +108,12 @@ public class ReturnSlip
         this.purchase_transaction_num = purchase_transaction_num;
     }
     
-    public int getPurchase_order_num()
+    public String getPurchase_order_num()
     {
         return purchase_order_num;
     }
 
-    public void setPurchase_order_num(int purchase_order_num)
+    public void setPurchase_order_num(String purchase_order_num)
     {
         this.purchase_order_num = purchase_order_num;
     }

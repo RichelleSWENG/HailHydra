@@ -72,7 +72,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                             {
                                 mainController.addPendingItem(new RSLineItem(tfRSNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addRS(tfRSNum.getText(), mainController.getSupplier(cmbSupplier.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),Integer.parseInt(cmbPTNum.getSelectedItem().toString()), Integer.parseInt(tfPONum.getText()), tfReturnedBy.getText(), ftfReturnedDate.getText(), tfApprovedBy.getText(), ftfApprovedDate.getText(), tfReceivedBy.getText(),ftfReceivedDate.getText(),taNotes.getText(),type.getSelection().getActionCommand() );
+                            mainController.addRS(tfRSNum.getText(), mainController.getSupplier(cmbSupplier.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),Integer.parseInt(cmbPTNum.getSelectedItem().toString()),tfPONum.getText(), tfReturnedBy.getText(), ftfReturnedDate.getText(), tfApprovedBy.getText(), ftfApprovedDate.getText(), tfReceivedBy.getText(),ftfReceivedDate.getText(),taNotes.getText(),type.getSelection().getActionCommand() );
                             guiController.changePanelToAcknowledgementReceipt();
                         }
                         catch (NullPointerException exception)
