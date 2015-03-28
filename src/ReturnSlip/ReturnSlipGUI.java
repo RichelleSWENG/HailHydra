@@ -36,7 +36,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 public class ReturnSlipGUI extends JPanel
 {
         private JPanel pnlType;
-        protected JLabel lblHeader,lblSINum, lblSupplier, lblPONum, lblReturnedBy, 
+        protected JLabel lblHeader,lblPTNum, lblSupplier, lblPONum, lblReturnedBy, 
                   lblApprovedBy, lblReceivedBy,lblAddress, lblRSNum, lblDate,
                   lblReturnedDate, lblApprovedDate, lblReceivedDate, lblTotal, lblNotes;
         protected JTextField tfRSNum, tfSINum, tfPONum, 
@@ -55,7 +55,7 @@ public class ReturnSlipGUI extends JPanel
         protected Component component;
 	protected JTable tbReturnSlip;
 	protected JScrollPane spTable, spAddress, spNotes;
-        protected JComboBox cmbSupplier;
+        protected JComboBox cmbSupplier, cmbPTNum;
         protected JRadioButton rdbtnFunctional, rdbtnDefectiveWithOutDebitMemo, rdbtnDefectiveWithDebitMemo;
         protected ButtonGroup type;
         protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
@@ -98,10 +98,10 @@ public class ReturnSlipGUI extends JPanel
 		lblDate.setBounds(530, 110, 51, 30);
 		add(lblDate);
                 
-                lblSINum = new JLabel("S.I. Number:");
-		lblSINum.setFont(fntPlainText);
-		lblSINum.setBounds(530, 140, 163, 30);
-		add(lblSINum);
+                lblPTNum = new JLabel("P.T. Number:");
+		lblPTNum.setFont(fntPlainText);
+		lblPTNum.setBounds(530, 140, 163, 30);
+		add(lblPTNum);
 		
                 lblPONum = new JLabel("P.O. Number:");
 		lblPONum.setFont(fntPlainText);
@@ -159,10 +159,16 @@ public class ReturnSlipGUI extends JPanel
                 ftfDate.setBounds(590, 110, 375, 30);
                 add(ftfDate);
 		
-		tfSINum = new JTextField();
+		/*tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
 		tfSINum.setBounds(660, 140, 305, 30);
 		add(tfSINum);
+                */
+                cmbPTNum = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbPTNum);
+		cmbPTNum.setFont(fntPlainText);
+		cmbPTNum.setBounds(660, 140, 305, 30);
+		add(cmbPTNum);
 		
 		tfPONum = new JTextField();
 		tfPONum.setFont(fntPlainText);
@@ -293,6 +299,7 @@ public class ReturnSlipGUI extends JPanel
                 pnlType.setBorder(title);
                 
                 rdbtnFunctional = new JRadioButton("Functional");
+                rdbtnFunctional.setActionCommand("Functional");
 		rdbtnFunctional.setFont(fntPlainText);
 		rdbtnFunctional.setSelected(true);
 		rdbtnFunctional.setBounds(30, 25, 184, 30);
@@ -304,6 +311,7 @@ public class ReturnSlipGUI extends JPanel
                 });
                 
                 rdbtnDefectiveWithOutDebitMemo = new JRadioButton("Defective w/out Debit Memo");
+                rdbtnDefectiveWithOutDebitMemo.setActionCommand("Defective w/out Debit Memo");
 		rdbtnDefectiveWithOutDebitMemo.setFont(fntPlainText);
 		rdbtnDefectiveWithOutDebitMemo.setSelected(true);
 		rdbtnDefectiveWithOutDebitMemo.setBounds(30, 55, 300, 30);
@@ -315,6 +323,7 @@ public class ReturnSlipGUI extends JPanel
                 });
                         
                 rdbtnDefectiveWithDebitMemo = new JRadioButton("Defective w/Debit Memo");
+                rdbtnDefectiveWithDebitMemo.setActionCommand("Defective w/Debit Memo");
 		rdbtnDefectiveWithDebitMemo.setFont(fntPlainText);
 		rdbtnDefectiveWithDebitMemo.setSelected(true);
 		rdbtnDefectiveWithDebitMemo.setBounds(30, 85, 300, 30);

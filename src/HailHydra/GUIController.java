@@ -392,7 +392,10 @@ public class GUIController
     
     public void changePanelToAddReturnSlip()
     {
-            getContentPanel().add(new AddReturnSlipGUI(this));
+            AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
+            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), null));
+            tempGUI.setDataComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
