@@ -38,7 +38,7 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-public class AddPaymentPayablesGUI extends JPanel implements TableModelListener
+public class AddPaymentPayablesGUI extends JPanel
 {
 
 	private JLabel  lblHeader, lblDisplay, lblSupplier,
@@ -281,13 +281,5 @@ public class AddPaymentPayablesGUI extends JPanel implements TableModelListener
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToAddPaymentPayables();
-        }
-        @Override
-        public void tableChanged(TableModelEvent e)
-        {
-            if(e.getColumn()==5)
-            {
-                
-            }
         }
 }
