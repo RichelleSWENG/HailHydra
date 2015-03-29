@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class ProfilesGUI extends JPanel {
 
-	private JButton btnCompanyProfile, btnInventory, btnSetInventoryPrice, btnSetInventoryQuantity;
+	private JButton btnCompanyProfile, btnSetInventoryLast, btnInventory, btnSetInventorySellingPrice, btnSetInventoryQuantity;
 	private Font fntPlainText;
         private GUIController controller;
         
@@ -28,7 +28,7 @@ public class ProfilesGUI extends JPanel {
                 
 		btnCompanyProfile = new JButton("Account Profile");
 		btnCompanyProfile.setFont(fntPlainText);
-		btnCompanyProfile.setBounds(165, 90, 250, 40);
+		btnCompanyProfile.setBounds(165, 90, 300, 40);
 		add(btnCompanyProfile);
                 btnCompanyProfile.addActionListener(
                     new ActionListener()
@@ -41,7 +41,7 @@ public class ProfilesGUI extends JPanel {
 		
 		btnInventory = new JButton("Inventory");
 		btnInventory.setFont(fntPlainText);
-		btnInventory.setBounds(165, 150, 250, 40);
+		btnInventory.setBounds(165, 150, 300, 40);
 		add(btnInventory);
 		btnInventory.addActionListener(
                     new ActionListener()
@@ -58,30 +58,43 @@ public class ProfilesGUI extends JPanel {
                         }
                     });
                         
-		btnSetInventoryPrice = new JButton("Set Inventory Price");
-		btnSetInventoryPrice.setFont(fntPlainText);
-		btnSetInventoryPrice.setBounds(165, 210, 250, 40);
-		add(btnSetInventoryPrice);
-                btnSetInventoryPrice.addActionListener(
+		btnSetInventorySellingPrice = new JButton("Set Inventory Selling Price");
+		btnSetInventorySellingPrice.setFont(fntPlainText);
+		btnSetInventorySellingPrice.setBounds(165, 210, 300, 40);
+		add(btnSetInventorySellingPrice);
+                btnSetInventorySellingPrice.addActionListener(
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e){
-                              controller.changePanelToSetInventoryPrice();
+                              controller.changePanelToSetInventorySellingPrice();
                        
                         }
                     });
 		
 		btnSetInventoryQuantity = new JButton("Set Inventory Quantity");
 		btnSetInventoryQuantity.setFont(fntPlainText);
-		btnSetInventoryQuantity.setBounds(165, 270, 250, 40);
+		btnSetInventoryQuantity.setBounds(165, 270, 300, 40);
 		add(btnSetInventoryQuantity);
-                btnSetInventoryQuantity.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e){
-                              controller.changePanelToSetInventoryQuantity();
-                       
-                        }
-                    });
+		btnSetInventoryQuantity.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e){
+                          controller.changePanelToSetInventoryQuantity();
+                   
+                    }
+                });
+		
+		btnSetInventoryLast = new JButton("Set Inventory Last Cost");
+		btnSetInventoryLast.setFont(new Font("Arial", Font.PLAIN, 21));
+		btnSetInventoryLast.setBounds(165, 330, 300, 40);
+		add(btnSetInventoryLast);
+		btnSetInventoryLast.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e){
+                          controller.changePanelToSetInventoryLastCost();
+                   
+                    }
+                });
 	}
 }
