@@ -33,6 +33,11 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import javax.swing.JTextArea;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 public class AddPaymentPayablesGUI extends JPanel {
 
@@ -106,6 +111,16 @@ public class AddPaymentPayablesGUI extends JPanel {
 		cmbSupplier.setFont(fntPlainText);
 		cmbSupplier.setBounds(125, 100, 390, 30);
 		add(cmbSupplier);
+                cmbSupplier.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (cmbSupplier.getSelectedIndex() != 0)
+                        {
+                            mainController.searchActivePayables((String) cmbSupplier.getSelectedItem());
+                        }
+                    }
+                });
 
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
@@ -194,7 +209,10 @@ public class AddPaymentPayablesGUI extends JPanel {
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToPayablesList();
+                                if(Float.parseFloat(ftfAmount.getText())==getSum())
+                                    controller.changePanelToPayablesList();
+                                else
+                                   JOptionPane.showMessageDialog(null, "Not same Amount");
 			}
 		});
 
@@ -286,7 +304,22 @@ public class AddPaymentPayablesGUI extends JPanel {
 	public void setMainController(PaymentController temp) {
 		mainController = temp;
 	}
-
+        
+        public void setSupplier()
+        {
+            ArrayList<String> supplier= new ArrayList<String>();
+            try {
+                supplier=mainController.getSupplier();
+            } catch (SQLException ex) {
+                Logger.getLogger(AddPaymentPayablesGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cmbSupplier.addItem("");
+            for(int i=0;i<supplier.size();i++)
+            {
+                cmbSupplier.addItem(supplier.get(i));
+            }
+        }
+        
 	public void ViewAll() {
 		TableModel AllModel = mainController.getAllModel();
 		tbPayment.setModel(AllModel);
@@ -298,8 +331,19 @@ public class AddPaymentPayablesGUI extends JPanel {
 			tc.setHeaderValue(strHeader[i]);
 		}
 		th.repaint();
+                cmbSupplier.removeAllItems();
+                setSupplier();
 	}
-
+        
+        public float getSum()
+        {
+            float sum=0;
+             for (int i= 0; i < tbPayment.getRowCount(); i++)
+             {
+                sum=sum+Float.parseFloat((String) tbPayment.getValueAt(i, 5));
+             }
+            return sum;
+        }
 	public void setTableModel(TableModel tbm) { // Setting the Headers
 		tbPayment.setModel(tbm);
 		JTableHeader th = tbPayment.getTableHeader();
