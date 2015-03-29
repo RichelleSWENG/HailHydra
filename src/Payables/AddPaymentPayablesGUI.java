@@ -109,7 +109,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 		cmbSupplier = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbSupplier);
 		cmbSupplier.setFont(fntPlainText);
-		cmbSupplier.setBounds(125, 100, 390, 30);
+		cmbSupplier.setBounds(215, 100, 300, 30);
 		add(cmbSupplier);
                 cmbSupplier.addActionListener(new ActionListener()
                 {
@@ -125,7 +125,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
 		ftfDate.setFont(fntPlainText);
-		ftfDate.setBounds(655, 100, 310, 30);
+		ftfDate.setBounds(680, 100, 285, 30);
 		add(ftfDate);
 
 		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -197,7 +197,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 			}
 		});
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(176, 140, 339, 30);
+		cmbPaymentType.setBounds(215, 140, 300, 30);
 		add(cmbPaymentType);
 		
 		for (int i = 0; i < strPayment.length; i++)

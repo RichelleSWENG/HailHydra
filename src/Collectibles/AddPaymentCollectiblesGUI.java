@@ -94,13 +94,13 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		cmbCustomer = new JComboBox();
 		cmbCustomer.setFont(fntPlainText);
-		cmbCustomer.setBounds(140, 100, 390, 30);
+		cmbCustomer.setBounds(215, 100, 315, 30);
 		add(cmbCustomer);
 
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
 		ftfDate.setFont(fntPlainText);
-		ftfDate.setBounds(655, 100, 310, 30);
+		ftfDate.setBounds(680, 100, 285, 30);
 		add(ftfDate);
 
 		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -118,7 +118,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		cmbPaymentType = new JComboBox();
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(185, 140, 345, 30);
+		cmbPaymentType.setBounds(215, 140, 315, 30);
 		add(cmbPaymentType);
 		cmbPaymentType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
