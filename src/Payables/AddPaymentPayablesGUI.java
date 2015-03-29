@@ -37,8 +37,7 @@ import java.awt.event.ItemEvent;
 public class AddPaymentPayablesGUI extends JPanel {
 
 	private JLabel lblHeader, lblDisplay, lblSupplier, lblPaymentType, lblDate,
-			lblAmount, lblCreditMemoNumber, lblReceivedDate, lblApprovedDate,
-			lblReturnedDate, lblReceivedBy, lblApprovedBy, lblReturnedBy;
+			lblAmount, lblCreditMemoNumber, lblReceivedBy, lblApprovedBy, lblReturnedBy;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = { "Date",
 			"<html><center>Purchase<br>Transaction<br>Number</center></html>",
@@ -60,8 +59,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 	private DateFormat dateFormat;
 	private GUIController controller;
 	private PaymentController mainController;
-	private JTextField tfCreditMemoNo, ftfReceivedDate, ftfApprovedDate,
-			ftfReturnedDate, tfReceivedBy, tfApprovedBy, tfReturnedBy;
+	private JTextField tfCreditMemoNo, tfReceivedBy, tfApprovedBy, tfReturnedBy;
 	private JLabel lblNotes;
 	private JTextArea taNotes;
 
@@ -213,50 +211,20 @@ public class AddPaymentPayablesGUI extends JPanel {
 		lblReceivedBy.setBounds(30, 448, 143, 30);
 		add(lblReceivedBy);
 
-		lblReturnedDate = new JLabel("Date:");
-		lblReturnedDate.setFont(fntPlainText);
-		lblReturnedDate.setBounds(345, 388, 70, 25);
-		add(lblReturnedDate);
-
-		lblApprovedDate = new JLabel("Date:");
-		lblApprovedDate.setFont(fntPlainText);
-		lblApprovedDate.setBounds(345, 418, 70, 25);
-		add(lblApprovedDate);
-
-		lblReceivedDate = new JLabel("Date:");
-		lblReceivedDate.setFont(fntPlainText);
-		lblReceivedDate.setBounds(345, 448, 70, 25);
-		add(lblReceivedDate);
-
 		tfReturnedBy = new JTextField();
 		tfReturnedBy.setFont(fntPlainText);
-		tfReturnedBy.setBounds(169, 388, 170, 30);
+		tfReturnedBy.setBounds(169, 388, 346, 30);
 		add(tfReturnedBy);
 
 		tfApprovedBy = new JTextField();
 		tfApprovedBy.setFont(fntPlainText);
-		tfApprovedBy.setBounds(169, 418, 170, 30);
+		tfApprovedBy.setBounds(169, 418, 346, 30);
 		add(tfApprovedBy);
 
 		tfReceivedBy = new JTextField();
 		tfReceivedBy.setFont(fntPlainText);
-		tfReceivedBy.setBounds(169, 448, 170, 30);
+		tfReceivedBy.setBounds(169, 448, 346, 30);
 		add(tfReceivedBy);
-
-		ftfReturnedDate = new JFormattedTextField(dateFormat);
-		ftfReturnedDate.setFont(fntPlainText);
-		ftfReturnedDate.setBounds(405, 388, 120, 30);
-		add(ftfReturnedDate);
-
-		ftfApprovedDate = new JFormattedTextField(dateFormat);
-		ftfApprovedDate.setFont(fntPlainText);
-		ftfApprovedDate.setBounds(405, 418, 120, 30);
-		add(ftfApprovedDate);
-
-		ftfReceivedDate = new JFormattedTextField(dateFormat);
-		ftfReceivedDate.setFont(fntPlainText);
-		ftfReceivedDate.setBounds(405, 448, 120, 30);
-		add(ftfReceivedDate);
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);

@@ -30,8 +30,7 @@ import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 
 public class AddPaymentCollectiblesGUI extends JPanel {
-	private JLabel lblHeader, lblDeditMemoNumber, lblReceivedBy,
-			lblReceivedDate, lblCustomer, lblNotes, lblPaymentType, lblDate,
+	private JLabel lblHeader, lblDeditMemoNumber, lblReceivedBy, lblCustomer, lblNotes, lblPaymentType, lblDate,
 			lblAmount;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = {
@@ -54,7 +53,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 	private DateFormat dateFormat;
 	private GUIController controller;
 	private JTextArea taNotes;
-	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
+	private JTextField tfDebitMemoNo, tfReceivedBy;
 
 	public AddPaymentCollectiblesGUI(GUIController temp) {
 		controller = temp;
@@ -189,20 +188,10 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		lblReceivedBy.setBounds(30, 448, 143, 30);
 		add(lblReceivedBy);
 
-		lblReceivedDate = new JLabel("Date:");
-		lblReceivedDate.setFont(fntPlainText);
-		lblReceivedDate.setBounds(345, 448, 70, 25);
-		add(lblReceivedDate);
-
 		tfReceivedBy = new JTextField();
 		tfReceivedBy.setFont(fntPlainText);
-		tfReceivedBy.setBounds(169, 448, 170, 30);
+		tfReceivedBy.setBounds(169, 448, 361, 30);
 		add(tfReceivedBy);
-		
-		ftfReceivedDate = new JFormattedTextField(dateFormat);
-		ftfReceivedDate.setFont(fntPlainText);
-		ftfReceivedDate.setBounds(405, 448, 120, 30);
-		add(ftfReceivedDate);
 
 		lblNotes = new JLabel("Notes:");
 		lblNotes.setFont(fntPlainText);
@@ -210,7 +199,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		add(lblNotes);
 
 		taNotes = new JTextArea();
-		taNotes.setBounds(30, 520, 485, 74);
+		taNotes.setBounds(30, 520, 500, 74);
 		add(taNotes);
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
