@@ -67,6 +67,20 @@ public class PaymentModel {
             e.printStackTrace();
         }
     }
+    public ResultSet getSupplier()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT name from company WHERE type='Supplier'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
     public TableModel myModel(ResultSet rs)
     {     
         TableModel model = DbUtils.resultSetToTableModel(rs);

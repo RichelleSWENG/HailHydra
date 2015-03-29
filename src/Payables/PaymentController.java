@@ -5,6 +5,9 @@
  */
 package Payables;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.table.TableModel;
 
 /**
@@ -33,4 +36,14 @@ public class PaymentController {
        gui.setTableModel(tbm);
     }
     
+    public ArrayList<String> getSupplier() throws SQLException
+    {
+        ResultSet rs = paymentModel.getSupplier();
+        ArrayList<String> supplier = new ArrayList<String>();
+        while(rs.next())
+        {
+            supplier.add(rs.getString("name"));
+        }
+        return supplier;
+    }
 }

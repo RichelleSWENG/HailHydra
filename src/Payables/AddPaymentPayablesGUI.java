@@ -23,9 +23,13 @@ import TableRenderer.TableRenderer;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
@@ -203,6 +207,21 @@ public class AddPaymentPayablesGUI extends JPanel
                         }
                     });
 	}
+        public void setSupplier()
+        {
+            ArrayList<String> supplier= new ArrayList<String>();
+            try {
+                supplier=mainController.getSupplier();
+            } catch (SQLException ex) {
+                Logger.getLogger(AddPaymentPayablesGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println(supplier.size());
+            cmbSupplier.addItem("");
+            for(int i=0;i<supplier.size();i++)
+            {
+                cmbSupplier.addItem(supplier.get(i));
+            }
+        }
         public void setMainController(PaymentController temp){
             mainController=temp;
         }
@@ -219,6 +238,8 @@ public class AddPaymentPayablesGUI extends JPanel
                 tc.setHeaderValue(strHeader[i]);
             }
             th.repaint();
+            cmbSupplier.removeAllItems();
+            setSupplier();
         }
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
