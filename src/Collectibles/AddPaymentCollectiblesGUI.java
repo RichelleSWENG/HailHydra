@@ -36,8 +36,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 	private JTextField tfCustomer;
         private JFormattedTextField ftfDate, ftfAmount;
         private String strHeader[] ={ "Date", 
-                "<html><center>Sales Invoice<br>Number</center></html>",
-		"<html><center>Acknowledgement<br>Receipt Number</center></html>", 
+                "<html><center>Acknowledgement Receipt/<br>Sales Invoice Number</center></html>", 
                 "Status", "<html><center>Original<br>Amount</center></html>", 
                 "<html><center>Current<br>Balance</center></html>", 
                 "<html><center>Amount<br>Applied</center></html>" }, 
