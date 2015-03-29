@@ -27,13 +27,15 @@ import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import javax.swing.JFormattedTextField;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class AddPaymentPayablesGUI extends JPanel
 {
 
 	private JLabel  lblHeader, lblDisplay, lblSupplier,
 			lblPaymentType, lblDate, lblAmount;
-        private JTextField tfSupplier;
         private JFormattedTextField ftfDate, ftfAmount;
         private String strHeader[] = { "Date", 
                 "<html><center>Purchase<br>Transaction<br>Number</center></html>",
@@ -41,7 +43,7 @@ public class AddPaymentPayablesGUI extends JPanel
                 "<html><center>Current<br>Balance</center></html>", 
                 "<html><center>Amount<br>Applied</center></html>" }, strPayment[] = 
                 { "Cash", "Bank to Bank", "Check", "Credit Memo" };
-	private JComboBox cmbPaymentType;
+	private JComboBox cmbPaymentType,cmbSupplier;
         private DefaultTableModel tbModel;
         private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
         private TableColumnModel tbColumnRenderer;
@@ -54,6 +56,7 @@ public class AddPaymentPayablesGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private DateFormat dateFormat;
         private GUIController controller;
+        private PaymentController mainController;
 	
 	public AddPaymentPayablesGUI(GUIController temp)
 	{
@@ -71,11 +74,6 @@ public class AddPaymentPayablesGUI extends JPanel
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
-                
-                lblDisplay = new JLabel("Display:");
-		lblDisplay.setFont(fntPlainText);
-		lblDisplay.setBounds(30, 80, 95, 30);
-		add(lblDisplay);
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
@@ -97,10 +95,11 @@ public class AddPaymentPayablesGUI extends JPanel
 		lblAmount.setBounds(594, 160, 111, 30);
 		add(lblAmount);
 
-		tfSupplier = new JTextField();
-		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(125, 120, 390, 30);
-		add(tfSupplier);
+		cmbSupplier = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbSupplier);
+		cmbSupplier.setFont(fntPlainText);
+		cmbSupplier.setBounds(125, 120, 390, 30);
+		add(cmbSupplier);
 
                 ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
@@ -172,11 +171,6 @@ public class AddPaymentPayablesGUI extends JPanel
 		add(cmbPaymentType);
 		for (int i = 0; i < strPayment.length; i++)
 			cmbPaymentType.addItem(strPayment[i]);
-
-		chckbxClosedPayables = new JCheckBox("Closed Payables");
-		chckbxClosedPayables.setFont(fntPlainText);
-		chckbxClosedPayables.setBounds(124, 80, 261, 30);
-		add(chckbxClosedPayables);
                 
                 btnDetails = new JButton("Details");
 		btnDetails.setFont(fntPlainText);
@@ -209,7 +203,35 @@ public class AddPaymentPayablesGUI extends JPanel
                         }
                     });
 	}
+        public void setMainController(PaymentController temp){
+            mainController=temp;
+        }
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            tbPayment.setModel(AllModel);
 
+            JTableHeader th = tbPayment.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbPayment.setModel(tbm);
+            JTableHeader th = tbPayment.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < 6; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToAddPaymentPayables();

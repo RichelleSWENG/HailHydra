@@ -55,52 +55,6 @@ public class PayablesModel
         }
         return rs;
     }
-
-    public ResultSet searchDetail(String field, String filter)
-    {
-        ResultSet rs = null;
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            rs = statement.executeQuery(sql);
-            rs.last();                        // Get Item Count
-            itemCount = rs.getRow();
-            rs.beforeFirst();
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-        return rs;
-    }
-
-    public void addDetail(ArrayList list)
-    {
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            statement.executeUpdate(sql);
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-    }
-
-    public void editDetail(ArrayList list)
-    {
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            statement.executeUpdate(sql);
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-
-    }
-
     
     public void deleteDetail(String ID)
     {
@@ -258,6 +212,19 @@ public class PayablesModel
             e.getMessage();
         }
         return rs;
+    }
+    
+    public void addPayment()
+    {
+        try
+        {
+            statement = db.createStatement();
+            String sql = "";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
