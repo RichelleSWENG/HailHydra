@@ -60,7 +60,6 @@ public class AddPaymentPayablesGUI extends JPanel {
 	private Component component;
 	private JTable tbPayment;
 	private JScrollPane spPaymentTable;
-	private JCheckBox chckbxClosedPayables;
 	private JButton btnSubmit, btnCancel;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
 	private DateFormat dateFormat;
@@ -68,6 +67,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 	private PaymentController mainController;
 	private JTextField tfCreditMemoNo, ftfReceivedDate, ftfApprovedDate,
 			ftfReturnedDate, tfReceivedBy, tfApprovedBy, tfReturnedBy;
+	protected JScrollPane spNotes;
 	private JLabel lblNotes;
 	private JTextArea taNotes;
 
@@ -313,10 +313,17 @@ public class AddPaymentPayablesGUI extends JPanel {
 		add(lblNotes);
 
 		taNotes = new JTextArea();
-		taNotes.setBounds(30, 520, 485, 74);
+		taNotes.setFont(fntPlainText);
+		taNotes.setWrapStyleWord(true);
+		taNotes.setLineWrap(true);
+		taNotes.setBounds(30, 495, 490, 40);
 		add(taNotes);
+		
+		spNotes = new JScrollPane(taNotes);
+		spNotes.setBounds(30, 516, 490, 65);
+		add(spNotes);
                 taNotes.setText("");
-             
+		
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.changePanelToPayablesList();

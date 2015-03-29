@@ -55,6 +55,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 	private GUIController controller;
 	private JTextArea taNotes;
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
+	protected JScrollPane spNotes;
 
 	public AddPaymentCollectiblesGUI(GUIController temp) {
 		controller = temp;
@@ -210,8 +211,16 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		add(lblNotes);
 
 		taNotes = new JTextArea();
-		taNotes.setBounds(30, 520, 485, 74);
+		taNotes.setFont(fntPlainText);
+		taNotes.setWrapStyleWord(true);
+		taNotes.setLineWrap(true);
+		taNotes.setBounds(30, 495, 490, 40);
 		add(taNotes);
+		
+		spNotes = new JScrollPane(taNotes);
+		spNotes.setBounds(30, 514, 490, 67);
+		add(spNotes);
+		
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.changePanelToPayablesList();
