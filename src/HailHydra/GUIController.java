@@ -521,14 +521,16 @@ public class GUIController
     
     public void changePanelToModifyPassword()
     {
-            getSectionsPanel().add(new ModifyPasswordPanel(this));
-            mainMenuRevalidate();
+            ModifyPasswordPanel tempGUI= new ModifyPasswordPanel(this);
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
     }
     
     public void changePanelToModifyCompanyProfile()
     {
-            getSectionsPanel().add(new ModifyCompanyProfilePanel(this));
-            mainMenuRevalidate();
+    	ModifyCompanyProfilePanel tempGUI= new ModifyCompanyProfilePanel(this);
+        getContentPanel().add(tempGUI);
+        frameRevalidate();
     }
     
     public void getAlert(String type){
