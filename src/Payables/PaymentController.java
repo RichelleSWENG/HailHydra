@@ -24,18 +24,15 @@ public class PaymentController {
         this.gui = tempGUI;
     }
     
-    TableModel getAllModel()
-    {
-       TableModel tbm = paymentModel.myModel(paymentModel.getAllActivePayables());
-        return tbm;
-    }
-    
     public void searchActivePayables(String name)
     {
        TableModel tbm = paymentModel.myModel(paymentModel.searchActivePayables(name));
        gui.setTableModel(tbm);
     }
-    
+    public void changeCurrentBalance(int pt,float currentbalance)
+    {
+        paymentModel.updateCurrentBalance(pt, currentbalance);
+    }
     public ArrayList<String> getSupplier() throws SQLException
     {
         ResultSet rs = paymentModel.getSupplier();
@@ -46,4 +43,14 @@ public class PaymentController {
         }
         return supplier;
     }
+    
+    public void addPayment(Payment obj)
+    {
+        paymentModel.addPayment(obj);
+    }
+    public void changeStatus(int pt)
+    {
+        paymentModel.changeStatus(pt);
+    }
+    
 }
