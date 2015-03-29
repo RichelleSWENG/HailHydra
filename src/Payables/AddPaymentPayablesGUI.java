@@ -31,11 +31,14 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-public class AddPaymentPayablesGUI extends JPanel
+public class AddPaymentPayablesGUI extends JPanel implements TableModelListener
 {
 
 	private JLabel  lblHeader, lblDisplay, lblSupplier,
@@ -104,6 +107,16 @@ public class AddPaymentPayablesGUI extends JPanel
 		cmbSupplier.setFont(fntPlainText);
 		cmbSupplier.setBounds(125, 100, 390, 30);
 		add(cmbSupplier);
+                cmbSupplier.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (cmbSupplier.getSelectedIndex() != 0)
+                        {
+                            mainController.searchActivePayables((String) cmbSupplier.getSelectedItem());
+                        }
+                    }
+                });
 
                 ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
@@ -190,7 +203,10 @@ public class AddPaymentPayablesGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
+                                if(Float.parseFloat(ftfAmount.getText())==getSum())
                                 controller.changePanelToPayablesList();
+                                else
+                                   JOptionPane.showMessageDialog(null, "Not same Amount");
                         }
                     });
                         
@@ -253,8 +269,25 @@ public class AddPaymentPayablesGUI extends JPanel
             }
             th.repaint();
         }
+        public float getSum()
+        {
+            float sum=0;
+             for (int i= 0; i < tbPayment.getRowCount(); i++)
+             {
+                sum=sum+Float.parseFloat((String) tbPayment.getValueAt(i, 5));
+             }
+            return sum;
+        }
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToAddPaymentPayables();
+        }
+        @Override
+        public void tableChanged(TableModelEvent e)
+        {
+            if(e.getColumn()==5)
+            {
+                
+            }
         }
 }
