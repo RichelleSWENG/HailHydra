@@ -81,40 +81,40 @@ public class AddPaymentPayablesGUI extends JPanel
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
-		lblSupplier.setBounds(30, 120, 111, 30);
+		lblSupplier.setBounds(30, 100, 111, 30);
 		add(lblSupplier);
                 
                 lblPaymentType = new JLabel("Payment Type:");
 		lblPaymentType.setFont(fntPlainText);
-		lblPaymentType.setBounds(30, 160, 157, 30);
+		lblPaymentType.setBounds(30, 140, 157, 30);
 		add(lblPaymentType);
 
 		lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(594, 120, 111, 30);
+		lblDate.setBounds(594, 100, 111, 30);
 		add(lblDate);
 
 		lblAmount = new JLabel("Amount:");
 		lblAmount.setFont(fntPlainText);
-		lblAmount.setBounds(594, 160, 111, 30);
+		lblAmount.setBounds(594, 140, 111, 30);
 		add(lblAmount);
 
 		cmbSupplier = new JComboBox();
                 AutoCompleteDecorator.decorate(cmbSupplier);
 		cmbSupplier.setFont(fntPlainText);
-		cmbSupplier.setBounds(125, 120, 390, 30);
+		cmbSupplier.setBounds(125, 100, 390, 30);
 		add(cmbSupplier);
 
                 ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
                 ftfDate.setFont(fntPlainText);
-                ftfDate.setBounds(655, 120, 310, 30);
+                ftfDate.setBounds(655, 100, 310, 30);
                 add(ftfDate);
                 
                 ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
                 ftfAmount.setFont(fntPlainText);
                 ftfAmount.setValue(new Float(00.0F));
-                ftfAmount.setBounds(680, 160, 285, 30);
+                ftfAmount.setBounds(680, 140, 285, 30);
                 add(ftfAmount);
                 
 		tbModel = new DefaultTableModel()
@@ -157,7 +157,7 @@ public class AddPaymentPayablesGUI extends JPanel
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		spPaymentTable = new JScrollPane(tbPayment);
-		spPaymentTable.setBounds(30, 210, 935, 320);
+		spPaymentTable.setBounds(30, 190, 935, 320);
 		add(spPaymentTable);
 
                 tbPayment.setFont(fntPlainText);
@@ -171,14 +171,14 @@ public class AddPaymentPayablesGUI extends JPanel
 
 		cmbPaymentType = new JComboBox();
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(176, 160, 222, 30);
+		cmbPaymentType.setBounds(176, 140, 222, 30);
 		add(cmbPaymentType);
 		for (int i = 0; i < strPayment.length; i++)
 			cmbPaymentType.addItem(strPayment[i]);
                 
                 btnDetails = new JButton("Details");
 		btnDetails.setFont(fntPlainText);
-		btnDetails.setBounds(408, 155, 124, 40);
+		btnDetails.setBounds(408, 135, 124, 40);
 		add(btnDetails);
                 
                 btnSubmit = new JButton("Submit");
