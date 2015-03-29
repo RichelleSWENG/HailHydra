@@ -274,7 +274,7 @@ public class ReturnSlipModel {
         {
         
             statement = db.createStatement();
-            String sql = "INSERT INTO returnslip(return_slip_id,date,total_amount,company_id,purchase_transaction_num,returned_by,returned_date,approved_by,approved_date,received_by,received_date,type) VALUES('"+ar.getReturn_slip_id()+"','"+ar.getDate()+"','"+ar.getTotal_amount()+"','"+ar.getCompany_id()+"','"+ar.getPurchase_transaction_num()+"','"+ar.getReturned_by()+"','"+ar.getReturned_date()+"','"+ar.getApproved_by()+"','"+ar.getApproved_date()+"','"+ar.getReceived_by()+"','"+ar.getReceived_date()+"','"+ar.getType()+"')";
+            String sql = "INSERT INTO returnslip(return_slip_id,date,total_amount,company_id,purchase_transaction_num,returned_by,returned_date,approved_by,approved_date,received_by,received_date,type) VALUES('"+ar.getReturn_slip_id()+"','"+ar.getDate()+"','"+ar.getTotal_amount()+"','"+ar.getCompany_id()+"','"+ar.getPurchase_transaction_num()+"','"+ar.getReturned_by()+"',"+ar.getReturned_date()+",'"+ar.getApproved_by()+"',"+ar.getApproved_date()+",'"+ar.getReceived_by()+"',"+ar.getReceived_date()+",'"+ar.getType()+"')";
             statement.executeUpdate(sql);
             int i;
             for (i = 0; i < ar.getItems().size(); i++)

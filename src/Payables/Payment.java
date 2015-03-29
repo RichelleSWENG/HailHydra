@@ -34,19 +34,9 @@ public class Payment {
         this.prepared_by=prepared_by;
         this.payment_type=payment_type;
         this.credit_memo_id=credit_memo_id;
-        if(approved_date.equals(""))
-            this.approved_date="NULL";
-        else
-            this.approved_date=approved_date;
-        
-        if(received_date.equals(""))
-            this.received_date="NULL";
-        else
-            this.received_date=received_date;
-        if(prepared_date.equals(""))
-            this.prepared_date="NULL";
-        else
-            this.prepared_date=prepared_date;
+        this.approved_date=approved_date;
+        this.received_date=received_date;
+        this.prepared_date=prepared_date;
            
     }
 
@@ -180,8 +170,8 @@ public class Payment {
      * @return the approved_date
      */
     public String getApproved_date() {
-        if(approved_date.equals("NULL"))
-            return approved_date;
+        if(approved_date.equals(""))
+            return "NULL";
         else
             return "'"+approved_date+"'";
         
@@ -198,8 +188,8 @@ public class Payment {
      * @return the received_date
      */
     public String getReceived_date() {
-        if(received_date.equals("NULL"))
-            return received_date;
+        if(received_date.equals(""))
+            return "NULL";
         else
             return "'"+received_date+"'";
     }
@@ -215,8 +205,8 @@ public class Payment {
      * @return the prepared_date
      */
     public String getPrepared_date() {
-        if(prepared_date.equals("NULL"))
-            return prepared_date;
+        if(prepared_date.equals(""))
+            return "NULL";
         else
             return "'"+prepared_date+"'";
     }
