@@ -16,6 +16,7 @@ import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
 import Collectibles.CollectiblesModel;
+import Collectibles.ViewPaymentCollectiblesGUI;
 import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoController;
 import CreditMemo.CreditMemoListGUI;
@@ -352,6 +353,13 @@ public class GUIController
             getContentPanel().add(new AddPaymentCollectiblesGUI(this));
             frameRevalidate();
     }
+    
+    public void changePanelToViewPaymentCollectibles()
+    {
+    		getContentPanel().add(new ViewPaymentCollectiblesGUI(this));
+    		frameRevalidate();
+    }
+    
     public void changePanelToAccountProfile()
     {
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
