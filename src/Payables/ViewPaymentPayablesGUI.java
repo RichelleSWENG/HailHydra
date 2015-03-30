@@ -80,7 +80,7 @@ public class ViewPaymentPayablesGUI extends JPanel {
 
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		lblHeader = new JLabel("View Payment");
+		lblHeader = new JLabel("View Payment - Payables");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
