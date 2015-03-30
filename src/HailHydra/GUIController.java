@@ -51,6 +51,7 @@ import Payables.PayablesListGUI;
 import Payables.PayablesModel;
 import Payables.PaymentController;
 import Payables.PaymentModel;
+import Payables.ViewPaymentPayablesGUI;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
 import Purchases.PurchaseTransactionController;
@@ -180,6 +181,13 @@ public class GUIController
             AddPaymentPayablesGUI tempGUI = new AddPaymentPayablesGUI(this);
             tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
             tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void changePanelToViewPaymentPayables()
+    {
+            ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
