@@ -19,7 +19,6 @@ import javax.swing.table.TableColumnModel;
 
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -109,13 +108,13 @@ public class CreditMemoGUI extends JPanel
                 ftfDate.setValue(new java.util.Date());
                 ftfDate.setFont(fntPlainText);
                 ftfDate.setEditable(false);
-                ftfDate.setBounds(590, 120, 375, 30);
+                ftfDate.setBounds(690, 120, 275, 30);
                 add(ftfDate);
 
 		tfReplySlipNum = new JTextField();
 		tfReplySlipNum.setFont(fntPlainText);
                 tfReplySlipNum.setEditable(false);
-		tfReplySlipNum.setBounds(670, 160, 295, 30);
+		tfReplySlipNum.setBounds(690, 160, 275, 30);
 		add(tfReplySlipNum);
                 
                 ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));

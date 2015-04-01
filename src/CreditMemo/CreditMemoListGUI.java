@@ -90,7 +90,7 @@ public class CreditMemoListGUI extends JPanel
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(396, 160, 36, 30);
+		lblTo.setBounds(429, 160, 36, 30);
 		add(lblTo);
 
 		lblMemosFound = new JLabel("Memo/s Found:");
@@ -105,27 +105,27 @@ public class CreditMemoListGUI extends JPanel
                 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(111, 120, 606, 30);
+		tfSearch.setBounds(140, 120, 606, 30);
 		add(tfSearch);
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(104, 160, 155, 30);
+		cmbFromMonth.setBounds(140, 160, 155, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 160, 100, 30);
+		cmbFromYear.setBounds(305, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(442, 160, 155, 30);
+		cmbToMonth.setBounds(481, 160, 155, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(613, 160, 100, 30);
+		cmbToYear.setBounds(646, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
@@ -302,7 +302,7 @@ public class CreditMemoListGUI extends JPanel
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
 		rdbtnSupplierName.setSelected(true);
-		rdbtnSupplierName.setBounds(139, 80, 177, 25);
+		rdbtnSupplierName.setBounds(139, 80, 162, 25);
 		add(rdbtnSupplierName);
                 rdbtnSupplierName.addActionListener(
                     new ActionListener()
@@ -315,7 +315,7 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnCreditMemoNo = new JRadioButton("Credit Memo Number");
 		rdbtnCreditMemoNo.setFont(fntPlainText);
-		rdbtnCreditMemoNo.setBounds(318, 80, 232, 25);
+		rdbtnCreditMemoNo.setBounds(305, 80, 226, 25);
 		add(rdbtnCreditMemoNo);
                 rdbtnCreditMemoNo.addActionListener(
                     new ActionListener()
@@ -328,7 +328,7 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
 		rdbtnReturnSlipNo.setFont(fntPlainText);
-		rdbtnReturnSlipNo.setBounds(552, 80, 226, 25);
+		rdbtnReturnSlipNo.setBounds(539, 80, 226, 25);
 		add(rdbtnReturnSlipNo);
                 rdbtnReturnSlipNo.addActionListener(
                     new ActionListener()
@@ -346,7 +346,7 @@ public class CreditMemoListGUI extends JPanel
 
 		btnViewAllMemos = new JButton("View All Memos");
 		btnViewAllMemos.setFont(fntPlainText);
-		btnViewAllMemos.setBounds(725, 190, 240, 40);
+		btnViewAllMemos.setBounds(725, 195, 240, 40);
 		add(btnViewAllMemos);
                 btnViewAllMemos.addActionListener(
                     new ActionListener()
@@ -386,10 +386,12 @@ public class CreditMemoListGUI extends JPanel
 		
 
 	}
+        
         public void setItemCount(int itemcount)
         {
             lblNumOfMemosFound.setText(Integer.toString(itemcount));
         }
+        
         public void setComboBox()
         {
             cmbToYear.removeAllItems();
@@ -406,6 +408,7 @@ public class CreditMemoListGUI extends JPanel
             cmbFromMonth.setSelectedIndex(0);
             cmbToMonth.setSelectedIndex(11);
         }
+        
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
             tbCreditMemo.setModel(tbm);
