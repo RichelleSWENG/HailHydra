@@ -6,17 +6,19 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 public class ViewAccountProfileGUI extends AccountProfileGUI
 {
         private JButton btnEdit, btnClose;
         private JLabel lblHeader;
+        private JPanel grpPnlBasicInfo, grpPnlContactInfo;
         private GUIController guiController;
         private AccountProfileController mainController;
         
         public ViewAccountProfileGUI(GUIController temp,AccountProfileController AccountProfileController)
-        {
-            
+        {            
                 super();
                 setMainController(AccountProfileController);
                 guiController=temp;
@@ -77,8 +79,8 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
             
                 //The following code are for JButtons
                 btnEdit = new JButton("Modify");
-		btnEdit.setFont(fntPlainText);
-		btnEdit.setBounds(655, 545, 110, 40);
+                btnEdit.setFont(fntPlainText);
+                btnEdit.setBounds(655, 545, 110, 40);
                 add(btnEdit);
                 btnEdit.addActionListener(
                     new ActionListener()
@@ -89,10 +91,10 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                         }
                     });
 
-		btnClose = new JButton("Close");
-		btnClose.setFont(fntPlainText);
-		btnClose.setBounds(855, 545, 110, 40);
-		add(btnClose);
+                btnClose = new JButton("Close");
+                btnClose.setFont(fntPlainText);
+                btnClose.setBounds(855, 545, 110, 40);
+                add(btnClose);
                 btnClose.addActionListener(
                     new ActionListener()
                     {
@@ -101,6 +103,18 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                                 guiController.changePanelToAccountProfile();
                         }
                     });
+		        
+		grpPnlBasicInfo = new JPanel();
+                grpPnlBasicInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+                grpPnlBasicInfo.setBounds(10, 147, 482, 394);
+                add(grpPnlBasicInfo);
+                grpPnlBasicInfo.setLayout(null);
+
+                grpPnlContactInfo = new JPanel();
+                grpPnlContactInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+                grpPnlContactInfo.setBounds(496, 147, 494, 333);
+                add(grpPnlContactInfo);
+                grpPnlContactInfo.setLayout(null);
         }
         
         public void setMainController(AccountProfileController temp){

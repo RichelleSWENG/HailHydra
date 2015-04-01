@@ -10,6 +10,8 @@ import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 
 public class ModifyAccountProfileGUI extends AccountProfileGUI 
@@ -20,6 +22,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
         private AccountProfileController mainController;
         private String realName;
         private String realType;
+        private JPanel grpPnlBasicInfo, grpPnlContactInfo;
+        
         public ModifyAccountProfileGUI(GUIController temp,AccountProfileController AccountProfileController)
         {
                 super();
@@ -63,8 +67,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 
                 //The following code are for JButtons
                 btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(fntPlainText);
-		btnSubmit.setBounds(655, 545, 110, 40);
+                btnSubmit.setFont(fntPlainText);
+                btnSubmit.setBounds(655, 545, 110, 40);
                 add(btnSubmit);
                 btnSubmit.addActionListener(
                     new ActionListener()
@@ -245,19 +249,31 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                         }
                     });
 
-		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(fntPlainText);
-		btnCancel.setBounds(855, 545, 110, 40);
-		add(btnCancel);
-                btnCancel.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                GUIController.changePanelToViewAccountProfile();
-                        }
-                    });
-        }
+				btnCancel = new JButton("Cancel");
+				btnCancel.setFont(fntPlainText);
+				btnCancel.setBounds(855, 545, 110, 40);
+				add(btnCancel);
+				btnCancel.addActionListener(
+		                new ActionListener()
+		                {
+		                    public void actionPerformed(ActionEvent e)
+		                    {
+		                            GUIController.changePanelToViewAccountProfile();
+		                    }
+		                });
+		    
+				grpPnlBasicInfo = new JPanel();
+				grpPnlBasicInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				grpPnlBasicInfo.setBounds(10, 147, 482, 394);
+				add(grpPnlBasicInfo);
+				grpPnlBasicInfo.setLayout(null);
+				
+				grpPnlContactInfo = new JPanel();
+				grpPnlContactInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				grpPnlContactInfo.setBounds(496, 147, 494, 333);
+				add(grpPnlContactInfo);
+				grpPnlContactInfo.setLayout(null);
+        }                
         
         public void setMainController(AccountProfileController temp){
             mainController=temp;
@@ -302,6 +318,6 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
         
         public static void main(String args[]){
             GUIController temp=new GUIController();
-           temp.changePanelToModifyAccountProfile();
+            temp.changePanelToModifyAccountProfile();
         }
 }
