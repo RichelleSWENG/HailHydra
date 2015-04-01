@@ -293,7 +293,7 @@ public class AckReceiptModel
      public AcknowledgementReceipt getAR(String ID)
      {
         ArrayList<ARLineItem> stuff; 
-        AcknowledgementReceipt rcpt;
+        AcknowledgementReceipt rcpt = new AcknowledgementReceipt();
         ResultSet rs = null;
         try
         {

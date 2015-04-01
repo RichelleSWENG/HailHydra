@@ -29,15 +29,16 @@ import javax.swing.table.TableColumnModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 
-public class AddPaymentCollectiblesGUI extends JPanel {
-	private JLabel lblHeader, lblDeditMemoNumber, lblReceivedBy,
+public class ViewPaymentCollectiblesGUI extends JPanel {
+
+	private JLabel lblHeader, lblSalesAckNumber, lblReceivedBy,
 			lblReceivedDate, lblCustomer, lblNotes, lblPaymentType, lblDate,
 			lblAmount;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = {
 			"Date",
 			"<html><center>Acknowledgement Receipt/<br>Sales Invoice Number</center></html>",
-			"Status", "<html><center>Original<br>Amount</center></html>",
+			"Status", "<html><center>Debit<br>Memo<br>Number<br></center></html>", "<html><center>Original<br>Amount</center></html>",
 			"<html><center>Current<br>Balance</center></html>",
 			"<html><center>Amount<br>Applied</center></html>" },
 			strPaymentType[] = { "Cash", "Bank to Bank", "Check", "Debit Memo" };
@@ -57,7 +58,8 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
 
-	public AddPaymentCollectiblesGUI(GUIController temp) {
+	public ViewPaymentCollectiblesGUI(GUIController temp) {
+
 		controller = temp;
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
@@ -68,7 +70,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-		lblHeader = new JLabel("Add Payment - Collectibles");
+		lblHeader = new JLabel("View Payment - Collectibles");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
@@ -95,7 +97,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		cmbCustomer = new JComboBox();
 		cmbCustomer.setFont(fntPlainText);
-		cmbCustomer.setBounds(215, 100, 315, 30);
+		cmbCustomer.setBounds(189, 100, 341, 30);
 		add(cmbCustomer);
 
 		ftfDate = new JFormattedTextField(dateFormat);
@@ -112,14 +114,14 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		
 		tfDebitMemoNo = new JTextField();
 		tfDebitMemoNo.setFont(fntPlainText);
-		tfDebitMemoNo.setBounds(215, 180, 315, 30);
+		tfDebitMemoNo.setBounds(189, 180, 341, 30);
 		tfDebitMemoNo.setEditable(false);
 		add(tfDebitMemoNo);
 		tfDebitMemoNo.setColumns(10);
 
 		cmbPaymentType = new JComboBox();
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(215, 140, 315, 30);
+		cmbPaymentType.setBounds(189, 140, 341, 30);
 		add(cmbPaymentType);
 		cmbPaymentType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -180,10 +182,10 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		tbPayment.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPayment.setRowHeight(30);
 
-		lblDeditMemoNumber = new JLabel("Debit Memo No. : ");
-		lblDeditMemoNumber.setFont(fntPlainText);
-		lblDeditMemoNumber.setBounds(30, 180, 195, 30);
-		add(lblDeditMemoNumber);
+		lblSalesAckNumber = new JLabel("S.I./ A.R No.");
+		lblSalesAckNumber.setFont(fntPlainText);
+		lblSalesAckNumber.setBounds(30, 180, 195, 30);
+		add(lblSalesAckNumber);
 
 		lblReceivedBy = new JLabel("Received By:");
 		lblReceivedBy.setFont(fntPlainText);
@@ -220,12 +222,6 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		spNotes = new JScrollPane(taNotes);
 		spNotes.setBounds(30, 514, 490, 67);
 		add(spNotes);
-		
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToPayablesList();
-			}
-		});
 
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
@@ -245,6 +241,6 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 	public static void main(String args[]) {
 		GUIController temp = new GUIController();
-		temp.changePanelToAddPaymentCollectibles();
+		temp.changePanelToViewPaymentCollectibles();
 	}
 }

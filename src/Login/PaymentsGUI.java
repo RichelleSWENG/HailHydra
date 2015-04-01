@@ -2,7 +2,6 @@ package Login;
 
 import HailHydra.GUIController;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
@@ -16,8 +15,7 @@ public class PaymentsGUI extends JPanel{
     
     public PaymentsGUI(GUIController temp){
                 controller=temp;
-                setBounds(0, 0, 700, 400);
-		setBackground(SystemColor.controlHighlight);
+                setBounds(5, 5, 580, 390);
 		setLayout(null);
 		
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);

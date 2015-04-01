@@ -146,12 +146,37 @@ public class TermsReportGUI extends JPanel
 			{
 				if (tfSearch.getText().length() > 0)
 				{
-
-				} else if (tfSearch.getText().length() == 0) // if nothing is
-																// typed display
-																// all
+                                    if (chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()) {
+                                        if(rdbtnCustomer.isSelected())
+                                            mainController.SearchAll("customer", tfSearch.getText());
+                                        else if(rdbtnReceiptNumber.isSelected())
+                                            mainController.SearchAll("receipt number", tfSearch.getText());
+                                    } else if(chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()) {
+                                        if(rdbtnCustomer.isSelected())
+                                            mainController.SearchNear("customer", tfSearch.getText());
+                                        else if(rdbtnReceiptNumber.isSelected())
+                                            mainController.SearchNear("receipt number", tfSearch.getText());
+                                    } else if(!chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()){
+                                        if(rdbtnCustomer.isSelected())
+                                            mainController.SearchExceeded("customer", tfSearch.getText());
+                                        else if(rdbtnReceiptNumber.isSelected())
+                                            mainController.SearchExceeded("receipt number", tfSearch.getText());
+                                    } else if(!chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()){
+                                        tbTermsReport.setModel(tbModel);
+                                        lblNumofReportsFound.setText("0");
+                                    }
+				} else if (tfSearch.getText().length() == 0) 
 				{
-
+                                    if (chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()) {
+                                        ViewAll();
+                                    } else if(chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()) {
+                                        mainController.ViewNearTerms();
+                                    } else if(!chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()){
+                                        mainController.ViewExceededTerms();
+                                    } else if(!chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()){
+                                        tbTermsReport.setModel(tbModel);
+                                        lblNumofReportsFound.setText("0");
+                                    }
 				}
 			}
 		});
@@ -232,9 +257,20 @@ public class TermsReportGUI extends JPanel
 		add(chckbxNearTerms);
 		chckbxNearTerms.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-			}
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        tfSearch.setText("");
+                        if (chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()) {
+                            ViewAll();
+                        } else if(chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()) {
+                            mainController.ViewNearTerms();
+                        } else if(!chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()){
+                            mainController.ViewExceededTerms();
+                        } else if(!chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()){
+                            tbTermsReport.setModel(tbModel);
+                            lblNumofReportsFound.setText("0");
+                        }
+                    }
 		});
 
 		chckbxExceededTerms = new JCheckBox("Exceeded Terms");
@@ -246,6 +282,17 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            tfSearch.setText("");
+                            if (chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()) {
+                                ViewAll();
+                            } else if(chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()) {
+                                mainController.ViewNearTerms();
+                            } else if(!chckbxNearTerms.isSelected() && chckbxExceededTerms.isSelected()){
+                                mainController.ViewExceededTerms();
+                            } else if(!chckbxNearTerms.isSelected() && !chckbxExceededTerms.isSelected()){
+                                tbTermsReport.setModel(tbModel);
+                                lblNumofReportsFound.setText("0");
+                            }
 			}
 		});
 
@@ -258,6 +305,7 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            tfSearch.setText("");
 			}
 		});
 
@@ -270,6 +318,7 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            tfSearch.setText("");
 			}
 		});
 
@@ -285,6 +334,9 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            ViewAll();
+                            chckbxExceededTerms.setSelected(true);
+                            chckbxNearTerms.setSelected(true);
 			}
 		});
 
@@ -334,7 +386,7 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.setModel(tbm);
 		JTableHeader th = tbTermsReport.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);

@@ -3,51 +3,50 @@ package Payables;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-
-import HailHydra.GUIController;
-import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import javax.swing.JFormattedTextField;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-import javax.swing.JTextArea;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
-import java.math.BigDecimal;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
-public class AddPaymentPayablesGUI extends JPanel {
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
+
+import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
+import HailHydra.GUIController;
+import TableRenderer.TableRenderer;
+
+public class ViewPaymentPayablesGUI extends JPanel {
 
 	private JLabel lblHeader, lblDisplay, lblSupplier, lblPaymentType, lblDate,
-			lblAmount, lblCreditMemoNumber, lblReceivedDate, lblApprovedDate,
+			lblAmount, lblPurchaseTransactionNumber, lblReceivedDate, lblApprovedDate,
 			lblReturnedDate, lblReceivedBy, lblApprovedBy, lblReturnedBy;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = { "Date",
-			"<html><center>Purchase<br>Transaction<br>Number</center></html>",
+			"<html><center>Purchase<br>Transaction<br>Number</center></html>", "<html><center>Credit<br>Memo<br>Number</center><html>",
 			"Status", "<html><center>Original<br>Amount</center></html>",
 			"<html><center>Current<br>Balance</center></html>",
 			"<html><center>Amount<br>Applied</center></html>" },
@@ -71,8 +70,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 	private JLabel lblNotes;
 	private JTextArea taNotes;
 
-	public AddPaymentPayablesGUI(GUIController temp) {
-		controller = temp;
+	public ViewPaymentPayablesGUI(GUIController temp) {
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
 
@@ -82,10 +80,20 @@ public class AddPaymentPayablesGUI extends JPanel {
 
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		lblHeader = new JLabel("Add Payment - Payables");
+		lblHeader = new JLabel("View Payment - Payables");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
+
+		controller = temp;
+		setBounds(0, 0, 1000, 620);
+		setLayout(null);
+
+		fntPlainText = new Font("Arial", Font.PLAIN, 21);
+		fntHeaderText = new Font("Arial", Font.BOLD, 40);
+		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
+
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
@@ -110,7 +118,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 		cmbSupplier = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbSupplier);
 		cmbSupplier.setFont(fntPlainText);
-		cmbSupplier.setBounds(215, 100, 300, 30);
+		cmbSupplier.setBounds(186, 100, 329, 30);
 		add(cmbSupplier);
                 cmbSupplier.addActionListener(new ActionListener()
                 {
@@ -184,7 +192,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 
 		tfCreditMemoNo = new JTextField();
 		tfCreditMemoNo.setFont(fntPlainText);
-		tfCreditMemoNo.setBounds(215, 180, 300, 30);
+		tfCreditMemoNo.setBounds(186, 180, 329, 30);
 		tfCreditMemoNo.setEditable(false);
 		add(tfCreditMemoNo);
 		tfCreditMemoNo.setColumns(10);
@@ -200,7 +208,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 			}
 		});
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(215, 140, 300, 30);
+		cmbPaymentType.setBounds(186, 140, 329, 30);
 		add(cmbPaymentType);
 		
 		for (int i = 0; i < strPayment.length; i++)
@@ -302,10 +310,10 @@ public class AddPaymentPayablesGUI extends JPanel {
 		btnCancel.setBounds(855, 545, 110, 40);
 		add(btnCancel);
 
-		lblCreditMemoNumber = new JLabel("Credit Memo No. : ");
-		lblCreditMemoNumber.setFont(fntPlainText);
-		lblCreditMemoNumber.setBounds(30, 180, 195, 30);
-		add(lblCreditMemoNumber);
+		lblPurchaseTransactionNumber = new JLabel("P.T. No. : ");
+		lblPurchaseTransactionNumber.setFont(fntPlainText);
+		lblPurchaseTransactionNumber.setBounds(30, 180, 157, 30);
+		add(lblPurchaseTransactionNumber);
 
 		lblNotes = new JLabel("Notes:");
 		lblNotes.setFont(fntPlainText);
@@ -437,6 +445,6 @@ public class AddPaymentPayablesGUI extends JPanel {
 
 	public static void main(String args[]) {
 		GUIController temp = new GUIController();
-		temp.changePanelToAddPaymentPayables();
+		temp.changePanelToViewPaymentPayables();
 	}
 }

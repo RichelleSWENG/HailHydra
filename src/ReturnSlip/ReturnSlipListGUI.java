@@ -323,6 +323,7 @@ public class ReturnSlipListGUI extends JPanel {
 		});
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
+		rdbtnReturnSlipNo.setFont(fntPlainText);
 		rdbtnReturnSlipNo.setBounds(325, 80, 220, 30);
 		add(rdbtnReturnSlipNo);
 		rdbtnReturnSlipNo.addActionListener(new ActionListener() {

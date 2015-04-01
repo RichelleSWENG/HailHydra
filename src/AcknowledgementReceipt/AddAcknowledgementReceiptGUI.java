@@ -21,7 +21,7 @@ import java.awt.Font;
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnSubmit, btnCancel;
+    private JButton btnAddItem, btnDeleteItem, btnSubmit, btnCancel;
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     private int numItems;
@@ -37,6 +37,14 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     public AddAcknowledgementReceiptGUI(GUIController temp)
     {
         super();
+        tfDeliveredBy.setLocation(165, 496);
+        spDeliveryNotes.setLocation(30, 555);
+        lblDeliveryNotes.setLocation(30, 526);
+        lblDeliveredBy.setLocation(30, 496);
+        lblOrderedBy.setLocation(30, 466);
+        tfOrderedBy.setLocation(165, 466);
+        tfSalesperson.setLocation(165, 436);
+        lblSalesperson.setLocation(30, 436);
         numItems = 0;
         totalItemPrice = 0;
         tentativeTotal = 0;
@@ -46,12 +54,24 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         totalBalance = 0;
         c = null;
         cmbCustomer.setEditable(true);
-
+        
+        lblSalesperson.setBounds(28, 431, 147, 30);
+        tfSalesperson.setBounds(163, 431, 335, 30);
+        
+        lblOrderedBy.setBounds(28, 461, 133, 30);
+        tfOrderedBy.setBounds(163, 461, 335, 30);
+        
+        lblDeliveredBy.setBounds(28, 491, 147, 30);
+        tfDeliveredBy.setBounds(163, 491, 335, 30);
+        
+        lblDeliveryNotes.setBounds(28, 521, 147, 30);
+        spDeliveryNotes.setBounds(28, 550, 472, 30);
+        
         lblHeader.setText("Add Acknowledgement Receipt");
 
         btnAddItem = new JButton("Add Item");
         btnAddItem.setFont(new Font("Arial", Font.PLAIN, 21));
-        btnAddItem.setBounds(30, 545, 147, 40);
+        btnAddItem.setBounds(30, 385, 147, 40);
         add(btnAddItem);
         btnAddItem.addActionListener(
                 new ActionListener()
@@ -151,6 +171,17 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         tbModel.setRowCount(1);
         tbModel.setValueAt(defaultVal, numItems, 4);
         tbModel.addTableModelListener(this);
+        
+        btnDeleteItem = new JButton("Delete Item");
+        btnDeleteItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent arg0) {
+        		//delete selected item
+        		
+        	}
+        });
+        btnDeleteItem.setFont(new Font("Arial", Font.PLAIN, 21));
+        btnDeleteItem.setBounds(190, 385, 147, 40);
+        add(btnDeleteItem);
         
     
     }
@@ -305,5 +336,4 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
             super(new JComboBox(str));
         }
     }
-
 }

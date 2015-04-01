@@ -76,4 +76,49 @@ public class ReportController {
             creditgui.setTableModel(tbm);
     }
     
+    public void ViewNearTerms()
+    {
+            TableModel tbm;
+            tbm = reportModel.myModel(reportModel.getNearTerms());
+            this.itemcount = reportModel.getItemcount();
+            termsgui.setItemCount(itemcount);
+            termsgui.setTableModel(tbm);
+    }
+    
+    public void ViewExceededTerms()
+    {
+        TableModel tbm;
+        tbm = reportModel.myModel(reportModel.getExceededTerms());
+        this.itemcount = reportModel.getItemcount();
+        termsgui.setItemCount(itemcount);
+        termsgui.setTableModel(tbm);
+    }
+    
+    public void SearchAll(String filter,String field)
+    {
+        TableModel tbm;
+        tbm = reportModel.myModel(reportModel.SearchAll(filter, field));
+        this.itemcount = reportModel.getItemcount();
+        termsgui.setItemCount(itemcount);
+        termsgui.setTableModel(tbm);
+    }
+    
+    public void SearchNear(String filter,String field)
+    {
+        TableModel tbm;
+        tbm = reportModel.myModel(reportModel.SearchNear(filter, field));
+        this.itemcount = reportModel.getItemcount();
+        termsgui.setItemCount(itemcount);
+        termsgui.setTableModel(tbm);
+    }
+    
+    public void SearchExceeded(String filter,String field)
+    {
+        TableModel tbm;
+        tbm = reportModel.myModel(reportModel.SearchExceeded(filter,field));
+        this.itemcount = reportModel.getItemcount();
+        termsgui.setItemCount(itemcount);
+        termsgui.setTableModel(tbm);
+    }
 }
+    

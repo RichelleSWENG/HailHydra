@@ -16,6 +16,7 @@ import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
 import Collectibles.CollectiblesModel;
+import Collectibles.ViewPaymentCollectiblesGUI;
 import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoController;
 import CreditMemo.CreditMemoListGUI;
@@ -49,6 +50,9 @@ import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesController;
 import Payables.PayablesListGUI;
 import Payables.PayablesModel;
+import Payables.PaymentController;
+import Payables.PaymentModel;
+import Payables.ViewPaymentPayablesGUI;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
 import Purchases.PurchaseTransactionController;
@@ -73,6 +77,8 @@ import Sales.SalesInvoiceModel;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
+import SystemAccount.ModifyCompanyProfilePanel;
+import SystemAccount.ModifyPasswordPanel;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
 
@@ -173,7 +179,17 @@ public class GUIController
     
     public void changePanelToAddPaymentPayables()
     {
-            getContentPanel().add(new AddPaymentPayablesGUI(this));
+            AddPaymentPayablesGUI tempGUI = new AddPaymentPayablesGUI(this);
+            tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void changePanelToViewPaymentPayables()
+    {
+            ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -337,6 +353,13 @@ public class GUIController
             getContentPanel().add(new AddPaymentCollectiblesGUI(this));
             frameRevalidate();
     }
+    
+    public void changePanelToViewPaymentCollectibles()
+    {
+    		getContentPanel().add(new ViewPaymentCollectiblesGUI(this));
+    		frameRevalidate();
+    }
+    
     public void changePanelToAccountProfile()
     {
             AccountProfileListGUI tempGUI= new AccountProfileListGUI(this);
@@ -390,7 +413,10 @@ public class GUIController
     
     public void changePanelToAddReturnSlip()
     {
-            getContentPanel().add(new AddReturnSlipGUI(this));
+            AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
+            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), null));
+            tempGUI.setDataComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -411,7 +437,10 @@ public class GUIController
     
     public void changePanelToTermsReport()
     {
-            getContentPanel().add(new TermsReportGUI(this));
+            TermsReportGUI tempGUI = new TermsReportGUI(this);
+            tempGUI.setMainController(new ReportController(new ReportModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -504,6 +533,20 @@ public class GUIController
     {
             getSectionsPanel().add(new SystemSettingsGUI(this));
             mainMenuRevalidate();
+    }
+    
+    public void changePanelToModifyPassword()
+    {
+            ModifyPasswordPanel tempGUI= new ModifyPasswordPanel(this);
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void changePanelToModifyCompanyProfile()
+    {
+    	ModifyCompanyProfilePanel tempGUI= new ModifyCompanyProfilePanel(this);
+        getContentPanel().add(tempGUI);
+        frameRevalidate();
     }
     
     public void getAlert(String type){

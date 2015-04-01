@@ -24,7 +24,6 @@ public class HailHydraGUI extends JFrame
 		pnlContent = new JPanel();
 		pnlContent.setLayout(null);
 		getContentPane().add(pnlContent);
-		pnlContent.setBackground(SystemColor.textHighlight);
 		add(pnlContent);
                 
                 pnlDatabase=new DatabaseGUI();

@@ -1,6 +1,5 @@
 package Login;
 
-import java.awt.SystemColor;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
@@ -20,30 +19,30 @@ public class SystemSettingsGUI extends JPanel {
 
 	public SystemSettingsGUI(GUIController temp) {
 		controller=temp;
-		setBounds(0, 0, 700, 400);
-		setBackground(SystemColor.controlHighlight);
+                
+		setBounds(5, 5, 580, 390);
 		setLayout(null);
 
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 
 		adminAccBtn = new JButton("Modify Administrator Account");
 		adminAccBtn.setFont(fntPlainText);
-		adminAccBtn.setBounds(130, 45, 330, 40);
+		adminAccBtn.setBounds(130, 30, 330, 40);
 		add(adminAccBtn);
 
 		empAccBtn = new JButton("Modify Employee Account");
 		empAccBtn.setFont(fntPlainText);
-		empAccBtn.setBounds(130, 105, 330, 40);
+		empAccBtn.setBounds(130, 90, 330, 40);
 		add(empAccBtn);
 
 		companyProfileBtn = new JButton("Modify Company Profile");
 		companyProfileBtn.setFont(fntPlainText);
-		companyProfileBtn.setBounds(130, 165, 330, 40);
+		companyProfileBtn.setBounds(130, 150, 330, 40);
 		add(companyProfileBtn);
 
 		vatBtn = new JButton("Modify VAT");
 		vatBtn.setFont(fntPlainText);
-		vatBtn.setBounds(130, 225, 330, 40);
+		vatBtn.setBounds(130, 210, 330, 40);
 		add(vatBtn);
 		vatBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -53,7 +52,7 @@ public class SystemSettingsGUI extends JPanel {
 
 		credLimAlertBtn = new JButton("Modify Credit Limit Alert");
 		credLimAlertBtn.setFont(fntPlainText);
-		credLimAlertBtn.setBounds(130, 285, 330, 40);
+		credLimAlertBtn.setBounds(130, 270, 330, 40);
 		add(credLimAlertBtn);
 		credLimAlertBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -63,7 +62,7 @@ public class SystemSettingsGUI extends JPanel {
 
 		termsAlertBtn = new JButton("Modify Terms Alert");
 		termsAlertBtn.setFont(fntPlainText);
-		termsAlertBtn.setBounds(130, 345, 330, 40);
+		termsAlertBtn.setBounds(130, 330, 330, 40);
 		add(termsAlertBtn);
 		termsAlertBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

@@ -4,31 +4,27 @@ package Login;
 import HailHydra.GUIController;
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.SystemColor;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class ProfilesGUI extends JPanel {
 
-	private JButton btnCompanyProfile, btnInventory, btnSetInventoryPrice, btnSetInventoryQuantity;
+	private JButton btnCompanyProfile, btnSetInventoryLastCost, btnInventory, btnSetInventorySellingPrice, btnSetInventoryQuantity;
 	private Font fntPlainText;
         private GUIController controller;
         
 	public ProfilesGUI(GUIController temp) {
                 controller=temp;
             
-		setBounds(0, 0, 700, 400);
-		setBackground(SystemColor.controlHighlight);
+		setBounds(5, 5, 580, 390);
 		setLayout(null);
 		
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 
 		btnCompanyProfile = new JButton("Account Profile");
 		btnCompanyProfile.setFont(fntPlainText);
-		btnCompanyProfile.setBounds(165, 90, 250, 40);
+		btnCompanyProfile.setBounds(130, 60, 300, 40);
 		add(btnCompanyProfile);
                 btnCompanyProfile.addActionListener(
                     new ActionListener()
@@ -41,7 +37,7 @@ public class ProfilesGUI extends JPanel {
 		
 		btnInventory = new JButton("Inventory");
 		btnInventory.setFont(fntPlainText);
-		btnInventory.setBounds(165, 150, 250, 40);
+		btnInventory.setBounds(130, 120, 300, 40);
 		add(btnInventory);
 		btnInventory.addActionListener(
                     new ActionListener()
@@ -58,30 +54,45 @@ public class ProfilesGUI extends JPanel {
                         }
                     });
                         
-		btnSetInventoryPrice = new JButton("Set Inventory Price");
-		btnSetInventoryPrice.setFont(fntPlainText);
-		btnSetInventoryPrice.setBounds(165, 210, 250, 40);
-		add(btnSetInventoryPrice);
-                btnSetInventoryPrice.addActionListener(
+		btnSetInventorySellingPrice = new JButton("Set Inventory Selling Price");
+		btnSetInventorySellingPrice.setFont(fntPlainText);
+		btnSetInventorySellingPrice.setBounds(130, 180, 300, 40);
+		add(btnSetInventorySellingPrice);
+                btnSetInventorySellingPrice.addActionListener(
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e){
-                              controller.changePanelToSetInventoryPrice();
+                              controller.changePanelToSetInventorySellingPrice();
                        
                         }
                     });
 		
+                btnSetInventoryLastCost = new JButton("Set Inventory Last Cost");
+		btnSetInventoryLastCost.setFont(new Font("Arial", Font.PLAIN, 21));
+		btnSetInventoryLastCost.setBounds(130, 240, 300, 40);
+		add(btnSetInventoryLastCost);
+		btnSetInventoryLastCost.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e){
+                          controller.changePanelToSetInventoryLastCost();
+                   
+                    }
+                });
+                
 		btnSetInventoryQuantity = new JButton("Set Inventory Quantity");
 		btnSetInventoryQuantity.setFont(fntPlainText);
-		btnSetInventoryQuantity.setBounds(165, 270, 250, 40);
+		btnSetInventoryQuantity.setBounds(130, 300, 300, 40);
 		add(btnSetInventoryQuantity);
-                btnSetInventoryQuantity.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e){
-                              controller.changePanelToSetInventoryQuantity();
-                       
-                        }
-                    });
+		btnSetInventoryQuantity.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e){
+                          controller.changePanelToSetInventoryQuantity();
+                   
+                    }
+                });
+		
+		
 	}
 }

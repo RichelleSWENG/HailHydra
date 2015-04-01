@@ -55,52 +55,6 @@ public class PayablesModel
         }
         return rs;
     }
-
-    public ResultSet searchDetail(String field, String filter)
-    {
-        ResultSet rs = null;
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            rs = statement.executeQuery(sql);
-            rs.last();                        // Get Item Count
-            itemCount = rs.getRow();
-            rs.beforeFirst();
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-        return rs;
-    }
-
-    public void addDetail(ArrayList list)
-    {
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            statement.executeUpdate(sql);
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-    }
-
-    public void editDetail(ArrayList list)
-    {
-        try
-        {
-            statement = db.createStatement();
-            String sql = "";
-            statement.executeUpdate(sql);
-        } catch (Exception e)
-        {
-            e.getMessage();
-        }
-
-    }
-
     
     public void deleteDetail(String ID)
     {
@@ -155,7 +109,6 @@ public class PayablesModel
         {
             statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id";
-            System.out.println(sql);
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -173,7 +126,6 @@ public class PayablesModel
         {
             statement = db.createStatement();
             String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
-            System.out.println(sql);
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -260,6 +212,19 @@ public class PayablesModel
             e.getMessage();
         }
         return rs;
+    }
+    
+    public void addPayment()
+    {
+        try
+        {
+            statement = db.createStatement();
+            String sql = "";
+            statement.executeUpdate(sql);
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
