@@ -18,7 +18,6 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -161,17 +160,17 @@ public class SalesInvoiceGUI extends JPanel
                 ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
                 ftfDate.setFont(fntPlainText);
-                ftfDate.setBounds(590, 110, 375, 30);
+                ftfDate.setBounds(690, 110, 275, 30);
                 add(ftfDate);
 
 		tfPONum = new JTextField();
 		tfPONum.setFont(fntPlainText);
-		tfPONum.setBounds(670, 140, 295, 30);
+		tfPONum.setBounds(690, 140, 275, 30);
 		add(tfPONum);
 
 		tfDRNum = new JTextField();
 		tfDRNum.setFont(fntPlainText);
-		tfDRNum.setBounds(670, 170, 295, 30);
+		tfDRNum.setBounds(690, 170, 275, 30);
 		add(tfDRNum);
 
 		tfSalesperson = new JTextField();
@@ -181,7 +180,7 @@ public class SalesInvoiceGUI extends JPanel
 
 		tfOrderedBy = new JTextField();
 		tfOrderedBy.setFont(fntPlainText);
-		tfOrderedBy.setBounds(155, 415, 345, 30);
+		tfOrderedBy.setBounds(165, 415, 335, 30);
 		add(tfOrderedBy);
 
 		tfDeliveredBy = new JTextField();
@@ -201,7 +200,7 @@ public class SalesInvoiceGUI extends JPanel
                 ftfSubtotal.setHorizontalAlignment(JTextField.RIGHT);
                 ftfSubtotal.setValue(new Float(00.0F));
                 ftfSubtotal.setEditable(false);
-		ftfSubtotal.setBounds(790, 415, 175, 30);
+		ftfSubtotal.setBounds(800, 415, 165, 30);
 		add(ftfSubtotal);
 
 		ftfVat = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -209,7 +208,7 @@ public class SalesInvoiceGUI extends JPanel
                 ftfVat.setHorizontalAlignment(JTextField.RIGHT);
                 ftfVat.setValue(new Float(00.0F));
                 ftfVat.setEditable(false);
-		ftfVat.setBounds(755, 445, 210, 30);
+		ftfVat.setBounds(800, 445, 165, 30);
 		add(ftfVat);
                 
                 ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -217,7 +216,7 @@ public class SalesInvoiceGUI extends JPanel
                 ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
                 ftfTotal.setValue(new Float(00.0F));
                 ftfTotal.setEditable(false);
-                ftfTotal.setBounds(760, 475, 205, 30);
+                ftfTotal.setBounds(800, 475, 165, 30);
                 add(ftfTotal);
 
 		ftfBalance = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -225,14 +224,14 @@ public class SalesInvoiceGUI extends JPanel
                 ftfBalance.setHorizontalAlignment(JTextField.RIGHT);
                 ftfBalance.setValue(new Float(00.0F));
                 ftfBalance.setEditable(false);
-		ftfBalance.setBounds(790, 505, 175, 30);
+		ftfBalance.setBounds(800, 505, 165, 30);
 		add(ftfBalance);
 		
 
 		cmbCustomer = new JComboBox();
                 AutoCompleteDecorator.decorate(cmbCustomer);
 		cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
-		cmbCustomer.setBounds(135, 80, 365, 30);
+		cmbCustomer.setBounds(200, 80, 300, 30);
 		add(cmbCustomer);
                 
                 taAddress = new JTextArea();
@@ -250,7 +249,7 @@ public class SalesInvoiceGUI extends JPanel
 		add(taDeliveryNotes);
                 
                 spAddress = new JScrollPane(taAddress);
-		spAddress.setBounds(125, 115, 375, 50);
+		spAddress.setBounds(200, 115, 300, 50);
 		add(spAddress);
                 
                 spDeliveryNotes = new JScrollPane(taDeliveryNotes);
@@ -313,7 +312,6 @@ public class SalesInvoiceGUI extends JPanel
 		tbSalesInvoice.setColumnSelectionAllowed(true);
 		tbSalesInvoice.setRowSelectionAllowed(true);
 		tbSalesInvoice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbSalesInvoice.setRowHeight(30);
-		
+		tbSalesInvoice.setRowHeight(30);		
         }
 }

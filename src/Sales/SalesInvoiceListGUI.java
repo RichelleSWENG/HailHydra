@@ -3,7 +3,6 @@ package Sales;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Calendar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -23,7 +22,6 @@ import javax.swing.table.TableColumnModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
@@ -89,9 +87,9 @@ public class SalesInvoiceListGUI extends JPanel {
 		lblRange.setBounds(30, 160, 84, 30);
 		add(lblRange);
 
-		lblTo = new JLabel("To");
+		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(390, 160, 36, 30);
+		lblTo.setBounds(475, 160, 36, 30);
 		add(lblTo);
 
 		lblInvoicesFound = new JLabel("Invoice/s Found:");
@@ -167,27 +165,27 @@ public class SalesInvoiceListGUI extends JPanel {
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(117, 120, 579, 30);
+		tfSearch.setBounds(200, 120, 579, 30);
 		add(tfSearch);
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(113, 160, 155, 30);
+		cmbFromMonth.setBounds(200, 160, 148, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(278, 160, 100, 30);
+		cmbFromYear.setBounds(358, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(431, 160, 155, 30);
+		cmbToMonth.setBounds(521, 160, 148, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(596, 160, 100, 30);
+		cmbToYear.setBounds(679, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++) {
@@ -298,7 +296,7 @@ public class SalesInvoiceListGUI extends JPanel {
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
 		rdbtnCustomerName.setSelected(true);
-		rdbtnCustomerName.setBounds(149, 80, 195, 30);
+		rdbtnCustomerName.setBounds(200, 80, 182, 30);
 		add(rdbtnCustomerName);
 		rdbtnCustomerName.addActionListener(new ActionListener() 
                 {// Everytime
@@ -310,7 +308,7 @@ public class SalesInvoiceListGUI extends JPanel {
 
 		rdbtnSalesInvoiceNo = new JRadioButton("Sales Invoice Number");
 		rdbtnSalesInvoiceNo.setFont(fntPlainText);
-		rdbtnSalesInvoiceNo.setBounds(346, 80, 248, 30);
+		rdbtnSalesInvoiceNo.setBounds(390, 80, 229, 30);
 		add(rdbtnSalesInvoiceNo);
 		rdbtnSalesInvoiceNo.addActionListener(new ActionListener() 
                 {// Everytime
@@ -322,7 +320,7 @@ public class SalesInvoiceListGUI extends JPanel {
                 
 		
 		rdbtnPartNumber = new JRadioButton("Part Number");
-		rdbtnPartNumber.setBounds(596, 80, 251, 30);
+		rdbtnPartNumber.setBounds(631, 80, 148, 30);
 		rdbtnPartNumber.setFont(fntPlainText);
 		add(rdbtnPartNumber);
 		rdbtnPartNumber.addActionListener(new ActionListener() 
@@ -340,7 +338,7 @@ public class SalesInvoiceListGUI extends JPanel {
 
 		btnViewAllInvoices = new JButton("View All Invoices");
 		btnViewAllInvoices.setFont(fntPlainText);
-		btnViewAllInvoices.setBounds(725, 190, 240, 40);
+		btnViewAllInvoices.setBounds(724, 195, 240, 40);
 		add(btnViewAllInvoices);
 		btnViewAllInvoices.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
