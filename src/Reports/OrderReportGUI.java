@@ -19,10 +19,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
-import Purchases.PurchaseTransactionController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
@@ -94,7 +92,7 @@ public class OrderReportGUI extends JPanel {
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(110, 120, 339, 30);
+		tfSearch.setBounds(165, 120, 284, 30);
 		add(tfSearch);
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
                 {
@@ -210,7 +208,7 @@ public class OrderReportGUI extends JPanel {
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(144, 76, 157, 30);
+		rdbtnPartNumber.setBounds(166, 76, 147, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -221,7 +219,7 @@ public class OrderReportGUI extends JPanel {
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(299, 76, 157, 30);
+		rdbtnDescription.setBounds(315, 76, 134, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -316,7 +314,7 @@ public class OrderReportGUI extends JPanel {
         }
         
         public static void main(String args[]){
-          GUIController temp=new GUIController();
-           temp.changePanelToOrderReport();
+            GUIController temp=new GUIController();
+            temp.changePanelToOrderReport();
         }
 }

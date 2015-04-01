@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
@@ -102,7 +101,7 @@ public class TermsReportGUI extends JPanel
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(145, 163, 630, 30);
+		tfSearch.setBounds(190, 160, 630, 30);
 		add(tfSearch);
 		tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
@@ -253,7 +252,7 @@ public class TermsReportGUI extends JPanel
 		chckbxNearTerms = new JCheckBox("Near Terms");
 		chckbxNearTerms.setFont(fntPlainText);
 		chckbxNearTerms.setSelected(true);
-		chckbxNearTerms.setBounds(145, 80, 153, 30);
+		chckbxNearTerms.setBounds(190, 80, 135, 30);
 		add(chckbxNearTerms);
 		chckbxNearTerms.addActionListener(new ActionListener()
 		{
@@ -276,7 +275,7 @@ public class TermsReportGUI extends JPanel
 		chckbxExceededTerms = new JCheckBox("Exceeded Terms");
 		chckbxExceededTerms.setFont(fntPlainText);
 		chckbxExceededTerms.setSelected(true);
-		chckbxExceededTerms.setBounds(300, 80, 220, 30);
+		chckbxExceededTerms.setBounds(325, 80, 220, 30);
 		add(chckbxExceededTerms);
 		chckbxExceededTerms.addActionListener(new ActionListener()
 		{
@@ -298,7 +297,7 @@ public class TermsReportGUI extends JPanel
 
 		rdbtnCustomer = new JRadioButton("Customer");
 		rdbtnCustomer.setFont(fntPlainText);
-		rdbtnCustomer.setBounds(145, 121, 130, 30);
+		rdbtnCustomer.setBounds(190, 120, 130, 30);
 		rdbtnCustomer.setSelected(true);
 		add(rdbtnCustomer);
 		rdbtnCustomer.addActionListener(new ActionListener()
@@ -312,7 +311,7 @@ public class TermsReportGUI extends JPanel
 		rdbtnReceiptNumber = new JRadioButton(
 				"Sales Invoice/ Acknowledgement Receipt Number");
 		rdbtnReceiptNumber.setFont(fntPlainText);
-		rdbtnReceiptNumber.setBounds(274, 121, 520, 30);
+		rdbtnReceiptNumber.setBounds(325, 120, 495, 30);
 		add(rdbtnReceiptNumber);
 		rdbtnReceiptNumber.addActionListener(new ActionListener()
 		{

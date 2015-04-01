@@ -78,7 +78,7 @@ public class CreditLimitReportGUI extends JPanel {
 
 		tfCustomer = new JTextField();
 		tfCustomer.setFont(fntPlainText);
-		tfCustomer.setBounds(135, 80, 307, 30);
+		tfCustomer.setBounds(190, 80, 252, 30);
 		add(tfCustomer);
 		tfCustomer.getDocument().addDocumentListener(new DocumentListener() {
 			@Override
