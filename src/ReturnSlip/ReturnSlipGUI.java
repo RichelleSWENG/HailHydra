@@ -17,7 +17,6 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
@@ -100,7 +99,7 @@ public class ReturnSlipGUI extends JPanel
                 
                 lblPTNum = new JLabel("P.T. Number:");
 		lblPTNum.setFont(fntPlainText);
-		lblPTNum.setBounds(530, 140, 163, 30);
+		lblPTNum.setBounds(530, 140, 132, 30);
 		add(lblPTNum);
 		
                 lblPONum = new JLabel("P.O. Number:");
@@ -156,7 +155,7 @@ public class ReturnSlipGUI extends JPanel
 		ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
                 ftfDate.setFont(fntPlainText);
-                ftfDate.setBounds(590, 110, 375, 30);
+                ftfDate.setBounds(670, 110, 295, 30);
                 add(ftfDate);
 		
 		/*tfSINum = new JTextField();
@@ -167,7 +166,7 @@ public class ReturnSlipGUI extends JPanel
                 cmbPTNum = new JComboBox();
                 AutoCompleteDecorator.decorate(cmbPTNum);
 		cmbPTNum.setFont(fntPlainText);
-		cmbPTNum.setBounds(660, 140, 305, 30);
+		cmbPTNum.setBounds(672, 140, 293, 30);
 		add(cmbPTNum);
 		
 		tfPONum = new JTextField();

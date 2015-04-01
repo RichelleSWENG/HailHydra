@@ -28,8 +28,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
-public class OrderReportGUI extends JPanel {
-
+public class OrderReportGUI extends JPanel 
+{
 	private JLabel lblHeader, lblSearchBy, lblSearch, lblItemsFound, 
                         lblNumOfItemsFound;
 	private JTextField tfSearch;

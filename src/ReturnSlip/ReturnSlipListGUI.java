@@ -22,7 +22,6 @@ import javax.swing.table.TableColumnModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
@@ -90,7 +89,7 @@ public class ReturnSlipListGUI extends JPanel {
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(384, 160, 36, 30);
+		lblTo.setBounds(435, 160, 36, 30);
 		add(lblTo);
 
 		lblSlipsFound = new JLabel("Slip/s Found:");
@@ -105,27 +104,27 @@ public class ReturnSlipListGUI extends JPanel {
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(110, 120, 585, 30);
+		tfSearch.setBounds(160, 120, 585, 30);
 		add(tfSearch);
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(107, 160, 155, 30);
+		cmbFromMonth.setBounds(160, 160, 149, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 160, 100, 30);
+		cmbFromYear.setBounds(319, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(430, 160, 155, 30);
+		cmbToMonth.setBounds(481, 160, 149, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(595, 160, 100, 30);
+		cmbToYear.setBounds(645, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++) {
@@ -314,7 +313,7 @@ public class ReturnSlipListGUI extends JPanel {
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
 		rdbtnSupplierName.setSelected(true);
-		rdbtnSupplierName.setBounds(147, 80, 180, 30);
+		rdbtnSupplierName.setBounds(160, 80, 161, 30);
 		add(rdbtnSupplierName);
 		rdbtnSupplierName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -349,7 +348,7 @@ public class ReturnSlipListGUI extends JPanel {
 
 		btnViewAllSlips = new JButton("View All Slips");
 		btnViewAllSlips.setFont(fntPlainText);
-		btnViewAllSlips.setBounds(725, 190, 240, 40);
+		btnViewAllSlips.setBounds(725, 195, 240, 40);
 		add(btnViewAllSlips);
 		btnViewAllSlips.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
