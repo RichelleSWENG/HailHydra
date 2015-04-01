@@ -67,8 +67,7 @@ public class InventoryListGUI extends JPanel
 
 
 	public InventoryListGUI(GUIController temp)
-	{
-            
+	{         
                 try 
                 {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
@@ -112,7 +111,7 @@ public class InventoryListGUI extends JPanel
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(110, 120, 330, 30);
+		tfSearch.setBounds(167, 120, 330, 30);
 		add(tfSearch);
                 
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
@@ -247,7 +246,7 @@ public class InventoryListGUI extends JPanel
                 rdbtnPartNumber.setActionCommand("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(142, 80, 158, 30);
+		rdbtnPartNumber.setBounds(166, 80, 158, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -259,7 +258,7 @@ public class InventoryListGUI extends JPanel
 		rdbtnDescription = new JRadioButton("Description");
                 rdbtnDescription.setActionCommand("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(309, 80, 158, 30);
+		rdbtnDescription.setBounds(339, 80, 158, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -296,52 +295,48 @@ public class InventoryListGUI extends JPanel
 		btnViewItemProfile.setFont(fntPlainText);
 		btnViewItemProfile.setBounds(30, 545, 210, 40);
 		add(btnViewItemProfile);
-                btnViewItemProfile.addActionListener(
-                    new ActionListener()
+                btnViewItemProfile.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
                     {
-                        public void actionPerformed(ActionEvent e)
+                        try
                         {
-                            try
-                            {
-                                            int row;
-            row = tbInventory.getSelectedRow();
-            
-            if(row == -1 )
-            JOptionPane.showMessageDialog(null, "Please select an item.");
-            else {
-              pkey = tbInventory.getValueAt(row, 0).toString();
-              
-                try
-                {
-                   
-                        mainController.ViewItemProfile(pkey);
-                } catch (SQLException ex)
-                {
-                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                  
-               
-                            guiController.changePanelToViewItemProfile();
-                }
-                            } catch (IOException ex)
-                            {
-                                Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                            }
+                                int row;
+                                row = tbInventory.getSelectedRow();
+
+                                if(row == -1 )
+                                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                                else 
+                                {
+                                    pkey = tbInventory.getValueAt(row, 0).toString();
+
+                                    try
+                                    {
+                                        mainController.ViewItemProfile(pkey);
+                                    } catch (SQLException ex)
+                                    {
+                                        Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                                    }
+                                        guiController.changePanelToViewItemProfile();
+                                }
+                        } catch (IOException ex)
+                        {
+                            Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                    });
+                    }
+                });
 
 		btnAddItemProfile = new JButton("Add Item Profile");
 		btnAddItemProfile.setFont(fntPlainText);
 		btnAddItemProfile.setBounds(300, 545, 217, 40);
 		add(btnAddItemProfile);
-                btnAddItemProfile.addActionListener(
-                    new ActionListener()
+                btnAddItemProfile.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
                     {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                guiController.changePanelToAddItemProfile();
-                        }
-                    });
+                            guiController.changePanelToAddItemProfile();
+                    }
+                });
                 
                 
                 
@@ -349,33 +344,32 @@ public class InventoryListGUI extends JPanel
                 btnDelete.setFont(fntPlainText);
 		btnDelete.setBounds(580, 545, 217, 40);
 		add(btnDelete);
-                btnDelete.addActionListener(
-                    new ActionListener()
+                btnDelete.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
                     {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                                           pkey = null;
-            int row;
-            row = tbInventory.getSelectedRow();
-            
-            if(row == -1 )
-            JOptionPane.showMessageDialog(null, "Please select an item.");
-            else {
-              pkey = tbInventory.getValueAt(row, 0).toString();
-                try
-                {
-                    confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
-                } catch (SQLException ex)
-                {
-                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (Exception ex)
-                {
-                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            }
-                        }
-                    });
+                            pkey = null;
+                            int row;
+                            row = tbInventory.getSelectedRow();
+
+                            if(row == -1 )
+                                JOptionPane.showMessageDialog(null, "Please select an item.");
+                            else 
+                            {
+                                pkey = tbInventory.getValueAt(row, 0).toString();
+                                try
+                                {
+                                    confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
+                                } catch (SQLException ex)
+                                {
+                                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                                } catch (Exception ex)
+                                {
+                                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                                }          
+                            }
+                    }
+                });
 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
@@ -395,169 +389,149 @@ public class InventoryListGUI extends JPanel
         {
             lblNumOfItemsFound.setText(Integer.toString(itemcount));
         }
-        
-               public void confirmMessage(String question) throws SQLException, Exception
-    {
-        //JDialog.setDefaultLookAndFeelDecorated(true);
-        int response = JOptionPane.showConfirmDialog(null, question, "Confirm",
-                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        if (response == JOptionPane.NO_OPTION)
-        {
 
-        } else if (response == JOptionPane.YES_OPTION)
+        public void confirmMessage(String question) throws SQLException, Exception
         {
+            //JDialog.setDefaultLookAndFeelDecorated(true);
+            int response = JOptionPane.showConfirmDialog(null, question, "Confirm",
+                    JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (response == JOptionPane.NO_OPTION)
+            {
 
-            mainController.DeleteItem(pkey);
-            //System.out.println("the key "+pkey);
-            ViewAll();
-            infoMessage("You have DELETED "+pkey+"");
-        } else if (response == JOptionPane.CLOSED_OPTION)
-        {
-            System.out.println("JOptionPane closed");
+            } else if (response == JOptionPane.YES_OPTION)
+            {
+
+                mainController.DeleteItem(pkey);
+                //System.out.println("the key "+pkey);
+                ViewAll();
+                infoMessage("You have DELETED "+pkey+"");
+            } else if (response == JOptionPane.CLOSED_OPTION)
+            {
+                System.out.println("JOptionPane closed");
+            }
         }
-    }
 
-    public void infoMessage(String info)
-    {
-        JFrame frame = null;
-        JOptionPane.showMessageDialog(frame, info);
-    }
-
-
-    public void setMainController(InventoryController temp)
-    {
-        this.mainController = temp;
-    }
-
-    public void ViewAll() throws Exception
-    {
-        tfSearch.setText("");
-        TableModel AllModel = mainController.getAllModel();
-        tbInventory.setModel(AllModel);
-
-        JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
-        TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < strHeader.length; i++)
+        public void infoMessage(String info)
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+            JFrame frame = null;
+            JOptionPane.showMessageDialog(frame, info);
         }
-        th.repaint();
-    }
 
-    public void setTableModel(TableModel tbm)
-    {                  // Setting the Headers
-        tbInventory.setModel(tbm);
-        JTableHeader th = tbInventory.getTableHeader();
-        TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < strHeader.length; i++)
+
+        public void setMainController(InventoryController temp)
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+            this.mainController = temp;
         }
-        th.repaint();
-    }
 
-    class btnAddItemProfile_Action implements ActionListener
-    {
-
-        public void actionPerformed(ActionEvent e)
+        public void ViewAll() throws Exception
         {
-           // ic.AddItemProfileView();
+            tfSearch.setText("");
+            TableModel AllModel = mainController.getAllModel();
+            tbInventory.setModel(AllModel);
 
+            JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
         }
-    }
 
-    class btnDeleteItemProfile_Action implements ActionListener
-    {
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            tbInventory.setModel(tbm);
+            JTableHeader th = tbInventory.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+        }
 
-        public void actionPerformed(ActionEvent e)
+        class btnAddItemProfile_Action implements ActionListener
         {
-            pkey = null;
-            int row;
-            row = tbInventory.getSelectedRow();
-            
-            if(row == -1 )
-            JOptionPane.showMessageDialog(null, "Please select an item.");
-            else {
-              pkey = tbInventory.getValueAt(row, 0).toString();
+            public void actionPerformed(ActionEvent e)
+            {
+               // ic.AddItemProfileView();
+            }
+        }
+
+        class btnDeleteItemProfile_Action implements ActionListener
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
+                pkey = null;
+                int row;
+                row = tbInventory.getSelectedRow();
+
+                if(row == -1 )
+                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                else 
+                {
+                  pkey = tbInventory.getValueAt(row, 0).toString();
+                    try
+                    {
+                        //confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
+                    } catch (Exception ex)
+                    {
+
+                    }
+
+                }
+            }
+        }
+
+        class btnViewAll_Action implements ActionListener
+        {
+
+            public void actionPerformed(ActionEvent e)
+            {
                 try
                 {
-                    //confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
+                    mainController.ViewAllItems();
+                    tfSearch.setText("");
                 } catch (Exception ex)
                 {
-                   
                 }
-            
             }
         }
-    }
 
-    class btnViewAll_Action implements ActionListener
-    {
-
-        public void actionPerformed(ActionEvent e)
+        class  btnViewItemProfile_Action implements ActionListener
         {
-            try
+            public void actionPerformed(ActionEvent e)
             {
-                mainController.ViewAllItems();
-                tfSearch.setText("");
-            } catch (Exception ex)
-            {
-            }
+                pkey = null;
+                int row;
+                row = tbInventory.getSelectedRow();
+
+                if(row == -1 )
+                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                else 
+                {
+                    pkey = tbInventory.getValueAt(row, 0).toString();
+                    try
+                    {
+                        mainController.ViewItemProfile(pkey);
+                    } catch (SQLException ex)
+                    {
+                        Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (IOException ex)
+                    {
+                        Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
+                    }            
+                }           
+            }    
         }
-    }
-   
-    class  btnViewItemProfile_Action implements ActionListener
-    {
 
-        public void actionPerformed(ActionEvent e)
-        {
-                        pkey = null;
-            int row;
-            row = tbInventory.getSelectedRow();
-            
-            if(row == -1 )
-            JOptionPane.showMessageDialog(null, "Please select an item.");
-            else {
-              pkey = tbInventory.getValueAt(row, 0).toString();
-                try
-                {
-                    mainController.ViewItemProfile(pkey);
-                } catch (SQLException ex)
-                {
-                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (IOException ex)
-                {
-                    Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            }
-            
-            }
-            
-        
-    }
-
-         
-         
-         
-         
-         
-         
-
-    
-
-    
-
-
-	        
         public static void main(String args[]) throws Exception{
-            GUIController temp=new GUIController();
-            temp.changePanelToInventory();
-        }
-
-	
+                GUIController temp=new GUIController();
+                temp.changePanelToInventory();
+        }	
 }
 
 
