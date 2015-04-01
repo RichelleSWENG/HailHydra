@@ -93,7 +93,7 @@ public class DebitMemoListGUI extends JPanel
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(396, 160, 36, 30);
+		lblTo.setBounds(415, 160, 36, 30);
 		add(lblTo);
 
 		lblMemosFound = new JLabel("Memo/s Found:");
@@ -108,27 +108,27 @@ public class DebitMemoListGUI extends JPanel
 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(111, 120, 606, 30);
+		tfSearch.setBounds(140, 120, 577, 30);
 		add(tfSearch);
                 
                 cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(110, 160, 155, 30);
+		cmbFromMonth.setBounds(140, 160, 146, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 160, 100, 30);
+		cmbFromYear.setBounds(296, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(442, 160, 155, 30);
+		cmbToMonth.setBounds(461, 160, 146, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(613, 160, 100, 30);
+		cmbToYear.setBounds(617, 160, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
@@ -306,7 +306,7 @@ public class DebitMemoListGUI extends JPanel
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
 		rdbtnCustomerName.setSelected(true);
-		rdbtnCustomerName.setBounds(145, 85, 195, 25);
+		rdbtnCustomerName.setBounds(140, 85, 183, 25);
 		add(rdbtnCustomerName);
                 rdbtnCustomerName.addActionListener(
                     new ActionListener()

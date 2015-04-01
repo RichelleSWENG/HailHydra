@@ -95,7 +95,7 @@ public class DebitMemoGUI extends JPanel
                 
 		lblSINum = new JLabel("S.I. Number:");
 		lblSINum.setFont(fntPlainText);
-		lblSINum.setBounds(530, 160, 171, 30);
+		lblSINum.setBounds(530, 160, 120, 30);
 		add(lblSINum);
                 
                 lblApprovedBy = new JLabel("Approved By:");
@@ -136,12 +136,12 @@ public class DebitMemoGUI extends JPanel
                 ftfDate= new JFormattedTextField(dateFormat);
                 ftfDate.setValue(new java.util.Date());
                 ftfDate.setFont(fntPlainText);
-                ftfDate.setBounds(590, 120, 375, 30);
+                ftfDate.setBounds(680, 120, 285, 30);
                 add(ftfDate);
 
 		tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
-		tfSINum.setBounds(660, 160, 305, 30);
+		tfSINum.setBounds(680, 160, 285, 30);
 		add(tfSINum);
 
 		tfApprovedBy = new JTextField();
@@ -187,7 +187,7 @@ public class DebitMemoGUI extends JPanel
 		add(taNotes);
                 
                 spAddress = new JScrollPane(taAddress);
-                spAddress.setBounds(130, 120, 370, 70);
+                spAddress.setBounds(138, 120, 362, 70);
                 add(spAddress);
                 
                 spNotes = new JScrollPane(taNotes);
@@ -197,7 +197,7 @@ public class DebitMemoGUI extends JPanel
                 cmbCustomer = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbCustomer);
 		cmbCustomer.setFont(fntPlainText);
-		cmbCustomer.setBounds(140, 80, 360, 30);
+		cmbCustomer.setBounds(138, 80, 362, 30);
 		add(cmbCustomer);
                 
 		tbModel = new DefaultTableModel()
@@ -274,7 +274,7 @@ public class DebitMemoGUI extends JPanel
         }
         
         public static void main(String args[]){
-           GUIController temp=new GUIController();
-           temp.changePanelToAddDebitMemo();
+                GUIController temp=new GUIController();
+                temp.changePanelToAddDebitMemo();
         }
 }
