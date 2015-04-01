@@ -3,19 +3,16 @@ package AccountProfile;
 import HailHydra.GUIController;
 
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 
 public class AddAccountProfileGUI extends AccountProfileGUI {
