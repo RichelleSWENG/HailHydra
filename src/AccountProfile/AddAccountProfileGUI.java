@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 
 public class AddAccountProfileGUI extends AccountProfileGUI {
 
@@ -24,7 +25,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
     private GUIController guiController;
     private AccountProfileController mainController;
     private ArrayList<String> al;
-    private Border blackline;
+    private JPanel grpPnlBasicInfo, grpPnlContactInfo;
 
     public AddAccountProfileGUI(GUIController temp) {
         super();
@@ -201,21 +202,26 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
         btnCancel = new JButton("Cancel");
         btnCancel.setFont(fntPlainText);
         btnCancel.setBounds(855, 545, 110, 40);
-        add(btnCancel);
-        
-        JPanel panel = new JPanel();
-        panel.setBounds(10, 66, 980, 470);
-        panel.setLayout(null);
-        blackline = BorderFactory.createLineBorder(Color.black);
-        panel.setBorder(blackline);
-        add(panel);
+        add(btnCancel);    
         btnCancel.addActionListener(
                 new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         guiController.changePanelToAccountProfile();
                     }
                 });
-
+        
+        grpPnlBasicInfo = new JPanel();
+        grpPnlBasicInfo.setForeground(Color.BLACK);
+        grpPnlBasicInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        grpPnlBasicInfo.setBounds(10, 147, 482, 394);
+        add(grpPnlBasicInfo);
+        grpPnlBasicInfo.setLayout(null);
+        
+        grpPnlContactInfo = new JPanel();
+        grpPnlContactInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+        grpPnlContactInfo.setBounds(496, 147, 494, 333);
+        add(grpPnlContactInfo);
+        grpPnlContactInfo.setLayout(null);
     }
 
     public void setMainController(AccountProfileController temp) {

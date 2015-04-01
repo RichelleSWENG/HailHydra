@@ -12,7 +12,6 @@ import net.proteanit.sql.DbUtils;
 
 public class AckReceiptModel
 {
-
     protected Connection db;
     protected Statement statement;
 
@@ -79,6 +78,7 @@ public class AckReceiptModel
         }
         return rs;
     }
+    
     public ResultSet searchDetail(String field, String filter, String startDate, String endDate)
     {
         ResultSet rs = null;
@@ -109,7 +109,6 @@ public class AckReceiptModel
 
     public void addDetail(AcknowledgementReceipt obj)
     {
- 
         AcknowledgementReceipt ar = obj;
         try
         {
@@ -275,6 +274,7 @@ public class AckReceiptModel
         }
         return rs;
     }
+    
      public ResultSet getMaxYear()
     {
         ResultSet rs = null;
@@ -304,6 +304,7 @@ public class AckReceiptModel
         {
             e.getMessage();
         }
-        return rcpt;
+        //return rcpt;
+        return null;
      }
 }
