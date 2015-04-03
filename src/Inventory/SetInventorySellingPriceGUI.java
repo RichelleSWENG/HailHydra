@@ -36,7 +36,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 	private JRadioButton rdbtnPartNumber, rdbtnDescription;
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
-	private String headers[] ={ "Part Number", "Description", 
+	private String headers[] ={ "Part Number", 
                         "<html><center>Reference<br>Sister Company<br>Price</center></html>", 
                         "<html><center>Current<br>Sister Company<br>Price</center></html>",
                         "<html><center>Reference<br>Retail Price</center></html>", 
@@ -101,7 +101,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 
 		table.setRowCount(15);
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			table.addColumn(headers[i]);
 		}
