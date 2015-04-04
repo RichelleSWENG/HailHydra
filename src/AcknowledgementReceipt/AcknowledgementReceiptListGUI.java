@@ -25,6 +25,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -345,7 +346,16 @@ public class AcknowledgementReceiptListGUI extends JPanel
         btnViewAckReceipt.addActionListener(new ActionListener() 
         {
             public void actionPerformed(ActionEvent e) {
-                guiController.changePanelToViewAcknowledgementReceipt();
+                int row;
+                row = tbAckReceipt.getSelectedRow();
+                if(row == -1 )
+                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                else
+                {
+                    mainController.setReceiptTarget(mainController.getAR(tbAckReceipt.getValueAt(row, 0).toString()));
+                    guiController.changePanelToViewAcknowledgementReceipt();
+                }
+                
             }
         });
 

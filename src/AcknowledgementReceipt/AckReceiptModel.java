@@ -293,14 +293,32 @@ public class AckReceiptModel
      public AcknowledgementReceipt getAR(String ID)
      {
         ArrayList<ARLineItem> stuff; 
-        AcknowledgementReceipt rcpt;
+        AcknowledgementReceipt rcpt = null;
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
             String sql = "SELECT * WHERE acknowledgement_receipt_id = '" + ID + "'";
             rs = statement.executeQuery(sql);
-        } catch (Exception e)
+            
+            if (rs.next())
+            {
+                user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getString("user_type"), rs.getInt("manager_id"), rs.getString("password"));
+            }
+            
+            if (rcpt != null)
+            {
+                query = "SELECT org_id, org_name, org_password FROM manager m, organization o WHERE m.user_id = '" + user.getUser_id() + "' AND o.org_id = m.org_id";
+                statement = db.getConnection().prepareStatement(query);
+                rs = statement.executeQuery();
+                while (rs.next())
+                {
+                    user.addOrg(new Organization(rs.getInt("org_id"), rs.getString("org_name"), rs.getString("org_password")));
+                }
+            }
+        } 
+        
+        catch (Exception e)
         {
             e.getMessage();
         }
