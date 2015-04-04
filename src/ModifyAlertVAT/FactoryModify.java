@@ -1,17 +1,59 @@
 package ModifyAlertVAT;
 
+import Database.DBConnection;
+import java.sql.Connection;
+import java.sql.Statement;
+
 public class FactoryModify {
-	public String createProduct(String modify){
+        protected Connection db;
+        protected Statement statement;
+	public void createProduct(String modify,DBConnection dbc){
+                this.db=dbc.getConnection();
 		if ("VAT"==modify){
-			return new ModifyVAT().getInput();
+                        String vat=new ModifyVAT().getInput();
+                        if(vat!="")
+                        {
+                            try
+                            {
+                                statement = db.createStatement();
+                                String sql = "UPDATE systeminfo SET vat_percentage='"+vat+"' WHERE company_name='Hydraforce Enterprises'";
+                                statement.executeUpdate(sql);
+                            } catch (Exception e)
+                            {
+                                e.getMessage();
+                            }
+                        }
 		}	
 		else if ("Terms"==modify){
-			return new ModifyTerms().getInput();
+			 String terms=new ModifyTerms().getInput();
+                         if(terms!="")
+                         {
+                            try
+                            {
+                                statement = db.createStatement();
+                                String sql = "UPDATE systeminfo SET credit_alert='"+terms+"' WHERE company_name='Hydraforce Enterprises'";
+                                statement.executeUpdate(sql);
+                            } catch (Exception e)
+                            {
+                                e.getMessage();
+                            }
+                         }
 		}
 			
 		else if ("CreditLimit"==modify){
-			return new ModifyCreditLimit().getInput();
+			String creditlimit=new ModifyCreditLimit().getInput();
+                        if(creditlimit!="")
+                        {
+                            try
+                            {
+                                statement = db.createStatement();
+                                String sql = "UPDATE systeminfo SET terms_report='"+creditlimit+"' WHERE company_name='Hydraforce Enterprises'";
+                                statement.executeUpdate(sql);
+                            } catch (Exception e)
+                            {
+                                e.getMessage();
+                            }
+                        }
 		}
-        return null; 
     }
 }

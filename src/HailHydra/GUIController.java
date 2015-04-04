@@ -84,6 +84,7 @@ import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JPanel;
 
 public class GUIController 
@@ -553,8 +554,7 @@ public class GUIController
     
     public void getAlert(String type){
     	FactoryModify fm= new FactoryModify();
-    	String i = fm.createProduct(type);
-    	System.out.println("input is " + i);
+    	fm.createProduct(type,dbc);
     }
     
     public static void main(String args[]){
