@@ -493,7 +493,7 @@ public class CollectiblesListGUI extends JPanel
             tbCollectibles.setModel(tbm);
             JTableHeader th = tbCollectibles.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < strHeader.length; i++)
             {
                 TableColumn tc = tcm.getColumn(i);
                 tc.setHeaderValue(strHeader[i]);

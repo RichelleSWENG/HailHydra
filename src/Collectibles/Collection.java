@@ -13,7 +13,7 @@ package Collectibles;
 public class Collection {
     private String date;
     private float amount;
-    private int receipt_type;
+    private String receipt_type;
     private String number;
     private String notes;
     private String received_by;
@@ -21,7 +21,7 @@ public class Collection {
     private String debit_memo_id;
     private String received_date;
     
-    public Collection(String number,float amount,String received_date,String received_by,String collection_type,String debit_memo_id,String date,String notes)
+    public Collection(String number,float amount,String received_date,String received_by,String collection_type,String debit_memo_id,String date,String notes,String receipt_type)
     {
         this.number=number;
         this.amount=amount;
@@ -31,6 +31,7 @@ public class Collection {
         this.debit_memo_id=debit_memo_id;
         this.date=date;
         this.notes=notes;
+        this.receipt_type=receipt_type;
     }
 
     /**
@@ -64,14 +65,14 @@ public class Collection {
     /**
      * @return the receipt_type
      */
-    public int getReceipt_type() {
+    public String getReceipt_type() {
         return receipt_type;
     }
 
     /**
      * @param receipt_type the receipt_type to set
      */
-    public void setReceipt_type(int receipt_type) {
+    public void setReceipt_type(String receipt_type) {
         this.receipt_type = receipt_type;
     }
 
@@ -143,6 +144,23 @@ public class Collection {
      */
     public void setDebit_memo_id(String debit_memo_id) {
         this.debit_memo_id = debit_memo_id;
+    }
+
+    /**
+     * @return the received_date
+     */
+    public String getReceived_date() {
+        if(received_date.equals(""))
+            return "NULL";
+        else
+            return "'"+received_date+"'";
+    }
+
+    /**
+     * @param received_date the received_date to set
+     */
+    public void setReceived_date(String received_date) {
+        this.received_date = received_date;
     }
     
     

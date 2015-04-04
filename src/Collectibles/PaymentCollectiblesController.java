@@ -47,4 +47,23 @@ public class PaymentCollectiblesController {
     {
         paymentCollectiblesModel.addPayment(obj);
     }
+    
+    public void changeStatus(int number,String type)
+    {
+        if(type.equalsIgnoreCase("Acknowledgement Receipt"))
+            paymentCollectiblesModel.changeStatusAR(number);
+        else if(type.equalsIgnoreCase("Sales Invoice"))
+            paymentCollectiblesModel.changeStatusSI(number);
+        
+    }
+    
+    public void changeCurrentBalance(int number,String type,float currentbalance)
+    {
+        if(type.equalsIgnoreCase("Acknowledgement Receipt"))
+            paymentCollectiblesModel.updateCurrentBalanceAR(number, currentbalance);
+        else if(type.equalsIgnoreCase("Sales Invoice"))
+            paymentCollectiblesModel.updateCurrentBalanceSI(number, currentbalance);
+    }
+    
+    
 }

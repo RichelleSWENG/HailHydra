@@ -16,6 +16,8 @@ import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
 import Collectibles.CollectiblesModel;
+import Collectibles.PaymentCollectiblesController;
+import Collectibles.PaymentCollectiblesModel;
 import Collectibles.ViewPaymentCollectiblesGUI;
 import CreditMemo.AddCreditMemoGUI;
 import CreditMemo.CreditMemoController;
@@ -28,13 +30,15 @@ import DebitMemo.DebitMemoController;
 import DebitMemo.DebitMemoListGUI;
 import DebitMemo.DebitMemoModel;
 import DebitMemo.ViewDebitMemoGUI;
-//import DebitMemo.ViewDebitMemoGUI;
 import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
+import Inventory.ItemModel;
+import Inventory.ModifyItemProfileGUI;
 import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
 import Inventory.SetInventorySellingPriceGUI;
+import Inventory.ViewItemProfileGUI;
 import Login.LoginGUI;
 import Login.MainMenuGUI;
 import Login.PaymentsGUI;
@@ -43,9 +47,6 @@ import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
 import ModifyAlertVAT.FactoryModify;
-import Inventory.ItemModel;
-import Inventory.ModifyItemProfileGUI;
-import Inventory.ViewItemProfileGUI;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesController;
 import Payables.PayablesListGUI;
@@ -56,17 +57,17 @@ import Payables.ViewPaymentPayablesGUI;
 import Purchases.AddPurchaseTransactionGUI;
 import Purchases.ModifyPurchaseTransactionGUI;
 import Purchases.PurchaseTransactionController;
-import ReturnSlip.AddReturnSlipGUI;
 import Purchases.PurchaseTransactionListGUI;
 import Purchases.PurchasesModel;
 import Purchases.ViewPurchaseTransactionGUI;
-import ReturnSlip.ReturnSlipListGUI;
 import Reports.CreditLimitReportGUI;
 import Reports.OrderReportGUI;
 import Reports.ReportController;
 import Reports.ReportModel;
 import Reports.TermsReportGUI;
+import ReturnSlip.AddReturnSlipGUI;
 import ReturnSlip.ReturnSlipController;
+import ReturnSlip.ReturnSlipListGUI;
 import ReturnSlip.ReturnSlipModel;
 import ReturnSlip.ViewReturnSlipGUI;
 import Sales.AddSalesInvoiceGUI;
@@ -81,10 +82,8 @@ import SystemAccount.ModifyCompanyProfilePanel;
 import SystemAccount.ModifyPasswordPanel;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
-
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javax.swing.JPanel;
 
 public class GUIController 
@@ -350,7 +349,10 @@ public class GUIController
     
     public void changePanelToAddPaymentCollectibles()
     {
-            getContentPanel().add(new AddPaymentCollectiblesGUI(this));
+            AddPaymentCollectiblesGUI tempGUI= new AddPaymentCollectiblesGUI(this);
+            tempGUI.setMainController(new PaymentCollectiblesController(new PaymentCollectiblesModel(dbc), tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
