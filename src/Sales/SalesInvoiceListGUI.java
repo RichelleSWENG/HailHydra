@@ -24,6 +24,7 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -388,16 +389,24 @@ public class SalesInvoiceListGUI extends JPanel {
 		cmbToYear.removeAllItems();
 		cmbFromYear.removeAllItems();
 		int cnt = 0;
-		for (int i = Integer.parseInt(mainController.getMinYear()); i <= Integer
-				.parseInt(mainController.getMaxYear()); i++) {
-			cmbToYear.addItem(i);
-			cmbFromYear.addItem(i);
-			cnt++;
-		}
-		cmbToYear.setSelectedIndex(cnt - 1);
-		cmbFromYear.setSelectedIndex(0);
-		cmbFromMonth.setSelectedIndex(0);
-		cmbToMonth.setSelectedIndex(11);
+                if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
+                {
+                    for (int i = Integer.parseInt(mainController.getMinYear()); i <= Integer
+                                    .parseInt(mainController.getMaxYear()); i++) {
+                            cmbToYear.addItem(i);
+                            cmbFromYear.addItem(i);
+                            cnt++;
+                    }
+                    cmbToYear.setSelectedIndex(cnt - 1);
+                    cmbFromYear.setSelectedIndex(0);
+                    cmbFromMonth.setSelectedIndex(0);
+                    cmbToMonth.setSelectedIndex(11);
+                }
+                else
+                {
+                    cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                    cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                }
 	}
 
 	public void ViewAll() {

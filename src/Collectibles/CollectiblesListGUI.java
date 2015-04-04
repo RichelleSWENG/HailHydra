@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
@@ -453,17 +454,24 @@ public class CollectiblesListGUI extends JPanel
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
-          
-            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
             {
-                cmbToYear.addItem(i);
-                cmbFromYear.addItem(i);
-                cnt++;
+                for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+                {
+                    cmbToYear.addItem(i);
+                    cmbFromYear.addItem(i);
+                    cnt++;
+                }
+                cmbToYear.setSelectedIndex(cnt-1);
+                cmbFromYear.setSelectedIndex(0);
+                cmbFromMonth.setSelectedIndex(0);
+                cmbToMonth.setSelectedIndex(11);
             }
-            cmbToYear.setSelectedIndex(cnt-1);
-            cmbFromYear.setSelectedIndex(0);
-            cmbFromMonth.setSelectedIndex(0);
-            cmbToMonth.setSelectedIndex(11);
+            else
+            {
+                cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+            }
         }
         
         public void setItemCount(int itemcount)

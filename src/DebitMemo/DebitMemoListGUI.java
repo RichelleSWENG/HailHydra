@@ -25,6 +25,7 @@ import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.util.Calendar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -411,16 +412,24 @@ public class DebitMemoListGUI extends JPanel
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
-            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
             {
-                cmbToYear.addItem(i);
-                cmbFromYear.addItem(i);
-                cnt++;
+                for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+                {
+                    cmbToYear.addItem(i);
+                    cmbFromYear.addItem(i);
+                    cnt++;
+                }
+                cmbToYear.setSelectedIndex(cnt-1);
+                cmbFromYear.setSelectedIndex(0);
+                cmbFromMonth.setSelectedIndex(0);
+                cmbToMonth.setSelectedIndex(11);
             }
-            cmbToYear.setSelectedIndex(cnt-1);
-            cmbFromYear.setSelectedIndex(0);
-            cmbFromMonth.setSelectedIndex(0);
-            cmbToMonth.setSelectedIndex(11);
+            else
+            {
+                cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+            }
         }
         
         public void setTableModel(TableModel tbm)
