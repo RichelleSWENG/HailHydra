@@ -27,7 +27,19 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
+import Payables.AddPaymentPayablesGUI;
+import Payables.Payment;
 import TableRenderer.TableRenderer;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class AddPaymentCollectiblesGUI extends JPanel {
 	private JLabel lblHeader, lblDeditMemoNumber, lblReceivedBy,
@@ -56,6 +68,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 	private JTextArea taNotes;
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
+        private PaymentCollectiblesController mainController;
 
 	public AddPaymentCollectiblesGUI(GUIController temp) {
 		controller = temp;
@@ -97,6 +110,16 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		cmbCustomer.setFont(fntPlainText);
 		cmbCustomer.setBounds(215, 100, 315, 30);
 		add(cmbCustomer);
+                cmbCustomer.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (cmbCustomer.getSelectedIndex() != 0)
+                        {
+                            mainController.searchActivePayables((String) cmbCustomer.getSelectedItem());
+                        }
+                    }
+                });
 
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
@@ -104,7 +127,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		ftfDate.setBounds(680, 100, 285, 30);
 		add(ftfDate);
 
-		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+		ftfAmount = new JFormattedTextField(new DecimalFormat("###0.00"));
 		ftfAmount.setFont(fntPlainText);
 		ftfAmount.setValue(new Float(00.0F));
 		ftfAmount.setBounds(680, 140, 285, 30);
@@ -136,7 +159,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		tbModel = new DefaultTableModel() {
 			public boolean isCellEditable(int rowIndex, int mColIndex) {
-				if (mColIndex == 6)
+				if (mColIndex == 5)
 					return true;
 				return false;
 			}
@@ -220,17 +243,21 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		spNotes = new JScrollPane(taNotes);
 		spNotes.setBounds(30, 514, 490, 67);
 		add(spNotes);
-		
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToPayablesList();
-			}
-		});
 
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(655, 545, 110, 40);
 		add(btnSubmit);
+                btnSubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+                                    if(checkCurrentBalance())
+                                    {
+                                        addAllPayment();
+                                        //deductCurrentBalance();
+                                        controller.changePanelToPayablesList();
+                                    }
+                        }
+		});
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);
@@ -242,7 +269,96 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 			}
 		});
 	}
-
+        public void setMainController(PaymentCollectiblesController temp) {
+		mainController = temp;
+	}
+        public void setCustomer()
+        {
+            ArrayList<String> customer= new ArrayList<String>();
+            try {
+                customer=mainController.getCustomer();
+            } catch (SQLException ex) {
+                Logger.getLogger(AddPaymentCollectiblesGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            cmbCustomer.addItem("");
+            for(int i=0;i<customer.size();i++)
+            {
+                cmbCustomer.addItem(customer.get(i));
+            }
+        }
+        
+        public float getSum()
+        {
+            float sum=0;
+             for (int i= 0; i < tbPayment.getRowCount(); i++)
+             {
+                 if(tbPayment.getValueAt(i, 5)!="0.00")
+                 {
+                    sum=sum+Float.parseFloat((String) tbPayment.getValueAt(i, 5));
+                 }
+             }
+            return sum;
+        }
+        
+        public void addAllPayment()
+        {       
+            for (int i= 0; i < tbPayment.getRowCount(); i++)
+             {   
+                if(tbPayment.getValueAt(i, 5)!="0.00")
+                {
+                    Collection c;       
+                    c = new Collection((String)tbPayment.getValueAt(i, 1),Float.parseFloat((String)tbPayment.getValueAt(i, 5)),ftfReceivedDate.getText(),tfReceivedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfDebitMemoNo.getText(),ftfDate.getText(),taNotes.getText());
+                     mainController.addPayment(c);
+                }
+              }
+        }
+        
+        public void ViewAll() {
+		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < 6; i++) {
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+		th.repaint();
+                cmbCustomer.removeAllItems();
+                setCustomer();
+	}
+        
+        public boolean checkCurrentBalance()
+        {
+            for (int i= 0; i < tbPayment.getRowCount(); i++)
+            {
+                if(tbPayment.getValueAt(i, 5)=="0.00")
+                {
+                    BigDecimal big=(BigDecimal) tbPayment.getValueAt(i, 4);
+                    if(big.floatValue()< Float.parseFloat((String) tbPayment.getValueAt(i, 5)))
+                    {
+                        JOptionPane.showMessageDialog(null, "Applied Amount is greater the Current Balance");
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        
+        public void setTableModel(TableModel tbm) { // Setting the Headers
+		tbPayment.setModel(tbm);
+		JTableHeader th = tbPayment.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < 6; i++) {
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+                tbm.addTableModelListener(new TableModelListener() {
+                public void tableChanged(TableModelEvent e) {
+                    if(e.getColumn()==5)
+                        ftfAmount.setText(Float.toString(getSum()));
+                 }
+                });
+		th.repaint();
+	}
+        
 	public static void main(String args[]) {
 		GUIController temp = new GUIController();
 		temp.changePanelToAddPaymentCollectibles();
