@@ -38,7 +38,7 @@ public class CollectiblesListGUI extends JPanel
         },
                 strHeader[] = 
         {       "Customer Name", "Date", 
-                "<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></html>",
+                "<html><center>Receipt Number</center></html>",
 		"<html><center>Original<br>Amount</center></html>", 
                 "<html><center>Current<br>Balance</center></html>", "Status" 
         };
