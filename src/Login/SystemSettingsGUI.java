@@ -12,8 +12,8 @@ import java.awt.event.ActionListener;
 
 public class SystemSettingsGUI extends JPanel {
 
-	private JButton adminAccBtn, empAccBtn, companyProfileBtn, vatBtn,
-			credLimAlertBtn, termsAlertBtn;
+	private JButton btnModifyPassword, btnModifySystemProfile, btnModifyVAT,
+			btnModifyCreditLimitAlert, btnModifyTermsAlert;
 	private Font fntPlainText;
 	private GUIController controller;
 
@@ -25,46 +25,41 @@ public class SystemSettingsGUI extends JPanel {
 
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 
-		adminAccBtn = new JButton("Modify Administrator Account");
-		adminAccBtn.setFont(fntPlainText);
-		adminAccBtn.setBounds(130, 30, 330, 40);
-		add(adminAccBtn);
+                btnModifyPassword = new JButton("Modify Password");
+		btnModifyPassword.setFont(fntPlainText);
+		btnModifyPassword.setBounds(130, 50, 330, 40);
+		add(btnModifyPassword);
 
-		empAccBtn = new JButton("Modify Employee Account");
-		empAccBtn.setFont(fntPlainText);
-		empAccBtn.setBounds(130, 90, 330, 40);
-		add(empAccBtn);
+		btnModifySystemProfile = new JButton("Modify System Profile");
+		btnModifySystemProfile.setFont(fntPlainText);
+		btnModifySystemProfile.setBounds(130, 110, 330, 40);
+		add(btnModifySystemProfile);
 
-		companyProfileBtn = new JButton("Modify Company Profile");
-		companyProfileBtn.setFont(fntPlainText);
-		companyProfileBtn.setBounds(130, 150, 330, 40);
-		add(companyProfileBtn);
-
-		vatBtn = new JButton("Modify VAT");
-		vatBtn.setFont(fntPlainText);
-		vatBtn.setBounds(130, 210, 330, 40);
-		add(vatBtn);
-		vatBtn.addActionListener(new ActionListener() {
+		btnModifyVAT = new JButton("Modify VAT");
+		btnModifyVAT.setFont(fntPlainText);
+		btnModifyVAT.setBounds(130, 170, 330, 40);
+		add(btnModifyVAT);
+		btnModifyVAT.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAlert("VAT");
 			}
 		});
 
-		credLimAlertBtn = new JButton("Modify Credit Limit Alert");
-		credLimAlertBtn.setFont(fntPlainText);
-		credLimAlertBtn.setBounds(130, 270, 330, 40);
-		add(credLimAlertBtn);
-		credLimAlertBtn.addActionListener(new ActionListener() {
+		btnModifyCreditLimitAlert = new JButton("Modify Credit Limit Alert");
+		btnModifyCreditLimitAlert.setFont(fntPlainText);
+		btnModifyCreditLimitAlert.setBounds(130, 230, 330, 40);
+		add(btnModifyCreditLimitAlert);
+		btnModifyCreditLimitAlert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAlert("CreditLimit");
 			}
 		});
 
-		termsAlertBtn = new JButton("Modify Terms Alert");
-		termsAlertBtn.setFont(fntPlainText);
-		termsAlertBtn.setBounds(130, 330, 330, 40);
-		add(termsAlertBtn);
-		termsAlertBtn.addActionListener(new ActionListener() {
+		btnModifyTermsAlert = new JButton("Modify Terms Alert");
+		btnModifyTermsAlert.setFont(fntPlainText);
+		btnModifyTermsAlert.setBounds(130, 290, 330, 40);
+		add(btnModifyTermsAlert);
+		btnModifyTermsAlert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				controller.getAlert("Terms");
 			}
