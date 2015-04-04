@@ -216,20 +216,15 @@ public class AddPaymentPayablesGUI extends JPanel{
 			public void actionPerformed(ActionEvent e) {
                             if(Float.parseFloat(ftfAmount.getText())!=0.00)
                             {
-                                if(Float.parseFloat(ftfAmount.getText())==getSum())
-                                {
                                     if(checkCurrentBalance())
                                     {
                                         addAllPayment();
                                         deductCurrentBalance();
                                         controller.changePanelToPayablesList();
                                     }
-                                }
-                                else
-                                   JOptionPane.showMessageDialog(null, "Not same Amount");
                             }
                             else
-                                JOptionPane.showMessageDialog(null, "Pls fill the Amount");
+                                JOptionPane.showMessageDialog(null, "No Amount Applied");
 			}
 		});
 
@@ -393,7 +388,7 @@ public class AddPaymentPayablesGUI extends JPanel{
         {
             for (int i= 0; i < tbPayment.getRowCount(); i++)
             {
-                if(tbPayment.getValueAt(i, 5)=="0.00")
+                if(tbPayment.getValueAt(i, 5)!="0.00")
                 {
                     BigDecimal big=(BigDecimal) tbPayment.getValueAt(i, 4);
                     if(big.floatValue()< Float.parseFloat((String) tbPayment.getValueAt(i, 5)))
