@@ -29,10 +29,12 @@ public class PaymentController {
        TableModel tbm = paymentModel.myModel(paymentModel.searchActivePayables(name));
        gui.setTableModel(tbm);
     }
+    
     public void changeCurrentBalance(int pt,float currentbalance)
     {
         paymentModel.updateCurrentBalance(pt, currentbalance);
     }
+    
     public ArrayList<String> getSupplier() throws SQLException
     {
         ResultSet rs = paymentModel.getSupplier();
@@ -48,6 +50,7 @@ public class PaymentController {
     {
         paymentModel.addPayment(obj);
     }
+    
     public void changeStatus(int pt)
     {
         paymentModel.changeStatus(pt);

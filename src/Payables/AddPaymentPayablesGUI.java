@@ -39,8 +39,10 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 
-public class AddPaymentPayablesGUI extends JPanel {
+public class AddPaymentPayablesGUI extends JPanel{
 
 	private JLabel lblHeader, lblDisplay, lblSupplier, lblPaymentType, lblDate,
 			lblAmount, lblCreditMemoNumber, lblReceivedDate, lblApprovedDate,
@@ -130,7 +132,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 		add(ftfDate);
                 
 
-		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+		ftfAmount = new JFormattedTextField(new DecimalFormat("###0.00"));
 		ftfAmount.setFont(fntPlainText);
 		ftfAmount.setValue(new Float(00.0F));
 		ftfAmount.setBounds(680, 140, 285, 30);
@@ -181,7 +183,7 @@ public class AddPaymentPayablesGUI extends JPanel {
 		tbPayment.setRowSelectionAllowed(true);
 		tbPayment.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPayment.setRowHeight(30);
-
+                
 		tfCreditMemoNo = new JTextField();
 		tfCreditMemoNo.setFont(fntPlainText);
 		tfCreditMemoNo.setBounds(215, 180, 300, 30);
@@ -354,7 +356,7 @@ public class AddPaymentPayablesGUI extends JPanel {
         {       
             for (int i= 0; i < tbPayment.getRowCount(); i++)
              {   
-                if(tbPayment.getValueAt(i, 5)!=null)
+                if(tbPayment.getValueAt(i, 5)!="0.00")
                 {
                     Payment p;       
                     p = new Payment((int) tbPayment.getValueAt(i, 1),Float.parseFloat((String)tbPayment.getValueAt(i, 5)),ftfReceivedDate.getText(),ftfApprovedDate.getText(),ftfReturnedDate.getText(),tfReceivedBy.getText(),tfApprovedBy.getText(),tfReturnedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfCreditMemoNo.getText(),ftfDate.getText(),taNotes.getText());
@@ -380,7 +382,7 @@ public class AddPaymentPayablesGUI extends JPanel {
             float sum=0;
              for (int i= 0; i < tbPayment.getRowCount(); i++)
              {
-                 if(tbPayment.getValueAt(i, 5)!=null)
+                 if(tbPayment.getValueAt(i, 5)!="0.00")
                  {
                     sum=sum+Float.parseFloat((String) tbPayment.getValueAt(i, 5));
                  }
@@ -391,7 +393,7 @@ public class AddPaymentPayablesGUI extends JPanel {
         {
             for (int i= 0; i < tbPayment.getRowCount(); i++)
             {
-                if(tbPayment.getValueAt(i, 5)!=null)
+                if(tbPayment.getValueAt(i, 5)=="0.00")
                 {
                     BigDecimal big=(BigDecimal) tbPayment.getValueAt(i, 4);
                     if(big.floatValue()< Float.parseFloat((String) tbPayment.getValueAt(i, 5)))
@@ -432,6 +434,12 @@ public class AddPaymentPayablesGUI extends JPanel {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
+                tbm.addTableModelListener(new TableModelListener() {
+                public void tableChanged(TableModelEvent e) {
+                    if(e.getColumn()==5)
+                            ftfAmount.setText(Float.toString(getSum()));
+                 }
+                });
 		th.repaint();
 	}
 
@@ -439,4 +447,5 @@ public class AddPaymentPayablesGUI extends JPanel {
 		GUIController temp = new GUIController();
 		temp.changePanelToAddPaymentPayables();
 	}
+        
 }

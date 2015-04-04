@@ -31,7 +31,7 @@ public class PaymentModel {
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT date,purchase_transaction_id,purchasetransaction.status,original_amount,current_balance,null as applied FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open' AND name LIKE '"+name+"'";
+            String sql = "SELECT date,purchase_transaction_id,purchasetransaction.status,original_amount,current_balance,'0.00' as applied FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open' AND name LIKE '"+name+"'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
