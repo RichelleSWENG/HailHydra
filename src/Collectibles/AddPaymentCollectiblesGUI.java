@@ -316,7 +316,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
         public void ViewAll() {
 		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < strHeader.length; i++) {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
