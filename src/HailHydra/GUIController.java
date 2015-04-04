@@ -35,6 +35,7 @@ import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
 import Inventory.ItemModel;
 import Inventory.ModifyItemProfileGUI;
+import Inventory.SellingPriceController;
 import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
 import Inventory.SetInventorySellingPriceGUI;
@@ -261,7 +262,10 @@ public class GUIController
     
     public void changePanelToSetInventorySellingPrice()
     {
-            getContentPanel().add(new SetInventorySellingPriceGUI(this));
+            SetInventorySellingPriceGUI tempGUI=new SetInventorySellingPriceGUI(this);
+            tempGUI.setMainController(new SellingPriceController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
