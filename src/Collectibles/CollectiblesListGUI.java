@@ -37,8 +37,8 @@ public class CollectiblesListGUI extends JPanel
                 "June", "July", "August", "September", "October", "November", "December" 
         },
                 strHeader[] = 
-        {       "Customer Name", "Date", 
-                "<html><center>Receipt Number</center></html>",
+        {       "Customer Name", "Date", "Type",
+                "<html><center>Sales Invoice/<br> Acknowledgement Receipt<br> Number</center></html>",
 		"<html><center>Original<br>Amount</center></html>", 
                 "<html><center>Current<br>Balance</center></html>", "Status" 
         };
@@ -479,7 +479,7 @@ public class CollectiblesListGUI extends JPanel
 
         JTableHeader th = tbCollectibles.getTableHeader();      // Setting the Headers
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < strHeader.length; i++)
         {
             TableColumn tc = tcm.getColumn(i);
             tc.setHeaderValue(strHeader[i]);
