@@ -78,7 +78,7 @@ import Sales.SalesInvoiceModel;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
-import SystemAccount.ModifyPasswordPanel;
+import SystemAccount.ModifyPasswordGUI;
 import SystemAccount.ModifySystemProfileGUI;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
@@ -103,7 +103,7 @@ public class GUIController
     private ItemModel inventoryModel;
     private DBConnection dbc;
     
-    private JDialog modeless, modal;
+    private JDialog modal;
     
     public GUIController()
     {
@@ -530,7 +530,7 @@ public class GUIController
     
     public void changePanelToModifyPassword()
     {
-            dialogRevalidate(new ModifyPasswordPanel(this));
+            dialogRevalidate(new ModifyPasswordGUI(this));
     }
     
     public void changePanelToModifySystemProfile()
