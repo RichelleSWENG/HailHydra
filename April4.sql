@@ -64,6 +64,7 @@ CREATE TABLE `acknowledgementreceipt` (
   `current_balance` decimal(10,2) NOT NULL DEFAULT '0.00',
   `status` varchar(45) NOT NULL,
   `address` varchar(100) DEFAULT NULL,
+  `type` varchar(45) NOT NULL DEFAULT 'Acknowledgement Receipt',
   PRIMARY KEY (`acknowledgement_receipt_id`),
   KEY `company_id_idx` (`company_id`),
   CONSTRAINT `company_id` FOREIGN KEY (`company_id`) REFERENCES `company` (`company_id`) ON UPDATE CASCADE
@@ -76,7 +77,7 @@ CREATE TABLE `acknowledgementreceipt` (
 
 LOCK TABLES `acknowledgementreceipt` WRITE;
 /*!40000 ALTER TABLE `acknowledgementreceipt` DISABLE KEYS */;
-INSERT INTO `acknowledgementreceipt` VALUES ('1234',2,'2014-02-12',10.00,'123','123','123','123','123','123',123.00,123.00,'Open',''),('23',2,'2015-03-29',87.00,'345','','','','','45',12.00,87.00,'Open',NULL),('6',1,'2015-03-23',290.00,'6','a','a','a','a','6',0.00,290.00,'Open',NULL);
+INSERT INTO `acknowledgementreceipt` VALUES ('1234',2,'2014-02-12',10.00,'123','123','123','123','123','123',123.00,123.00,'Open','','Acknowledgement Receipt'),('23',2,'2015-03-29',87.00,'345','','','','','45',12.00,87.00,'Open',NULL,'Acknowledgement Receipt'),('6',1,'2015-03-23',290.00,'6','a','a','a','a','6',0.00,290.00,'Open',NULL,'Acknowledgement Receipt');
 /*!40000 ALTER TABLE `acknowledgementreceipt` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -127,6 +128,7 @@ CREATE TABLE `collection` (
   `reveived_by` varchar(45) DEFAULT NULL,
   `collection_type` varchar(100) NOT NULL,
   `debit_memo_id` varchar(45) DEFAULT NULL,
+  `received_date` date DEFAULT NULL,
   PRIMARY KEY (`collection_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -166,7 +168,7 @@ CREATE TABLE `company` (
   `terms` int(11) NOT NULL,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,7 +177,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',12.00,3,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',20.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier');
+INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',12.00,3,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',20.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier'),(9,'Nancy','','','','','','','','','','','','Active',20.00,30,'Supplier'),(10,'xcsda','','','','','','','','','','','','Active',0.00,0,'Supplier');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -323,10 +325,13 @@ CREATE TABLE `payments` (
   `received_by` varchar(45) DEFAULT NULL,
   `payments_type` varchar(100) NOT NULL,
   `credit_memo_id` varchar(45) DEFAULT NULL,
+  `approved_date` date DEFAULT NULL,
+  `received_date` date DEFAULT NULL,
+  `prepared_date` date DEFAULT NULL,
   PRIMARY KEY (`payment_id`),
   KEY `purchase_transaction_id_idx` (`purchase_transaction_id`),
   CONSTRAINT `purchase_transaction_id` FOREIGN KEY (`purchase_transaction_id`) REFERENCES `purchasetransaction` (`purchase_transaction_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -335,6 +340,7 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
+INSERT INTO `payments` VALUES (1,20.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(2,20.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(3,20.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(4,12.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(5,12.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(6,12.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(7,12.00,1,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(8,12.00,2,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(9,12.00,2,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(10,12.00,3,'','2015-03-29','','','','Cash','',NULL,NULL,NULL),(11,23.00,1,'','2015-03-30','','','','Cash','',NULL,NULL,NULL),(12,123.00,2,'','2015-04-03','','','','Cash','',NULL,NULL,NULL),(13,0.00,3,'','2015-04-03','','','','Cash','',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -399,7 +405,7 @@ CREATE TABLE `purchasetransaction` (
 
 LOCK TABLES `purchasetransaction` WRITE;
 /*!40000 ALTER TABLE `purchasetransaction` DISABLE KEYS */;
-INSERT INTO `purchasetransaction` VALUES (1,8,'2015-01-13',23.00,1.00,'fsdfs','dfs','fsf','sdfdsfs','dsfsfs',12.00,'ddfdsv',12.00,'Open','sdfdgdss',0.00),(2,8,'2016-02-02',123.00,1.00,'dfdsf','dfsdf','dfsfs','dsfs','sdfsdf',13.00,'cvsdf',12.00,'Closed','sdsadsasd',0.00),(3,8,'2015-01-01',12.00,1.00,'dfsd','dsfsf','dfdsfs','dsfds','fsdf',14.00,'fsdf',12.00,'Closed','fdfsds',0.00);
+INSERT INTO `purchasetransaction` VALUES (1,8,'2015-01-13',23.00,1.00,'fsdfs','dfs','fsf','sdfdsfs','dsfsfs',12.00,'ddfdsv',23.00,'Open','sdfdgdss',0.00),(2,9,'2016-02-02',123.00,1.00,'dfdsf','dfsdf','dfsfs','dsfs','sdfsdf',13.00,'cvsdf',0.00,'Closed','sdsadsasd',0.00),(3,9,'2015-01-01',12.00,1.00,'dfsd','dsfsf','dfdsfs','dsfds','fsdf',14.00,'fsdf',12.00,'Open','fdfsds',0.00);
 /*!40000 ALTER TABLE `purchasetransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -435,7 +441,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('1','2014-02-26',20.00,8,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL),('120','2015-03-29',0.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('23','2015-03-29',20.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29');
+INSERT INTO `returnslip` VALUES ('1','2014-02-26',20.00,8,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL),('120','2015-03-29',0.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('123','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('23','2015-03-29',20.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('56','2015-03-30',20.00,9,2,'',NULL,'','',NULL,'Functional',NULL,NULL);
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -463,7 +469,7 @@ CREATE TABLE `rslineitem` (
 
 LOCK TABLES `rslineitem` WRITE;
 /*!40000 ALTER TABLE `rslineitem` DISABLE KEYS */;
-INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0);
+INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0);
 /*!40000 ALTER TABLE `rslineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -492,6 +498,7 @@ CREATE TABLE `salesinvoice` (
   `status` varchar(45) NOT NULL DEFAULT 'Open',
   `address` varchar(100) DEFAULT NULL,
   `subtotal` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `type` varchar(45) NOT NULL DEFAULT 'Sales Invoice',
   PRIMARY KEY (`sales_invoice_id`),
   KEY `customerid_idx` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -503,7 +510,7 @@ CREATE TABLE `salesinvoice` (
 
 LOCK TABLES `salesinvoice` WRITE;
 /*!40000 ALTER TABLE `salesinvoice` DISABLE KEYS */;
-INSERT INTO `salesinvoice` VALUES ('1234',2,'2017-02-12',21.00,212.00,12.00,'12','21','sdasd','dada','sadasda','123','xcvcsc',12.00,'Open','',0.00);
+INSERT INTO `salesinvoice` VALUES ('1234',2,'2017-02-12',21.00,212.00,12.00,'12','21','sdasd','dada','sadasda','123','xcvcsc',12.00,'Open','',0.00,'Sales Invoice');
 /*!40000 ALTER TABLE `salesinvoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -571,4 +578,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-03-29  1:01:58
+-- Dump completed on 2015-04-04 14:13:14

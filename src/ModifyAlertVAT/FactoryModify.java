@@ -16,7 +16,7 @@ public class FactoryModify {
                             try
                             {
                                 statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET vat_percentage='"+vat+"' WHERE company_name='Hydraforce Enterprises'";
+                                String sql = "UPDATE systeminfo SET vat_percentage='"+vat+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                             } catch (Exception e)
                             {
@@ -31,7 +31,7 @@ public class FactoryModify {
                             try
                             {
                                 statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET credit_alert='"+terms+"' WHERE company_name='Hydraforce Enterprises'";
+                                String sql = "UPDATE systeminfo SET credit_alert='"+terms+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                             } catch (Exception e)
                             {
@@ -47,7 +47,7 @@ public class FactoryModify {
                             try
                             {
                                 statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET terms_report='"+creditlimit+"' WHERE company_name='Hydraforce Enterprises'";
+                                String sql = "UPDATE systeminfo SET terms_report='"+creditlimit+"' system_info_id='1'";
                                 statement.executeUpdate(sql);
                             } catch (Exception e)
                             {

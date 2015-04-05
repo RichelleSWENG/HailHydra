@@ -2,30 +2,22 @@ package SystemAccount;
 
 import Database.DBConnection;
 import HailHydra.Model;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
-public class SystemAccountModel extends Model
+public class SystemAccountModel
 {
-
+    private int itemCount;
+    protected Connection con;
+    protected Statement statement;
+    
     public SystemAccountModel(DBConnection db)
     {
-        super(db);
+        this.con=db.getConnection();
     }
 
-    @Override
-    public ResultSet getDetail(String ID)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ResultSet getAllDetail()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
     public ResultSet searchDetail(String field, String filter)
     {
         ResultSet rs = null;
@@ -42,7 +34,6 @@ public class SystemAccountModel extends Model
         return rs;
     }
 
-    @Override
     public void addDetail(ArrayList list)
     {
         try
@@ -56,17 +47,78 @@ public class SystemAccountModel extends Model
             e.getMessage();
         }
     }
-
-    @Override
-    public void editDetail(ArrayList list)
+    
+    public ResultSet getCompanyName()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql;
+            sql = "SELECT company_name FROM systeminfo WHERE system_info_id=1";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
     }
-
-    @Override
-    public void deleteDetail(String ID)
+    
+    public ResultSet getCompanyAdress()
     {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql;
+            sql = "SELECT company_address FROM systeminfo WHERE system_info_id=1";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
     }
-
+    
+    public void changeSystemProfile(String name,String address)
+    {
+        try
+	{
+            statement = con.createStatement();
+            String sql = "UPDATE systeminfo SET company_name='"+name+"',company_address='"+address+"' WHERE system_info_id='1'" ;
+            statement.executeUpdate(sql);
+	} catch (Exception e)
+	{
+            e.getMessage();
+	}
+    }
+    
+    public ResultSet getOldPassword(int type)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql;
+            sql = "SELECT password FROM account WHERE type='"+type+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+    
+    public void changePassword(int type,String password)
+    {
+        try
+	{
+            statement = con.createStatement();
+            String sql = "UPDATE account SET password='"+password+"' WHERE type='"+type+"'" ;
+            statement.executeUpdate(sql);
+	} catch (Exception e)
+	{
+            e.getMessage();
+	}
+    }
 }
