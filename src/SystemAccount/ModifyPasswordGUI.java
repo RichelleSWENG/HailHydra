@@ -30,6 +30,7 @@ public class ModifyPasswordGUI extends JPanel {
         private Font fntPlainText, fntHeaderText;
 	private GUIController controller;
         private String type;
+        private SystemAccountController mainController;
 	
 
 	public ModifyPasswordGUI(GUIController temp) 
@@ -83,21 +84,7 @@ public class ModifyPasswordGUI extends JPanel {
                 pfNewPass.setFont(fntPlainText);
 		pfNewPass.setBounds(220, 210, 395, 30);
 		add(pfNewPass);
-                pfNewPass.getDocument().addDocumentListener(new DocumentListener() 
-                {
-                        public void changedUpdate(DocumentEvent documentEvent) 
-                        {
-                          updateStatus();
-                        }
-                        public void insertUpdate(DocumentEvent documentEvent) 
-                        {
-                          updateStatus();
-                        }
-                        public void removeUpdate(DocumentEvent documentEvent) 
-                        {
-                          updateStatus();
-                        }
-                      });
+                
                 
 		pfConfirmPassword = new JPasswordField();
                 pfConfirmPassword.setFont(fntPlainText);
@@ -170,18 +157,32 @@ public class ModifyPasswordGUI extends JPanel {
                                 
                             }
                             
-                            //check if current password match database
-                            
-                            if(success==true){
-                                //update database with new password
-                                
-                                JOptionPane temp= new JOptionPane(""+type+" password successfully changed.", JOptionPane.INFORMATION_MESSAGE);
-                                JDialog dialog = temp.createDialog("Password Changed");
-                                dialog.setAlwaysOnTop(true);
-                                dialog.setModal(true);
-                                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);      
-                                dialog.setVisible(true);
-				controller.changePanelToMainMenu();
+                            System.out.println(mainController.checkOldPassword());
+                            if(mainController.checkOldPassword())
+                            {
+                                if(success==true){
+                                    String password= new String(pfNewPass.getPassword());
+                                    if(rdbtnEmployee.isSelected())
+                                       mainController.changePassword(1,password);
+                                    else if(rdbtnAdministrator.isSelected())
+                                        mainController.changePassword(0,password);
+                                    JOptionPane temp= new JOptionPane(""+type+" password successfully changed.", JOptionPane.INFORMATION_MESSAGE);
+                                    JDialog dialog = temp.createDialog("Password Changed");
+                                    dialog.setAlwaysOnTop(true);
+                                    dialog.setModal(true);
+                                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);      
+                                    dialog.setVisible(true);
+                                    controller.changePanelToMainMenu();
+                                }
+                            }
+                            else
+                            {
+                                    JOptionPane temp= new JOptionPane("Current Password is Incorrect", JOptionPane.INFORMATION_MESSAGE);
+                                    JDialog dialog = temp.createDialog("Incorect Current Password");
+                                    dialog.setAlwaysOnTop(true);
+                                    dialog.setModal(true);
+                                    dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);      
+                                    dialog.setVisible(true);
                             }
 			}
 		});
@@ -217,7 +218,7 @@ public class ModifyPasswordGUI extends JPanel {
                   }
           }else
               temp=false;
-        
+            
           return temp;
         }
 
@@ -238,6 +239,28 @@ public class ModifyPasswordGUI extends JPanel {
             lblStatus.setForeground(Color.RED);
             lblStatus.setText("New and confirm password do not match.");
             }
+        }
+        
+        public boolean checkOldPassword()
+        {
+            String password = new String(pfCurrPass.getPassword());
+            if(rdbtnEmployee.isSelected())
+            {
+                if(mainController.getPassword(1).equalsIgnoreCase(password))
+                    return true;
+            }
+            else if(rdbtnAdministrator.isSelected())
+            {
+                
+                if(mainController.getPassword(0).equalsIgnoreCase(password))
+                    return true;
+            }
+                    
+            return false;
+        }
+        
+        public void setMainController(SystemAccountController temp){
+            mainController=temp;
         }
         
         public static void main(String[] args){
