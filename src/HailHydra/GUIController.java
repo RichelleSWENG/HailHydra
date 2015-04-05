@@ -34,7 +34,10 @@ import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
 import Inventory.ItemModel;
+import Inventory.LastCostController;
 import Inventory.ModifyItemProfileGUI;
+import Inventory.QuantityController;
+import Inventory.SellingPriceController;
 import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
 import Inventory.SetInventorySellingPriceGUI;
@@ -272,22 +275,28 @@ public class GUIController
     
     public void changePanelToSetInventoryLastCost()
     {
-            getContentPanel().add(new SetInventoryLastCostGUI(this));
+            SetInventoryLastCostGUI tempGUI = new SetInventoryLastCostGUI(this);
+            tempGUI.setMainController(new LastCostController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToSetInventorySellingPrice()
     {
             SetInventorySellingPriceGUI tempGUI=new SetInventorySellingPriceGUI(this);
-           // tempGUI.setMainController(new SellingPriceController(new ItemModel(dbc),tempGUI));
-            //tempGUI.ViewAll();
+            tempGUI.setMainController(new SellingPriceController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToSetInventoryQuantity()
     {
-            getContentPanel().add(new SetInventoryQuantityGUI(this));
+            SetInventoryQuantityGUI tempGUI = new SetInventoryQuantityGUI(this);
+            tempGUI.setMainController(new QuantityController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

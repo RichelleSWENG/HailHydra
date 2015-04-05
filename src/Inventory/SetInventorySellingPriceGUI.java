@@ -211,6 +211,7 @@ public class SetInventorySellingPriceGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
+                rdbtnPartNumber.setSelected(true);
 		rdbtnPartNumber.setBounds(165, 80, 169, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener()
@@ -288,28 +289,15 @@ public class SetInventorySellingPriceGUI extends JPanel
                 TableColumn tc = tcm.getColumn(i);
                 tc.setHeaderValue(headers[i]);
             }
-		th.repaint();
             th.repaint();
         }
         public void changePrices()
         {
             for (int i= 0; i < setQuantityTable.getRowCount(); i++)
              {   
-                if(!(setQuantityTable.getValueAt(i, 2).equals("0.00"))&&setQuantityTable.getValueAt(i, 2)!="")
-                {
-                    mainController.changeSisterCompanyPrice((String)setQuantityTable.getValueAt(i, 0), (String)setQuantityTable.getValueAt(i, 2));
-                }
-                
-                if(!(setQuantityTable.getValueAt(i, 4).equals("0.00"))&&setQuantityTable.getValueAt(i, 4)!="")
-                {
-                    mainController.changeTradersPrice((String)setQuantityTable.getValueAt(i, 0), (String)setQuantityTable.getValueAt(i, 4));
-                }
-                
-                
-                if(!(setQuantityTable.getValueAt(i, 6).equals("0.00"))&&setQuantityTable.getValueAt(i, 6)!="")
-                {
-                    mainController.changeWalkInPrices((String)setQuantityTable.getValueAt(i, 0), (String)setQuantityTable.getValueAt(i, 6));
-                }
+                    mainController.changeSisterCompanyPrice(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 2).toString());
+                    mainController.changeTradersPrice(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 4).toString());
+                    mainController.changeWalkInPrices(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 6).toString());
             }
         }
         public void ViewAll()
@@ -335,7 +323,7 @@ public class SetInventorySellingPriceGUI extends JPanel
         {
             lblNumOfItemsFound.setText(Integer.toString(itemcount));
         }
-        
+       
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToSetInventorySellingPrice();

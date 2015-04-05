@@ -22,6 +22,10 @@ import javax.swing.ListSelectionModel;
 import TableRenderer.TableRenderer;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
 public class SetInventoryQuantityGUI extends JPanel
 {
@@ -41,6 +45,7 @@ public class SetInventoryQuantityGUI extends JPanel
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
+        private QuantityController mainController;
 
 	
 	public SetInventoryQuantityGUI(GUIController temp)
@@ -82,6 +87,58 @@ public class SetInventoryQuantityGUI extends JPanel
 		tfSearch.setFont(fntPlainText);
 		tfSearch.setBounds(165, 120, 360, 30);
 		add(tfSearch);
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+		{
+			@Override
+			public void insertUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			public void done() throws Exception
+			{
+				if (tfSearch.getText().length() > 0)
+				{
+                                    if(rdbtnPartNumber.isSelected())
+                                        mainController.searchSomething(tfSearch.getText(), 0);
+                                    else if(rdbtnDescription.isSelected())
+                                        mainController.searchSomething(tfSearch.getText(), 1);
+				} else if (tfSearch.getText().length() == 0) 
+				{
+                                    ViewAll();
+				}
+			}
+		});
 
 		table = new DefaultTableModel()
 		{
@@ -140,13 +197,28 @@ public class SetInventoryQuantityGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
+                rdbtnPartNumber.setSelected(true);
 		rdbtnPartNumber.setBounds(165, 80, 169, 30);
 		add(rdbtnPartNumber);
+                rdbtnPartNumber.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+                            tfSearch.setText("");
+			}
+		});
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
 		rdbtnDescription.setBounds(368, 80, 157, 30);
 		add(rdbtnDescription);
+                rdbtnDescription.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+                            tfSearch.setText("");
+			}
+		});
 		
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnPartNumber);
@@ -179,10 +251,55 @@ public class SetInventoryQuantityGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
+                                mainController.changeAllQuantity();
                                 controller.changePanelToMainMenu();
                         }
                     });
 	}
+        
+        public void changeAllQuantity()
+        {
+            for (int i= 0; i < setQuantityTable.getRowCount(); i++)
+            {
+                    mainController.changeQuantity(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 3).toString(),setQuantityTable.getValueAt(i, 5).toString());
+            }
+        }
+        public void setMainController(QuantityController temp){
+            mainController=temp;
+        }
+        
+        public void setItemCount(int itemcount)
+        {
+            lblNumOfItemsFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            setQuantityTable.setModel(AllModel);
+
+            JTableHeader th = setQuantityTable.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < headers.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(headers[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            setQuantityTable.setModel(tbm);
+            JTableHeader th = setQuantityTable.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < headers.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(headers[i]);
+            }
+            th.repaint();
+        }
         
         public static void main(String args[]){
            GUIController temp=new GUIController();

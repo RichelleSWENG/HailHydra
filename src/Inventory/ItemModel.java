@@ -2,6 +2,7 @@ package Inventory;
 
 import Database.DBConnection;
 import HailHydra.Model;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -128,13 +129,6 @@ public class ItemModel extends Model
 		}
 
 	}
-
-         public TableModel myModel(ResultSet rs) 
-         {
-                TableModel model=DbUtils.resultSetToTableModel(rs);
-                return model;
-          }
-         
          public ResultSet getAllPrices()
 	{
 		ResultSet rs = null;
@@ -142,7 +136,7 @@ public class ItemModel extends Model
 		{
 			con = db.getConnection();
 			statement = con.createStatement();
-			String sql = "SELECT part_num,sister_company_price,'0.00' AS current_sister,traders_price,'0.00' AS current_trader,walk_in_price,'0.00' AS current_walkin FROM item";
+			String sql = "SELECT part_num,sister_company_price,sister_company_price,traders_price,traders_price,walk_in_price,walk_in_price FROM item";
 			rs = statement.executeQuery(sql);
                         rs.last();                        // Get Item Count
                         itemCount = rs.getRow(); 
@@ -156,12 +150,12 @@ public class ItemModel extends Model
          
          public ResultSet searchPrices(String field,String filter)
          {
-             ResultSet rs = null;
+                ResultSet rs = null;
 		String sql = "";
 		try
 		{
 			statement = con.createStatement();
-                        sql = "SELECT part_num,sister_company_price,'0.00' AS current_sister,traders_price,'0.00' AS current_trader,walk_in_price,'0.00' AS current_walkin FROM item WHERE "+filter+" LIKE '%"
+                        sql = "SELECT part_num,sister_company_price,sister_company_price,traders_price,traders_price,walk_in_price,walk_in_price FROM item WHERE "+filter+" LIKE '%"
 						+ field + "%'";
 			rs = statement.executeQuery(sql);
                         rs.last();                        // Get Item Count
@@ -214,35 +208,147 @@ public class ItemModel extends Model
 			e.getMessage();
 		}
          }
+         
+         public ResultSet getAllLastCost()
+         {
+             ResultSet rs = null;
+		try
+		{
+			con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT part_num,description,last_cost,last_cost FROM item";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+         }
+         
+         public ResultSet searchLastCost(String field,String filter)
+         {
+             ResultSet rs = null;
+		String sql = "";
+		try
+		{
+			statement = con.createStatement();
+                        sql = "SELECT part_num,description,last_cost,last_cost FROM item WHERE "+filter+" LIKE '%"
+						+ field + "%'";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+         }
+         
+         public void changeLastCost(String part_num,String last_cost)
+         {
+              try
+		{
+			statement = con.createStatement();
+			String sql = "UPDATE item SET last_cost='"+last_cost+"' WHERE part_num='"+part_num+"'" ;
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+         }
+         
+        public ResultSet getAllQuantity()
+        {
+                ResultSet rs = null;
+		try
+                {
+                        con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT part_num,description,quantity_functional,quantity_functional,quantity_defective,quantity_defective FROM item";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+        }
+        
+        public ResultSet searchQuantity(String field,String filter)
+        {
+            ResultSet rs = null;
+		String sql = "";
+		try
+		{
+			statement = con.createStatement();
+                        sql = "SELECT part_num,description,quantity_functional,quantity_functional,quantity_defective,quantity_defective FROM item WHERE "+filter+" LIKE '%"
+						+ field + "%'";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+        }
+        
+        public void changeQuantity(String part_num,String functional,String defective)
+        {
+            try
+		{
+			statement = con.createStatement();
+			String sql = "UPDATE item SET quantity_functional='"+functional+"',quantity_defective='"+defective+"' WHERE part_num='"+part_num+"'" ;
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+            
+        }
+        public boolean getConnectionStatus()
+        {
+            return db.getConnectionStatus();
+        }
 
-    public boolean getConnectionStatus()
-    {
-        return db.getConnectionStatus();
-    }
-    
-    public int getItemcount()
-    {
-        return this.itemCount;
-    }
+        public int getItemcount()
+        {
+            return this.itemCount;
+        }
+        
+        public TableModel myModel(ResultSet rs) 
+        {
+                TableModel model=DbUtils.resultSetToTableModel(rs);
+                return model;
+        }
 
-    public ResultSet getAllSupplier()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public ResultSet getAllSupplier()
+        {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
 
-    public ResultSet getAllCustomer()
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public ResultSet getAllCustomer()
+        {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-    public ResultSet getDetail(String name, String AccountType)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public ResultSet getDetail(String name, String AccountType)
+        {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 
-    public void editDetail(ArrayList al, String name, String type)
-    {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        public void editDetail(ArrayList al, String name, String type)
+        {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
 }
