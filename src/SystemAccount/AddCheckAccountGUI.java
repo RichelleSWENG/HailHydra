@@ -73,7 +73,7 @@ public class AddCheckAccountGUI extends JPanel
 
 		lblAccountNumber = new JLabel("Account Number:");
 		lblAccountNumber.setFont(fntPlainText);
-		lblAccountNumber.setBounds(30, 138, 158, 30);
+		lblAccountNumber.setBounds(30, 138, 180, 30);
 		add(lblAccountNumber);
 		
 		lblBankName = new JLabel("Bank Name:");
@@ -88,26 +88,27 @@ public class AddCheckAccountGUI extends JPanel
                 
                 tfSupplier = new JTextField();
 		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(198, 101, 547, 30);
+		tfSupplier.setBounds(210, 101, 540, 30);
 		add(tfSupplier);
 		
 		tfAccountNumber = new JTextField();
 		tfAccountNumber.setFont(fntPlainText);
-		tfAccountNumber.setBounds(198, 138, 547, 30);
+		tfAccountNumber.setBounds(210, 138, 540, 30);
 		add(tfAccountNumber);
 		
 		tfBankName = new JTextField();
 		tfBankName.setFont(fntPlainText);
-		tfBankName.setBounds(198, 175, 547, 30);
+		tfBankName.setBounds(210, 175, 540, 30);
 		add(tfBankName);
 		
-		spBankBranch = new JScrollPane();
-		spBankBranch.setBounds(30, 245, 715, 61);
-		add(spBankBranch);
-		
 		taBankBranch = new JTextArea();
-		spBankBranch.setViewportView(taBankBranch);
-		taBankBranch.setFont(fntPlainText);
+                taBankBranch.setFont(fntPlainText);
+                taBankBranch.setWrapStyleWord(true);
+                taBankBranch.setLineWrap(true);
+		
+                spBankBranch = new JScrollPane(taBankBranch);
+		spBankBranch.setBounds(30, 245, 720, 61);
+		add(spBankBranch);
                 
 		tbModel = new DefaultTableModel()
 		{
@@ -211,7 +212,7 @@ public class AddCheckAccountGUI extends JPanel
 	}
         
         public void setTableModel(TableModel tbm)
-    {                  // Setting the Headers
+        {                  
         tbCheckAccount.setModel(tbm);
         JTableHeader th = tbCheckAccount.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
