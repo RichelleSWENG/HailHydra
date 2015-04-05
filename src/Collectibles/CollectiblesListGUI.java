@@ -19,6 +19,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
@@ -37,8 +38,8 @@ public class CollectiblesListGUI extends JPanel
                 "June", "July", "August", "September", "October", "November", "December" 
         },
                 strHeader[] = 
-        {       "Customer Name", "Date", 
-                "<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></html>",
+        {       "Customer Name", "Date", "Type",
+                "<html><center>Sales Invoice/<br> Acknowledgement Receipt<br> Number</center></html>",
 		"<html><center>Original<br>Amount</center></html>", 
                 "<html><center>Current<br>Balance</center></html>", "Status" 
         };
@@ -453,17 +454,24 @@ public class CollectiblesListGUI extends JPanel
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
-          
-            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
             {
-                cmbToYear.addItem(i);
-                cmbFromYear.addItem(i);
-                cnt++;
+                for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+                {
+                    cmbToYear.addItem(i);
+                    cmbFromYear.addItem(i);
+                    cnt++;
+                }
+                cmbToYear.setSelectedIndex(cnt-1);
+                cmbFromYear.setSelectedIndex(0);
+                cmbFromMonth.setSelectedIndex(0);
+                cmbToMonth.setSelectedIndex(11);
             }
-            cmbToYear.setSelectedIndex(cnt-1);
-            cmbFromYear.setSelectedIndex(0);
-            cmbFromMonth.setSelectedIndex(0);
-            cmbToMonth.setSelectedIndex(11);
+            else
+            {
+                cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+            }
         }
         
         public void setItemCount(int itemcount)
@@ -479,7 +487,7 @@ public class CollectiblesListGUI extends JPanel
 
         JTableHeader th = tbCollectibles.getTableHeader();      // Setting the Headers
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < strHeader.length; i++)
         {
             TableColumn tc = tcm.getColumn(i);
             tc.setHeaderValue(strHeader[i]);
@@ -493,7 +501,7 @@ public class CollectiblesListGUI extends JPanel
             tbCollectibles.setModel(tbm);
             JTableHeader th = tbCollectibles.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < strHeader.length; i++)
             {
                 TableColumn tc = tcm.getColumn(i);
                 tc.setHeaderValue(strHeader[i]);

@@ -12,7 +12,6 @@ import net.proteanit.sql.DbUtils;
 
 public class AckReceiptModel
 {
-
     protected Connection db;
     protected Statement statement;
 
@@ -79,6 +78,7 @@ public class AckReceiptModel
         }
         return rs;
     }
+    
     public ResultSet searchDetail(String field, String filter, String startDate, String endDate)
     {
         ResultSet rs = null;
@@ -109,7 +109,6 @@ public class AckReceiptModel
 
     public void addDetail(AcknowledgementReceipt obj)
     {
- 
         AcknowledgementReceipt ar = obj;
         try
         {
@@ -275,6 +274,7 @@ public class AckReceiptModel
         }
         return rs;
     }
+    
      public ResultSet getMaxYear()
     {
         ResultSet rs = null;
@@ -294,6 +294,7 @@ public class AckReceiptModel
      {
         ArrayList<ARLineItem> stuff; 
         AcknowledgementReceipt rcpt = null;
+
         ResultSet rs = null;
         try
         {
@@ -303,25 +304,39 @@ public class AckReceiptModel
             
             if (rs.next())
             {
-                user = new User(rs.getInt("user_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getString("user_type"), rs.getInt("manager_id"), rs.getString("password"));
+                rcpt = new AcknowledgementReceipt();
+                rcpt.setAcknowledgement_receipt_id(rs.getString("acknowledgement_receipt_id"));
+		rcpt.setCompany_id(rs.getInt("company_id"));
+		rcpt.setDate(rs.getString("date"));
+		rcpt.setOriginal_amount(rs.getFloat("original_amount"));
+		rcpt.setPo_num(rs.getString("po_num"));
+		rcpt.setOrdered_by(rs.getString("ordered_by"));
+		rcpt.setSales_person(rs.getString("sales_person"));
+		rcpt.setDelivered_by(rs.getString("delivered_by"));
+		rcpt.setDelivery_notes(rs.getString("delivery_notes"));
+		rcpt.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
+		rcpt.setDiscount(rs.getFloat("discount"));
+		rcpt.setCurrent_balance(rs.getFloat("current_balance"));
+		rcpt.setStatus(rs.getString("status"));
             }
-            
+            /*
             if (rcpt != null)
             {
-                query = "SELECT org_id, org_name, org_password FROM manager m, organization o WHERE m.user_id = '" + user.getUser_id() + "' AND o.org_id = m.org_id";
-                statement = db.getConnection().prepareStatement(query);
-                rs = statement.executeQuery();
+                String query = "SELECT org_id, org_name, org_password FROM manager m, organization o WHERE m.user_id = '" + user.getUser_id() + "' AND o.org_id = m.org_id";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
                 while (rs.next())
                 {
                     user.addOrg(new Organization(rs.getInt("org_id"), rs.getString("org_name"), rs.getString("org_password")));
                 }
-            }
+            }*/
         } 
         
         catch (Exception e)
         {
             e.getMessage();
         }
+        
         return rcpt;
      }
 }

@@ -473,16 +473,24 @@ public class PayablesListGUI extends JPanel
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
-            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
-            {
-                cmbToYear.addItem(i);
-                cmbFromYear.addItem(i);
-                cnt++;
+            if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
+            {    
+                for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+                {
+                    cmbToYear.addItem(i);
+                    cmbFromYear.addItem(i);
+                    cnt++;
+                }
+                cmbToYear.setSelectedIndex(cnt-1);
+                cmbFromYear.setSelectedIndex(0);
+                cmbFromMonth.setSelectedIndex(0);
+                cmbToMonth.setSelectedIndex(11);
             }
-            cmbToYear.setSelectedIndex(cnt-1);
-            cmbFromYear.setSelectedIndex(0);
-            cmbFromMonth.setSelectedIndex(0);
-            cmbToMonth.setSelectedIndex(11);
+            else
+            {
+                cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+            }
         }
         public void setItemCount(int itemcount)
         {

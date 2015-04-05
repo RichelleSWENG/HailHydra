@@ -5,7 +5,6 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 
-import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,7 +20,6 @@ import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -50,6 +48,7 @@ public class AddCheckAccountGUI extends JPanel
         private GUIController controller;
         private SystemAccountController sysController;
         private ArrayList<String> checkAccount;
+        private JScrollPane spBankBranch;
 	
 	public AddCheckAccountGUI(GUIController temp, SystemAccountController sys)
 	{
@@ -69,43 +68,46 @@ public class AddCheckAccountGUI extends JPanel
                 
                 lblAccountName = new JLabel("Account Name:");
 		lblAccountName.setFont(fntPlainText);
-		lblAccountName.setBounds(30, 73, 155, 30);
+		lblAccountName.setBounds(30, 101, 155, 30);
 		add(lblAccountName);
 
 		lblAccountNumber = new JLabel("Account Number:");
 		lblAccountNumber.setFont(fntPlainText);
-		lblAccountNumber.setBounds(30, 111, 178, 30);
+		lblAccountNumber.setBounds(30, 138, 158, 30);
 		add(lblAccountNumber);
 		
 		lblBankName = new JLabel("Bank Name:");
 		lblBankName.setFont(fntPlainText);
-		lblBankName.setBounds(30, 152, 128, 30);
+		lblBankName.setBounds(30, 175, 128, 30);
 		add(lblBankName);
 		
 		lblBankBranch = new JLabel("Bank Branch:");
 		lblBankBranch.setFont(fntPlainText);
-		lblBankBranch.setBounds(30, 190, 135, 30);
+		lblBankBranch.setBounds(30, 214, 135, 30);
 		add(lblBankBranch);
                 
                 tfSupplier = new JTextField();
 		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(178, 73, 567, 30);
+		tfSupplier.setBounds(198, 101, 547, 30);
 		add(tfSupplier);
 		
 		tfAccountNumber = new JTextField();
 		tfAccountNumber.setFont(fntPlainText);
-		tfAccountNumber.setBounds(188, 114, 557, 30);
+		tfAccountNumber.setBounds(198, 138, 547, 30);
 		add(tfAccountNumber);
 		
 		tfBankName = new JTextField();
 		tfBankName.setFont(fntPlainText);
-		tfBankName.setBounds(149, 152, 596, 30);
+		tfBankName.setBounds(198, 175, 547, 30);
 		add(tfBankName);
 		
+		spBankBranch = new JScrollPane();
+		spBankBranch.setBounds(30, 245, 715, 61);
+		add(spBankBranch);
+		
 		taBankBranch = new JTextArea();
+		spBankBranch.setViewportView(taBankBranch);
 		taBankBranch.setFont(fntPlainText);
-		taBankBranch.setBounds(30, 231, 725, 61);
-		add(taBankBranch);
                 
 		tbModel = new DefaultTableModel()
 		{
@@ -162,7 +164,7 @@ public class AddCheckAccountGUI extends JPanel
 		tbCheckAccount.setFont(fntPlainText);
 		
 		spTable = new JScrollPane(tbCheckAccount);
-		spTable.setBounds(30, 303, 935, 190);
+		spTable.setBounds(30, 334, 935, 190);
 		add(spTable);
 
 		tbCheckAccount.getParent().setBackground(tbCheckAccount.getBackground());

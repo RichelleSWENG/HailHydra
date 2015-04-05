@@ -58,12 +58,12 @@ public class ViewItemProfileGUI extends ItemProfileGUI
     
                 if(!"null".equals(itemProfile.get(9)))
                 {
-                File ImageFile = new File(itemProfile.get(9).toString());
-            Image image = null;
-            image = ImageIO.read(ImageFile);
-            Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
-            icon = new ImageIcon(resizedImage);
-            lblImage.setIcon(icon);
+                    File ImageFile = new File(itemProfile.get(9).toString());
+                    Image image = null;
+                    image = ImageIO.read(ImageFile);
+                    Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
+                    icon = new ImageIcon(resizedImage);
+                    lblImage.setIcon(icon);
                 }
                 if((itemProfile.get(10)).equals("0"))
                 chckbxInactiveItem.setSelected(true);

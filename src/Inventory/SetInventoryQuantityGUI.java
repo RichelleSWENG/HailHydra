@@ -20,7 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -81,7 +80,7 @@ public class SetInventoryQuantityGUI extends JPanel
                 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(110, 120, 360, 30);
+		tfSearch.setBounds(165, 120, 360, 30);
 		add(tfSearch);
 
 		table = new DefaultTableModel()
@@ -141,12 +140,12 @@ public class SetInventoryQuantityGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBounds(155, 80, 169, 30);
+		rdbtnPartNumber.setBounds(165, 80, 169, 30);
 		add(rdbtnPartNumber);
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(341, 80, 157, 30);
+		rdbtnDescription.setBounds(368, 80, 157, 30);
 		add(rdbtnDescription);
 		
 		searchBy = new ButtonGroup();

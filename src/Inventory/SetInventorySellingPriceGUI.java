@@ -36,7 +36,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 	private JRadioButton rdbtnPartNumber, rdbtnDescription;
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
-	private String headers[] ={ "Part Number", "Description", 
+	private String headers[] ={ "Part Number", 
                         "<html><center>Reference<br>Sister Company<br>Price</center></html>", 
                         "<html><center>Current<br>Sister Company<br>Price</center></html>",
                         "<html><center>Reference<br>Retail Price</center></html>", 
@@ -86,7 +86,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(110, 120, 360, 30);
+		tfSearch.setBounds(165, 120, 360, 30);
 		add(tfSearch);
 
 		table = new DefaultTableModel()
@@ -101,7 +101,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 
 		table.setRowCount(15);
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 7; i++)
 		{
 			table.addColumn(headers[i]);
 		}
@@ -151,12 +151,12 @@ public class SetInventorySellingPriceGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBounds(155, 81, 169, 30);
+		rdbtnPartNumber.setBounds(165, 80, 169, 30);
 		add(rdbtnPartNumber);
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(341, 81, 157, 30);
+		rdbtnDescription.setBounds(368, 80, 157, 30);
 		add(rdbtnDescription);
 		
 		searchBy = new ButtonGroup();

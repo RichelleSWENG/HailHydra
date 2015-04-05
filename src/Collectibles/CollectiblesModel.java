@@ -125,7 +125,7 @@ public class CollectiblesModel extends Model
 		 ResultSet rs = null;
 		 try {
 	            statement = con.createStatement();
-	            String sql = "SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id";
+	            String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id";
 	            rs = statement.executeQuery(sql);
                     rs.last();                        // Get Item Count
                     itemCount = rs.getRow();
@@ -140,7 +140,7 @@ public class CollectiblesModel extends Model
 		 ResultSet rs = null;
 		 try {
 	            statement = con.createStatement();
-	            String sql = "SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+	            String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
 	            rs = statement.executeQuery(sql);
                     rs.last();                        // Get Item Count
                     itemCount = rs.getRow();
@@ -168,15 +168,15 @@ public class CollectiblesModel extends Model
 	            String sql="";
 	            if(filter.equalsIgnoreCase("active"))
                     {
-                            sql = "SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Open' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
+                            sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Open' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
                     }
                     else if (filter.equalsIgnoreCase("closed"))
                     {
-                            sql ="SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Closed' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Closed' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
+                            sql ="SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Closed' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Closed' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
                     }
                     else if(filter.equalsIgnoreCase("name"))
                     {
-                            sql="SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
+                            sql="SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "'AND name LIKE '%" + field + "%' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "' AND name LIKE '%" + field + "%'";
                     }
 	            rs = statement.executeQuery(sql);
                     rs.last();                        // Get Item Count
@@ -194,7 +194,7 @@ public class CollectiblesModel extends Model
             try
             {
                 statement = con.createStatement();
-                String sql = "SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Open' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+                String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Open' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
                 rs = statement.executeQuery(sql);
                 rs.last();                        // Get Item Count
                 itemCount = rs.getRow();
@@ -211,7 +211,7 @@ public class CollectiblesModel extends Model
             try
             {
                 statement = con.createStatement();
-                String sql ="SELECT name, date,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Closed' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' UNION ALL SELECT name,date,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Closed' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "'" ;
+                String sql ="SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Closed' AND salesinvoice.date BETWEEN '" + startDate + "' AND '" + endDate + "' UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Closed' AND acknowledgementreceipt.date BETWEEN '" + startDate + "' AND '" + endDate + "'" ;
                 rs = statement.executeQuery(sql);
                 rs.last();                        // Get Item Count
                 itemCount = rs.getRow();

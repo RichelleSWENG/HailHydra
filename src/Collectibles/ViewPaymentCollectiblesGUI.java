@@ -27,29 +27,18 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
-import Payables.AddPaymentPayablesGUI;
-import Payables.Payment;
 import TableRenderer.TableRenderer;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableModel;
 
-public class AddPaymentCollectiblesGUI extends JPanel {
-	private JLabel lblHeader, lblDeditMemoNumber, lblReceivedBy,
+public class ViewPaymentCollectiblesGUI extends JPanel {
+
+	private JLabel lblHeader, lblSalesAckNumber, lblReceivedBy,
 			lblReceivedDate, lblCustomer, lblNotes, lblPaymentType, lblDate,
 			lblAmount;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = {
-			"Date", "Type",
+			"Date",
 			"<html><center>Acknowledgement Receipt/<br>Sales Invoice Number</center></html>",
-			"Status", "<html><center>Original<br>Amount</center></html>",
+			"Status", "<html><center>Debit<br>Memo<br>Number<br></center></html>", "<html><center>Original<br>Amount</center></html>",
 			"<html><center>Current<br>Balance</center></html>",
 			"<html><center>Amount<br>Applied</center></html>" },
 			strPaymentType[] = { "Cash", "Bank to Bank", "Check", "Debit Memo" };
@@ -68,9 +57,9 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 	private JTextArea taNotes;
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
-        private PaymentCollectiblesController mainController;
 
-	public AddPaymentCollectiblesGUI(GUIController temp) {
+	public ViewPaymentCollectiblesGUI(GUIController temp) {
+
 		controller = temp;
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
@@ -79,9 +68,9 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
 
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
-		lblHeader = new JLabel("Add Payment - Collectibles");
+		lblHeader = new JLabel("View Payment - Collectibles");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
@@ -108,18 +97,8 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 
 		cmbCustomer = new JComboBox();
 		cmbCustomer.setFont(fntPlainText);
-		cmbCustomer.setBounds(215, 100, 315, 30);
+		cmbCustomer.setBounds(189, 100, 341, 30);
 		add(cmbCustomer);
-                cmbCustomer.addActionListener(new ActionListener()
-                {
-                    public void actionPerformed(ActionEvent e)
-                    {
-                        if (cmbCustomer.getSelectedIndex() != 0)
-                        {
-                            mainController.searchActivePayables((String) cmbCustomer.getSelectedItem());
-                        }
-                    }
-                });
 
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
@@ -127,7 +106,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		ftfDate.setBounds(680, 100, 285, 30);
 		add(ftfDate);
 
-		ftfAmount = new JFormattedTextField(new DecimalFormat("###0.00"));
+		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
 		ftfAmount.setFont(fntPlainText);
 		ftfAmount.setValue(new Float(00.0F));
 		ftfAmount.setBounds(680, 140, 285, 30);
@@ -135,14 +114,14 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		
 		tfDebitMemoNo = new JTextField();
 		tfDebitMemoNo.setFont(fntPlainText);
-		tfDebitMemoNo.setBounds(215, 180, 315, 30);
+		tfDebitMemoNo.setBounds(189, 180, 341, 30);
 		tfDebitMemoNo.setEditable(false);
 		add(tfDebitMemoNo);
 		tfDebitMemoNo.setColumns(10);
 
 		cmbPaymentType = new JComboBox();
 		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(215, 140, 315, 30);
+		cmbPaymentType.setBounds(189, 140, 341, 30);
 		add(cmbPaymentType);
 		cmbPaymentType.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
@@ -203,10 +182,10 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		tbPayment.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPayment.setRowHeight(30);
 
-		lblDeditMemoNumber = new JLabel("Debit Memo No. : ");
-		lblDeditMemoNumber.setFont(fntPlainText);
-		lblDeditMemoNumber.setBounds(30, 180, 195, 30);
-		add(lblDeditMemoNumber);
+		lblSalesAckNumber = new JLabel("S.I./ A.R No.");
+		lblSalesAckNumber.setFont(fntPlainText);
+		lblSalesAckNumber.setBounds(30, 180, 195, 30);
+		add(lblSalesAckNumber);
 
 		lblReceivedBy = new JLabel("Received By:");
 		lblReceivedBy.setFont(fntPlainText);
@@ -248,21 +227,6 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(655, 545, 110, 40);
 		add(btnSubmit);
-                btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-                           if(Float.parseFloat(ftfAmount.getText())!=0.00)
-                            {
-                                    if(checkCurrentBalance())
-                                    {
-                                        addAllPayment();
-                                        deductCurrentBalance();
-                                        controller.changePanelToCollectibles();
-                                    }
-                            }
-                            else
-                                JOptionPane.showMessageDialog(null, "No Amount Applied");
-                        }
-		});
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);
@@ -274,119 +238,9 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 			}
 		});
 	}
-        public void setMainController(PaymentCollectiblesController temp) {
-		mainController = temp;
-	}
-        public void setCustomer()
-        {
-            ArrayList<String> customer= new ArrayList<String>();
-            try {
-                customer=mainController.getCustomer();
-            } catch (SQLException ex) {
-                Logger.getLogger(AddPaymentCollectiblesGUI.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            cmbCustomer.addItem("");
-            for(int i=0;i<customer.size();i++)
-            {
-                cmbCustomer.addItem(customer.get(i));
-            }
-        }
-        public void deductCurrentBalance()
-        {
-            float newCurrentBalance;
-            int number;
-            String type;
-            BigDecimal currentbalance;
-            for (int i= 0; i < tbPayment.getRowCount(); i++)
-            {
-                    number=Integer.parseInt((String) tbPayment.getValueAt(i, 2));
-                    currentbalance=(BigDecimal) tbPayment.getValueAt(i, 5);
-                    type=(String)tbPayment.getValueAt(i,1);
-                    if(tbPayment.getValueAt(i, 5)!=null)
-                    {
-                        newCurrentBalance=currentbalance.floatValue()-Float.parseFloat((String) tbPayment.getValueAt(i, 6));
-                        mainController.changeCurrentBalance(number,type,newCurrentBalance);
-                        if(newCurrentBalance==0.0)
-                        {
-                            mainController.changeStatus(number,type);
-                        }
-                    }
-            }
-        }
-        public float getSum()
-        {
-            float sum=0;
-             for (int i= 0; i < tbPayment.getRowCount(); i++)
-             {
-                 if(tbPayment.getValueAt(i, 6)!="0.00")
-                 {
-                    sum=sum+Float.parseFloat((String) tbPayment.getValueAt(i, 6));
-                 }
-             }
-            return sum;
-        }
-        
-        public void addAllPayment()
-        {       
-            for (int i= 0; i < tbPayment.getRowCount(); i++)
-             {   
-                if(tbPayment.getValueAt(i, 6)!="0.00")
-                {
-                    Collection c;       
-                    c = new Collection((String)tbPayment.getValueAt(i, 2),Float.parseFloat((String)tbPayment.getValueAt(i, 6)),ftfReceivedDate.getText(),tfReceivedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfDebitMemoNo.getText(),ftfDate.getText(),taNotes.getText(),(String)tbPayment.getValueAt(i, 1));
-                     mainController.addPayment(c);
-                }
-              }
-        }
-        
-        public void ViewAll() {
-		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) {
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		th.repaint();
-                cmbCustomer.removeAllItems();
-                setCustomer();
-	}
-        
-        public boolean checkCurrentBalance()
-        {
-            for (int i= 0; i < tbPayment.getRowCount(); i++)
-            {
-                if(tbPayment.getValueAt(i, 6)!="0.00")
-                {
-                    BigDecimal big=(BigDecimal) tbPayment.getValueAt(i, 5);
-                    if(big.floatValue()< Float.parseFloat((String) tbPayment.getValueAt(i, 6)))
-                    {
-                        JOptionPane.showMessageDialog(null, "Applied Amount is greater the Current Balance");
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
-        
-        public void setTableModel(TableModel tbm) { // Setting the Headers
-		tbPayment.setModel(tbm);
-		JTableHeader th = tbPayment.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 7; i++) {
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-                tbm.addTableModelListener(new TableModelListener() {
-                public void tableChanged(TableModelEvent e) {
-                    if(e.getColumn()==6)
-                        ftfAmount.setText(Float.toString(getSum()));
-                 }
-                });
-		th.repaint();
-	}
-        
+
 	public static void main(String args[]) {
 		GUIController temp = new GUIController();
-		temp.changePanelToAddPaymentCollectibles();
+		temp.changePanelToViewPaymentCollectibles();
 	}
 }

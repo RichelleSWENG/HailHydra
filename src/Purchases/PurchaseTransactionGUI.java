@@ -1,15 +1,12 @@
 package Purchases;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 
-import javax.swing.DefaultCellEditor;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -20,7 +17,6 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
@@ -28,7 +24,6 @@ import javax.swing.table.TableColumnModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import TableRenderer.TableRenderer;
-import TableRenderer.ComboTableRenderer;
 
 public class PurchaseTransactionGUI extends JPanel
 {
@@ -152,27 +147,27 @@ public class PurchaseTransactionGUI extends JPanel
 		ftfDate = new JFormattedTextField(dateFormat);
 		ftfDate.setValue(new java.util.Date());
 		ftfDate.setFont(fntPlainText);
-		ftfDate.setBounds(590, 110, 375, 30);
+		ftfDate.setBounds(770, 110, 195, 30);
 		add(ftfDate);
 
 		tfPONum = new JTextField();
 		tfPONum.setFont(fntPlainText);
-		tfPONum.setBounds(665, 140, 300, 30);
+		tfPONum.setBounds(770, 140, 195, 30);
 		add(tfPONum);
 
 		tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
-		tfSINum.setBounds(656, 170, 309, 30);
+		tfSINum.setBounds(770, 170, 195, 30);
 		add(tfSINum);
 
 		tfDRNum = new JTextField();
 		tfDRNum.setFont(fntPlainText);
-		tfDRNum.setBounds(665, 200, 300, 30);
+		tfDRNum.setBounds(770, 200, 195, 30);
 		add(tfDRNum);
 
 		tfOrderedBy = new JTextField();
 		tfOrderedBy.setFont(fntPlainText);
-		tfOrderedBy.setBounds(150, 385, 350, 30);
+		tfOrderedBy.setBounds(160, 385, 340, 30);
 		add(tfOrderedBy);
 
 		tfReceivedBy = new JTextField();
@@ -192,7 +187,7 @@ public class PurchaseTransactionGUI extends JPanel
 		ftfSubtotal.setHorizontalAlignment(JTextField.RIGHT);
 		ftfSubtotal.setValue(new Float(00.0F));
 		ftfSubtotal.setEditable(false);
-		ftfSubtotal.setBounds(790, 415, 175, 30);
+		ftfSubtotal.setBounds(800, 415, 165, 30);
 		add(ftfSubtotal);
 
 		ftfVat = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -200,7 +195,7 @@ public class PurchaseTransactionGUI extends JPanel
 		ftfVat.setHorizontalAlignment(JTextField.RIGHT);
 		ftfVat.setValue(new Float(00.0F));
 		ftfVat.setEditable(false);
-		ftfVat.setBounds(755, 445, 210, 30);
+		ftfVat.setBounds(800, 445, 165, 30);
 		add(ftfVat);
 
 		ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -208,7 +203,7 @@ public class PurchaseTransactionGUI extends JPanel
 		ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
 		ftfTotal.setValue(new Float(00.0F));
 		ftfTotal.setEditable(false);
-		ftfTotal.setBounds(760, 475, 205, 30);
+		ftfTotal.setBounds(800, 475, 165, 30);
 		add(ftfTotal);
 
 		ftfBalance = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -216,7 +211,7 @@ public class PurchaseTransactionGUI extends JPanel
 		ftfBalance.setHorizontalAlignment(JTextField.RIGHT);
 		ftfBalance.setValue(new Float(00.0F));
 		ftfBalance.setEditable(false);
-		ftfBalance.setBounds(790, 505, 175, 30);
+		ftfBalance.setBounds(800, 505, 165, 30);
 		add(ftfBalance);
 
 		taAddress = new JTextArea();
@@ -306,5 +301,4 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPurchaseTransaction.setRowHeight(30);
 	}
-
 }

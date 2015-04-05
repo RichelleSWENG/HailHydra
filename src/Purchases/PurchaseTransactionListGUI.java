@@ -4,7 +4,6 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Calendar;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -22,9 +21,9 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -33,7 +32,6 @@ import javax.swing.table.TableModel;
 
 public class PurchaseTransactionListGUI extends JPanel
 {
-
         private JLabel  lblHeader, lblSearchBy, lblSearch, lblRange, lblTo,
 			lblTransactionsFound, lblNumofTransactions;
         private JTextField tfSearch;
@@ -94,7 +92,7 @@ public class PurchaseTransactionListGUI extends JPanel
                 
                 lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(382, 160, 36, 30);
+		lblTo.setBounds(425, 160, 36, 30);
 		add(lblTo);
                 
                 lblTransactionsFound = new JLabel("Transaction/s Found:");
@@ -109,27 +107,27 @@ public class PurchaseTransactionListGUI extends JPanel
                 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(117, 120, 571, 30);
+		tfSearch.setBounds(150, 120, 571, 30);
 		add(tfSearch);
                 
                 cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(107, 160, 155, 30);
+		cmbFromMonth.setBounds(150, 160, 140, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(272, 160, 100, 30);
+		cmbFromYear.setBounds(300, 160, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(423, 160, 155, 30);
+		cmbToMonth.setBounds(471, 160, 140, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(588, 160, 100, 30);
+		cmbToYear.setBounds(621, 160, 100, 30);
 		add(cmbToYear);
 		for (int i = 0; i < 12; i++)
 		{
@@ -300,7 +298,7 @@ public class PurchaseTransactionListGUI extends JPanel
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
 		rdbtnSupplierName.setSelected(true);
-		rdbtnSupplierName.setBounds(150, 80, 184, 30);
+		rdbtnSupplierName.setBounds(150, 80, 161, 30);
 		add(rdbtnSupplierName);
                 rdbtnSupplierName.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -311,7 +309,7 @@ public class PurchaseTransactionListGUI extends JPanel
 
 		rdbtnPurchaseTransactionNum = new JRadioButton("Purchase Transaction Number");
 		rdbtnPurchaseTransactionNum.setFont(fntPlainText);
-		rdbtnPurchaseTransactionNum.setBounds(336, 80, 340, 30);
+		rdbtnPurchaseTransactionNum.setBounds(324, 80, 315, 30);
 		add(rdbtnPurchaseTransactionNum);
                 rdbtnPurchaseTransactionNum.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -322,7 +320,7 @@ public class PurchaseTransactionListGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
-		rdbtnPartNumber.setBounds(675, 80, 352, 30);
+		rdbtnPartNumber.setBounds(648, 80, 352, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -339,7 +337,7 @@ public class PurchaseTransactionListGUI extends JPanel
 
 		btnViewAllTransactions = new JButton("View All Transactions");
 		btnViewAllTransactions.setFont(fntPlainText);
-		btnViewAllTransactions.setBounds(725, 190, 240, 40);
+		btnViewAllTransactions.setBounds(725, 195, 240, 40);
 		add(btnViewAllTransactions);
                 btnViewAllTransactions.addActionListener(
                     new ActionListener()
@@ -389,26 +387,37 @@ public class PurchaseTransactionListGUI extends JPanel
                         }
                     });
 	}
+        
         public void setItemCount(int itemcount)
         {
             lblNumofTransactions.setText(Integer.toString(itemcount));
         }
+        
         public void setComboBox()
         {
             cmbToYear.removeAllItems();
             cmbFromYear.removeAllItems();
             int cnt=0;
-            for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+            if(mainController.getMaxYear()!=null&&mainController.getMinYear()!=null)
             {
-                cmbToYear.addItem(i);
-                cmbFromYear.addItem(i);
-                cnt++;
+                for(int i=Integer.parseInt(mainController.getMinYear());i<=Integer.parseInt(mainController.getMaxYear());i++)
+                {
+                    cmbToYear.addItem(i);
+                    cmbFromYear.addItem(i);
+                    cnt++;
+                }
+                cmbToYear.setSelectedIndex(cnt-1);
+                cmbFromYear.setSelectedIndex(0);
+                cmbFromMonth.setSelectedIndex(0);
+                cmbToMonth.setSelectedIndex(11);
             }
-            cmbToYear.setSelectedIndex(cnt-1);
-            cmbFromYear.setSelectedIndex(0);
-            cmbFromMonth.setSelectedIndex(0);
-            cmbToMonth.setSelectedIndex(11);
+            else
+            {
+                cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+                cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+            }
         }
+        
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
             tbPurchaseTransaction.setModel(tbm);
@@ -441,6 +450,7 @@ public class PurchaseTransactionListGUI extends JPanel
             th.repaint();
             setComboBox();
         }
+        
         public static void main(String args[])
         {
            GUIController temp=new GUIController();
