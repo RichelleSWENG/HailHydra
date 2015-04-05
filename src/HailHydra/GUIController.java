@@ -544,7 +544,10 @@ public class GUIController
     
     public void changePanelToModifySystemProfile()
     {
-            dialogRevalidate(new ModifySystemProfileGUI(this));
+            ModifySystemProfileGUI tempGUI =new ModifySystemProfileGUI(this);
+            tempGUI.setMainController(new SystemAccountController(new SystemAccountModel(dbc)));
+            tempGUI.setDetails();
+            dialogRevalidate(tempGUI);
     }
     
     public void getAlert(String type)

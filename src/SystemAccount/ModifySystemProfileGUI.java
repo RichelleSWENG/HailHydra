@@ -10,6 +10,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import HailHydra.GUIController;
+import Payables.PayablesController;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -22,6 +23,7 @@ public class ModifySystemProfileGUI extends JPanel {
         private JScrollPane spAddress;
         private Font fntPlainText, fntHeaderText;
 	private GUIController controller;
+        private SystemAccountController mainController;
 	
 
 	public ModifySystemProfileGUI(GUIController temp) 
@@ -71,6 +73,7 @@ public class ModifySystemProfileGUI extends JPanel {
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+                                mainController.changeInfo(tfSystemName.getText(),taAddress.getText());
 				controller.changePanelToMainMenu();
 			}
 		});
@@ -88,10 +91,19 @@ public class ModifySystemProfileGUI extends JPanel {
                 
 	}
         
+        public void setMainController(SystemAccountController temp){
+            mainController=temp;
+        }
+        
+        public void setDetails()
+        {
+            taAddress.setText(mainController.getCompanyAdress());
+            tfSystemName.setText(mainController.getCompanyName());
+        }
         public static void main(String args[])
         {
             GUIController a= new GUIController();
-           a.changePanelToModifySystemProfile();
+            a.changePanelToModifySystemProfile();
             
         }
 }
