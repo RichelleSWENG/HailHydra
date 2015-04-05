@@ -539,7 +539,9 @@ public class GUIController
     
     public void changePanelToModifyPassword()
     {
-            dialogRevalidate(new ModifyPasswordGUI(this));
+            ModifyPasswordGUI tempGUI=new ModifyPasswordGUI(this);
+            tempGUI.setMainController(new SystemAccountController(new SystemAccountModel(dbc),tempGUI));
+            dialogRevalidate(tempGUI);
     }
     
     public void changePanelToModifySystemProfile()

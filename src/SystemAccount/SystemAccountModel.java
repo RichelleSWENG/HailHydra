@@ -92,4 +92,33 @@ public class SystemAccountModel
             e.getMessage();
 	}
     }
+    
+    public ResultSet getOldPassword(int type)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = con.createStatement();
+            String sql;
+            sql = "SELECT password FROM account WHERE type='"+type+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+    
+    public void changePassword(int type,String password)
+    {
+        try
+	{
+            statement = con.createStatement();
+            String sql = "UPDATE account SET password='"+password+"' WHERE type='"+type+"'" ;
+            statement.executeUpdate(sql);
+	} catch (Exception e)
+	{
+            e.getMessage();
+	}
+    }
 }
