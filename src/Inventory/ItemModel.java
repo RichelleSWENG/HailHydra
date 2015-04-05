@@ -134,6 +134,86 @@ public class ItemModel extends Model
                 TableModel model=DbUtils.resultSetToTableModel(rs);
                 return model;
           }
+         
+         public ResultSet getAllPrices()
+	{
+		ResultSet rs = null;
+		try
+		{
+			con = db.getConnection();
+			statement = con.createStatement();
+			String sql = "SELECT part_num,sister_company_price,'0.00' AS current_sister,traders_price,'0.00' AS current_trader,walk_in_price,'0.00' AS current_walkin FROM item";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+	}
+         
+         public ResultSet searchPrices(String field,String filter)
+         {
+             ResultSet rs = null;
+		String sql = "";
+		try
+		{
+			statement = con.createStatement();
+                        sql = "SELECT part_num,sister_company_price,'0.00' AS current_sister,traders_price,'0.00' AS current_trader,walk_in_price,'0.00' AS current_walkin FROM item WHERE "+filter+" LIKE '%"
+						+ field + "%'";
+			rs = statement.executeQuery(sql);
+                        rs.last();                        // Get Item Count
+                        itemCount = rs.getRow(); 
+                        rs.beforeFirst();
+                        
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return rs;
+             
+         }
+         
+         public void changeWalkinPrice(String part_num,String wprice)
+         {
+             try
+		{
+			statement = con.createStatement();
+			String sql = "UPDATE item SET walk_in_price='"+wprice+"' WHERE part_num='"+part_num+"'" ;
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+         }
+         
+         public void changeSisterCompanyPrice(String part_num,String sprice)
+         {
+             try
+		{
+			statement = con.createStatement();
+			String sql = "UPDATE item SET sister_company_price='"+sprice+"' WHERE part_num='"+part_num+"'" ;
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+         }
+         
+         public void changeTradersPrice(String part_num,String tprice)
+         {
+             try
+		{
+			statement = con.createStatement();
+			String sql = "UPDATE item SET traders_price='"+tprice+"' WHERE part_num='"+part_num+"'" ;
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+         }
 
     public boolean getConnectionStatus()
     {

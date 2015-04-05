@@ -384,6 +384,7 @@ public class AddPaymentPayablesGUI extends JPanel{
              }
             return sum;
         }
+        
         public boolean checkCurrentBalance()
         {
             for (int i= 0; i < tbPayment.getRowCount(); i++)
@@ -400,6 +401,7 @@ public class AddPaymentPayablesGUI extends JPanel{
             }
             return true;
         }
+        
         public void deductCurrentBalance()
         {
             float newCurrentBalance;
@@ -432,7 +434,9 @@ public class AddPaymentPayablesGUI extends JPanel{
                 tbm.addTableModelListener(new TableModelListener() {
                 public void tableChanged(TableModelEvent e) {
                     if(e.getColumn()==5)
+                    {
                             ftfAmount.setText(Float.toString(getSum()));
+                    }
                  }
                 });
 		th.repaint();
