@@ -24,7 +24,7 @@ public class ProfilesGUI extends JPanel {
                 
 		btnCompanyProfile = new JButton("Account Profile");
 		btnCompanyProfile.setFont(fntPlainText);
-		btnCompanyProfile.setBounds(130, 60, 300, 40);
+		btnCompanyProfile.setBounds(150, 60, 300, 40);
 		add(btnCompanyProfile);
                 btnCompanyProfile.addActionListener(
                     new ActionListener()
@@ -37,7 +37,7 @@ public class ProfilesGUI extends JPanel {
 		
 		btnInventory = new JButton("Inventory");
 		btnInventory.setFont(fntPlainText);
-		btnInventory.setBounds(130, 120, 300, 40);
+		btnInventory.setBounds(150, 120, 300, 40);
 		add(btnInventory);
 		btnInventory.addActionListener(
                     new ActionListener()
@@ -56,7 +56,7 @@ public class ProfilesGUI extends JPanel {
                         
 		btnSetInventorySellingPrice = new JButton("Set Inventory Selling Price");
 		btnSetInventorySellingPrice.setFont(fntPlainText);
-		btnSetInventorySellingPrice.setBounds(130, 180, 300, 40);
+		btnSetInventorySellingPrice.setBounds(150, 180, 300, 40);
 		add(btnSetInventorySellingPrice);
                 btnSetInventorySellingPrice.addActionListener(
                     new ActionListener()
@@ -69,7 +69,7 @@ public class ProfilesGUI extends JPanel {
 		
                 btnSetInventoryLastCost = new JButton("Set Inventory Last Cost");
 		btnSetInventoryLastCost.setFont(new Font("Arial", Font.PLAIN, 21));
-		btnSetInventoryLastCost.setBounds(130, 240, 300, 40);
+		btnSetInventoryLastCost.setBounds(150, 240, 300, 40);
 		add(btnSetInventoryLastCost);
 		btnSetInventoryLastCost.addActionListener(
                 new ActionListener()
@@ -82,7 +82,7 @@ public class ProfilesGUI extends JPanel {
                 
 		btnSetInventoryQuantity = new JButton("Set Inventory Quantity");
 		btnSetInventoryQuantity.setFont(fntPlainText);
-		btnSetInventoryQuantity.setBounds(130, 300, 300, 40);
+		btnSetInventoryQuantity.setBounds(150, 300, 300, 40);
 		add(btnSetInventoryQuantity);
 		btnSetInventoryQuantity.addActionListener(
                 new ActionListener()
@@ -92,7 +92,6 @@ public class ProfilesGUI extends JPanel {
                    
                     }
                 });
-		
 		
 	}
 }
