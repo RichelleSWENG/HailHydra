@@ -31,7 +31,8 @@ public class ModifySystemProfileGUI extends JPanel {
 		fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
 
-                this.setVisible(true);
+                setVisible(true);
+                setLayout(null);
     
 		lblHeader = new JLabel("Modify System Profile");
 		lblHeader.setFont(fntHeaderText);
@@ -85,15 +86,12 @@ public class ModifySystemProfileGUI extends JPanel {
 			}
 		});
                 
-		setLayout(null);
-                
 	}
         
         public static void main(String args[])
         {
             GUIController a= new GUIController();
            a.changePanelToModifySystemProfile();
-  
             
         }
 }
