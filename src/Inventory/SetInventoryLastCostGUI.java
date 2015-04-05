@@ -1,9 +1,13 @@
 package Inventory;
 import HailHydra.GUIController;
+import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,17 +17,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableModel;
 
 
 public class SetInventoryLastCostGUI extends JPanel
@@ -43,6 +46,7 @@ public class SetInventoryLastCostGUI extends JPanel
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
+        private LastCostController mainController;
 	
 
 	public SetInventoryLastCostGUI(GUIController temp)
@@ -84,6 +88,59 @@ public class SetInventoryLastCostGUI extends JPanel
 		tfSearch.setFont(fntPlainText);
 		tfSearch.setBounds(165, 120, 360, 30);
 		add(tfSearch);
+                tfSearch.getDocument().addDocumentListener(new DocumentListener()
+		{
+			@Override
+			public void insertUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			@Override
+			public void changedUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			public void done() throws Exception
+			{
+				if (tfSearch.getText().length() > 0)
+				{
+                                    if(rdbtnPartNumber.isSelected())
+                                        mainController.searchSomething(tfSearch.getText(), 0);
+                                    else if(rdbtnDescription.isSelected())
+                                        mainController.searchSomething(tfSearch.getText(), 1);
+				} else if (tfSearch.getText().length() == 0) 
+				{
+                                    ViewAll();
+				}
+			}
+		});
+
 
 		table = new DefaultTableModel()
 		{
@@ -147,13 +204,28 @@ public class SetInventoryLastCostGUI extends JPanel
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
+                rdbtnPartNumber.setSelected(true);
 		rdbtnPartNumber.setBounds(165, 80, 169, 30);
 		add(rdbtnPartNumber);
-
+                rdbtnPartNumber.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+                            tfSearch.setText("");
+			}
+		});
+                
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
 		rdbtnDescription.setBounds(368, 80, 157, 30);
 		add(rdbtnDescription);
+                rdbtnDescription.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+                            tfSearch.setText("");
+			}
+		});
 		
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnPartNumber);
@@ -186,10 +258,56 @@ public class SetInventoryLastCostGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToMainMenu();
+                            mainController.changeAllLastCost();
+                            controller.changePanelToMainMenu();
                         }
                     });
 	}
+        
+        public void setMainController(LastCostController temp){
+            mainController=temp;
+        }
+        
+        public void setItemCount(int itemcount)
+        {
+            lblNumOfItemsFound.setText(Integer.toString(itemcount));
+        }
+        
+        public void changeLastCost()
+        {
+            for (int i= 0; i < setQuantityTable.getRowCount(); i++)
+            {
+                    mainController.changeLastCost(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 3).toString());
+            }
+        }
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel();
+            setQuantityTable.setModel(AllModel);
+
+            JTableHeader th = setQuantityTable.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < headers.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(headers[i]);
+            }
+            th.repaint();
+        }
+        
+        public void setTableModel(TableModel tbm)
+        {                  // Setting the Headers
+            setQuantityTable.setModel(tbm);
+            JTableHeader th = setQuantityTable.getTableHeader();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < headers.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(headers[i]);
+            }
+            th.repaint();
+        }
+        
         public static void main(String args[]){
            GUIController temp=new GUIController();
            temp.changePanelToSetInventoryLastCost();

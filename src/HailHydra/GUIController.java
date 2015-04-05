@@ -34,7 +34,10 @@ import Inventory.AddItemProfileGUI;
 import Inventory.InventoryController;
 import Inventory.InventoryListGUI;
 import Inventory.ItemModel;
+import Inventory.LastCostController;
 import Inventory.ModifyItemProfileGUI;
+import Inventory.QuantityController;
+import Inventory.SellingPriceController;
 import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
 import Inventory.SetInventorySellingPriceGUI;
@@ -78,13 +81,14 @@ import Sales.SalesInvoiceModel;
 import Sales.ViewSalesInvoiceGUI;
 import SystemAccount.AddBankAccountGUI;
 import SystemAccount.AddCheckAccountGUI;
-import SystemAccount.ModifyCompanyProfilePanel;
-import SystemAccount.ModifyPasswordPanel;
+import SystemAccount.ModifyPasswordGUI;
+import SystemAccount.ModifySystemProfileGUI;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
+import java.awt.Dialog;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 public class GUIController 
@@ -102,6 +106,8 @@ public class GUIController
     private ItemModel inventoryModel;
     private DBConnection dbc;
     
+    private JDialog modal;
+    
     public GUIController()
     {
             dbc = new DBConnection();
@@ -112,6 +118,7 @@ public class GUIController
             inventoryGUI= new InventoryListGUI (this);
             inventoryController = new InventoryController(inventoryModel,inventoryGUI);
            
+            modal= new JDialog(frame);
             
             changePanelToLogin();
     }
@@ -146,6 +153,7 @@ public class GUIController
             frame.validate();
             frame.repaint();
             frame.setVisible(true);
+       
     }
     
     public void mainMenuRevalidate()
@@ -155,8 +163,20 @@ public class GUIController
             main.setVisible(true);
     }
     
+    public void dialogRevalidate(JPanel temp){
+        modal= new JDialog(frame);
+        modal.add(temp);
+        modal.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        modal.setModal(true);
+        modal.setAlwaysOnTop(true);
+        modal.setSize(650,450);
+        modal.setLocationRelativeTo(frame);
+        modal.setVisible(true);
+    }
+    
     public void changePanelToMainMenu()
     {
+            modal.dispose();
             getContentPanel().add(main);
             frameRevalidate();
     }
@@ -255,19 +275,28 @@ public class GUIController
     
     public void changePanelToSetInventoryLastCost()
     {
-            getContentPanel().add(new SetInventoryLastCostGUI(this));
+            SetInventoryLastCostGUI tempGUI = new SetInventoryLastCostGUI(this);
+            tempGUI.setMainController(new LastCostController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToSetInventorySellingPrice()
     {
-            getContentPanel().add(new SetInventorySellingPriceGUI(this));
+            SetInventorySellingPriceGUI tempGUI=new SetInventorySellingPriceGUI(this);
+            tempGUI.setMainController(new SellingPriceController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
     public void changePanelToSetInventoryQuantity()
     {
-            getContentPanel().add(new SetInventoryQuantityGUI(this));
+            SetInventoryQuantityGUI tempGUI = new SetInventoryQuantityGUI(this);
+            tempGUI.setMainController(new QuantityController(new ItemModel(dbc),tempGUI));
+            tempGUI.ViewAll();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -507,6 +536,26 @@ public class GUIController
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
+    
+    public void changePanelToModifyPassword()
+    {
+            dialogRevalidate(new ModifyPasswordGUI(this));
+    }
+    
+    public void changePanelToModifySystemProfile()
+    {
+            ModifySystemProfileGUI tempGUI =new ModifySystemProfileGUI(this);
+            tempGUI.setMainController(new SystemAccountController(new SystemAccountModel(dbc)));
+            tempGUI.setDetails();
+            dialogRevalidate(tempGUI);
+    }
+    
+    public void getAlert(String type)
+    {
+    	FactoryModify fm= new FactoryModify();
+    	fm.createProduct(type,dbc);
+    }
+    
     /****MAIN MENU SECTION PANELS ***/
     public void changePanelToPayments()
     {
@@ -538,24 +587,7 @@ public class GUIController
             mainMenuRevalidate();
     }
     
-    public void changePanelToModifyPassword()
-    {
-            ModifyPasswordPanel tempGUI= new ModifyPasswordPanel(this);
-            getContentPanel().add(tempGUI);
-            frameRevalidate();
-    }
     
-    public void changePanelToModifyCompanyProfile()
-    {
-    	ModifyCompanyProfilePanel tempGUI= new ModifyCompanyProfilePanel(this);
-        getContentPanel().add(tempGUI);
-        frameRevalidate();
-    }
-    
-    public void getAlert(String type){
-    	FactoryModify fm= new FactoryModify();
-    	fm.createProduct(type,dbc);
-    }
     
     public static void main(String args[]){
         new GUIController();
