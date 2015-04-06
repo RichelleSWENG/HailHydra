@@ -30,8 +30,8 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-public class AccountProfileListGUI extends JPanel {
-
+public class AccountProfileListGUI extends JPanel 
+{
 	private JLabel lblHeader, lblDisplay, lblName, lblAccountsFound,
 			lblNumOfAccountsFound;
 	private JTextField tfSearch;
