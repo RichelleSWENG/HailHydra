@@ -38,7 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('ange','123',1),('gegq','123',1),('janine','1861096',1),('jolo','tftfuguy',1),('jolo_pogi','udguidui',1),('Kingston','koa',1),('KOK','MEME',1),('meme','sad',1),('rich ','meme',1);
+INSERT INTO `account` VALUES ('admin','1234',0),('employee','12345',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -77,7 +77,7 @@ CREATE TABLE `acknowledgementreceipt` (
 
 LOCK TABLES `acknowledgementreceipt` WRITE;
 /*!40000 ALTER TABLE `acknowledgementreceipt` DISABLE KEYS */;
-INSERT INTO `acknowledgementreceipt` VALUES ('1234',2,'2014-02-12',10.00,'123','123','123','123','123','123',123.00,123.00,'Open','','Acknowledgement Receipt'),('23',2,'2015-03-29',87.00,'345','','','','','45',12.00,87.00,'Open',NULL,'Acknowledgement Receipt'),('6',1,'2015-03-23',290.00,'6','a','a','a','a','6',0.00,290.00,'Open',NULL,'Acknowledgement Receipt');
+INSERT INTO `acknowledgementreceipt` VALUES ('1234',2,'2014-02-12',10.00,'123','123','123','123','123','123',123.00,123.00,'Open','','Acknowledgement Receipt'),('23',2,'2015-03-29',87.00,'345','','','','','45',12.00,87.00,'Open',NULL,'Acknowledgement Receipt'),('6',1,'2015-03-23',290.00,'6','a','a','a','a','6',0.00,0.00,'Closed',NULL,'Acknowledgement Receipt');
 /*!40000 ALTER TABLE `acknowledgementreceipt` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -125,12 +125,12 @@ CREATE TABLE `collection` (
   `receipt_type` varchar(45) NOT NULL,
   `number` varchar(45) NOT NULL,
   `notes` varchar(500) DEFAULT NULL,
-  `reveived_by` varchar(45) DEFAULT NULL,
+  `received_by` varchar(45) DEFAULT NULL,
   `collection_type` varchar(100) NOT NULL,
   `debit_memo_id` varchar(45) DEFAULT NULL,
   `received_date` date DEFAULT NULL,
   PRIMARY KEY (`collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -139,6 +139,7 @@ CREATE TABLE `collection` (
 
 LOCK TABLES `collection` WRITE;
 /*!40000 ALTER TABLE `collection` DISABLE KEYS */;
+INSERT INTO `collection` VALUES (1,'2015-04-04',20.00,'Acknowledgement Receipt','6','','','Cash','',NULL),(2,'2015-04-04',20.00,'Acknowledgement Receipt','6','','','Cash','',NULL),(3,'2015-04-04',290.00,'Acknowledgement Receipt','6','','','Cash','',NULL),(4,'2015-04-04',0.00,'Acknowledgement Receipt','6','','','Cash','',NULL),(5,'2015-04-04',0.00,'Acknowledgement Receipt','6','','','Cash','',NULL),(6,'2015-04-04',20.00,'Acknowledgement Receipt','6','','','Cash','',NULL);
 /*!40000 ALTER TABLE `collection` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -165,7 +166,7 @@ CREATE TABLE `company` (
   `contact_person` varchar(45) DEFAULT NULL,
   `status` varchar(8) NOT NULL DEFAULT 'Active',
   `credit_limit` decimal(10,2) NOT NULL,
-  `terms` int(11) NOT NULL,
+  `terms` int(4) NOT NULL,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`company_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
@@ -303,7 +304,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',60.00,50.00,50.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,60.00,70.00,80.00,1,1,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,87.00,78.00,30.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,210.00,220.00,230.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -328,9 +329,7 @@ CREATE TABLE `payments` (
   `approved_date` date DEFAULT NULL,
   `received_date` date DEFAULT NULL,
   `prepared_date` date DEFAULT NULL,
-  PRIMARY KEY (`payment_id`),
-  KEY `purchase_transaction_id_idx` (`purchase_transaction_id`),
-  CONSTRAINT `purchase_transaction_id` FOREIGN KEY (`purchase_transaction_id`) REFERENCES `purchasetransaction` (`purchase_transaction_id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`payment_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -367,7 +366,7 @@ CREATE TABLE `ptlineitem` (
 
 LOCK TABLES `ptlineitem` WRITE;
 /*!40000 ALTER TABLE `ptlineitem` DISABLE KEYS */;
-INSERT INTO `ptlineitem` VALUES (1,2,'abc',12,24.00),(2,2,'abc',12,24.00);
+INSERT INTO `ptlineitem` VALUES (1,2,'abc',12,24.00),(2,2,'abc',12,24.00),(1,1,'123',60,60.00),(3,1,'234',40,40.00),(123,1,'234',40,40.00),(1123,1,'234',40,40.00);
 /*!40000 ALTER TABLE `ptlineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -396,7 +395,7 @@ CREATE TABLE `purchasetransaction` (
   `address` varchar(100) DEFAULT NULL,
   `subtotal` decimal(10,2) DEFAULT '0.00',
   PRIMARY KEY (`purchase_transaction_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -405,7 +404,7 @@ CREATE TABLE `purchasetransaction` (
 
 LOCK TABLES `purchasetransaction` WRITE;
 /*!40000 ALTER TABLE `purchasetransaction` DISABLE KEYS */;
-INSERT INTO `purchasetransaction` VALUES (1,8,'2015-01-13',23.00,1.00,'fsdfs','dfs','fsf','sdfdsfs','dsfsfs',12.00,'ddfdsv',23.00,'Open','sdfdgdss',0.00),(2,9,'2016-02-02',123.00,1.00,'dfdsf','dfsdf','dfsfs','dsfs','sdfsdf',13.00,'cvsdf',0.00,'Closed','sdsadsasd',0.00),(3,9,'2015-01-01',12.00,1.00,'dfsd','dsfsf','dfdsfs','dsfds','fsdf',14.00,'fsdf',12.00,'Open','fdfsds',0.00);
+INSERT INTO `purchasetransaction` VALUES (123,8,'2015-04-04',40.00,0.00,'12312','','23123','','',4.80,'231',44.80,'Open',NULL,0.00),(1123,9,'2015-04-04',40.00,0.00,'123','','123','','',4.80,'13',44.80,'Open',NULL,0.00);
 /*!40000 ALTER TABLE `purchasetransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -550,13 +549,14 @@ DROP TABLE IF EXISTS `systeminfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systeminfo` (
+  `system_info_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(60) NOT NULL,
   `company_address` varchar(100) NOT NULL,
   `vat_percentage` int(11) NOT NULL,
   `credit_alert` int(11) NOT NULL,
   `terms_report` int(11) NOT NULL,
-  PRIMARY KEY (`company_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  PRIMARY KEY (`system_info_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -565,7 +565,7 @@ CREATE TABLE `systeminfo` (
 
 LOCK TABLES `systeminfo` WRITE;
 /*!40000 ALTER TABLE `systeminfo` DISABLE KEYS */;
-INSERT INTO `systeminfo` VALUES ('Hydraforce Enterprises','206 Rizal Ave. Ext., 117 Caloocan City, Manila, Philippines',12,12,12);
+INSERT INTO `systeminfo` VALUES (1,'Hydraforce Enterprises','206 Rizal Ave. Ext., 117 Caloocan City, Manila, Philippines',18,12,5);
 /*!40000 ALTER TABLE `systeminfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -578,4 +578,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-04 14:13:14
+-- Dump completed on 2015-04-07  0:53:57
