@@ -26,6 +26,7 @@ public class LoginGUI extends JPanel {
 	private JButton btnLogin;
         private Font fntPlainText, fntHeaderText;
         private GUIController controllerGUI;
+        private LoginController mainController;
 
 	public LoginGUI(GUIController temp) {
                 controllerGUI=temp;
@@ -72,12 +73,10 @@ public class LoginGUI extends JPanel {
                             String password = new String(pfPassword.getPassword());
                             if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
                             {
-                                try {
-                                    controllerGUI.login(tfUsername.getText().toString(), password);
-                                } catch (SQLException ex) {
-                                    Logger.getLogger(LoginGUI.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                                    controllerGUI.changePanelToMainMenu();
+                                    if(mainController.validate(tfUsername.getText(), password)!=null)
+                                        controllerGUI.changePanelToMainMenu();
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Wrong username or password");
                             }else
                             {
                                 JOptionPane.showMessageDialog(null, "Please fill up all fields.");
@@ -90,6 +89,11 @@ public class LoginGUI extends JPanel {
 		
 		
 	}
+        
+        public void setMainController(LoginController cont)
+        {
+            mainController=cont;
+        }
         
         public static void main(String args[]){
             new GUIController();
