@@ -7,13 +7,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PurchasesGUI extends JPanel {
+public class PurchasesGUI extends JPanel 
+{
 
 	private JButton purchaseTransBtn, creditMemoBtn, returnSlipBtn, orderReportBtn;
 	private Font fntPlainText;
         private GUIController controller;
         
-	public PurchasesGUI(GUIController temp) {
+	public PurchasesGUI(GUIController temp) 
+	{
                 controller=temp;
                 
 		setBounds(5, 5, 580, 390);
@@ -21,14 +23,15 @@ public class PurchasesGUI extends JPanel {
 		
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 
-		purchaseTransBtn = new JButton("Purchase Transactions");
+		purchaseTransBtn = new JButton("Purchase Transaction");
 		purchaseTransBtn.setFont(fntPlainText);
 		purchaseTransBtn.setBounds(165, 90, 260, 40);
 		add(purchaseTransBtn);
                 purchaseTransBtn.addActionListener(
                     new ActionListener()
                     {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e)
+                        {
                               controller.changePanelToPurchaseTransactionList();
                        
                         }
@@ -41,7 +44,8 @@ public class PurchasesGUI extends JPanel {
                 orderReportBtn.addActionListener(
                     new ActionListener()
                     {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e)
+                        {
                               controller.changePanelToOrderReport();
                        
                         }
@@ -54,9 +58,9 @@ public class PurchasesGUI extends JPanel {
                 returnSlipBtn.addActionListener(
                     new ActionListener()
                     {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e)
+                        {
                               controller.changePanelToReturnSlip();
-                       
                         }
                     });
                 
@@ -67,7 +71,8 @@ public class PurchasesGUI extends JPanel {
                 creditMemoBtn.addActionListener(
                     new ActionListener()
                     {
-                        public void actionPerformed(ActionEvent e){
+                        public void actionPerformed(ActionEvent e)
+                        {
                               controller.changePanelToCreditMemo();
                        
                         }
