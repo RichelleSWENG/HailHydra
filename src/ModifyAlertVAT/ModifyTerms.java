@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class ModifyTerms extends PopUp{
 	
-	public ModifyTerms(){
-		input = JOptionPane.showInputDialog("Enter New Terms (Days):");
+	public ModifyTerms(String terms){
+		input = JOptionPane.showInputDialog("The Current Terms (Days) is: "+terms+"\nEnter New Terms (Days):");
 	}
 }
