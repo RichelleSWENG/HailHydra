@@ -430,7 +430,7 @@ public class PayablesListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToAddPaymentPayables();
+                                controller.changePanelToViewPaymentPayables();
                         }
                     });
 
