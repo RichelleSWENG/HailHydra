@@ -42,7 +42,9 @@ import Inventory.SetInventoryLastCostGUI;
 import Inventory.SetInventoryQuantityGUI;
 import Inventory.SetInventorySellingPriceGUI;
 import Inventory.ViewItemProfileGUI;
+import Login.LoginController;
 import Login.LoginGUI;
+import Login.LoginModel;
 import Login.MainMenuGUI;
 import Login.PaymentsGUI;
 import Login.ProfilesGUI;
@@ -186,7 +188,9 @@ public class GUIController
     public void changePanelToLogin()
     {
             main=new MainMenuGUI(this);
-            getContentPanel().add(new LoginGUI(this));
+            LoginGUI tempGUI =new LoginGUI(this);
+            tempGUI.setMainController(new LoginController(new LoginModel(dbc)));
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

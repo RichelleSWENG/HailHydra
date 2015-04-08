@@ -2,10 +2,12 @@ package ModifyAlertVAT;
 
 import javax.swing.JOptionPane;
 
-public class ModifyVAT extends PopUp{
+public class ModifyVAT extends PopUp
+{
 	
-	public ModifyVAT(){
-		input = JOptionPane.showInputDialog("Enter New VAT Percentage:");
+	public ModifyVAT(String vat)
+	{
+		input = JOptionPane.showInputDialog("The Current VAT Percentage is: "+vat+"\nEnter New VAT Percentage:");
 	}
 
 }

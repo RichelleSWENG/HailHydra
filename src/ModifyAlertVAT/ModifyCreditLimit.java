@@ -4,7 +4,7 @@ import javax.swing.JOptionPane;
 
 public class ModifyCreditLimit extends PopUp{
 	
-	public ModifyCreditLimit(){
-		input = JOptionPane.showInputDialog("Enter New Credit Limit Percentage:");
+	public ModifyCreditLimit(String credit){
+		input = JOptionPane.showInputDialog("The Current Credit Limit Percentage is: "+credit+"\nEnter New Credit Limit Percentage:");
 	}
 }
