@@ -161,7 +161,7 @@ public class ReturnSlipGUI extends JPanel
 		tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
 		tfSINum.setBounds(660, 140, 305, 30);
-		add(tfSINum);
+		//add(tfSINum);
                 
 
                 cmbPTNum = new JComboBox();

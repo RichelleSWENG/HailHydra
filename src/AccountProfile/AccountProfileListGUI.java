@@ -166,6 +166,21 @@ public class AccountProfileListGUI extends JPanel
 				}
 			}
 		});
+                
+                tbModel = new DefaultTableModel() 
+                {
+			public boolean isCellEditable(int rowIndex, int mColIndex) 
+                        {
+				return false;
+			}
+		};
+
+		tbModel.setRowCount(15);
+
+		for (int i = 0; i < strHeader.length; i++) 
+                {
+			tbModel.addColumn(strHeader[i]);
+		}
 
 		tbAccountProfile = new JTable(tbModel) 
                 {
@@ -261,6 +276,7 @@ public class AccountProfileListGUI extends JPanel
 				} else if (!chckbxCustomer.isSelected()
 						&& !chckbxSupplier.isSelected()) 
                                 {
+
 					tbAccountProfile.setModel(tbModel);
 					lblNumOfAccountsFound.setText("0");
 				}
