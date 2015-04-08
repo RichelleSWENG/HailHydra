@@ -105,6 +105,7 @@ public class GUIController
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
     private AcknowledgementReceiptController ARController;
+    private PurchaseTransactionController PTController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -220,9 +221,10 @@ public class GUIController
     }
     
     public void changePanelToPurchaseTransactionList()
-    {
+    {       
             PurchaseTransactionListGUI tempGUI= new PurchaseTransactionListGUI(this);
-            tempGUI.setMainController(new PurchaseTransactionController(new PurchasesModel(dbc),tempGUI));
+            PTController = new PurchaseTransactionController(new PurchasesModel(dbc),tempGUI);
+            tempGUI.setMainController(PTController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -231,7 +233,7 @@ public class GUIController
     public void changePanelToAddPurchaseTransaction()
     {
             AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
-            tempGUI.setController(new PurchaseTransactionController(new PurchasesModel(dbc), null));
+            tempGUI.setController(PTController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -244,7 +246,10 @@ public class GUIController
     }
     public void changePanelToViewPurchaseTransaction()
     {
-            getContentPanel().add(new ViewPurchaseTransactionGUI(this));
+            ViewPurchaseTransactionGUI tempGUI = new ViewPurchaseTransactionGUI(this);
+            tempGUI.setController(PTController);
+            tempGUI.setViewComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

@@ -73,7 +73,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                             {
                                 mainController.addPendingItem(new PTLineItem(tfPurchaseTransactionNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addPT(tfPurchaseTransactionNum.getText(), mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText()), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfVat.getText()), Float.parseFloat(ftfBalance.getText()), "Open");
+                            mainController.addPT(tfPurchaseTransactionNum.getText(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText()), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfVat.getText()), Float.parseFloat(ftfBalance.getText()), "Open",  mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1));
                             guiController.changePanelToPurchaseTransactionList();
                         } catch (NullPointerException exception)
                         {

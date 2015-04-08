@@ -142,11 +142,13 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI imp
         cmbCustomer.setSelectedItem(rcpt.getCompany_name());
         numItems = rcpt.getList().size();
         tbModel.setRowCount(numItems);
+        tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
            tbModel.setValueAt(rcpt.getList().get(i).getQuantity(), i, 0);
            tbModel.setValueAt(rcpt.getList().get(i).getPartNum(), i, 1);
         }
+        tbARReceipt.setEnabled(false);
 
     }
     
@@ -173,7 +175,8 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI imp
         totalBalance = 0;
         for (i = 0; i < tbModel.getRowCount(); i ++)
         {
-            totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
+            if (tbModel.getValueAt(i, 4) != null)
+                totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
         dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
         ftfTotal.setText(String.valueOf(dedBalance));

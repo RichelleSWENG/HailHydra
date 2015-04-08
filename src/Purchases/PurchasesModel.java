@@ -284,5 +284,81 @@ public class PurchasesModel
     {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
+    
+    public PurchaseTransaction getPT(String ID)
+    {
+        ArrayList<PTLineItem> stuff;
+        PurchaseTransaction pt = null;
+        int company_id = -1;
+
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM purchasetransaction WHERE purchase_transaction_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+
+            if (rs.next())
+            {
+                pt = new PurchaseTransaction();
+                pt.setPurchase_transaction_id(rs.getString("purchase_transaction_id"));
+                pt.setDate(rs.getString("date"));
+                pt.setOriginal_amount(rs.getFloat("original_amount"));
+                pt.setPo_num(rs.getString("po_num"));
+                pt.setOrdered_by(rs.getString("ordered_by"));
+                pt.setReceived_by(rs.getString("received_by"));
+                pt.setRef_sales_invoice_num(rs.getString("ref_sales_invoice_num"));
+                pt.setReceiving_notes(rs.getString("receiving_notes"));
+                pt.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
+                pt.setDiscount(rs.getFloat("discount"));
+                pt.setVat(rs.getFloat("vat"));
+                pt.setCurrent_balance(rs.getFloat("current_balance"));
+                pt.setStatus(rs.getString("status"));
+                company_id = rs.getInt("company_id");
+            }
+
+            if (pt != null)
+            {
+                String query = "SELECT * FROM ptlineitem WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                while (rs.next())
+                {
+                    pt.addItem(new PTLineItem(pt.getPurchase_transaction_id(), rs.getInt("quantity"), rs.getString("part_num"), rs.getFloat("unit_price"), rs.getFloat("line_total")));
+                }
+
+                query = "SELECT * FROM company WHERE company_id = '" + company_id + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                Company tempCustomer = new Company();
+                if (rs.next())
+                {
+                    tempCustomer.setId(rs.getInt("company_id"));
+                    tempCustomer.setName(rs.getString("name"));
+                    tempCustomer.setAddressLoc(rs.getString("address_location"));
+                    tempCustomer.setAddressCity(rs.getString("address_city"));
+                    tempCustomer.setAddressCountry(rs.getString("address_country"));
+                    tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                    tempCustomer.setPhone1(rs.getString("phone1"));
+                    tempCustomer.setPhone2(rs.getString("phone2"));
+                    tempCustomer.setPhone3(rs.getString("phone3"));
+                    tempCustomer.setFaxNum(rs.getString("fax_num"));
+                    tempCustomer.setWebsite(rs.getString("website"));
+                    tempCustomer.setEmail(rs.getString("email"));
+                    tempCustomer.setContactPerson(rs.getString("contact_person"));
+                    tempCustomer.setStatus(rs.getString("status"));
+                    tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempCustomer.setTerms(rs.getInt("terms"));
+                    tempCustomer.setType(rs.getString("type"));
+                }
+                pt.setCompany(tempCustomer);
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+
+        return pt;
+    }
         
 }

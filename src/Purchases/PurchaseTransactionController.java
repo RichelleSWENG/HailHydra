@@ -15,6 +15,7 @@ public class PurchaseTransactionController {
     private PurchaseTransactionListGUI gui;
     private ArrayList<PTLineItem> pendingItems;
     private int itemcount;
+    private PurchaseTransaction purchaseTransaction;
     
     public PurchaseTransactionController(PurchasesModel tempModel,PurchaseTransactionListGUI tempGUI)
     {
@@ -116,10 +117,27 @@ public class PurchaseTransactionController {
         return purchasesModel.getAvailQuantity(index);
     }
     
-    public void addPT(String purchase_transaction_id, int company_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status)
+    public void addPT(String purchase_transaction_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status, Company company)
     {
-        PurchaseTransaction pt = new PurchaseTransaction(purchase_transaction_id, company_id, date, original_amount, po_num, received_by, ordered_by, receiving_notes, delivery_receipt_num, ref_sales_invoice_num, discount, vat, current_balance, status, pendingItems);
+        PurchaseTransaction pt = new PurchaseTransaction(purchase_transaction_id, date, original_amount, po_num, received_by, ordered_by, receiving_notes, delivery_receipt_num, ref_sales_invoice_num, discount, vat, current_balance, status, pendingItems, company);
         purchasesModel.addDetail(pt);
         //ackReceiptModel.addDetail(rcpt);
     }
+
+    public PurchaseTransaction getPurchaseTransaction()
+    {
+        return purchaseTransaction;
+    }
+
+    public void setPurchaseTransaction(PurchaseTransaction purchaseTransaction)
+    {
+        this.purchaseTransaction = purchaseTransaction;
+    }
+    
+    public PurchaseTransaction getPT(String ID)
+    {
+        return purchasesModel.getPT(ID);
+    }
+    
+    
 }

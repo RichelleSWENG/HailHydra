@@ -1,11 +1,11 @@
 package Purchases;
 
+import Classes.Company;
 import java.util.ArrayList;
 
 public class PurchaseTransaction
 {
     private String purchase_transaction_id;
-    private int company_id;
     private String date;
     private float original_amount;
     private String po_num;
@@ -19,11 +19,11 @@ public class PurchaseTransaction
     private float current_balance;
     private String status;
     private ArrayList<PTLineItem> list;
+    private Company company;
 
     public PurchaseTransaction()
     {
         this.purchase_transaction_id = "";
-        this.company_id = 0;
         this.date = "";
         this.original_amount = 0;
         this.po_num = "";
@@ -39,10 +39,10 @@ public class PurchaseTransaction
         this.list = new ArrayList<>();
     }
 
-    public PurchaseTransaction(String purchase_transaction_id, int company_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status, ArrayList<PTLineItem> list)
+    public PurchaseTransaction(String purchase_transaction_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status, ArrayList<PTLineItem> list, Company company)
     {
         this.purchase_transaction_id = purchase_transaction_id;
-        this.company_id = company_id;
+        this.company = company;
         this.date = date;
         this.original_amount = original_amount;
         this.po_num = po_num;
@@ -66,16 +66,6 @@ public class PurchaseTransaction
     public void setPurchase_transaction_id(String purchase_transaction_id)
     {
         this.purchase_transaction_id = purchase_transaction_id;
-    }
-
-    public int getCompany_id()
-    {
-        return company_id;
-    }
-
-    public void setCompany_id(int company_id)
-    {
-        this.company_id = company_id;
     }
 
     public String getDate()
@@ -216,6 +206,27 @@ public class PurchaseTransaction
     public void setRef_sales_invoice_num(String ref_sales_invoice_num)
     {
         this.ref_sales_invoice_num = ref_sales_invoice_num;
+    }
+    
+
+    public void setCompany(Company c)
+    {
+        company = c;
+    }
+
+    public Company getCompany()
+    {
+        return company;
+    }
+    
+    public int getCompany_id()
+    {
+        return company.getId();
+    }
+    
+    public String getCompany_name()
+    {
+        return company.getName();
     }
 
 }
