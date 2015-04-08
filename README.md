@@ -5,7 +5,7 @@ Files are sorted by feature, each has its own controller and model because yolo 
 
 **To Do List** <br>
 View/Edit AR, SI, PT  <br>
-View/Edit Return Slip<br>
+View Return Slip<br>
 View Payments<br>
 Add Credit Memo<br>
 Add Debit Memo<br>
