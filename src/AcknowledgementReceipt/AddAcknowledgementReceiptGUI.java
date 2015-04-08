@@ -102,7 +102,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                             {
                                 mainController.addPendingItem(new ARLineItem(tfARNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addAR(tfARNum.getText(), mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open");
+                            mainController.addAR(tfARNum.getText(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open", mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1) );
                             guiController.changePanelToAcknowledgementReceipt();
                         }
                         catch (NullPointerException exception)

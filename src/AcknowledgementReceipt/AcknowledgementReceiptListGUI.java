@@ -353,7 +353,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     JOptionPane.showMessageDialog(null, "Please select an item.");
                 else
                 {
-                    mainController.setReceiptTarget(mainController.getAR(tbAckReceipt.getValueAt(row, 0).toString()));
+                    mainController.setReceiptTarget(mainController.getAR(tbAckReceipt.getValueAt(row, 2).toString()));
                     guiController.changePanelToViewAcknowledgementReceipt();
                 }
                 

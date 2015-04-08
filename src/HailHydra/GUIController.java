@@ -102,6 +102,7 @@ public class GUIController
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
+    private AcknowledgementReceiptController ARController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -117,6 +118,7 @@ public class GUIController
             inventoryModel = new ItemModel(dbc);
             inventoryGUI= new InventoryListGUI (this);
             inventoryController = new InventoryController(inventoryModel,inventoryGUI);
+            
            
             modal= new JDialog(frame);
             
@@ -303,7 +305,8 @@ public class GUIController
     public void changePanelToAcknowledgementReceipt()
     {       
             AcknowledgementReceiptListGUI tempGUI = new AcknowledgementReceiptListGUI(this);
-            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),tempGUI));
+            ARController = new AcknowledgementReceiptController(new AckReceiptModel(dbc),tempGUI);
+            tempGUI.setMainController(ARController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -312,7 +315,7 @@ public class GUIController
     public void changePanelToAddAcknowledgementReceipt()
     {
             AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this);
-            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
+            tempGUI.setMainController(ARController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -321,7 +324,8 @@ public class GUIController
     public void changePanelToViewAcknowledgementReceipt()
     {
             ViewAcknowledgementReceiptGUI tempGUI = new ViewAcknowledgementReceiptGUI(this);
-            tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
+            tempGUI.setMainController(ARController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

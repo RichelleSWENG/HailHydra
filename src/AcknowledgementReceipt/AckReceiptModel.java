@@ -12,6 +12,7 @@ import net.proteanit.sql.DbUtils;
 
 public class AckReceiptModel
 {
+
     protected Connection db;
     protected Statement statement;
 
@@ -60,14 +61,14 @@ public class AckReceiptModel
         }
         return rs;
     }
-    
-    public ResultSet getAllDetailbyDate(String startDate,String endDate)
+
+    public ResultSet getAllDetailbyDate(String startDate, String endDate)
     {
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+            String sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -78,7 +79,7 @@ public class AckReceiptModel
         }
         return rs;
     }
-    
+
     public ResultSet searchDetail(String field, String filter, String startDate, String endDate)
     {
         ResultSet rs = null;
@@ -88,13 +89,13 @@ public class AckReceiptModel
             String sql = "";
             if (filter.equalsIgnoreCase("name"))
             {
-                    sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND company.name LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-            } else if(filter.equalsIgnoreCase("acknowledgement number"))
+                sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND company.name LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            } else if (filter.equalsIgnoreCase("acknowledgement number"))
             {
-                    sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND acknowledgement_receipt_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-            }else if(filter.equalsIgnoreCase("part number"))
+                sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND acknowledgement_receipt_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            } else if (filter.equalsIgnoreCase("part number"))
             {
-                    sql = "SELECT company.name, date,acknowledgementreceipt.acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt,arlineitem WHERE acknowledgementreceipt.company_id=company.company_id AND arlineitem.acknowledgement_receipt_id=acknowledgementreceipt.acknowledgement_receipt_id AND arlineitem.part_num LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+                sql = "SELECT company.name, date,acknowledgementreceipt.acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt,arlineitem WHERE acknowledgementreceipt.company_id=company.company_id AND arlineitem.acknowledgement_receipt_id=acknowledgementreceipt.acknowledgement_receipt_id AND arlineitem.part_num LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -112,9 +113,9 @@ public class AckReceiptModel
         AcknowledgementReceipt ar = obj;
         try
         {
-        
+
             statement = db.createStatement();
-            String sql = "INSERT INTO acknowledgementreceipt(acknowledgement_receipt_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES('" + ar.getAcknowledgement_receipt_id() + "','" + ar.getCompany_id()  + "','" + ar.getDate() + "','" + ar.getPo_num() + "','" + ar.getDelivery_receipt_num() + "','" + ar.getSales_person() + "','" + ar.getOrdered_by() + "','" + ar.getDelivered_by() + "','" + ar.getDelivery_notes() + "','" + ar.getDiscount() + "','" + ar.getOriginal_amount() + "','" + ar.getCurrent_balance() + "','" + ar.getStatus()+"')";
+            String sql = "INSERT INTO acknowledgementreceipt(acknowledgement_receipt_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status) VALUES('" + ar.getAcknowledgement_receipt_id() + "','" + ar.getCompany_id() + "','" + ar.getDate() + "','" + ar.getPo_num() + "','" + ar.getDelivery_receipt_num() + "','" + ar.getSales_person() + "','" + ar.getOrdered_by() + "','" + ar.getDelivered_by() + "','" + ar.getDelivery_notes() + "','" + ar.getDiscount() + "','" + ar.getOriginal_amount() + "','" + ar.getCurrent_balance() + "','" + ar.getStatus() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
@@ -194,7 +195,6 @@ public class AckReceiptModel
                 tempCustomer.setType(rs.getString("type"));
                 customers.add(tempCustomer);
             }
-            System.out.println(customers.size());
 
         } catch (Exception e)
         {
@@ -202,8 +202,8 @@ public class AckReceiptModel
         }
         return customers;
     }
-    
-     public ArrayList<ARLineItem> getItems(String customerType)
+
+    public ArrayList<ARLineItem> getItems(String customerType)
     {
         items = new ArrayList<>();
         ResultSet rs;
@@ -218,15 +218,21 @@ public class AckReceiptModel
                 tempItem = new ARLineItem();
                 tempItem.setPartNum(rs.getString("part_num"));
                 tempItem.setDescription(rs.getString("description"));
-                
+
                 if (customerType.equals("Walk-in Customer"))
+                {
                     tempItem.setPrice(rs.getFloat("walk_in_price"));
+                }
                 if (customerType.equals("Retail Customer"))
+                {
                     tempItem.setPrice(rs.getFloat("traders_price"));
+                }
                 if (customerType.equals("Sister Company Customer"))
+                {
                     tempItem.setPrice(rs.getFloat("sister_company_price"));
+                }
                 items.add(tempItem);
-                
+
                 tempItem.setMinimum(rs.getInt("stock_minimum"));
                 tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
             }
@@ -237,28 +243,28 @@ public class AckReceiptModel
         }
         return items;
     }
-    
+
     public Company getCustomer(int index)
     {
         return customers.get(index);
     }
-    
+
     public Item getItem(int index)
     {
         return items.get(index);
     }
-    
+
     public int getAvailQuantity(int index)
     {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
-    
+
     public TableModel myModel(ResultSet rs)
-    {     
+    {
         TableModel model = DbUtils.resultSetToTableModel(rs);
         return model;
     }
-    
+
     public ResultSet getMinYear()
     {
         ResultSet rs = null;
@@ -267,15 +273,15 @@ public class AckReceiptModel
             statement = db.createStatement();
             String sql = "SELECT MIN(YEAR(date)) FROM acknowledgementreceipt";
             rs = statement.executeQuery(sql);
-            
+
         } catch (Exception e)
         {
             e.getMessage();
         }
         return rs;
     }
-    
-     public ResultSet getMaxYear()
+
+    public ResultSet getMaxYear()
     {
         ResultSet rs = null;
         try
@@ -289,54 +295,79 @@ public class AckReceiptModel
         }
         return rs;
     }
-     
-     public AcknowledgementReceipt getAR(String ID)
-     {
-        ArrayList<ARLineItem> stuff; 
+
+    public AcknowledgementReceipt getAR(String ID)
+    {
+        ArrayList<ARLineItem> stuff;
         AcknowledgementReceipt rcpt = null;
+        int company_id = -1;
 
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT * WHERE acknowledgement_receipt_id = '" + ID + "'";
+            String sql = "SELECT * FROM acknowledgementreceipt WHERE acknowledgement_receipt_id = '" + ID + "'";
             rs = statement.executeQuery(sql);
-            
+
             if (rs.next())
             {
                 rcpt = new AcknowledgementReceipt();
                 rcpt.setAcknowledgement_receipt_id(rs.getString("acknowledgement_receipt_id"));
-		rcpt.setCompany_id(rs.getInt("company_id"));
-		rcpt.setDate(rs.getString("date"));
-		rcpt.setOriginal_amount(rs.getFloat("original_amount"));
-		rcpt.setPo_num(rs.getString("po_num"));
-		rcpt.setOrdered_by(rs.getString("ordered_by"));
-		rcpt.setSales_person(rs.getString("sales_person"));
-		rcpt.setDelivered_by(rs.getString("delivered_by"));
-		rcpt.setDelivery_notes(rs.getString("delivery_notes"));
-		rcpt.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
-		rcpt.setDiscount(rs.getFloat("discount"));
-		rcpt.setCurrent_balance(rs.getFloat("current_balance"));
-		rcpt.setStatus(rs.getString("status"));
+                rcpt.setDate(rs.getString("date"));
+                rcpt.setOriginal_amount(rs.getFloat("original_amount"));
+                rcpt.setPo_num(rs.getString("po_num"));
+                rcpt.setOrdered_by(rs.getString("ordered_by"));
+                rcpt.setSales_person(rs.getString("sales_person"));
+                rcpt.setDelivered_by(rs.getString("delivered_by"));
+                rcpt.setDelivery_notes(rs.getString("delivery_notes"));
+                rcpt.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
+                rcpt.setDiscount(rs.getFloat("discount"));
+                rcpt.setCurrent_balance(rs.getFloat("current_balance"));
+                rcpt.setStatus(rs.getString("status"));
+                company_id = rs.getInt("company_id");
             }
-            /*
+
             if (rcpt != null)
             {
-                String query = "SELECT org_id, org_name, org_password FROM manager m, organization o WHERE m.user_id = '" + user.getUser_id() + "' AND o.org_id = m.org_id";
+                String query = "SELECT * FROM arlineitem WHERE acknowledgement_receipt_id = '" + rcpt.getAcknowledgement_receipt_id() + "'";
                 statement = db.createStatement();
                 rs = statement.executeQuery(query);
                 while (rs.next())
                 {
-                    user.addOrg(new Organization(rs.getInt("org_id"), rs.getString("org_name"), rs.getString("org_password")));
+                    rcpt.addItem(new ARLineItem(rcpt.getAcknowledgement_receipt_id(), rs.getInt("quantity"), rs.getString("part_num"), rs.getFloat("unit_price"), rs.getFloat("line_total")));
                 }
-            }*/
-        } 
-        
-        catch (Exception e)
+
+                query = "SELECT * FROM company WHERE company_id = '" + company_id + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                Company tempCustomer = new Company();
+                if (rs.next())
+                {
+                    tempCustomer.setId(rs.getInt("company_id"));
+                    tempCustomer.setName(rs.getString("name"));
+                    tempCustomer.setAddressLoc(rs.getString("address_location"));
+                    tempCustomer.setAddressCity(rs.getString("address_city"));
+                    tempCustomer.setAddressCountry(rs.getString("address_country"));
+                    tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                    tempCustomer.setPhone1(rs.getString("phone1"));
+                    tempCustomer.setPhone2(rs.getString("phone2"));
+                    tempCustomer.setPhone3(rs.getString("phone3"));
+                    tempCustomer.setFaxNum(rs.getString("fax_num"));
+                    tempCustomer.setWebsite(rs.getString("website"));
+                    tempCustomer.setEmail(rs.getString("email"));
+                    tempCustomer.setContactPerson(rs.getString("contact_person"));
+                    tempCustomer.setStatus(rs.getString("status"));
+                    tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempCustomer.setTerms(rs.getInt("terms"));
+                    tempCustomer.setType(rs.getString("type"));
+                }
+                rcpt.setCompany(tempCustomer);
+            }
+        } catch (Exception e)
         {
             e.getMessage();
         }
-        
+
         return rcpt;
-     }
+    }
 }

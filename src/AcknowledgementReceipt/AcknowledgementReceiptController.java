@@ -56,9 +56,9 @@ public class AcknowledgementReceiptController
         pendingItems.clear();
     }
     
-    public void addAR(String acknowledgement_receipt_id,int company_id,String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance, String status)
+    public void addAR(String acknowledgement_receipt_id, String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance, String status, Company company)
     {
-        AcknowledgementReceipt rcpt = new AcknowledgementReceipt(acknowledgement_receipt_id,company_id,date,original_amount,po_num,ordered_by,sales_person,delivered_by,delivery_notes,delivery_receipt_num,discount, current_balance,status, pendingItems);
+        AcknowledgementReceipt rcpt = new AcknowledgementReceipt(acknowledgement_receipt_id, date,original_amount,po_num,ordered_by,sales_person,delivered_by,delivery_notes,delivery_receipt_num,discount, current_balance,status, pendingItems, company);
         ackReceiptModel.addDetail(rcpt);
         //ackReceiptModel.addDetail(rcpt);
     }
