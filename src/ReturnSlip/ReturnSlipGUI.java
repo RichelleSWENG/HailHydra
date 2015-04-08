@@ -157,12 +157,13 @@ public class ReturnSlipGUI extends JPanel
                 ftfDate.setFont(fntPlainText);
                 ftfDate.setBounds(670, 110, 295, 30);
                 add(ftfDate);
-		
-		/*tfSINum = new JTextField();
+
+		tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
 		tfSINum.setBounds(660, 140, 305, 30);
 		add(tfSINum);
-                */
+                
+
                 cmbPTNum = new JComboBox();
                 AutoCompleteDecorator.decorate(cmbPTNum);
 		cmbPTNum.setFont(fntPlainText);
