@@ -84,6 +84,22 @@ public class ModifyPasswordGUI extends JPanel {
                 pfNewPass.setFont(fntPlainText);
 		pfNewPass.setBounds(220, 210, 395, 30);
 		add(pfNewPass);
+                pfNewPass.getDocument().addDocumentListener(new DocumentListener() 
+                {
+                        public void changedUpdate(DocumentEvent documentEvent) 
+                        {
+                          updateStatus();
+                        }
+                        public void insertUpdate(DocumentEvent documentEvent) 
+                        {
+                          updateStatus();
+                        }
+                        public void removeUpdate(DocumentEvent documentEvent) 
+                        {
+                          updateStatus();
+                        }
+                        
+                      });
                 
                 
 		pfConfirmPassword = new JPasswordField();
