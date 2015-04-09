@@ -200,9 +200,11 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToViewPaymentPayables()
+    public void changePanelToViewPaymentPayables(String id)
     {
             ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
+            tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
+            tempGUI.setId(id);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

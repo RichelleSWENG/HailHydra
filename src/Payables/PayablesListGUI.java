@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -58,6 +59,7 @@ public class PayablesListGUI extends JPanel
         private int modelRow;
         private GUIController controller;
         private PayablesController mainController;
+        private PaymentController paymentController;
         
         
 	public PayablesListGUI(GUIController temp)
@@ -430,7 +432,16 @@ public class PayablesListGUI extends JPanel
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToViewPaymentPayables();
+                                int row;
+                                String id;
+                                row = tbPayables.getSelectedRow();
+                                if(row == -1 )
+                                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                                else 
+                                {
+                                    id=tbPayables.getValueAt(row,2).toString();
+                                    controller.changePanelToViewPaymentPayables(id);
+                                }
                         }
                     });
 

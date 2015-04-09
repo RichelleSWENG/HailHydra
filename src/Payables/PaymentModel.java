@@ -102,4 +102,19 @@ public class PaymentModel {
             e.printStackTrace();
         }
     }
+    
+    public ResultSet viewPayment(String id)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT date,purchase_transaction_id,credit_memo_id,from payments where purchase_transaction_id='"+id+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
 }
