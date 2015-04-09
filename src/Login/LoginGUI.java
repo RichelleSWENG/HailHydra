@@ -72,7 +72,7 @@ public class LoginGUI extends JPanel {
                         public void actionPerformed(ActionEvent e){
                             String password = new String(pfPassword.getPassword());
                             if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
-                            {
+                            {   
                                     if(mainController.validate(tfUsername.getText(), password)!=null)
                                         controllerGUI.changePanelToMainMenu();
                                     else

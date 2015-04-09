@@ -99,12 +99,12 @@ public class GUIController
     private HailHydraGUI frame;
     private MainMenuGUI main;
     private InventoryListGUI inventoryGUI;
-    
-    private MainController controller;
+  
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
     private AcknowledgementReceiptController ARController;
+    private ReturnSlipController RSController;
     private PurchaseTransactionController PTController;
     private SalesInvoiceController SIController;
     
@@ -116,7 +116,6 @@ public class GUIController
     public GUIController()
     {
             dbc = new DBConnection();
-            controller= new MainController(this);
             frame=new HailHydraGUI();
             
             inventoryModel = new ItemModel(dbc);
@@ -128,19 +127,6 @@ public class GUIController
             
             changePanelToLogin();
     }
-     
-    public void setController(MainController temp){
-            controller=temp;
-    }
-    
-    public void login(String username, String password) throws SQLException{
-            try {
-                controller.login(username,password);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-    }
-    
     
     public JPanel getContentPanel()
     {
@@ -454,7 +440,8 @@ public class GUIController
     public void changePanelToReturnSlip()
     {
             ReturnSlipListGUI tempGUI = new ReturnSlipListGUI(this);
-            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), tempGUI));
+            RSController = new ReturnSlipController(new ReturnSlipModel(dbc),tempGUI);
+            tempGUI.setMainController(RSController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -463,7 +450,7 @@ public class GUIController
     public void changePanelToAddReturnSlip()
     {
             AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
-            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), null));
+            tempGUI.setMainController(RSController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -471,7 +458,10 @@ public class GUIController
     
     public void changePanelToViewReturnSlip()
     {
-            getContentPanel().add(new ViewReturnSlipGUI(this));
+            ViewReturnSlipGUI tempGUI = new ViewReturnSlipGUI(this);
+            tempGUI.setMainController(RSController);
+            tempGUI.setViewComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

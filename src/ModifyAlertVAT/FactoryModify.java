@@ -35,7 +35,8 @@ public class FactoryModify {
                             try
                             {
                                 statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET credit_alert='"+terms+"' WHERE system_info_id='1'";
+                                System.out.println(terms);
+                                String sql = "UPDATE systeminfo SET terms_report='"+terms+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                             } catch (Exception e)
                             {
@@ -51,7 +52,8 @@ public class FactoryModify {
                             try
                             {
                                 statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET terms_report='"+creditlimit+"' WHERE system_info_id='1'";
+                                System.out.println(creditlimit);
+                                String sql = "UPDATE systeminfo SET credit_alert='"+creditlimit+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                             } catch (Exception e)
                             {

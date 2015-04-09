@@ -8,6 +8,7 @@ import Classes.Item;
 import Database.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
@@ -228,18 +229,78 @@ public class ReturnSlipModel {
      
      public ReturnSlip getRS(String ID)
      {
-        ArrayList<RSLineItem> stuff; 
-        ReturnSlip slip = new ReturnSlip();
+        ArrayList<RSLineItem> stuff;
+        ReturnSlip slip = null;
+        int company_id = -1;
+
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT * WHERE return_slip_id = '" + ID + "'";
+            String sql = "SELECT * FROM returnslip WHERE return_slip_id = '" + ID + "'";
             rs = statement.executeQuery(sql);
+
+            if (rs.next())
+            {
+                slip = new ReturnSlip();
+                slip.setReturn_slip_id(rs.getString("return_slip_id"));
+                slip.setDate(rs.getString("date"));
+                slip.setTotal_amount(rs.getFloat("total_amount"));
+                slip.setCompany_id(rs.getInt("company_id"));
+                slip.setPurchase_transaction_num(rs.getInt("purchase_transaction_num"));
+                slip.setReturned_by(rs.getString("returned_by"));
+                slip.setReturned_date(rs.getString("returned_date"));
+                slip.setApproved_by(rs.getString("approved_by"));
+                slip.setApproved_date(rs.getString("approved_date"));
+                slip.setReceived_by(rs.getString("received_by"));
+                slip.setReceived_date(rs.getString("received_date"));
+                slip.setNotes(rs.getString("notes"));
+                slip.setType(rs.getString("type"));
+                company_id = rs.getInt("company_id");
+                
+            }
+
+            if (slip != null)
+            {
+                String query = "SELECT * FROM rslineitem WHERE return_slip_id = '" + slip.getReturn_slip_id() + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                while (rs.next())
+                {
+                    slip.addItem(new RSLineItem(slip.getReturn_slip_id(), rs.getInt("quantity"), rs.getString("part_num"), rs.getFloat("unit_price"), rs.getFloat("line_total")));
+                }
+
+                query = "SELECT * FROM company WHERE company_id = '" + company_id + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                Company tempCustomer = new Company();
+                if (rs.next())
+                {
+                    tempCustomer.setId(rs.getInt("company_id"));
+                    tempCustomer.setName(rs.getString("name"));
+                    tempCustomer.setAddressLoc(rs.getString("address_location"));
+                    tempCustomer.setAddressCity(rs.getString("address_city"));
+                    tempCustomer.setAddressCountry(rs.getString("address_country"));
+                    tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                    tempCustomer.setPhone1(rs.getString("phone1"));
+                    tempCustomer.setPhone2(rs.getString("phone2"));
+                    tempCustomer.setPhone3(rs.getString("phone3"));
+                    tempCustomer.setFaxNum(rs.getString("fax_num"));
+                    tempCustomer.setWebsite(rs.getString("website"));
+                    tempCustomer.setEmail(rs.getString("email"));
+                    tempCustomer.setContactPerson(rs.getString("contact_person"));
+                    tempCustomer.setStatus(rs.getString("status"));
+                    tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempCustomer.setTerms(rs.getInt("terms"));
+                    tempCustomer.setType(rs.getString("type"));
+                }
+                slip.setCompany(tempCustomer);
+            }
         } catch (Exception e)
         {
             e.getMessage();
         }
+
         return slip;
      }
 
@@ -311,5 +372,56 @@ public class ReturnSlipModel {
         }
         
         return PO;
+    }
+
+    public ResultSet getDetailbyID(String returnslipID)
+    {
+         ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT date, returnslip.return_slip_id, company.name, part_num,quantity,line_total FROM company,rslineitem,returnslip WHERE returnslip.company_id=company.company_id AND returnslip.return_slip_id=rslineitem.return_slip_id AND returnslip.return_slip_id = '"+returnslipID+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+
+    public ResultSet getDetailbyIDCount(String returnslipID)
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT COUNT(*) AS count FROM company,rslineitem,returnslip WHERE returnslip.company_id=company.company_id AND returnslip.return_slip_id=rslineitem.return_slip_id AND returnslip.return_slip_id = '"+returnslipID+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return rs;
+    }
+
+    String getSupplierbyID(int company_id) throws SQLException
+    {
+         ResultSet rs = null;
+         String name = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT name FROM company WHERE company_id = '"+company_id+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+         while (rs.next())
+            {
+             String tempName = rs.getString("name");
+                name=tempName;
+            }
+        return name;
     }
 }
