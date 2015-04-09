@@ -4,6 +4,7 @@ package ReturnSlip;
 import Classes.Company;
 import Classes.Item;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ public class ReturnSlipController {
     private ArrayList<RSLineItem> pendingItems;
     private int itemcount;
     private ReturnSlip slip;
+    private ArrayList<String> alReturnSlip = new ArrayList<>();
     
     public ReturnSlipController(ReturnSlipModel rsModel, ReturnSlipListGUI tempGUI)
     {
@@ -158,4 +160,25 @@ public class ReturnSlipController {
     {
         return returnslipModel.getPurchaseTransactionNumbers(PTNum);
     }
+
+    public void ViewReturnSlip(String returnslipID) throws SQLException
+    {
+        // get rsLineItem count
+        int numberofRSLineItem = 0;
+        ResultSet rscount;
+        rscount =  returnslipModel.getDetailbyIDCount(returnslipID);
+        while(rscount.next())
+            numberofRSLineItem = rscount.getInt("count");
+
+        
+        
+
+    }
+
+    public String getSupplierbyID(int company_id) throws SQLException
+    {
+        return returnslipModel.getSupplierbyID(company_id);
+    }
+    
+   
 }

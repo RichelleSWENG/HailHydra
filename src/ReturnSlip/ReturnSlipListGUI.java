@@ -1,5 +1,6 @@
 package ReturnSlip;
 
+import AccountProfile.AccountProfileListGUI;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,7 +25,11 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -57,6 +62,7 @@ public class ReturnSlipListGUI extends JPanel {
 	private int modelRow;
 	private GUIController guiController;
 	private ReturnSlipController mainController;
+        private String returnslipID;
 
 	public ReturnSlipListGUI(GUIController temp) {
 
@@ -363,7 +369,20 @@ public class ReturnSlipListGUI extends JPanel {
 		add(btnViewReturnSlip);
 		btnViewReturnSlip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiController.changePanelToViewReturnSlip();
+                                int row;
+				row = tbReturnSlip.getSelectedRow();
+
+				if (row == -1)
+					JOptionPane.showMessageDialog(null,"Please select an item.");
+				else 
+                                {
+                                        returnslipID = tbReturnSlip.getValueAt(row, 1).toString();
+                                        
+                                        mainController.setSlipTarget(mainController.getRS(returnslipID));
+					guiController.changePanelToViewReturnSlip();
+				}
+                                
+				
 			}
 		});
 

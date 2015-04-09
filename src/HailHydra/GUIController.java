@@ -105,6 +105,7 @@ public class GUIController
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
     private AcknowledgementReceiptController ARController;
+    private ReturnSlipController RSController;
     private PurchaseTransactionController PTController;
     
     private ItemModel inventoryModel;
@@ -450,7 +451,8 @@ public class GUIController
     public void changePanelToReturnSlip()
     {
             ReturnSlipListGUI tempGUI = new ReturnSlipListGUI(this);
-            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), tempGUI));
+            RSController = new ReturnSlipController(new ReturnSlipModel(dbc),tempGUI);
+            tempGUI.setMainController(RSController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -459,7 +461,7 @@ public class GUIController
     public void changePanelToAddReturnSlip()
     {
             AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
-            tempGUI.setMainController(new ReturnSlipController(new ReturnSlipModel(dbc), null));
+            tempGUI.setMainController(RSController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -467,7 +469,10 @@ public class GUIController
     
     public void changePanelToViewReturnSlip()
     {
-            getContentPanel().add(new ViewReturnSlipGUI(this));
+            ViewReturnSlipGUI tempGUI = new ViewReturnSlipGUI(this);
+            tempGUI.setMainController(RSController);
+            tempGUI.setViewComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     

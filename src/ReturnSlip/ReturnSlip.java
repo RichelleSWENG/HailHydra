@@ -1,4 +1,6 @@
 package ReturnSlip;
+import AcknowledgementReceipt.ARLineItem;
+import Classes.Company;
 import java.util.ArrayList;
 
 
@@ -19,6 +21,9 @@ public class ReturnSlip
     private String notes;
     private String type;
     private ArrayList<RSLineItem> list;
+    private Company company;
+    private String company_name;
+
     
     public ReturnSlip()
     {
@@ -36,7 +41,7 @@ public class ReturnSlip
         this.notes = "";
         this.type="";
         
-        this.list = new ArrayList<>();;
+        this.list = new ArrayList<>();
     }
 
     public ReturnSlip( String return_slip_id, int company_id, String date, float total_amount, int purchase_transaction_num, String purchase_order_num, String returned_by, String returned_date, String approved_by, String approved_date, String received_by, String received_date, String notes, String type, ArrayList<RSLineItem> list)
@@ -56,6 +61,16 @@ public class ReturnSlip
         this.notes = notes;
         this.type = type;
         this.list = list;
+    }
+    
+     public void addItem(RSLineItem line)
+    {
+        list.add(line);
+    }
+
+    public void removeItem(RSLineItem line)
+    {
+        list.remove(line);
     }
 
     public String getReturn_slip_id()
@@ -212,10 +227,30 @@ public class ReturnSlip
         return list;
     }
 
+
     public void setList(ArrayList<RSLineItem> list)
     {
         this.list = list;
     }
+    
+        public ArrayList<RSLineItem> getList()
+    {
+        return list;
+    }
 
-   
+     public void setCompany(Company c)
+    {
+        company = c;
+    }
+
+    public Company getCompany()
+    {
+        return company;
+    }
+    public String getCompany_name()
+    {
+        return company.getName();
+    }
+
+
 }
