@@ -213,7 +213,7 @@ public class GUIController
     {
             ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
             tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
-            tempGUI.setId(id);
+            //tempGUI.setId(id);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

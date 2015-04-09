@@ -424,6 +424,6 @@ public class ViewPaymentPayablesGUI extends JPanel
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
-		temp.changePanelToViewPaymentPayables();
+//		temp.changePanelToViewPaymentPayables();
 	}
 }

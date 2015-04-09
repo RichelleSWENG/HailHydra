@@ -153,6 +153,12 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
 
                         if (/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText()) < 0.00f) {
                             JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
+                            error = true;
+                        }
+                        if(Integer.parseInt(ftfTerms.getText())<0)
+                        {
+                        JOptionPane.showMessageDialog(null, "Terms(Days) is invalid");
+                            error = true;
                         }
 
                         if (!"".equals(tfPhone1.getText())) {
@@ -189,7 +195,6 @@ public class AddAccountProfileGUI extends AccountProfileGUI {
                         }
 
                         if (error == false) {
-                            System.out.println("hillo");
                             mainController.AddAccountProfile(al); // add the account
                             guiController.changePanelToAccountProfile();
                         }
