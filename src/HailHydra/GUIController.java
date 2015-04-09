@@ -106,6 +106,7 @@ public class GUIController
     private AcknowledgementReceiptController ARController;
     private ReturnSlipController RSController;
     private PurchaseTransactionController PTController;
+    private SalesInvoiceController SIController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -345,8 +346,9 @@ public class GUIController
     
     public void changePanelToSalesInvoice()
     {
-            SalesInvoiceListGUI tempGUI= new SalesInvoiceListGUI(this);
-            tempGUI.setMainController(new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI));
+            SalesInvoiceListGUI tempGUI = new SalesInvoiceListGUI(this);
+            SIController = new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI);
+            tempGUI.setMainController(SIController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -355,7 +357,7 @@ public class GUIController
     public void changePanelToAddSalesInvoice()
     {
             AddSalesInvoiceGUI tempGUI= new AddSalesInvoiceGUI(this);
-            tempGUI.setController(new SalesInvoiceController(new SalesInvoiceModel(dbc), null));
+            tempGUI.setController(SIController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -365,6 +367,8 @@ public class GUIController
     public void changePanelToViewSalesInvoice()
     {
             ViewSalesInvoiceGUI tempGUI= new ViewSalesInvoiceGUI(this);
+            tempGUI.setMainController(SIController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
