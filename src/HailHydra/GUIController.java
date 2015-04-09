@@ -12,6 +12,7 @@ import AcknowledgementReceipt.AcknowledgementReceiptListGUI;
 import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ModifyAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
+import BasicSystemSettings.BasicSystemSettingsGUI;
 import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
@@ -183,6 +184,13 @@ public class GUIController
             frameRevalidate();
     }
     
+    public void changePanelToBasicSystemSettings()
+    {
+            
+            getContentPanel().add(new BasicSystemSettingsGUI(this));
+            frameRevalidate();
+    }
+    
     public void changePanelToPayablesList()
     {
             PayablesListGUI tempGUI= new PayablesListGUI(this);
@@ -201,9 +209,11 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToViewPaymentPayables()
+    public void changePanelToViewPaymentPayables(String id)
     {
             ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
+            tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
+            tempGUI.setId(id);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

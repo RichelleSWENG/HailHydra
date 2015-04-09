@@ -28,21 +28,19 @@ import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
+import java.text.Format;
 
-public class ViewPaymentCollectiblesGUI extends JPanel {
+public class ViewPaymentCollectiblesGUI extends JPanel
+{
 
 	private JLabel lblHeader, lblSalesAckNumber, lblReceivedBy,
-			lblReceivedDate, lblCustomer, lblNotes, lblPaymentType, lblDate,
-			lblAmount;
-	private JFormattedTextField ftfDate, ftfAmount;
-	private String strHeader[] = {
-			"Date",
-			"<html><center>Acknowledgement Receipt/<br>Sales Invoice Number</center></html>",
-			"Status", "<html><center>Debit<br>Memo<br>Number<br></center></html>", "<html><center>Original<br>Amount</center></html>",
-			"<html><center>Current<br>Balance</center></html>",
-			"<html><center>Amount<br>Applied</center></html>" },
-			strPaymentType[] = { "Cash", "Bank to Bank", "Check", "Debit Memo" };
-	private JComboBox cmbPaymentType, cmbCustomer;
+			lblReceivedDate, lblCustomer, lblNotes, lblCurrBal;
+	private JFormattedTextField ftfCurrBal, ftfOriginalAmount;
+	private String strHeader[] =
+	{ "Date", "<html><center>Applied<br>Amount</center></html>",
+			"<html><center>Payment<br>Type</center></html>",
+			"<html><center>Debit<br>Memo No.</center></html>" };
+	private JComboBox cmbCustomer;
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
@@ -57,8 +55,10 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 	private JTextArea taNotes;
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
+	private JLabel lblOrigAmount;
 
-	public ViewPaymentCollectiblesGUI(GUIController temp) {
+	public ViewPaymentCollectiblesGUI(GUIController temp)
+	{
 
 		controller = temp;
 		setBounds(0, 0, 1000, 620);
@@ -80,64 +80,33 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		lblCustomer.setBounds(30, 100, 111, 30);
 		add(lblCustomer);
 
-		lblDate = new JLabel("Date:");
-		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(594, 100, 111, 30);
-		add(lblDate);
-
-		lblAmount = new JLabel("Amount:");
-		lblAmount.setFont(fntPlainText);
-		lblAmount.setBounds(594, 140, 111, 30);
-		add(lblAmount);
-
-		lblPaymentType = new JLabel("Payment Type:");
-		lblPaymentType.setFont(fntPlainText);
-		lblPaymentType.setBounds(30, 140, 157, 30);
-		add(lblPaymentType);
+		lblCurrBal = new JLabel("Current Balance:");
+		lblCurrBal.setFont(fntPlainText);
+		lblCurrBal.setBounds(544, 140, 170, 30);
+		add(lblCurrBal);
 
 		cmbCustomer = new JComboBox();
 		cmbCustomer.setFont(fntPlainText);
-		cmbCustomer.setBounds(189, 100, 341, 30);
+		cmbCustomer.setBounds(167, 100, 341, 30);
 		add(cmbCustomer);
 
-		ftfDate = new JFormattedTextField(dateFormat);
-		ftfDate.setValue(new java.util.Date());
-		ftfDate.setFont(fntPlainText);
-		ftfDate.setBounds(680, 100, 285, 30);
-		add(ftfDate);
+		ftfCurrBal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+		ftfCurrBal.setFont(fntPlainText);
+		ftfCurrBal.setValue(new Float(00.0F));
+		ftfCurrBal.setBounds(713, 140, 251, 30);
+		add(ftfCurrBal);
 
-		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfAmount.setFont(fntPlainText);
-		ftfAmount.setValue(new Float(00.0F));
-		ftfAmount.setBounds(680, 140, 285, 30);
-		add(ftfAmount);
-		
 		tfDebitMemoNo = new JTextField();
 		tfDebitMemoNo.setFont(fntPlainText);
-		tfDebitMemoNo.setBounds(189, 180, 341, 30);
+		tfDebitMemoNo.setBounds(167, 140, 341, 30);
 		tfDebitMemoNo.setEditable(false);
 		add(tfDebitMemoNo);
 		tfDebitMemoNo.setColumns(10);
 
-		cmbPaymentType = new JComboBox();
-		cmbPaymentType.setFont(fntPlainText);
-		cmbPaymentType.setBounds(189, 140, 341, 30);
-		add(cmbPaymentType);
-		cmbPaymentType.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				if(cmbPaymentType.getSelectedItem() == "Credit Memo")
-					tfDebitMemoNo.setEditable(true);
-				else
-					tfDebitMemoNo.setEditable(false);
-			}
-		});
-		
-		for (int i = 0; i < strPaymentType.length; i++) {
-			cmbPaymentType.addItem(strPaymentType[i]);
-		}
-
-		tbModel = new DefaultTableModel() {
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
+		tbModel = new DefaultTableModel()
+		{
+			public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
 				if (mColIndex == 6)
 					return true;
 				return false;
@@ -146,12 +115,15 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 
 		tbModel.setRowCount(15);
 
-		for (int i = 0; i < strHeader.length; i++) {
+		for (int i = 0; i < strHeader.length; i++)
+		{
 			tbModel.addColumn(strHeader[i]);
 		}
 
-		tbPayment = new JTable(tbModel) {
-			public TableCellRenderer getCellRenderer(int row, int column) {
+		tbPayment = new JTable(tbModel)
+		{
+			public TableCellRenderer getCellRenderer(int row, int column)
+			{
 				return new TableRenderer();
 			}
 		};
@@ -160,7 +132,8 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		tbPayment.getTableHeader().setResizingAllowed(false);
 		tbCellRenderer = tbPayment.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbPayment.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1) {
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
 			tbColumn = tbColumnRenderer.getColumn(j);
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
@@ -182,9 +155,9 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		tbPayment.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPayment.setRowHeight(30);
 
-		lblSalesAckNumber = new JLabel("S.I./ A.R No.");
+		lblSalesAckNumber = new JLabel("S.I./ A.R No.:");
 		lblSalesAckNumber.setFont(fntPlainText);
-		lblSalesAckNumber.setBounds(30, 180, 195, 30);
+		lblSalesAckNumber.setBounds(30, 140, 195, 30);
 		add(lblSalesAckNumber);
 
 		lblReceivedBy = new JLabel("Received By:");
@@ -201,7 +174,7 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		tfReceivedBy.setFont(fntPlainText);
 		tfReceivedBy.setBounds(169, 448, 170, 30);
 		add(tfReceivedBy);
-		
+
 		ftfReceivedDate = new JFormattedTextField(dateFormat);
 		ftfReceivedDate.setFont(fntPlainText);
 		ftfReceivedDate.setBounds(405, 448, 120, 30);
@@ -218,7 +191,7 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		taNotes.setLineWrap(true);
 		taNotes.setBounds(30, 495, 490, 40);
 		add(taNotes);
-		
+
 		spNotes = new JScrollPane(taNotes);
 		spNotes.setBounds(30, 514, 490, 67);
 		add(spNotes);
@@ -232,14 +205,30 @@ public class ViewPaymentCollectiblesGUI extends JPanel {
 		btnCancel.setFont(fntPlainText);
 		btnCancel.setBounds(855, 545, 110, 40);
 		add(btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+
+		lblOrigAmount = new JLabel("Original Amount:");
+		lblOrigAmount.setFont(new Font("Arial", Font.PLAIN, 21));
+		lblOrigAmount.setBounds(544, 100, 184, 30);
+		add(lblOrigAmount);
+
+		ftfOriginalAmount = new JFormattedTextField(new DecimalFormat(
+				"#,##0.00"));
+		ftfOriginalAmount.setFont(fntPlainText);
+		ftfOriginalAmount.setValue(new Float(00.0F));
+		ftfOriginalAmount.setBounds(713, 100, 251, 30);
+		add(ftfOriginalAmount);
+
+		btnCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				controller.changePanelToMainMenu();
 			}
 		});
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[])
+	{
 		GUIController temp = new GUIController();
 		temp.changePanelToViewPaymentCollectibles();
 	}

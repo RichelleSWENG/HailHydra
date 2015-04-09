@@ -17,11 +17,23 @@ import javax.swing.table.TableModel;
 public class PaymentController {
     private PaymentModel paymentModel;
     private AddPaymentPayablesGUI gui;
+    private ViewPaymentPayablesGUI viewGui;
     
     public PaymentController(PaymentModel tempModel,AddPaymentPayablesGUI tempGUI)
     {
         this.paymentModel = tempModel;
         this.gui = tempGUI;
+    }
+
+    public PaymentController(PaymentModel paymentModel, ViewPaymentPayablesGUI tempGUI) {
+        this.paymentModel = paymentModel;
+        this.viewGui = tempGUI;
+    }
+    
+    TableModel getAllModel(String id)
+    {
+        TableModel tbm = paymentModel.myModel(paymentModel.viewPayment(id));
+        return tbm;
     }
     
     public void searchActivePayables(String name)
