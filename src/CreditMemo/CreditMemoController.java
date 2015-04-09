@@ -1,6 +1,7 @@
 package CreditMemo;
 
 import Purchases.PurchaseTransactionController;
+import ReturnSlip.ReturnSlip;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,6 +13,7 @@ public class CreditMemoController
     private CreditMemoModel creditmemoModel;
     private CreditMemoListGUI gui;
     private int itemcount;
+    private CreditMemo cm;
     
     public CreditMemoController(CreditMemoModel tempModel, CreditMemoListGUI tempGUI)
     {
@@ -76,4 +78,26 @@ public class CreditMemoController
         }
         return "";
     }
+
+    public void addCreditMemo(String cmID, String date, String rsNum, int status, String type)
+    {
+        creditmemoModel.addCreditMemo(cmID,date,rsNum,status,type);
+    }
+
+    public CreditMemo getCM(String ID)
+    {
+    return creditmemoModel.getCM(ID);
+    }
+    
+        public void setCMTarget(CreditMemo cm)
+    {
+        this.cm = cm;
+    }
+    
+    public CreditMemo getCMTarget()
+    {
+        return cm;
+    }
+    
+
 }

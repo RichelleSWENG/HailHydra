@@ -402,7 +402,19 @@ public class ReturnSlipListGUI extends JPanel {
 		add(btnAddCreditMemo);
 		btnAddCreditMemo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				guiController.changePanelToAddCreditMemo();
+                               int row;
+				row = tbReturnSlip.getSelectedRow();
+
+				if (row == -1)
+					JOptionPane.showMessageDialog(null,"Please select an item.");
+				else 
+                                {
+                                        returnslipID = tbReturnSlip.getValueAt(row, 1).toString();
+                                        
+                                        mainController.setSlipTarget(mainController.getRS(returnslipID));
+					guiController.changePanelToAddCreditMemo();
+				}
+				
 			}
 		});
 
