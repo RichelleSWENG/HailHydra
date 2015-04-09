@@ -43,15 +43,13 @@ import java.text.Format;
 public class ViewPaymentPayablesGUI extends JPanel
 {
 
-	private JLabel lblHeader, lblDisplay, lblSupplier,
-			lblOriginalAmount, lblPurchaseTransactionNumber, lblReceivedDate,
-			lblApprovedDate, lblReturnedDate, lblReceivedBy, lblApprovedBy,
-			lblReturnedBy, lblCurrentBalance, lblNotes;
+	private JLabel lblHeader, lblDisplay, lblSupplier, lblOriginalAmount,
+			lblPurchaseTransactionNumber, lblReceivedDate, lblApprovedDate,
+			lblReturnedDate, lblReceivedBy, lblApprovedBy, lblReturnedBy,
+			lblCurrentBalance, lblNotes;
 	private JFormattedTextField ftfAmount, ftfCurrBalance;
 	private String strHeader[] =
-	{ "Date",
-			"<html><center>Date</center></html>",
-			"<html><center>Original<br>Amount</center></html>",
+	{ "Date", "<html><center>Applied<br>Amount</center></html>",
 			"<html><center>Payment<br>Type</center></html>",
 			"<html><center>Credit<br>Memo No.</center></html>" };
 	private JComboBox cmbSupplier;
@@ -327,25 +325,18 @@ public class ViewPaymentPayablesGUI extends JPanel
 		}
 	}
 
-	/*public void addAllPayment()
-	{
-		for (int i = 0; i < tbPayment.getRowCount(); i++)
-		{
-			if (tbPayment.getValueAt(i, 5) != null)
-			{
-				Payment p;
-				p = new Payment((int) tbPayment.getValueAt(i, 1),
-						Float.parseFloat((String) tbPayment.getValueAt(i, 5)),
-						ftfReceivedDate.getText(), ftfApprovedDate.getText(),
-						ftfReturnedDate.getText(), tfReceivedBy.getText(),
-						tfApprovedBy.getText(), tfReturnedBy.getText(),
-						(String) cmbPaymentType.getSelectedItem(),
-						tfCreditMemoNo.getText(), ftfDate.getText(),
-						taNotes.getText());
-				mainController.addPayment(p);
-			}
-		}
-	}*/
+	/*
+	 * public void addAllPayment() { for (int i = 0; i <
+	 * tbPayment.getRowCount(); i++) { if (tbPayment.getValueAt(i, 5) != null) {
+	 * Payment p; p = new Payment((int) tbPayment.getValueAt(i, 1),
+	 * Float.parseFloat((String) tbPayment.getValueAt(i, 5)),
+	 * ftfReceivedDate.getText(), ftfApprovedDate.getText(),
+	 * ftfReturnedDate.getText(), tfReceivedBy.getText(),
+	 * tfApprovedBy.getText(), tfReturnedBy.getText(), (String)
+	 * cmbPaymentType.getSelectedItem(), tfCreditMemoNo.getText(),
+	 * ftfDate.getText(), taNotes.getText()); mainController.addPayment(p); } }
+	 * }
+	 */
 
 	public void ViewAll()
 	{
