@@ -115,6 +115,7 @@ public class GUIController
     private DBConnection dbc;
     
     private JDialog modal;
+    private CreditMemoController CMController;
     
     public GUIController()
     {
@@ -522,8 +523,13 @@ public class GUIController
     
     public void changePanelToCreditMemo()
     {
+            ReturnSlipListGUI tempGUIList = new ReturnSlipListGUI(this);
+            RSController = new ReturnSlipController(new ReturnSlipModel(dbc),tempGUIList);
+            
             CreditMemoListGUI tempGUI = new CreditMemoListGUI(this);
-            tempGUI.setMainController(new CreditMemoController(new CreditMemoModel(dbc), tempGUI));
+            tempGUI.setRSController(RSController);
+            CMController = new CreditMemoController(new CreditMemoModel(dbc), tempGUI);
+            tempGUI.setMainController(CMController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -531,14 +537,30 @@ public class GUIController
     
     public void changePanelToAddCreditMemo()
     {
+            CreditMemoListGUI tempListGUI = new CreditMemoListGUI(this);
+            
+            CMController = new CreditMemoController(new CreditMemoModel(dbc), tempListGUI);
             AddCreditMemoGUI tempGUI = new AddCreditMemoGUI(this);
+            tempGUI.setRSController(RSController);
+            tempGUI.setMainController(CMController);
+            
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+            
+            /* ViewReturnSlipGUI tempGUI = new ViewReturnSlipGUI(this);
+            tempGUI.setMainController(RSController);
+            tempGUI.setViewComponents();
+            getContentPanel().add(tempGUI);
+            frameRevalidate();*/
     }
     
     public void changePanelToViewCreditMemo()
     {
             ViewCreditMemoGUI tempGUI= new ViewCreditMemoGUI(this);
+            tempGUI.setRSController(RSController);
+            tempGUI.setMainController(CMController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

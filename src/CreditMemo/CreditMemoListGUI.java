@@ -20,12 +20,14 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import HailHydra.GUIController;
+import ReturnSlip.ReturnSlipController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -58,6 +60,7 @@ public class CreditMemoListGUI extends JPanel
         private int modelRow;
         private GUIController controller;
 	private CreditMemoController mainController;
+    private ReturnSlipController RSController;
         
 	public CreditMemoListGUI(GUIController temp)
 	{
@@ -365,9 +368,25 @@ public class CreditMemoListGUI extends JPanel
                 btnViewCreditMemo.addActionListener(
                     new ActionListener()
                     {
+                    private String returnslipID;
+                    private String creditmemoID;
                         public void actionPerformed(ActionEvent e)
                         {
-                                controller.changePanelToViewCreditMemo();
+                                int row;
+				row = tbCreditMemo.getSelectedRow();
+
+				if (row == -1)
+					JOptionPane.showMessageDialog(null,"Please select an item.");
+				else 
+                                {
+                                        returnslipID = tbCreditMemo.getValueAt(row, 3).toString();
+                                        creditmemoID = tbCreditMemo.getValueAt(row, 1).toString();
+                                        System.out.println(returnslipID);
+                                        RSController.setSlipTarget(RSController.getRS(returnslipID));
+                                        mainController.setCMTarget(mainController.getCM(creditmemoID));
+					controller.changePanelToViewCreditMemo();
+				}
+                                
                         }
                     });
                 
@@ -455,5 +474,10 @@ public class CreditMemoListGUI extends JPanel
            GUIController temp=new GUIController();
            temp.changePanelToCreditMemo();
         }
+
+    public void setRSController(ReturnSlipController RSController)
+    {
+        this.RSController = RSController;
+    }
 
 }
