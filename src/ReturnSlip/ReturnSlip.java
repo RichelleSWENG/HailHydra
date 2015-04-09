@@ -145,10 +145,10 @@ public class ReturnSlip
 
     public String getReturned_date()
     {
-        if(returned_date.equals(""))
+        if(returned_date==null)
             return "NULL";
         else
-            return "'"+returned_date+"'";
+            return returned_date;
     }
 
     public void setReturned_date(String returned_date)
@@ -168,10 +168,10 @@ public class ReturnSlip
 
     public String getApproved_date()
     {
-        if(approved_date.equals(""))
+        if(approved_date==null)
             return "NULL";
         else
-        return "'"+approved_date+"'";
+        return approved_date;
     }
 
     public void setApproved_date(String approved_date)
@@ -191,10 +191,10 @@ public class ReturnSlip
 
     public String getReceived_date()
     {
-        if(received_date.equals(""))
+        if(received_date==null)
             return "NULL";
         else
-            return "'"+received_date+"'";
+            return received_date;
     }
 
     public void setReceived_date(String received_date)

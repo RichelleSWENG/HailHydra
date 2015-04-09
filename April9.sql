@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `hydraforce_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hydraforce_db`;
--- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: hydraforce_db
+-- Host: 127.0.0.1    Database: hydraforce_db
 -- ------------------------------------------------------
--- Server version	5.6.20
+-- Server version	5.6.22-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -112,6 +110,153 @@ INSERT INTO `arlineitem` VALUES ('1234',2,'123',10.00,20.00),('6',1,'234',70.00,
 UNLOCK TABLES;
 
 --
+-- Table structure for table `bbcollection`
+--
+
+DROP TABLE IF EXISTS `bbcollection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bbcollection` (
+  `bb_collection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `system_account_num` int(20) DEFAULT NULL,
+  PRIMARY KEY (`bb_collection_id`),
+  KEY `system_account_num_idx` (`system_account_num`),
+  CONSTRAINT `system_account_num` FOREIGN KEY (`system_account_num`) REFERENCES `systemaccount` (`account_num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bbcollection`
+--
+
+LOCK TABLES `bbcollection` WRITE;
+/*!40000 ALTER TABLE `bbcollection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bbcollection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `bbpayment`
+--
+
+DROP TABLE IF EXISTS `bbpayment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bbpayment` (
+  `bb_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_num` int(20) NOT NULL,
+  `bank_name` varchar(45) NOT NULL,
+  `bank_branch` varchar(45) NOT NULL,
+  `system_account_num` int(20) NOT NULL,
+  PRIMARY KEY (`bb_payment_id`),
+  KEY `system_account_num_idx` (`system_account_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `bbpayment`
+--
+
+LOCK TABLES `bbpayment` WRITE;
+/*!40000 ALTER TABLE `bbpayment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `bbpayment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashcollection`
+--
+
+DROP TABLE IF EXISTS `cashcollection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashcollection` (
+  `cash_collection_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`cash_collection_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashcollection`
+--
+
+LOCK TABLES `cashcollection` WRITE;
+/*!40000 ALTER TABLE `cashcollection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashcollection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `cashpayment`
+--
+
+DROP TABLE IF EXISTS `cashpayment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `cashpayment` (
+  `cash_payment_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`cash_payment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `cashpayment`
+--
+
+LOCK TABLES `cashpayment` WRITE;
+/*!40000 ALTER TABLE `cashpayment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cashpayment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `checkcollection`
+--
+
+DROP TABLE IF EXISTS `checkcollection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `checkcollection` (
+  `check_collection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `account_name` varchar(45) DEFAULT NULL,
+  `account_number` int(20) NOT NULL,
+  `bank_name` varchar(45) NOT NULL,
+  `branch` varchar(45) NOT NULL,
+  `check_number` int(11) NOT NULL,
+  PRIMARY KEY (`check_collection_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `checkcollection`
+--
+
+LOCK TABLES `checkcollection` WRITE;
+/*!40000 ALTER TABLE `checkcollection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `checkcollection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `checkpayment`
+--
+
+DROP TABLE IF EXISTS `checkpayment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `checkpayment` (
+  `check_payment_id` int(11) NOT NULL,
+  `check_number` int(11) NOT NULL,
+  `system_account_num` int(20) NOT NULL,
+  PRIMARY KEY (`check_payment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `checkpayment`
+--
+
+LOCK TABLES `checkpayment` WRITE;
+/*!40000 ALTER TABLE `checkpayment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `checkpayment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `collection`
 --
 
@@ -169,7 +314,7 @@ CREATE TABLE `company` (
   `terms` int(4) NOT NULL,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -178,7 +323,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',12.00,3,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',20.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier'),(9,'Nancy','','','','','','','','','','','','Active',20.00,30,'Supplier'),(10,'xcsda','','','','','','','','','','','','Active',0.00,0,'Supplier');
+INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',12.00,3,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',20.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier'),(9,'Nancy','','','','','','','','','','','','Active',20.00,30,'Supplier'),(10,'xcsda','','','','','','','','','','','','Active',0.00,0,'Supplier'),(11,'Arvin Medina','EGI 2524','Manila','Philippines','1004','7445314','8795623','','','','','','Active',20.00,60,'Supplier');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -210,6 +355,68 @@ LOCK TABLES `creditmemo` WRITE;
 /*!40000 ALTER TABLE `creditmemo` DISABLE KEYS */;
 INSERT INTO `creditmemo` VALUES ('1','2014-02-26','1','',0,'');
 /*!40000 ALTER TABLE `creditmemo` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `creditmemopayment`
+--
+
+DROP TABLE IF EXISTS `creditmemopayment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `creditmemopayment` (
+  `credit_memo_payment_id` int(11) NOT NULL,
+  `credit_memo_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`credit_memo_payment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `creditmemopayment`
+--
+
+LOCK TABLES `creditmemopayment` WRITE;
+/*!40000 ALTER TABLE `creditmemopayment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `creditmemopayment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `customer`
+--
+
+DROP TABLE IF EXISTS `customer`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customer` (
+  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  `address_location` varchar(100) DEFAULT NULL,
+  `address_city` varchar(45) DEFAULT NULL,
+  `address_country` varchar(45) DEFAULT NULL,
+  `address_postal_code` varchar(45) DEFAULT NULL,
+  `phone1` int(11) DEFAULT NULL,
+  `phone2` int(11) DEFAULT NULL,
+  `phone3` int(11) DEFAULT NULL,
+  `fax_num` int(11) DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `conatct_person` varchar(45) DEFAULT NULL,
+  `status` varchar(8) NOT NULL DEFAULT 'Active',
+  `credit_limit` int(11) NOT NULL,
+  `terms` int(11) NOT NULL,
+  `type` varchar(45) NOT NULL,
+  `current_balance` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`customer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customer`
+--
+
+LOCK TABLES `customer` WRITE;
+/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
+/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -247,6 +454,29 @@ INSERT INTO `debitmemo` VALUES ('1','2014-02-26',1,20.00,'Acknowledgement Receip
 UNLOCK TABLES;
 
 --
+-- Table structure for table `debitmemocollection`
+--
+
+DROP TABLE IF EXISTS `debitmemocollection`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `debitmemocollection` (
+  `debit_memo_collection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `debit_memo_id` varchar(45) NOT NULL,
+  PRIMARY KEY (`debit_memo_collection_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `debitmemocollection`
+--
+
+LOCK TABLES `debitmemocollection` WRITE;
+/*!40000 ALTER TABLE `debitmemocollection` DISABLE KEYS */;
+/*!40000 ALTER TABLE `debitmemocollection` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `dmlineitem`
 --
 
@@ -271,6 +501,31 @@ LOCK TABLES `dmlineitem` WRITE;
 /*!40000 ALTER TABLE `dmlineitem` DISABLE KEYS */;
 INSERT INTO `dmlineitem` VALUES ('1',2,'123',10.00,20.00);
 /*!40000 ALTER TABLE `dmlineitem` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dmlinetem`
+--
+
+DROP TABLE IF EXISTS `dmlinetem`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dmlinetem` (
+  `debit_memo_id` varchar(45) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `part_num` varchar(20) NOT NULL,
+  `unit_price` float NOT NULL,
+  `line_total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dmlinetem`
+--
+
+LOCK TABLES `dmlinetem` WRITE;
+/*!40000 ALTER TABLE `dmlinetem` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dmlinetem` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -304,7 +559,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,3,3,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -427,7 +682,7 @@ CREATE TABLE `returnslip` (
   `received_by` varchar(45) DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
   `type` varchar(45) DEFAULT NULL,
-  `approved_date` date DEFAULT NULL,
+  `approved_date` varchar(45) DEFAULT NULL,
   `received_date` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`return_slip_id`),
   KEY `company_id_idx` (`company_id`)
@@ -440,7 +695,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('1','2014-02-26',20.00,8,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL),('120','2015-03-29',0.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('123','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('23','2015-03-29',20.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('56','2015-03-30',20.00,9,2,'',NULL,'','',NULL,'Functional',NULL,NULL);
+INSERT INTO `returnslip` VALUES ('1','2014-02-26',20.00,8,123,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL),('1111','2015-04-09',50.00,9,123,'','2015-04-04','','',NULL,'Functional','2015-04-04','2015-04-04'),('120','2015-03-29',0.00,8,1123,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('123','2015-03-29',20.00,8,123,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,123,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,123,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('2222','2015-04-09',140.00,9,123,'sfe','2015-04-09','dsf','dsffd',NULL,'Functional','2015-04-09','2015-04-09'),('23','2015-03-29',20.00,8,1123,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('2THIS','2015-04-09',60.00,11,123,'','','','',NULL,'Defective w/out Debit Memo','',''),('3333','2015-04-09',60.00,9,123,'','2015-04-09','','',NULL,'Defective w/Debit Memo','2015-04-09','2015-04-09'),('4444','2015-04-09',60.00,11,1123,'refew','2015-04-09','ewrew','erwr',NULL,'Defective w/out Debit Memo','2015-04-09','2015-04-09'),('56','2015-03-30',20.00,9,1123,'',NULL,'','',NULL,'Functional',NULL,NULL),('64','2015-04-09',0.00,9,123,'','','','',NULL,'Functional','',''),('777','2015-04-09',160.00,9,1123,'',NULL,'','',NULL,'Functional',NULL,NULL),('7982','2015-04-09',94.00,11,123,'Jake','2015-03-06','Iris','Jason',NULL,'Functional','2015-03-06','2015-03-06'),('888','2015-04-09',110.00,10,123,'',NULL,'','',NULL,'Functional',NULL,NULL),('987','2015-04-09',156.00,9,123,'',NULL,'','',NULL,'Functional',NULL,NULL),('ABC462','2015-04-09',60000.00,11,123,'',NULL,'','',NULL,'Functional',NULL,NULL),('PARTY','2015-04-09',46.00,11,123,'','','','',NULL,'Defective w/out Debit Memo','',''),('PARtys','2015-04-09',60.00,11,123,'','','','',NULL,'Defective w/out Debit Memo','',''),('RCS-56454','2015-04-09',0.00,8,123,'',NULL,'','',NULL,'Functional',NULL,NULL),('THIS','2015-04-09',0.00,11,123,'','\'','','',NULL,'Functional','\'','\''),('WYU','2015-04-09',60.00,11,1123,'',NULL,'','',NULL,'Functional',NULL,NULL);
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -468,7 +723,7 @@ CREATE TABLE `rslineitem` (
 
 LOCK TABLES `rslineitem` WRITE;
 /*!40000 ALTER TABLE `rslineitem` DISABLE KEYS */;
-INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0);
+INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0),('7982',2,'123',47.00,94.00,0),('777',2,'234',50.00,100.00,0),('777',1,'123',60.00,60.00,0),('888',2,'123',55.00,110.00,0),('987',2,'123',78.00,156.00,0),('2222',2,'234',70.00,140.00,0),('1111',1,'SHV_E300K',20.00,20.00,0),('1111',1,'123',30.00,30.00,0),('3333',2,'234',30.00,60.00,0),('4444',2,'123',30.00,60.00,0),('ABC462',2,'SHV_E300K',30000.00,60000.00,0),('WYU',2,'SHV_E300K',30.00,60.00,0),('RCS-56454',2,'SHV_E300K',0.00,0.00,0),('THIS',1,'123',0.00,0.00,0),('64',2,'234',0.00,0.00,0),('2THIS',2,'123',30.00,60.00,0),('PARTY',2,'SHV_E300K',23.00,46.00,0),('PARtys',2,'SHV_E300K',30.00,60.00,0);
 /*!40000 ALTER TABLE `rslineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,6 +797,70 @@ INSERT INTO `silineitem` VALUES ('1234',2,'123',10.00,20.00);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `supplier`
+--
+
+DROP TABLE IF EXISTS `supplier`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `supplier` (
+  `supplier_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `address_location` varchar(100) DEFAULT NULL,
+  `address_city` varchar(45) DEFAULT NULL,
+  `address_country` varchar(45) DEFAULT NULL,
+  `addresspostalcode` varchar(45) DEFAULT NULL,
+  `phone1` int(11) DEFAULT NULL,
+  `phone2` int(11) DEFAULT NULL,
+  `phone3` int(11) DEFAULT NULL,
+  `faxnum` int(11) DEFAULT NULL,
+  `website` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `contact_person` varchar(45) DEFAULT NULL,
+  `status` varchar(45) NOT NULL DEFAULT 'Active',
+  `credit_limit` int(11) DEFAULT NULL,
+  `terms` int(11) DEFAULT NULL,
+  `current_balance` float NOT NULL DEFAULT '0',
+  PRIMARY KEY (`supplier_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supplier`
+--
+
+LOCK TABLES `supplier` WRITE;
+/*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
+/*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `systemaccount`
+--
+
+DROP TABLE IF EXISTS `systemaccount`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `systemaccount` (
+  `account_num` int(20) NOT NULL,
+  `account_name` varchar(45) NOT NULL,
+  `bank_name` varchar(45) NOT NULL,
+  `bank_branch` varchar(45) NOT NULL,
+  `type` int(1) NOT NULL,
+  PRIMARY KEY (`account_num`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `systemaccount`
+--
+
+LOCK TABLES `systemaccount` WRITE;
+/*!40000 ALTER TABLE `systemaccount` DISABLE KEYS */;
+/*!40000 ALTER TABLE `systemaccount` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `systeminfo`
 --
 
@@ -578,4 +897,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-07  0:53:57
+-- Dump completed on 2015-04-09 18:42:56

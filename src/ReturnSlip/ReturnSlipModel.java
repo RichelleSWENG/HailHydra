@@ -319,7 +319,7 @@ public class ReturnSlipModel {
                 tempPTnum = rs.getString("purchase_transaction_id");
                 ptnums.add(tempPTnum);
             }
-            System.out.println(ptnums.size());
+
 
         } catch (Exception e)
         {
@@ -335,7 +335,7 @@ public class ReturnSlipModel {
         {
         
             statement = db.createStatement();
-            String sql = "INSERT INTO returnslip(return_slip_id,date,total_amount,company_id,purchase_transaction_num,returned_by,returned_date,approved_by,approved_date,received_by,received_date,type) VALUES('"+ar.getReturn_slip_id()+"','"+ar.getDate()+"','"+ar.getTotal_amount()+"','"+ar.getCompany_id()+"','"+ar.getPurchase_transaction_num()+"','"+ar.getReturned_by()+"',"+ar.getReturned_date()+",'"+ar.getApproved_by()+"',"+ar.getApproved_date()+",'"+ar.getReceived_by()+"',"+ar.getReceived_date()+",'"+ar.getType()+"')";
+            String sql = "INSERT INTO returnslip(return_slip_id,date,total_amount,company_id,purchase_transaction_num,returned_by,returned_date,approved_by,approved_date,received_by,received_date,type) VALUES('"+ar.getReturn_slip_id()+"','"+ar.getDate()+"','"+ar.getTotal_amount()+"','"+ar.getCompany_id()+"','"+ar.getPurchase_transaction_num()+"','"+ar.getReturned_by()+"','"+ar.getReturned_date()+"','"+ar.getApproved_by()+"','"+ar.getApproved_date()+"','"+ar.getReceived_by()+"','"+ar.getReceived_date()+"','"+ar.getType()+"')";
             statement.executeUpdate(sql);
             int i;
             for (i = 0; i < ar.getItems().size(); i++)
@@ -423,5 +423,69 @@ public class ReturnSlipModel {
                 name=tempName;
             }
         return name;
+    }
+
+    public void DeductFuncAddDef(String quantity, String partNum)
+    {
+        int Qfunc = getQuantityFunc(partNum) - Integer.parseInt(quantity);
+        int Qdef = getQuantityDef(partNum) + Integer.parseInt(quantity);
+        try
+        {
+        
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            statement.executeUpdate(sql);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    private int getQuantityFunc(String partNum)
+    {
+        
+        ResultSet rs = null;
+        String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_functional FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_functional");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
+   
+    }
+
+    private int getQuantityDef(String partNum)
+    {
+         ResultSet rs = null;
+         String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_defective FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_defective");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
     }
 }

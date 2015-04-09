@@ -7,6 +7,7 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -63,6 +64,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                 btnSubmit.addActionListener(
                     new ActionListener()
                     {
+                        @Override
                         public void actionPerformed(ActionEvent e)
                         {       
                           try
@@ -73,14 +75,17 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                                 mainController.addPendingItem(new RSLineItem(tfRSNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
                             mainController.addRS(tfRSNum.getText(), mainController.getSupplier(cmbSupplier.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),Integer.parseInt(cmbPTNum.getSelectedItem().toString()),tfPONum.getText(), tfReturnedBy.getText(), ftfReturnedDate.getText(), tfApprovedBy.getText(), ftfApprovedDate.getText(), tfReceivedBy.getText(),ftfReceivedDate.getText(),taNotes.getText(),type.getSelection().getActionCommand() );
+                            UpdateInventory(type.getSelection().getActionCommand());
                             guiController.changePanelToAcknowledgementReceipt();
                         }
                         catch (NullPointerException exception)
                         {
-                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. I do not like you po", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding.", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
                         }
                                 guiController.changePanelToReturnSlip();
                         }
+
+
                     });
 		
 		btnCancel = new JButton("Cancel");
@@ -302,6 +307,20 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
         {
             super(new JComboBox(str));
         }
+    }
+    
+     public void UpdateInventory(String type)
+    {
+     if(type.equals("Defective w/out Debit Memo"))
+     {
+         ArrayList<RSLineItem> pending = mainController.getPending();
+         for(int i=0; i<pending.size();i++)
+         {
+            String quantity = String.valueOf(pending.get(i).getQuantity());
+            String partNum = pending.get(i).getPartNum();
+            mainController.DeductFuncAddDef(quantity,partNum);
+         }
+     }
     }
 
 }
