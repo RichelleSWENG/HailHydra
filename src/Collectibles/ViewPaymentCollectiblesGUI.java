@@ -1,5 +1,10 @@
 package Collectibles;
 
+import AcknowledgementReceipt.AcknowledgementReceipt;
+import HailHydra.GUIController;
+import Payables.Payment;
+import Sales.SalesInvoice;
+import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,8 +14,8 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
@@ -21,14 +26,14 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import HailHydra.GUIController;
-import TableRenderer.TableRenderer;
-import java.text.Format;
+import javax.swing.table.TableModel;
 
 public class ViewPaymentCollectiblesGUI extends JPanel
 {
@@ -37,7 +42,7 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 			lblReceivedDate, lblCustomer, lblNotes, lblCurrBal;
 	private JFormattedTextField ftfCurrBal, ftfOriginalAmount;
 	private String strHeader[] =
-	{ "Date", "<html><center>Applied<br>Amount</center></html>",
+	{ "<html><center>Payment<br>Id</center></html>","Date", "<html><center>Applied<br>Amount</center></html>",
 			"<html><center>Payment<br>Type</center></html>",
 			"<html><center>Debit<br>Memo No.</center></html>" };
 	private JComboBox cmbCustomer;
@@ -56,6 +61,9 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
 	private JLabel lblOrigAmount;
+        private PaymentCollectiblesController mainController;
+        private String type;
+        private String id;
 
 	public ViewPaymentCollectiblesGUI(GUIController temp)
 	{
@@ -107,8 +115,6 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
-				if (mColIndex == 6)
-					return true;
 				return false;
 			}
 		};
@@ -227,9 +233,69 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 		});
 	}
 
+        public void setMainController(PaymentCollectiblesController temp) {
+		mainController = temp;
+	}
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel(id,type);
+            tbPayment.setModel(AllModel);
+            
+            tfDebitMemoNo.setText(id);
+            
+            if(type.equalsIgnoreCase("Sales Invoice"))
+            {
+                SalesInvoice si=mainController.getSIDetails(id);
+                if(si!=null)
+                {
+                    ftfOriginalAmount.setText(Float.toString(si.getOriginal_amount()));
+                    ftfCurrBal.setText(Float.toString(si.getCurrent_balance()));
+                    cmbCustomer.addItem(si.getDelivered_by());
+                }
+            }
+            else
+            {
+                AcknowledgementReceipt ar=mainController.getARDetails(id);
+                if(ar!=null)
+                {
+                    ftfOriginalAmount.setText(Float.toString(ar.getOriginal_amount()));
+                    ftfCurrBal.setText(Float.toString(ar.getCurrent_balance()));
+                    cmbCustomer.addItem(ar.getDelivered_by());
+                }
+            }   
+            
+            JTableHeader th = tbPayment.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            tbPayment.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    Collection p=mainController.getOtherDetails(Integer.toString((int) tbPayment.getValueAt(tbPayment.getSelectedRow(), 0)));
+                    if(p!=null)
+                    {
+                        taNotes.setText(p.getNotes());
+                        ftfReceivedDate.setText(p.getRDate());
+                        tfReceivedBy.setText(p.getReceived_by());
+                    }
+                }  
+                });
+        }
+        
+        public void setId(String id,String type)
+        {
+            this.id=id;
+            this.type=type;
+        }
+        
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
-		temp.changePanelToViewPaymentCollectibles();
+		//temp.changePanelToViewPaymentCollectibles();
 	}
 }

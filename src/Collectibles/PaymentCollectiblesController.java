@@ -6,7 +6,9 @@
 
 package Collectibles;
 
+import AcknowledgementReceipt.AcknowledgementReceipt;
 import Payables.Payment;
+import Sales.SalesInvoice;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -24,6 +26,11 @@ public class PaymentCollectiblesController {
     {
         paymentCollectiblesModel =model;
         gui=tempGUI;
+    }
+    
+    public PaymentCollectiblesController(PaymentCollectiblesModel model)
+    {
+        paymentCollectiblesModel =model;
     }
     
     public void searchActivePayables(String name)
@@ -65,5 +72,24 @@ public class PaymentCollectiblesController {
             paymentCollectiblesModel.updateCurrentBalanceSI(number, currentbalance);
     }
     
+    TableModel getAllModel(String id,String type)
+    {
+        TableModel tbm = paymentCollectiblesModel.myModel(paymentCollectiblesModel.viewPayment(id,type));
+        return tbm;
+    }
     
+    public Collection getOtherDetails(String id)
+    {
+        return paymentCollectiblesModel.getOtherDetails(id);
+    }
+    
+    public AcknowledgementReceipt getARDetails(String id)
+    {
+        return paymentCollectiblesModel.getARDetails(id);
+    }
+    
+    public SalesInvoice getSIDetails(String id)
+    {
+        return paymentCollectiblesModel.getSIDetails(id);
+    }
 }

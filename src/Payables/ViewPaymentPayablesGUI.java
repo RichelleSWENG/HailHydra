@@ -1,5 +1,8 @@
 package Payables;
 
+import HailHydra.GUIController;
+import Purchases.PurchaseTransaction;
+import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -11,6 +14,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -27,18 +31,15 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
-
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-
-import HailHydra.GUIController;
-import TableRenderer.TableRenderer;
-import java.text.Format;
 
 public class ViewPaymentPayablesGUI extends JPanel
 {
@@ -49,7 +50,7 @@ public class ViewPaymentPayablesGUI extends JPanel
 			lblCurrentBalance, lblNotes;
 	private JFormattedTextField ftfAmount, ftfCurrBalance;
 	private String strHeader[] =
-	{ "Date", "<html><center>Applied<br>Amount</center></html>",
+	{ "<html><center>Payment<br>Number</center></html>","Date", "<html><center>Applied<br>Amount</center></html>",
 			"<html><center>Payment<br>Type</center></html>",
 			"<html><center>Credit<br>Memo No.</center></html>" };
 	private JComboBox cmbSupplier;
@@ -69,6 +70,7 @@ public class ViewPaymentPayablesGUI extends JPanel
 			ftfReturnedDate, tfReceivedBy, tfApprovedBy, tfReturnedBy;
 	protected JScrollPane spNotes;
 	private JTextArea taNotes;
+        private String id;
 
 	public ViewPaymentPayablesGUI(GUIController temp)
 	{
@@ -111,17 +113,6 @@ public class ViewPaymentPayablesGUI extends JPanel
 		cmbSupplier.setFont(fntPlainText);
 		cmbSupplier.setBounds(154, 100, 329, 30);
 		add(cmbSupplier);
-		cmbSupplier.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				if (cmbSupplier.getSelectedIndex() != 0)
-				{
-					mainController.searchActivePayables((String) cmbSupplier
-							.getSelectedItem());
-				}
-			}
-		});
 
 		ftfAmount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
 		ftfAmount.setFont(fntPlainText);
@@ -133,8 +124,6 @@ public class ViewPaymentPayablesGUI extends JPanel
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
-				if (mColIndex == 5)
-					return true;
 				return false;
 			}
 		};
@@ -306,121 +295,52 @@ public class ViewPaymentPayablesGUI extends JPanel
 	{
 		mainController = temp;
 	}
-
-	public void setSupplier()
-	{
-		ArrayList<String> supplier = new ArrayList<String>();
-		try
-		{
-			supplier = mainController.getSupplier();
-		} catch (SQLException ex)
-		{
-			Logger.getLogger(AddPaymentPayablesGUI.class.getName()).log(
-					Level.SEVERE, null, ex);
-		}
-		cmbSupplier.addItem("");
-		for (int i = 0; i < supplier.size(); i++)
-		{
-			cmbSupplier.addItem(supplier.get(i));
-		}
-	}
-
-	/*
-	 * public void addAllPayment() { for (int i = 0; i <
-	 * tbPayment.getRowCount(); i++) { if (tbPayment.getValueAt(i, 5) != null) {
-	 * Payment p; p = new Payment((int) tbPayment.getValueAt(i, 1),
-	 * Float.parseFloat((String) tbPayment.getValueAt(i, 5)),
-	 * ftfReceivedDate.getText(), ftfApprovedDate.getText(),
-	 * ftfReturnedDate.getText(), tfReceivedBy.getText(),
-	 * tfApprovedBy.getText(), tfReturnedBy.getText(), (String)
-	 * cmbPaymentType.getSelectedItem(), tfCreditMemoNo.getText(),
-	 * ftfDate.getText(), taNotes.getText()); mainController.addPayment(p); } }
-	 * }
-	 */
-
-	public void ViewAll()
-	{
-		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 6; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		th.repaint();
-		cmbSupplier.removeAllItems();
-		setSupplier();
-	}
-
-	public float getSum()
-	{
-		float sum = 0;
-		for (int i = 0; i < tbPayment.getRowCount(); i++)
-		{
-			if (tbPayment.getValueAt(i, 5) != null)
-			{
-				sum = sum
-						+ Float.parseFloat((String) tbPayment.getValueAt(i, 5));
-			}
-		}
-		return sum;
-	}
-
-	public boolean checkCurrentBalance()
-	{
-		for (int i = 0; i < tbPayment.getRowCount(); i++)
-		{
-			if (tbPayment.getValueAt(i, 5) != null)
-			{
-				BigDecimal big = (BigDecimal) tbPayment.getValueAt(i, 4);
-				if (big.floatValue() < Float.parseFloat((String) tbPayment
-						.getValueAt(i, 5)))
-				{
-					JOptionPane.showMessageDialog(null,
-							"Applied Amount is greater the Current Balance");
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-
-	public void deductCurrentBalance()
-	{
-		float newCurrentBalance;
-		int purchase_transaction_id;
-		BigDecimal currentbalance;
-		for (int i = 0; i < tbPayment.getRowCount(); i++)
-		{
-			purchase_transaction_id = (int) tbPayment.getValueAt(i, 1);
-			currentbalance = (BigDecimal) tbPayment.getValueAt(i, 4);
-			if (tbPayment.getValueAt(i, 5) != null)
-			{
-				newCurrentBalance = currentbalance.floatValue()
-						- Float.parseFloat((String) tbPayment.getValueAt(i, 5));
-				mainController.changeCurrentBalance(purchase_transaction_id,
-						newCurrentBalance);
-				if (newCurrentBalance == 0.0)
-				{
-					mainController.changeStatus(purchase_transaction_id);
-				}
-			}
-		}
-	}
-
-	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
-		tbPayment.setModel(tbm);
-		JTableHeader th = tbPayment.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 6; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		th.repaint();
-	}
-
+        
+        public void ViewAll()
+        {
+            TableModel AllModel = mainController.getAllModel(id);
+            tbPayment.setModel(AllModel);
+            
+            tfCreditMemoNo.setText(id);
+            PurchaseTransaction pt=mainController.getPTDetails(id);
+            if(pt!=null)
+            {
+                ftfAmount.setText(Float.toString(pt.getOriginal_amount()));
+                ftfCurrBalance.setText(Float.toString(pt.getCurrent_balance()));
+                cmbSupplier.addItem(pt.getPo_num());
+            }
+            
+            JTableHeader th = tbPayment.getTableHeader();      // Setting the Headers
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++)
+            {
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
+            }
+            th.repaint();
+            tbPayment.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                    Payment p=mainController.getOtherDetails(Integer.toString((int) tbPayment.getValueAt(tbPayment.getSelectedRow(), 0)));
+                    if(p!=null)
+                    {
+                        tfReturnedBy.setText(p.getPrepared_by());
+                        taNotes.setText(p.getNotes());
+                        ftfReceivedDate.setText(p.getRDate());
+                        ftfApprovedDate.setText(p.getADate());
+                        ftfReturnedDate.setText(p.getRDate());
+                        tfApprovedBy.setText(p.getApproved_by());
+                        tfReceivedBy.setText(p.getReceived_by());
+                    }
+                }  
+                });
+        }
+       
+        public void setId(String id)
+        {
+            this.id=id;
+        }
+        
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();

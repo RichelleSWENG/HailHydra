@@ -6,6 +6,7 @@
 package Payables;
 
 import Database.DBConnection;
+import Purchases.PurchaseTransaction;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -109,12 +110,61 @@ public class PaymentModel {
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT date,purchase_transaction_id,credit_memo_id,from payments where purchase_transaction_id='"+id+"'";
+            String sql = "SELECT payment_id,date,amount,payments_type,credit_memo_id from payments where purchase_transaction_id='"+id+"'";
             rs = statement.executeQuery(sql);
         } catch (Exception e)
         {
             e.getMessage();
         }
         return rs;
+    }
+    
+    public Payment getOtherDetails(String id)
+    {
+        ResultSet rs = null;
+        Payment pay=new Payment();
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * from payments where payment_id='"+id+"'";
+            rs = statement.executeQuery(sql);
+            while(rs.next())
+            {
+                pay.setApproved_by(rs.getString("approved_by"));
+                pay.setApproved_date(rs.getString("approved_date"));
+                pay.setPrepared_by(rs.getString("prepared_by"));
+                pay.setPrepared_date(rs.getString("prepared_date"));
+                pay.setReceived_by(rs.getString("received_by"));
+                pay.setReceived_date(rs.getString("received_date"));
+                pay.setNotes(rs.getString("notes"));
+             
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return pay;
+    }
+    
+    public PurchaseTransaction getPTDetails(String id)
+    {
+        ResultSet rs = null;
+        PurchaseTransaction pt=new PurchaseTransaction();
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT name,original_amount,current_balance from purchasetransaction,company where purchase_transaction_id='"+id+"' AND purchasetransaction.company_id=company.company_id";
+            rs = statement.executeQuery(sql);
+            while(rs.next())
+            {   
+                pt.setOriginal_amount(rs.getFloat("original_amount"));
+                pt.setCurrent_balance(rs.getFloat("current_balance"));
+                pt.setPo_num(rs.getString("name"));
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return pt;
     }
 }

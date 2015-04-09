@@ -218,8 +218,9 @@ public class GUIController
     public void changePanelToViewPaymentPayables(String id)
     {
             ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
-            tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
-            //tempGUI.setId(id);
+            tempGUI.setMainController(new PaymentController(new PaymentModel(dbc)));
+            tempGUI.setId(id);
+            tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
@@ -406,9 +407,13 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToViewPaymentCollectibles()
+    public void changePanelToViewPaymentCollectibles(String id,String type)
     {
-    		getContentPanel().add(new ViewPaymentCollectiblesGUI(this));
+                ViewPaymentCollectiblesGUI tempGUI =new ViewPaymentCollectiblesGUI(this);
+                tempGUI.setMainController(new PaymentCollectiblesController(new PaymentCollectiblesModel(dbc)));
+                tempGUI.setId(id, type);
+                tempGUI.ViewAll();
+    		getContentPanel().add(tempGUI);
     		frameRevalidate();
     }
     

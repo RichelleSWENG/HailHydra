@@ -5,6 +5,7 @@
  */
 package Payables;
 
+import Purchases.PurchaseTransaction;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -17,7 +18,6 @@ import javax.swing.table.TableModel;
 public class PaymentController {
     private PaymentModel paymentModel;
     private AddPaymentPayablesGUI gui;
-    private ViewPaymentPayablesGUI viewGui;
     
     public PaymentController(PaymentModel tempModel,AddPaymentPayablesGUI tempGUI)
     {
@@ -25,9 +25,8 @@ public class PaymentController {
         this.gui = tempGUI;
     }
 
-    public PaymentController(PaymentModel paymentModel, ViewPaymentPayablesGUI tempGUI) {
+    public PaymentController(PaymentModel paymentModel) {
         this.paymentModel = paymentModel;
-        this.viewGui = tempGUI;
     }
     
     TableModel getAllModel(String id)
@@ -66,6 +65,16 @@ public class PaymentController {
     public void changeStatus(int pt)
     {
         paymentModel.changeStatus(pt);
+    }
+    
+    public Payment getOtherDetails(String payment_id)
+    {
+        return paymentModel.getOtherDetails(payment_id);
+    }
+    
+    public PurchaseTransaction getPTDetails(String id)
+    {
+        return paymentModel.getPTDetails(id);
     }
     
 }
