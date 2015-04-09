@@ -1,6 +1,7 @@
 package BasicSystemSettings;
 
 import HailHydra.GUIController;
+import Payables.PaymentController;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ public class BasicSystemSettingsGUI extends JPanel
         private JButton btnSubmit;
         private Font fntPlainText, fntHeaderText;
         private GUIController GUIcontroller;
+        private SystemController mainController;
 	
 	public BasicSystemSettingsGUI(GUIController temp) 
         {
@@ -435,7 +437,11 @@ public class BasicSystemSettingsGUI extends JPanel
                             {
                                 JOptionPane.showMessageDialog(null, "System installation successful.");
                                 GUIcontroller.changePanelToLogin();
-                                //put here
+                                String AdminPassword= new String(pfAdministratorPassword.getPassword());
+                                String EmployeePassword = new String(pfEmployeePassword.getPassword());
+                                mainController.addAccount(tfAdminUsername.getText(), AdminPassword, "0");
+                                mainController.addAccount(tfEmployeeUsername.getText(), EmployeePassword, "1");
+                                mainController.addSystemInfo(tfSystemName.getText(), ftfVAT.getText(), ftfCreditLimitAlert.getText(), ftfTermsAlert.getText());
                                 
                             }
                         }
@@ -591,6 +597,11 @@ public class BasicSystemSettingsGUI extends JPanel
             }
             
         }
+        
+        public void setMainController(SystemController temp)
+	{
+		mainController = temp;
+	}
         
         public static void main(String args[])
         {

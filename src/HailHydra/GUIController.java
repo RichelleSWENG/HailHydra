@@ -13,6 +13,8 @@ import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ModifyAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import BasicSystemSettings.BasicSystemSettingsGUI;
+import BasicSystemSettings.SystemController;
+import BasicSystemSettings.SystemModel;
 import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
@@ -127,6 +129,8 @@ public class GUIController
             modal= new JDialog(frame);
             
             changePanelToLogin();
+            //changePanelToBasicSystemSettings();
+            
     }
     
     public JPanel getContentPanel()
@@ -185,8 +189,10 @@ public class GUIController
     
     public void changePanelToBasicSystemSettings()
     {
-            
-            getContentPanel().add(new BasicSystemSettingsGUI(this));
+            main=new MainMenuGUI(this);
+            BasicSystemSettingsGUI tempGUI = new BasicSystemSettingsGUI(this);
+            tempGUI.setMainController(new SystemController(new SystemModel(dbc),tempGUI));
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -212,7 +218,7 @@ public class GUIController
     {
             ViewPaymentPayablesGUI tempGUI = new ViewPaymentPayablesGUI(this);
             tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
-            tempGUI.setId(id);
+            //tempGUI.setId(id);
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
