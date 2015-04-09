@@ -12,6 +12,7 @@ import AcknowledgementReceipt.AcknowledgementReceiptListGUI;
 import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ModifyAcknowledgementReceiptGUI;
 import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
+import BasicSystemSettings.BasicSystemSettingsGUI;
 import Collectibles.AddPaymentCollectiblesGUI;
 import Collectibles.CollectiblesController;
 import Collectibles.CollectiblesListGUI;
@@ -179,6 +180,13 @@ public class GUIController
             LoginGUI tempGUI =new LoginGUI(this);
             tempGUI.setMainController(new LoginController(new LoginModel(dbc)));
             getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void changePanelToBasicSystemSettings()
+    {
+            
+            getContentPanel().add(new BasicSystemSettingsGUI(this));
             frameRevalidate();
     }
     
