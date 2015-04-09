@@ -112,6 +112,16 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
         ftfReceivedDate.setText(slip.getReceived_date());
         taNotes.setText(slip.getNotes());
         ftfDate.setText(slip.getDate());
+        /*rdbtnFunctional, rdbtnDefectiveWithOutDebitMemo, rdbtnDefectiveWithDebitMemo*/
+        switch(slip.getType())
+        {
+            case "Functional": rdbtnFunctional.setSelected(true); break;
+            case "Defective w/out Debit Memo": rdbtnDefectiveWithOutDebitMemo.setSelected(true); break;
+            case "Defective w/ Debit Memo":    rdbtnDefectiveWithDebitMemo.setSelected(true); break;
+        }
+        rdbtnFunctional.setEnabled(false);
+        rdbtnDefectiveWithOutDebitMemo.setEnabled(false);
+        rdbtnDefectiveWithDebitMemo.setEnabled(false);
         
         ftfTotal.setEditable(false);
        // ftfBalance.setText(String.valueOf(rcpt.getCurrent_balance()));
