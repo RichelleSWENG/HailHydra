@@ -22,6 +22,7 @@ public class SalesInvoiceModel
     private ArrayList<SILineItem> items;
     private SILineItemModel siLineItemModel;
     
+    
     public SalesInvoiceModel(DBConnection db)
     {
         this.db = db.getConnection();
@@ -294,5 +295,78 @@ public class SalesInvoiceModel
     public int getAvailQuantity(int index)
     {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
+    }
+    
+    public SalesInvoice getSI(String ID)
+    {
+        SalesInvoice si = null;
+        int company_id = -1;
+
+        ResultSet rs;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT * FROM salesinvoice WHERE sales_invoice_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+
+            if (rs.next())
+            {
+                si = new SalesInvoice();
+                si.setSales_invoice_id(rs.getString("sales_invoice_id"));
+                si.setDate(rs.getString("date"));
+                si.setOriginal_amount(rs.getFloat("original_amount"));
+                si.setPo_num(rs.getString("po_num"));
+                si.setOrdered_by(rs.getString("ordered_by"));
+                si.setSales_person(rs.getString("sales_person"));
+                si.setDelivered_by(rs.getString("delivered_by"));
+                si.setDelivery_notes(rs.getString("delivery_notes"));
+                si.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
+                si.setDiscount(rs.getFloat("discount"));
+                si.setCurrent_balance(rs.getFloat("current_balance"));
+                si.setStatus(rs.getString("status"));
+                company_id = rs.getInt("company_id");
+            }
+
+            if (si != null)
+            {
+                String query = "SELECT * FROM silineitem WHERE sales_invoice_id = '" + si.getSales_invoice_id() + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                while (rs.next())
+                {
+                    si.addItem(new SILineItem(si.getSales_invoice_id(), rs.getInt("quantity"), rs.getString("part_num"), rs.getFloat("unit_price"), rs.getFloat("line_total")));
+                }
+
+                query = "SELECT * FROM company WHERE company_id = '" + company_id + "'";
+                statement = db.createStatement();
+                rs = statement.executeQuery(query);
+                Company tempCustomer = new Company();
+                if (rs.next())
+                {
+                    tempCustomer.setId(rs.getInt("company_id"));
+                    tempCustomer.setName(rs.getString("name"));
+                    tempCustomer.setAddressLoc(rs.getString("address_location"));
+                    tempCustomer.setAddressCity(rs.getString("address_city"));
+                    tempCustomer.setAddressCountry(rs.getString("address_country"));
+                    tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                    tempCustomer.setPhone1(rs.getString("phone1"));
+                    tempCustomer.setPhone2(rs.getString("phone2"));
+                    tempCustomer.setPhone3(rs.getString("phone3"));
+                    tempCustomer.setFaxNum(rs.getString("fax_num"));
+                    tempCustomer.setWebsite(rs.getString("website"));
+                    tempCustomer.setEmail(rs.getString("email"));
+                    tempCustomer.setContactPerson(rs.getString("contact_person"));
+                    tempCustomer.setStatus(rs.getString("status"));
+                    tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempCustomer.setTerms(rs.getInt("terms"));
+                    tempCustomer.setType(rs.getString("type"));
+                }
+                si.setCompany(tempCustomer);
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return si;
     }
 }

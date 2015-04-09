@@ -20,6 +20,7 @@ public class SalesInvoiceController {
     private SalesInvoiceListGUI gui;
     private ArrayList<SILineItem> pendingItems;
     private int itemcount;
+    private SalesInvoice SITarget;
     
     public SalesInvoiceController(SalesInvoiceModel tempModel,SalesInvoiceListGUI tempGUI)
     {
@@ -121,15 +122,29 @@ public class SalesInvoiceController {
         pendingItems.clear();
     }
     
-    public void addSI(String sales_invoice_id,int company_id,String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance, String status, String pwd_id_number_notes, float vat)
+    public void addSI(String sales_invoice_id, String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance, String status, String pwd_id_number_notes, float vat, Company company)
     {
-        SalesInvoice si = new SalesInvoice(sales_invoice_id,company_id,date,original_amount,po_num,ordered_by,sales_person,delivered_by,delivery_notes,delivery_receipt_num,discount, current_balance,status, pwd_id_number_notes, vat, pendingItems);
+        SalesInvoice si = new SalesInvoice(sales_invoice_id, date,original_amount,po_num,ordered_by,sales_person,delivered_by,delivery_notes,delivery_receipt_num,discount, current_balance,status, pwd_id_number_notes, vat, pendingItems, company);
         salesinvoiceModel.addDetail(si);
-        //ackReceiptModel.addDetail(rcpt);
     }
     
     public int getAvailQuantity(int index)
     {
         return salesinvoiceModel.getAvailQuantity(index);
+    }
+    
+    public void setTarget(SalesInvoice si)
+    {
+        SITarget = si;
+    }
+    
+    public SalesInvoice getTarget()
+    {
+        return SITarget;
+    }
+    
+    public SalesInvoice getAR(String ID)
+    {
+        return salesinvoiceModel.getSI(ID);
     }
 }
