@@ -24,19 +24,18 @@ public class LoginController {
         this.model=model;
     }
     
-    public String validate(String usernmae,String password)
+    public String validate(String username,String password)
     {
         
-        ResultSet resultset=model.checkUsername(usernmae, password);
+        ResultSet resultset=model.checkUsername(username, password);
         try {
-            if (!resultset.next() ) {
-                return null;
+            if (resultset.next() ) {
+                return resultset.getString("type");
             }
             else 
             {
-                return resultset.getString("type");
-            }
-                
+                return null;
+            }     
         } catch (SQLException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }

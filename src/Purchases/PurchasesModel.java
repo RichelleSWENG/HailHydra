@@ -287,7 +287,6 @@ public class PurchasesModel
     
     public PurchaseTransaction getPT(String ID)
     {
-        ArrayList<PTLineItem> stuff;
         PurchaseTransaction pt = null;
         int company_id = -1;
 

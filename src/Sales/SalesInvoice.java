@@ -1,12 +1,12 @@
 package Sales;
 
+import Classes.Company;
 import java.util.ArrayList;
 
 public class SalesInvoice
 {
 
     private String sales_invoice_id;
-    private int company_id;
     private String date;
     private float original_amount;
     private String po_num;
@@ -21,11 +21,30 @@ public class SalesInvoice
     private String pwd_id_number_notes;
     private float vat;
     private ArrayList<SILineItem> list;
+    private Company company;
+    
+    public SalesInvoice()
+    {
+        this.sales_invoice_id = "";
+        this.date = "";
+        this.original_amount = 0;
+        this.po_num = "";
+        this.ordered_by = "";
+        this.sales_person = "";
+        this.delivered_by = "";
+        this.delivery_notes = "";
+        this.delivery_receipt_num = "";
+        this.discount = 0;
+        this.current_balance = 0;
+        this.status = "";
+        this.pwd_id_number_notes = "";
+        this.vat = 0;
+        this.list = new ArrayList<>();
+    }
 
-    public SalesInvoice(String sales_invoice_id, int company_id, String date, float original_amount, String po_num, String ordered_by, String sales_person, String delivered_by, String delivery_notes, String delivery_receipt_num, float discount, float current_balance, String status, String pwd_id_number_notes, float vat, ArrayList<SILineItem> list)
+    public SalesInvoice(String sales_invoice_id, String date, float original_amount, String po_num, String ordered_by, String sales_person, String delivered_by, String delivery_notes, String delivery_receipt_num, float discount, float current_balance, String status, String pwd_id_number_notes, float vat, ArrayList<SILineItem> list, Company company)
     {
         this.sales_invoice_id = sales_invoice_id;
-        this.company_id = company_id;
         this.date = date;
         this.original_amount = original_amount;
         this.po_num = po_num;
@@ -40,6 +59,7 @@ public class SalesInvoice
         this.pwd_id_number_notes = pwd_id_number_notes;
         this.vat = vat;
         this.list = list;
+        this.company = company;
     }
 
     public String getSales_invoice_id()
@@ -50,16 +70,6 @@ public class SalesInvoice
     public void setSales_invoice_id(String sales_invoice_id)
     {
         this.sales_invoice_id = sales_invoice_id;
-    }
-
-    public int getCompany_id()
-    {
-        return company_id;
-    }
-
-    public void setCompany_id(int company_id)
-    {
-        this.company_id = company_id;
     }
 
     public String getDate()
@@ -210,6 +220,26 @@ public class SalesInvoice
     public void setVat(float vat)
     {
         this.vat = vat;
+    }
+    
+    public String getCompany_name()
+    {
+        return company.getName();
+    }
+    
+    public void setCompany(Company c)
+    {
+        company = c;
+    }
+
+    public Company getCompany()
+    {
+        return company;
+    }
+    
+    public int getCompany_id()
+    {
+        return company.getId();
     }
 
 }

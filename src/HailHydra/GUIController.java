@@ -99,14 +99,14 @@ public class GUIController
     private HailHydraGUI frame;
     private MainMenuGUI main;
     private InventoryListGUI inventoryGUI;
-    
-    private MainController controller;
+  
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
     private AcknowledgementReceiptController ARController;
     private ReturnSlipController RSController;
     private PurchaseTransactionController PTController;
+    private SalesInvoiceController SIController;
     
     private ItemModel inventoryModel;
     private DBConnection dbc;
@@ -116,7 +116,6 @@ public class GUIController
     public GUIController()
     {
             dbc = new DBConnection();
-            controller= new MainController(this);
             frame=new HailHydraGUI();
             
             inventoryModel = new ItemModel(dbc);
@@ -128,19 +127,6 @@ public class GUIController
             
             changePanelToLogin();
     }
-     
-    public void setController(MainController temp){
-            controller=temp;
-    }
-    
-    public void login(String username, String password) throws SQLException{
-            try {
-                controller.login(username,password);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-    }
-    
     
     public JPanel getContentPanel()
     {
@@ -360,8 +346,9 @@ public class GUIController
     
     public void changePanelToSalesInvoice()
     {
-            SalesInvoiceListGUI tempGUI= new SalesInvoiceListGUI(this);
-            tempGUI.setMainController(new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI));
+            SalesInvoiceListGUI tempGUI = new SalesInvoiceListGUI(this);
+            SIController = new SalesInvoiceController(new SalesInvoiceModel(dbc), tempGUI);
+            tempGUI.setMainController(SIController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -370,7 +357,7 @@ public class GUIController
     public void changePanelToAddSalesInvoice()
     {
             AddSalesInvoiceGUI tempGUI= new AddSalesInvoiceGUI(this);
-            tempGUI.setController(new SalesInvoiceController(new SalesInvoiceModel(dbc), null));
+            tempGUI.setController(SIController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -380,6 +367,8 @@ public class GUIController
     public void changePanelToViewSalesInvoice()
     {
             ViewSalesInvoiceGUI tempGUI= new ViewSalesInvoiceGUI(this);
+            tempGUI.setMainController(SIController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
