@@ -220,7 +220,6 @@ public class AddBankAccountGUI extends JPanel
                             sysController.AddSystemAccount(bankAccount);
                             setTableModel(sysController.getSystemAccounts("1"));
                         }
-
                     }
                 });
 
@@ -237,7 +236,7 @@ public class AddBankAccountGUI extends JPanel
                         controller.changePanelToMainMenu();
                     }
                 });
-        setTableModel(sysController.getSystemAccounts("1"));
+                setTableModel(sysController.getSystemAccounts("1"));
     }
 
     public void setTableModel(TableModel tbm)
