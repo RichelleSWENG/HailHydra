@@ -99,8 +99,7 @@ public class GUIController
     private HailHydraGUI frame;
     private MainMenuGUI main;
     private InventoryListGUI inventoryGUI;
-    
-    private MainController controller;
+  
     private AccountProfileController accountProfileController;
     private InventoryController inventoryController;
     private SystemAccountController systemAccountController;
@@ -116,7 +115,6 @@ public class GUIController
     public GUIController()
     {
             dbc = new DBConnection();
-            controller= new MainController(this);
             frame=new HailHydraGUI();
             
             inventoryModel = new ItemModel(dbc);
@@ -128,19 +126,6 @@ public class GUIController
             
             changePanelToLogin();
     }
-     
-    public void setController(MainController temp){
-            controller=temp;
-    }
-    
-    public void login(String username, String password) throws SQLException{
-            try {
-                controller.login(username,password);
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            }
-    }
-    
     
     public JPanel getContentPanel()
     {
