@@ -29,7 +29,7 @@ public class CreditMemoModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id";
+            String sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -47,7 +47,7 @@ public class CreditMemoModel
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+            String sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -131,14 +131,14 @@ public class CreditMemoModel
         return this.itemCount;
     }
 
-    public void addCreditMemo(String cmID, String date, String rsNum, int status, String type)
+    public void addCreditMemo(String cmID, String date, String rsNum, int status, String type, String partNum, String total)
     {
        
         try
         {
         
             statement = db.createStatement();
-            String sql = "INSERT INTO creditmemo(credit_memo_id,date,return_slip_id,status,type) VALUES('"+cmID+"','"+date+"','"+rsNum+"','"+status+"', '"+type+"')";
+            String sql = "INSERT INTO creditmemo(credit_memo_id,date,return_slip_id,part_number,status,type,total_amount) VALUES('"+cmID+"','"+date+"','"+rsNum+"','"+partNum+"','"+status+"', '"+type+"', '"+total+"')";
             statement.executeUpdate(sql);
            
         } catch (Exception e)
@@ -166,6 +166,7 @@ public class CreditMemoModel
                 cm.setRsNum(rs.getString("return_slip_id"));
                 cm.setStatus(rs.getInt("status"));
                 cm.setType(rs.getString("type"));
+                cm.setPartNumber(rs.getString("part_number"));
             }
 
 

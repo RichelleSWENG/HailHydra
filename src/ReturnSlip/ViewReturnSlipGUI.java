@@ -117,7 +117,7 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
         {
             case "Functional": rdbtnFunctional.setSelected(true); break;
             case "Defective w/out Debit Memo": rdbtnDefectiveWithOutDebitMemo.setSelected(true); break;
-            case "Defective w/ Debit Memo":    rdbtnDefectiveWithDebitMemo.setSelected(true); break;
+            case "Defective w/Debit Memo":    rdbtnDefectiveWithDebitMemo.setSelected(true); break;
         }
         rdbtnFunctional.setEnabled(false);
         rdbtnDefectiveWithOutDebitMemo.setEnabled(false);

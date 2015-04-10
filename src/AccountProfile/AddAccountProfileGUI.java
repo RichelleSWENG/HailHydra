@@ -44,7 +44,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                         al.add(tfCity.getText());
                         al.add(tfPostCode.getText());
                         al.add(tfCountry.getText());
-                        al.add(ftfCreditLimit.getText());
+                        al.add(ftfCreditLimit.getText().replaceAll(",", ""));
                         al.add(ftfTerms.getText());
                         al.add(tfPhone1.getText());
                         al.add(tfPhone2.getText());
@@ -159,7 +159,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                             lblCreditLimit.setForeground(Color.orange);
                         }
 
-                        if (/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText()) < 0.00f) 
+                        if (/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText().replaceAll(",", "")) < 0.00f) 
                         {
                             JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
                             error = true;

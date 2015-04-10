@@ -419,6 +419,7 @@ public class ReturnSlipListGUI extends JPanel {
 		add(btnAddCreditMemo);
 		btnAddCreditMemo.addActionListener(new ActionListener() 
                 {
+                    private String returnslipItem;
 			public void actionPerformed(ActionEvent e) 
                         {
                                int row;
@@ -429,8 +430,9 @@ public class ReturnSlipListGUI extends JPanel {
 				else 
                                 {
                                         returnslipID = tbReturnSlip.getValueAt(row, 1).toString();
-                                        
+                                        returnslipItem = tbReturnSlip.getValueAt(row, 3).toString();
                                         mainController.setSlipTarget(mainController.getRS(returnslipID));
+                                        mainController.setReturnSlipItem(returnslipItem);
 					guiController.changePanelToAddCreditMemo();
 				}
 				

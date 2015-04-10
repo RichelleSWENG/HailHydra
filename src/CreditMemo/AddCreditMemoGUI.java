@@ -61,7 +61,9 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
                             if(chckbxReplacement.isSelected())
                                 type= "Replacement";
                             else type = "Not Replacement";
-                            mainController.addCreditMemo(tfCreditMemoNum.getText(),ftfDate.getText(),tfReplySlipNum.getText(), status,type);
+
+                            
+                            mainController.addCreditMemo(tfCreditMemoNum.getText(),ftfDate.getText(),tfReplySlipNum.getText(), status,type,(tbModel.getValueAt(0, 1)).toString(),(tbModel.getValueAt(0, 4)).toString());
                                 controller.changePanelToCreditMemo();
                         }
                     });
@@ -94,7 +96,7 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
         {
             case "Functional": break;
             case "Defective w/out Debit Memo": chckbxDefective.setSelected(true); break;
-            case "Defective w/ Debit Memo":    chckbxDefective.setSelected(true); break;
+            case "Defective w/Debit Memo":    chckbxDefective.setSelected(true); break;
         }
 
         
@@ -151,9 +153,14 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
         tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
-           tbModel.setValueAt(slip.getList().get(i).getQuantity(), i, 0);
-           tbModel.setValueAt(slip.getList().get(i).getPartNum(), i, 1);
-           tbModel.setValueAt(slip.getList().get(i).getUnit_price(), i, 3);
+           if(RSController.getReturnSlipItem().equals(slip.getList().get(i).getPartNum()))
+           {
+            tbModel.setRowCount(1);
+           tbModel.setValueAt(slip.getList().get(i).getQuantity(), 0, 0);
+           tbModel.setValueAt(slip.getList().get(i).getPartNum(), 0, 1);
+           tbModel.setValueAt(slip.getList().get(i).getUnit_price(), 0, 3);
+           }
+
         }
         tbCreditMemo.setEnabled(false);
 

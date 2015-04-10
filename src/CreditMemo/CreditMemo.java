@@ -18,6 +18,7 @@ public class CreditMemo
     private String rsNum;
     private int status;
     private String type;
+    private String partNum;
     
     public CreditMemo()
     {
@@ -26,15 +27,17 @@ public class CreditMemo
         this.rsNum = "";
         this.status = -1;
         this.type = "";
+        this.partNum = "";
     }
     
-   public CreditMemo(String id, String date, String rsNum, int status, String type)
+   public CreditMemo(String id, String date, String rsNum, int status, String type,String partNum)
     {
         this.id = id;
         this.date = date;
         this.rsNum = rsNum;
         this.status = status;
         this.type = type;
+        this.partNum = partNum;
     }
 
     public String getId()
@@ -86,5 +89,14 @@ public class CreditMemo
     {
         this.type = type;
     }
+
+    public void setPartNumber(String partNum)
+    {
+        this.partNum = partNum;
+    }
     
+    public String getPartNumber()
+    {
+        return this.partNum;
+    }
 }

@@ -79,9 +79,9 @@ public class CreditMemoController
         return "";
     }
 
-    public void addCreditMemo(String cmID, String date, String rsNum, int status, String type)
+    public void addCreditMemo(String cmID, String date, String rsNum, int status, String type, String partNum, String total)
     {
-        creditmemoModel.addCreditMemo(cmID,date,rsNum,status,type);
+        creditmemoModel.addCreditMemo(cmID,date,rsNum,status,type,partNum, total);
     }
 
     public CreditMemo getCM(String ID)

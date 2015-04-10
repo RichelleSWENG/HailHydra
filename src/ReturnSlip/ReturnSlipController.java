@@ -18,6 +18,7 @@ public class ReturnSlipController {
     private int itemcount;
     private ReturnSlip slip;
     private ArrayList<String> alReturnSlip = new ArrayList<>();
+    private String returnslipItem;
     
     public ReturnSlipController(ReturnSlipModel rsModel, ReturnSlipListGUI tempGUI)
     {
@@ -181,6 +182,16 @@ public class ReturnSlipController {
     public void DeductFuncAddDef(String quantity, String partNum)
     {
         returnslipModel.DeductFuncAddDef(quantity,partNum);
+    }
+
+    public void setReturnSlipItem(String returnslipItem)
+    {
+        this.returnslipItem = returnslipItem;
+    }
+    
+    public String getReturnSlipItem()
+    {
+        return this.returnslipItem;
     }
     
    

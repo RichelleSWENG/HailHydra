@@ -134,9 +134,13 @@ public class ViewCreditMemoGUI extends CreditMemoGUI implements TableModelListen
         tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
-           tbModel.setValueAt(slip.getList().get(i).getQuantity(), i, 0);
-           tbModel.setValueAt(slip.getList().get(i).getPartNum(), i, 1);
-           tbModel.setValueAt(slip.getList().get(i).getUnit_price(), i, 3);
+           if(CreditMemo.getPartNumber().equals(slip.getList().get(i).getPartNum()))
+           {
+            tbModel.setRowCount(1);
+           tbModel.setValueAt(slip.getList().get(i).getQuantity(), 0, 0);
+           tbModel.setValueAt(slip.getList().get(i).getPartNum(), 0, 1);
+           tbModel.setValueAt(slip.getList().get(i).getUnit_price(), 0, 3);
+           }
         }
         tbCreditMemo.setEnabled(false);
 

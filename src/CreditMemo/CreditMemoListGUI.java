@@ -381,7 +381,7 @@ public class CreditMemoListGUI extends JPanel
                                 {
                                         returnslipID = tbCreditMemo.getValueAt(row, 3).toString();
                                         creditmemoID = tbCreditMemo.getValueAt(row, 1).toString();
-                                        System.out.println(returnslipID);
+
                                         RSController.setSlipTarget(RSController.getRS(returnslipID));
                                         mainController.setCMTarget(mainController.getCM(creditmemoID));
 					controller.changePanelToViewCreditMemo();

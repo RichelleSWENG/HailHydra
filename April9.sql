@@ -314,7 +314,7 @@ CREATE TABLE `company` (
   `terms` int(4) NOT NULL,
   `type` varchar(45) NOT NULL,
   PRIMARY KEY (`company_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -323,7 +323,7 @@ CREATE TABLE `company` (
 
 LOCK TABLES `company` WRITE;
 /*!40000 ALTER TABLE `company` DISABLE KEYS */;
-INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',500.00,23,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',0.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier'),(9,'Nancy','','','','','','','','','','','','Active',20.00,30,'Supplier'),(10,'xcsda','','','','','','','','','','','','Active',0.00,0,'Supplier');
+INSERT INTO `company` VALUES (1,'Janine','asdsaffdgdsas','ffsdsadasd','fasdfsafdf','afddsafasdfaf','123','123','123','123','dsfdsfsd','dfsdf','sdfsdfsfsfsd','Active',12.00,3,'Retail Customer'),(2,'Richelle','adkldjsfsk','sdfjslkdfjl','ksdflskdjfl','kdflkjflkdjsa','123','123','123','123','kxdlksjl','kjsdlkfjsl','kdfslkj','Active',500.00,23,'Walk-in Customer'),(4,'dsfdfsdfs','dsfsdfsfsdf23232','fdsfsdfsdf23232','fdsfsdf23232','1234','21834344','','','2313421','','fdgfhfggsdfsfds','','Active',20.00,3,'Retail Customer'),(5,'janien','','','','','','','','','','','','Active',30000.00,30,'Sister Company Customer'),(6,'adsad','','','','','','','','','','','','Active',0.00,30,'Sister Company Customer'),(7,'jeje','taft ','Manila','','','','','','','','','','Active',30.00,30,'Sister Company Customer'),(8,'bianca','','','','','','','','','','','','Active',100.00,30,'Supplier'),(9,'Nancy','','','','','','','','','','','','Active',20.00,30,'Supplier'),(10,'xcsda','','','','','','','','','','','','Active',0.00,0,'Supplier'),(11,'James Harden','','','','','','','','','','','','Active',20.00,0,'Supplier'),(12,'Steph Curry','Oracle Arena','San Francisco','USA','1234','','','','','','','','Active',250000.00,30,'Sister Company Customer');
 /*!40000 ALTER TABLE `company` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -338,8 +338,10 @@ CREATE TABLE `creditmemo` (
   `credit_memo_id` varchar(45) NOT NULL,
   `date` date NOT NULL,
   `return_slip_id` varchar(45) NOT NULL,
+  `part_number` varchar(45) NOT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `type` varchar(45) NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`credit_memo_id`),
   KEY `return_slip_id_idx` (`return_slip_id`),
   CONSTRAINT `return_slip_id` FOREIGN KEY (`return_slip_id`) REFERENCES `returnslip` (`return_slip_id`) ON UPDATE CASCADE
@@ -352,7 +354,7 @@ CREATE TABLE `creditmemo` (
 
 LOCK TABLES `creditmemo` WRITE;
 /*!40000 ALTER TABLE `creditmemo` DISABLE KEYS */;
-INSERT INTO `creditmemo` VALUES ('1','2014-02-26','1',0,''),('Hellow','2015-03-29','23',0,'Replacement');
+INSERT INTO `creditmemo` VALUES ('005','2015-04-10','004','234',0,'Replacement',0.00),('06161','2015-04-10','004','234',1,'Not Replacement',0.00),('PARTY','2015-04-10','004','234',0,'Replacement',0.00);
 /*!40000 ALTER TABLE `creditmemo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -558,7 +560,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,2,1,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -694,7 +696,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('1','2014-02-26',20.00,8,1,'cxzcxz','2014-03-12','xczczxx','xczxxcz','xzczczxc',NULL,NULL,NULL),('120','2015-03-29',0.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('123','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('23','2015-03-29',20.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('56','2015-03-30',20.00,9,2,'',NULL,'','',NULL,'Functional',NULL,NULL),('Hellow','2015-04-10',60.00,8,1123,'','','','',NULL,'Functional','','');
+INSERT INTO `returnslip` VALUES ('','2015-04-10',0.00,8,1123,'','','','',NULL,'Defective w/Debit Memo','',''),('001','2015-04-10',130.00,11,123,'','','','',NULL,'Defective w/Debit Memo','',''),('002','2015-04-10',0.00,9,1123,'','','','',NULL,'Defective w/out Debit Memo','',''),('003','2015-04-10',0.00,10,123,'','','','',NULL,'Defective w/out Debit Memo','',''),('004','2015-04-10',0.00,9,123,'','','','',NULL,'Defective w/Debit Memo','',''),('120','2015-03-29',0.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('123','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('125','2015-03-29',20.00,8,2,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('129','2015-03-29',200.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('1st','2015-04-10',50.00,9,1123,'','','','',NULL,'Functional','',''),('23','2015-03-29',20.00,8,1,'','2015-03-29','','',NULL,'Functional','2015-03-29','2015-03-29'),('56','2015-03-30',20.00,9,2,'',NULL,'','',NULL,'Functional',NULL,NULL),('eto!','2015-04-10',0.00,10,123,'','','','',NULL,'Defective w/Debit Memo','',''),('Hellow','2015-04-10',60.00,8,1123,'','','','',NULL,'Functional','',''),('party','2015-04-10',0.00,11,123,'','','','',NULL,'Defective w/Debit Memo','',''),('Testing','2015-04-10',50.00,11,123,'','','','',NULL,'Functional','','');
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -722,7 +724,7 @@ CREATE TABLE `rslineitem` (
 
 LOCK TABLES `rslineitem` WRITE;
 /*!40000 ALTER TABLE `rslineitem` DISABLE KEYS */;
-INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0),('Hellow',1,'234',30.00,30.00,0),('Hellow',1,'SHV_E300K',30.00,30.00,0);
+INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0),('Hellow',1,'234',30.00,30.00,0),('Hellow',1,'SHV_E300K',30.00,30.00,0),('Testing',1,'234',20.00,20.00,0),('Testing',1,'SHV_E300K',30.00,30.00,0),('1st',1,'123',30.00,30.00,0),('1st',1,'234',20.00,20.00,0),('001',2,'234',50.00,100.00,0),('001',1,'123',30.00,30.00,0),('002',1,'123',0.00,0.00,0),('003',0,'345',0.00,0.00,0),('004',1,'234',0.00,0.00,0),('',2,'SHV_E300K',0.00,0.00,0),('party',1,'234',0.00,0.00,0),('eto!',2,'234',0.00,0.00,0);
 /*!40000 ALTER TABLE `rslineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -897,4 +899,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-10 12:33:16
+-- Dump completed on 2015-04-10 16:13:41
