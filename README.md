@@ -8,6 +8,9 @@ Edit AR, SI, PT  <br>
 ~~View Return Slip~~<br>
 View Payments<br>
 ~~Add Credit Memo~~<br>
+View Credit Mamo<br>
 Add Debit Memo<br>
+View Debit Memo<br>
 Notifications<br>
-
+Access Restriction<br
+<br>Palagay yung system name sa Title bar

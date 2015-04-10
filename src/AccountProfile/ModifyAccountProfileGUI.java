@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
@@ -17,7 +16,6 @@ import javax.swing.border.TitledBorder;
 public class ModifyAccountProfileGUI extends AccountProfileGUI 
 {
         private JButton btnSubmit, btnCancel;
-        private JLabel lblHeader;
         private GUIController GUIController;
         private AccountProfileController mainController;
         private String realName;
@@ -30,10 +28,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 setMainController(AccountProfileController);
                 GUIController=temp;
                 
-                lblHeader = new JLabel("Modify Account Profile");
-                lblHeader.setFont(fntHeaderText);
-                lblHeader.setBounds(30, 0, 600, 86);
-                add(lblHeader);
+                lblHeader.setText("Modify Account Profile");
                 
                 ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
                 realName = accountProfile.get(0).toString(); //for pkey
@@ -316,7 +311,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
              return false;
         }
         
-        public static void main(String args[]){
+        public static void main(String args[])
+        {
             GUIController temp=new GUIController();
             temp.changePanelToModifyAccountProfile();
         }
