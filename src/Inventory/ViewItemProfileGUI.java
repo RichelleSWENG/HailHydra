@@ -1,8 +1,5 @@
-
-
 package Inventory;
 
-import AccountProfile.AccountProfileController;
 import HailHydra.GUIController;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -26,7 +23,7 @@ public class ViewItemProfileGUI extends ItemProfileGUI
         
     public ViewItemProfileGUI(GUIController temp,InventoryController InventoryController) throws IOException
     {
-            setMainController(InventoryController);
+                setMainController(InventoryController);
                 guiController= temp; 
                 
                 lblHeader.setText("View Item Profile");
