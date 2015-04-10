@@ -5,14 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 public class ViewAccountProfileGUI extends AccountProfileGUI
 {
         private JButton btnEdit, btnClose;
-        private JLabel lblHeader;
         private JPanel grpPnlBasicInfo, grpPnlContactInfo;
         private GUIController guiController;
         private AccountProfileController mainController;
@@ -23,10 +21,7 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                 setMainController(AccountProfileController);
                 guiController=temp;
                 
-                lblHeader = new JLabel("View Account Profile");
-                lblHeader.setFont(fntHeaderText);
-                lblHeader.setBounds(30, 0, 600, 86);
-                add(lblHeader);
+                lblHeader.setText("View Account Profile");
                 
                 tfName.setEditable(false);
                 tfCity.setEditable(false);
