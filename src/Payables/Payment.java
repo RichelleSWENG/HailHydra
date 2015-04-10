@@ -22,6 +22,7 @@ public class Payment {
     private String approved_date;
     private String received_date;
     private String prepared_date;
+    private String payment_id;
     
     public Payment(int pt,float amount,String received_date,String approved_date,String prepared_date,String received_by,String approved_by,String prepared_by,String payment_type,String credit_memo_id,String date,String notes)
     {
@@ -40,6 +41,10 @@ public class Payment {
            
     }
 
+    public Payment() {
+       
+    }
+   
     /**
      * @return the purchase_transaction_id
      */
@@ -170,6 +175,7 @@ public class Payment {
      * @return the approved_date
      */
     public String getApproved_date() {
+        
         if(approved_date.equals(""))
             return "NULL";
         else
@@ -193,6 +199,7 @@ public class Payment {
         else
             return "'"+received_date+"'";
     }
+    
 
     /**
      * @param received_date the received_date to set
@@ -217,5 +224,42 @@ public class Payment {
     public void setPrepared_date(String prepared_date) {
         this.prepared_date = prepared_date;
     }
+
+    /**
+     * @return the payment_id
+     */
+    public String getPayment_id() {
+        return payment_id;
+    }
+
+    /**
+     * @param payment_id the payment_id to set
+     */
+    public void setPayment_id(String payment_id) {
+        this.payment_id = payment_id;
+    }
     
+    public String getRDate()
+    {
+        if(received_date==null)
+            return "";
+        else
+            return received_date;
+    }
+    
+    public String getADate()
+    {
+        if(approved_date==null)
+            return "";
+        else
+            return approved_date;
+    }
+    
+    public String getPDate()
+    {
+        if(prepared_date==null)
+            return "";
+        else
+            return prepared_date;
+    }
 }

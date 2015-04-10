@@ -33,7 +33,9 @@ public class Collection {
         this.notes=notes;
         this.receipt_type=receipt_type;
     }
-
+    public Collection()
+    {
+    }
     /**
      * @return the date
      */
@@ -150,6 +152,8 @@ public class Collection {
      * @return the received_date
      */
     public String getReceived_date() {
+        if(received_date==null)
+            return "";
         if(received_date.equals(""))
             return "NULL";
         else
@@ -163,5 +167,12 @@ public class Collection {
         this.received_date = received_date;
     }
     
+    public String getRDate()
+    {
+        if(received_date==null)
+            return "";
+        else
+            return received_date;
+    }
     
 }

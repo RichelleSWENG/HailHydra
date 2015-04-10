@@ -108,12 +108,12 @@ public class PurchaseTransactionListGUI extends JPanel
 
         lblNumofTransactions = new JLabel("0");
         lblNumofTransactions.setFont(fntPlainText);
-        lblNumofTransactions.setBounds(234, 200, 46, 30);
+        lblNumofTransactions.setBounds(250, 200, 250, 30);
         add(lblNumofTransactions);
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(150, 120, 571, 30);
+        tfSearch.setBounds(150, 120, 650, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
@@ -135,14 +135,13 @@ public class PurchaseTransactionListGUI extends JPanel
         cmbToYear.setFont(fntPlainText);
         cmbToYear.setBounds(621, 160, 100, 30);
         add(cmbToYear);
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < months.length; i++)
         {
             cmbFromMonth.addItem(months[i]);
             cmbToMonth.addItem(months[i]);
         }
         cmbToYear.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -153,7 +152,6 @@ public class PurchaseTransactionListGUI extends JPanel
         });
         cmbToMonth.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -164,7 +162,6 @@ public class PurchaseTransactionListGUI extends JPanel
         });
         cmbFromMonth.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -175,7 +172,6 @@ public class PurchaseTransactionListGUI extends JPanel
         });
         cmbFromYear.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText(null);
@@ -186,7 +182,6 @@ public class PurchaseTransactionListGUI extends JPanel
         });
         tfSearch.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
             public void insertUpdate(DocumentEvent de)
             {
                 try
@@ -197,8 +192,7 @@ public class PurchaseTransactionListGUI extends JPanel
 
                 }
             }
-
-            @Override
+            
             public void removeUpdate(DocumentEvent de)
             {
                 try
@@ -210,7 +204,6 @@ public class PurchaseTransactionListGUI extends JPanel
                 }
             }
 
-            @Override
             public void changedUpdate(DocumentEvent de)
             {
                 try
@@ -242,23 +235,14 @@ public class PurchaseTransactionListGUI extends JPanel
                 }
             }
         });
-        tbModel = new DefaultTableModel()
+       
+
+        tbPurchaseTransaction = new JTable()
         {
-            public boolean isCellEditable(int rowIndex, int mColIndex)
+            public boolean isCellEditable(int row, int column) 
             {
-                return false;
+                    return false;
             }
-        };
-
-        tbModel.setRowCount(15);
-
-        for (int i = 0; i < strHeader.length; i++)
-        {
-            tbModel.addColumn(strHeader[i]);
-        }
-
-        tbPurchaseTransaction = new JTable(tbModel)
-        {
             public TableCellRenderer getCellRenderer(int row, int column)
             {
                 return new TableRenderer();
@@ -312,10 +296,10 @@ public class PurchaseTransactionListGUI extends JPanel
         rdbtnSupplierName = new JRadioButton("Supplier Name");
         rdbtnSupplierName.setFont(fntPlainText);
         rdbtnSupplierName.setSelected(true);
-        rdbtnSupplierName.setBounds(150, 80, 161, 30);
+        rdbtnSupplierName.setBounds(150, 80, 180, 30);
         add(rdbtnSupplierName);
         rdbtnSupplierName.addActionListener(new ActionListener()
-        {//Everytime All is selected 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 tfSearch.setText(null);
@@ -324,10 +308,10 @@ public class PurchaseTransactionListGUI extends JPanel
 
         rdbtnPurchaseTransactionNum = new JRadioButton("Purchase Transaction Number");
         rdbtnPurchaseTransactionNum.setFont(fntPlainText);
-        rdbtnPurchaseTransactionNum.setBounds(324, 80, 315, 30);
+        rdbtnPurchaseTransactionNum.setBounds(330, 80, 320, 30);
         add(rdbtnPurchaseTransactionNum);
         rdbtnPurchaseTransactionNum.addActionListener(new ActionListener()
-        {//Everytime All is selected 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 tfSearch.setText(null);
@@ -336,10 +320,10 @@ public class PurchaseTransactionListGUI extends JPanel
 
         rdbtnPartNumber = new JRadioButton("Part Number");
         rdbtnPartNumber.setFont(fntPlainText);
-        rdbtnPartNumber.setBounds(648, 80, 352, 30);
+        rdbtnPartNumber.setBounds(655, 80, 352, 30);
         add(rdbtnPartNumber);
         rdbtnPartNumber.addActionListener(new ActionListener()
-        {//Everytime All is selected 
+        {
             public void actionPerformed(ActionEvent e)
             {
                 tfSearch.setText(null);
@@ -467,14 +451,26 @@ public class PurchaseTransactionListGUI extends JPanel
         TableModel AllModel = mainController.getAllModel();
         tbPurchaseTransaction.setModel(AllModel);
 
-        JTableHeader th = tbPurchaseTransaction.getTableHeader();      // Setting the Headers
+        JTableHeader th = tbPurchaseTransaction.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < strHeader.length; i++) 
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
         }
-        th.repaint();
+        tbCellRenderer = tbPurchaseTransaction.getTableHeader().getDefaultRenderer();
+        tbColumnRenderer = tbPurchaseTransaction.getColumnModel();
+        for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+        {
+                tbColumn = tbColumnRenderer.getColumn(j);
+                tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                if (tbCellRendererColumn == null)
+                        tbCellRendererColumn = tbCellRenderer;
+                component = tbCellRendererColumn.getTableCellRendererComponent(tbPurchaseTransaction, tbColumn.getHeaderValue(), false, false, 0,j);
+                tbColumn.setPreferredWidth(component.getPreferredSize().width);
+        }
+
+        tbPurchaseTransaction.repaint();
         setComboBox();
     }
 

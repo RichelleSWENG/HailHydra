@@ -22,7 +22,6 @@ import javax.swing.table.TableColumnModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -116,84 +115,51 @@ public class InventoryListGUI extends JPanel
                 
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
                 {
-                    @Override
+                    
                     public void insertUpdate(DocumentEvent de)
                     {
-                try
-                {
-                    done();
-                } catch (Exception ex)
-                {
-                   
-                }
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent de)
-            {
-                try
-                {
-                    done();
-                } catch (Exception ex)
-                {
-                   
-                }
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent de)
-            {
-                try
-                {
-                    done();
-                } catch (Exception ex)
-                {
-                    
-                }
-            }
-
-            public void done() throws Exception
-            {
-                if (tfSearch.getText().length() > 0)
-                {
-                    mainController.SearchSomething(tfSearch.getText(), searchBy.getSelection().getActionCommand()); //if a key is typed search
-
-                } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
-                {
-                    TableModel AllModel = mainController.getAllModel();
-                    tbInventory.setModel(AllModel);
-
-                    JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
-                    TableColumnModel tcm = th.getColumnModel();
-                        for (int i = 0; i < strHeader.length; i++)
+                            try
                             {
-                        TableColumn tc = tcm.getColumn(i);
-                        tc.setHeaderValue(strHeader[i]);
-                 }
-                    th.repaint();                }
-            }
+                                done();
+                            } catch (Exception ex)
+                            {
 
-        });
+                            }
+                    }
+
+           
+                    public void removeUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+
+                        }
+                    }
+
+            
+                    public void changedUpdate(DocumentEvent de)
+                    {
+                        try
+                        {
+                            done();
+                        } catch (Exception ex)
+                        {
+
+                        }
+                    }
+
+                });
           
-		
 
-		tbModel = new DefaultTableModel()
+		tbInventory = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				return false;
 			}
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbInventory = new JTable(tbModel)
-		{
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -215,8 +181,7 @@ public class InventoryListGUI extends JPanel
 		tbInventory.getTableHeader().setFont(fntHeaderTableText);
 		tbInventory.getTableHeader().setPreferredSize(new Dimension(100, 55));
 		tbInventory.getTableHeader().setResizingAllowed(false);
-		tbCellRenderer = tbInventory.getTableHeader()
-				.getDefaultRenderer();
+		tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbInventory.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
 		{
@@ -429,15 +394,63 @@ public class InventoryListGUI extends JPanel
             TableModel AllModel = mainController.getAllModel();
             tbInventory.setModel(AllModel);
 
-            JTableHeader th = tbInventory.getTableHeader();      // Setting the Headers
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < strHeader.length; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
-            }
-            th.repaint();
+            JTableHeader th = tbInventory.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++) 
+                {
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+                tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbInventory.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbInventory.repaint();
         }
+        
+        public void done() throws Exception
+        {
+            if (tfSearch.getText().length() > 0)
+            {
+                mainController.SearchSomething(tfSearch.getText(), searchBy.getSelection().getActionCommand()); //if a key is typed search
+
+            } else if (tfSearch.getText().length() == 0)  //if nothing is typed display all
+            {
+                TableModel AllModel = mainController.getAllModel();
+                tbInventory.setModel(AllModel);
+
+                JTableHeader th = tbInventory.getTableHeader();
+                TableColumnModel tcm = th.getColumnModel();
+                for (int i = 0; i < strHeader.length; i++) 
+                {
+                        TableColumn tc = tcm.getColumn(i);
+                        tc.setHeaderValue(strHeader[i]);
+                }
+                tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
+                tbColumnRenderer = tbInventory.getColumnModel();
+                for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+                {
+                        tbColumn = tbColumnRenderer.getColumn(j);
+                        tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                        if (tbCellRendererColumn == null)
+                                tbCellRendererColumn = tbCellRenderer;
+                        component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
+                        tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                }
+                
+		
+
+                tbInventory.repaint();
+                }
+            }
 
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
@@ -528,7 +541,8 @@ public class InventoryListGUI extends JPanel
             }    
         }
 
-        public static void main(String args[]) throws Exception{
+        public static void main(String args[]) throws Exception
+        {
                 GUIController temp=new GUIController();
                 temp.changePanelToInventory();
         }	

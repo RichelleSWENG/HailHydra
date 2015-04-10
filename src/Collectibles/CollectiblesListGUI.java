@@ -575,7 +575,19 @@ public class CollectiblesListGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				guiController.changePanelToViewPaymentCollectibles();
+                                int row;
+                                String id;
+                                String type;
+                                row = tbCollectibles.getSelectedRow();
+                                if(row == -1 )
+                                    JOptionPane.showMessageDialog(null, "Please select an item.");
+                                else 
+                                {
+                                    id=tbCollectibles.getValueAt(row,3).toString();
+                                    type=tbCollectibles.getValueAt(row,2).toString();
+                                    guiController.changePanelToViewPaymentCollectibles(id,type);
+                                }
+				
 			}
 		});
 

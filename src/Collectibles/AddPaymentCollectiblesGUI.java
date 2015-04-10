@@ -1,5 +1,9 @@
 package Collectibles;
 
+import HailHydra.GUIController;
+import Payables.AddPaymentPayablesGUI;
+import Payables.Payment;
+import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -7,38 +11,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import HailHydra.GUIController;
-import Payables.AddPaymentPayablesGUI;
-import Payables.Payment;
-import TableRenderer.TableRenderer;
-import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
 public class AddPaymentCollectiblesGUI extends JPanel {
@@ -274,6 +274,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
 			}
 		});
 	}
+     
         public void setMainController(PaymentCollectiblesController temp) {
 		mainController = temp;
 	}

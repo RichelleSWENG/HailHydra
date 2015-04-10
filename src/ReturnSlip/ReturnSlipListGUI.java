@@ -1,6 +1,5 @@
 package ReturnSlip;
 
-import AccountProfile.AccountProfileListGUI;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -25,10 +24,7 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -38,14 +34,13 @@ import javax.swing.table.TableModel;
 public class ReturnSlipListGUI extends JPanel {
 
 	private JLabel lblHeader, lblSearchBy, lblSearch, lblRange, lblTo,
-			lblSlipsFound, lblNumofSlips;
+			lblSlipsFound, lblNumOfSlipsFound;
 	private String strHeader[] = { "Date",
 			"<html><center>Return Slip<br>Number</center></html>",
 			"Supplier Name", "Part Number", "Quantity", "Amount" },
 			strMonths[] = { "January", "February", "March", "April", "May",
 					"June", "July", "August", "September", "October",
 					"November", "December" };
-	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
 	private TableColumn tbColumn;
@@ -104,10 +99,10 @@ public class ReturnSlipListGUI extends JPanel {
 		lblSlipsFound.setBounds(30, 200, 149, 30);
 		add(lblSlipsFound);
 
-		lblNumofSlips = new JLabel("0");
-		lblNumofSlips.setFont(fntPlainText);
-		lblNumofSlips.setBounds(160, 200, 46, 30);
-		add(lblNumofSlips);
+		lblNumOfSlipsFound = new JLabel("0");
+		lblNumOfSlipsFound.setFont(fntPlainText);
+		lblNumOfSlipsFound.setBounds(170, 200, 250, 30);
+		add(lblNumOfSlipsFound);
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
@@ -134,14 +129,16 @@ public class ReturnSlipListGUI extends JPanel {
 		cmbToYear.setBounds(645, 160, 100, 30);
 		add(cmbToYear);
 
-		for (int i = 0; i < strMonths.length; i++) {
+		for (int i = 0; i < strMonths.length; i++)
+                {
 			cmbFromMonth.addItem(strMonths[i]);
 			cmbToMonth.addItem(strMonths[i]);
 		}
 
-		cmbToYear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
+		cmbToYear.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent ae) 
+                        {
 				tfSearch.setText("");
 				mainController.searchbyDate(
 						cmbFromYear.getSelectedItem() + "-"
@@ -165,9 +162,10 @@ public class ReturnSlipListGUI extends JPanel {
 			}
 
 		});
-		cmbFromMonth.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
+		cmbFromMonth.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent ae) 
+                        {
 				tfSearch.setText("");
 				mainController.searchbyDate(
 						cmbFromYear.getSelectedItem() + "-"
@@ -178,9 +176,10 @@ public class ReturnSlipListGUI extends JPanel {
 			}
 
 		});
-		cmbFromYear.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent ae) {
+		cmbFromYear.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent ae) 
+                        {
 				tfSearch.setText(null);
 				mainController.searchbyDate(
 						cmbFromYear.getSelectedItem() + "-"
@@ -192,36 +191,45 @@ public class ReturnSlipListGUI extends JPanel {
 
 		});
 
-		tfSearch.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
-			public void insertUpdate(DocumentEvent de) {
-				try {
+		tfSearch.getDocument().addDocumentListener(new DocumentListener() 
+                {
+			public void insertUpdate(DocumentEvent de) 
+                        {
+				try 
+                                {
 					done();
-				} catch (Exception ex) {
+				} catch (Exception ex) 
+                                {
 
 				}
 			}
 
-			@Override
-			public void removeUpdate(DocumentEvent de) {
-				try {
+			public void removeUpdate(DocumentEvent de) 
+                        {
+				try 
+                                {
 					done();
-				} catch (Exception ex) {
+				} catch (Exception ex) 
+                                {
 
 				}
 			}
 
-			@Override
-			public void changedUpdate(DocumentEvent de) {
-				try {
+			public void changedUpdate(DocumentEvent de) 
+                        {
+				try 
+                                {
 					done();
-				} catch (Exception ex) {
+				} catch (Exception ex) 
+                                {
 
 				}
 			}
 
-			public void done() throws Exception {
-				if (tfSearch.getText().length() > 0) {
+			public void done() throws Exception
+                        {
+				if (tfSearch.getText().length() > 0) 
+                                {
 					if (rdbtnSupplierName.isSelected())
 						mainController.SearchSomething(tfSearch.getText(), 0,
 								cmbFromYear.getSelectedItem() + "-"
@@ -258,30 +266,27 @@ public class ReturnSlipListGUI extends JPanel {
 			}
 		});
 
-		tbModel = new DefaultTableModel() {
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
+		tbReturnSlip = new JTable() 
+                {
+                        public boolean isCellEditable(int rowIndex, int mColIndex) 
+                        {
 				return false;
 			}
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++) {
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbReturnSlip = new JTable(tbModel) {
-			public TableCellRenderer getCellRenderer(int row, int column) {
+			public TableCellRenderer getCellRenderer(int row, int column) 
+                        {
 				return new TableRenderer();
 			}
 
 			public Component prepareRenderer(TableCellRenderer renderer,
-					int row, int column) {
+					int row, int column) 
+                        {
 				component = super.prepareRenderer(renderer, row, column);
 				modelRow = convertRowIndexToModel(row);
-				if (!isRowSelected(modelRow)) {
+				if (!isRowSelected(modelRow)) 
+                                {
 					component.setBackground(Color.WHITE);
-				} else {
+				} else 
+                                {
 					component.setBackground(Color.yellow);
 				}
 				return component;
@@ -320,30 +325,36 @@ public class ReturnSlipListGUI extends JPanel {
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
 		rdbtnSupplierName.setSelected(true);
-		rdbtnSupplierName.setBounds(160, 80, 161, 30);
+		rdbtnSupplierName.setBounds(160, 80, 170, 30);
 		add(rdbtnSupplierName);
-		rdbtnSupplierName.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		rdbtnSupplierName.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				tfSearch.setText(null);
 			}
 		});
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
 		rdbtnReturnSlipNo.setFont(fntPlainText);
-		rdbtnReturnSlipNo.setBounds(325, 80, 220, 30);
+		rdbtnReturnSlipNo.setBounds(350, 80, 220, 30);
 		add(rdbtnReturnSlipNo);
-		rdbtnReturnSlipNo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		rdbtnReturnSlipNo.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				tfSearch.setText(null);
 			}
 		});
 
 		rdbtnPartNo = new JRadioButton("Part Number");
 		rdbtnPartNo.setFont(fntPlainText);
-		rdbtnPartNo.setBounds(548, 80, 171, 30);
+		rdbtnPartNo.setBounds(590, 80, 171, 30);
 		add(rdbtnPartNo);
-		rdbtnPartNo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		rdbtnPartNo.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				tfSearch.setText(null);
 			}
 		});
@@ -357,8 +368,10 @@ public class ReturnSlipListGUI extends JPanel {
 		btnViewAllSlips.setFont(fntPlainText);
 		btnViewAllSlips.setBounds(725, 195, 240, 40);
 		add(btnViewAllSlips);
-		btnViewAllSlips.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnViewAllSlips.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				ViewAll();
 			}
 		});
@@ -367,8 +380,10 @@ public class ReturnSlipListGUI extends JPanel {
 		btnViewReturnSlip.setFont(fntPlainText);
 		btnViewReturnSlip.setBounds(30, 545, 230, 40);
 		add(btnViewReturnSlip);
-		btnViewReturnSlip.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnViewReturnSlip.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
                                 int row;
 				row = tbReturnSlip.getSelectedRow();
 
@@ -390,8 +405,10 @@ public class ReturnSlipListGUI extends JPanel {
 		btnAddReturnSlip.setFont(fntPlainText);
 		btnAddReturnSlip.setBounds(325, 545, 190, 40);
 		add(btnAddReturnSlip);
-		btnAddReturnSlip.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnAddReturnSlip.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				guiController.changePanelToAddReturnSlip();
 			}
 		});
@@ -400,8 +417,10 @@ public class ReturnSlipListGUI extends JPanel {
 		btnAddCreditMemo.setFont(fntPlainText);
 		btnAddCreditMemo.setBounds(575, 545, 215, 40);
 		add(btnAddCreditMemo);
-		btnAddCreditMemo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnAddCreditMemo.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
                                int row;
 				row = tbReturnSlip.getSelectedRow();
 
@@ -422,16 +441,19 @@ public class ReturnSlipListGUI extends JPanel {
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
 		add(btnClose);
-		btnClose.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnClose.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
 				guiController.changePanelToMainMenu();
 			}
 		});
 
 	}
 
-	public void setItemCount(int itemcount) {
-		lblNumofSlips.setText(Integer.toString(itemcount));
+	public void setItemCount(int itemcount) 
+        {
+		lblNumOfSlipsFound.setText(Integer.toString(itemcount));
 	}
 
 	public void setComboBox() {
@@ -473,21 +495,36 @@ public class ReturnSlipListGUI extends JPanel {
 		mainController = temp;
 	}
 
-	public void ViewAll() {
+	public void ViewAll() 
+        {
 		TableModel AllModel = mainController.getAllModel();
 		tbReturnSlip.setModel(AllModel);
 
-		JTableHeader th = tbReturnSlip.getTableHeader(); // Setting the Headers
+		JTableHeader th = tbReturnSlip.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < strHeader.length; i++) 
+                {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbReturnSlip.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbReturnSlip.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbReturnSlip, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbReturnSlip.repaint();
 		setComboBox();
 	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) 
+	{
 		GUIController temp = new GUIController();
 		temp.changePanelToReturnSlip();
 	}
