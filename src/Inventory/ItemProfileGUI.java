@@ -1,5 +1,6 @@
 package Inventory;
 
+import HailHydra.GUIController;
 import java.awt.Font;
 
 import javax.swing.JButton;
@@ -10,23 +11,29 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.Color;
 import java.awt.Image;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.border.Border;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ItemProfileGUI extends JPanel 
 {
+        private JPanel pnlItemDetails, pnlItemPrices;
+        private TitledBorder tbItemDetails, tbItemPrices;
+        private Border bImage; 
         protected JLabel  lblHeader, lblPartNumber, lblDescription,
                         lblRackLocation, lblNotes, lblRequiredFields, lblImage,
                         lblStockMinimum, lblSisterCompanyPrice, lblRetailPrice, 
@@ -49,160 +56,180 @@ public class ItemProfileGUI extends JPanel
                 
                 fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
-		
+                
+                pnlItemDetails= new JPanel();
+                pnlItemDetails.setBounds(30, 100, 460, 200);
+                pnlItemDetails.setLayout(null);
+                add(pnlItemDetails);
+                tbItemDetails = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Item Details");
+                tbItemDetails.setTitleJustification(TitledBorder.LEFT);
+                tbItemDetails.setTitleFont(fntPlainText);
+                pnlItemDetails.setBorder(tbItemDetails);
+                
+                pnlItemPrices= new JPanel();
+                pnlItemPrices.setBounds(30, 310, 460, 200);
+                pnlItemPrices.setLayout(null);
+                add(pnlItemPrices);
+                tbItemPrices = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Item Prices");
+                tbItemPrices.setTitleJustification(TitledBorder.LEFT);
+                tbItemPrices.setTitleFont(fntPlainText);
+                pnlItemPrices.setBorder(tbItemPrices);
+
                 lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);	
-
+                
 		lblPartNumber = new JLabel("Part Number:");
 		lblPartNumber.setFont(fntPlainText);
-		lblPartNumber.setBounds(30, 123, 145, 30);
-		add(lblPartNumber);
+		lblPartNumber.setBounds(40, 30, 145, 30);
+		pnlItemDetails.add(lblPartNumber);
 
 		lblDescription = new JLabel("Description:");
 		lblDescription.setFont(fntPlainText);
-		lblDescription.setBounds(30, 158, 145, 30);
-		add(lblDescription);
+		lblDescription.setBounds(50, 70, 145, 30);
+		pnlItemDetails.add(lblDescription);
 
 		lblRackLocation = new JLabel("Rack Location:");
 		lblRackLocation.setFont(fntPlainText);
-		lblRackLocation.setBounds(30, 193, 173, 30);
-		add(lblRackLocation);
+		lblRackLocation.setBounds(20, 110, 173, 30);
+		pnlItemDetails.add(lblRackLocation);
                 
 		lblStockMinimum = new JLabel("Stock Minimum:");
 		lblStockMinimum.setFont(fntPlainText);
-		lblStockMinimum.setBounds(30, 228, 173, 30);
-		add(lblStockMinimum);
-                
+		lblStockMinimum.setBounds(10, 150, 173, 30);
+		pnlItemDetails.add(lblStockMinimum);
+            
 		lblSisterCompanyPrice = new JLabel("Sister Company Price:");
 		lblSisterCompanyPrice.setFont(fntPlainText);
-		lblSisterCompanyPrice.setBounds(30, 263, 238, 30);
-		add(lblSisterCompanyPrice);
+		lblSisterCompanyPrice.setBounds(10, 30, 238, 30);
+		pnlItemPrices.add(lblSisterCompanyPrice);
                 
 		lblRetailPrice = new JLabel("Retail Price:");
 		lblRetailPrice.setFont(fntPlainText);
-		lblRetailPrice.setBounds(30, 298, 130, 30);
-		add(lblRetailPrice);
+		lblRetailPrice.setBounds(105, 70, 130, 30);
+		pnlItemPrices.add(lblRetailPrice);
 
 		lblWalkinPrice = new JLabel("Walk-in Price:");
 		lblWalkinPrice.setFont(fntPlainText);
-		lblWalkinPrice.setBounds(30, 333, 160, 30);
-		add(lblWalkinPrice);
+		lblWalkinPrice.setBounds(88, 110, 160, 30);
+		pnlItemPrices.add(lblWalkinPrice);
 
 		lblLastCost = new JLabel("Last Cost:");
 		lblLastCost.setFont(fntPlainText);
-		lblLastCost.setBounds(30, 368, 113, 30);
-		add(lblLastCost);
+		lblLastCost.setBounds(125, 150, 113, 30);
+		pnlItemPrices.add(lblLastCost);
                 
 		lblNotes = new JLabel("Notes:");
 		lblNotes.setFont(fntPlainText);
-		lblNotes.setBounds(30, 400, 95, 30);
+		lblNotes.setBounds(515, 400, 95, 30);
 		add(lblNotes);
 
-                lblRequiredFields = new JLabel("Required Fields");
+                lblRequiredFields = new JLabel("* Required Fields");
 		lblRequiredFields.setFont(fntPlainText);
-		lblRequiredFields.setBounds(30, 545, 200, 28);
+                lblRequiredFields.setForeground(Color.RED);
+		lblRequiredFields.setBounds(30, 520, 200, 28);
 		add(lblRequiredFields);
                 
 		lblImage = new JLabel("");
+                bImage= BorderFactory.createLineBorder(Color.BLACK);
+                lblImage.setBorder(bImage);
 		lblImage.setForeground(Color.GRAY);
 		lblImage.setBackground(Color.WHITE);
-		lblImage.setBounds(610, 80, 355, 355);
+		lblImage.setBounds(580, 80, 355, 270);
 		add(lblImage);
 
                 lblAsterisk1 = new JLabel("*");
 		lblAsterisk1.setForeground(Color.RED);
 		lblAsterisk1.setFont(fntPlainText);
-		lblAsterisk1.setBounds(20, 120, 19, 21);
-		add(lblAsterisk1);
+		lblAsterisk1.setBounds(30, 30, 19, 21);
+		pnlItemDetails.add(lblAsterisk1);
 		
 		lblAsterisk2 = new JLabel("*");
 		lblAsterisk2.setForeground(Color.RED);
 		lblAsterisk2.setFont(fntPlainText);
-		lblAsterisk2.setBounds(20, 158, 19, 21);
-		add(lblAsterisk2);
+		lblAsterisk2.setBounds(40, 70, 19, 21);
+		pnlItemDetails.add(lblAsterisk2);
 		
 		lblAsterisk3 = new JLabel("*");
 		lblAsterisk3.setForeground(Color.RED);
 		lblAsterisk3.setFont(fntPlainText);
-		lblAsterisk3.setBounds(20, 229, 19, 21);
-		add(lblAsterisk3);
-		
-		lblAsterisk4 = new JLabel("*");
-		lblAsterisk4.setForeground(Color.RED);
-		lblAsterisk4.setFont(fntPlainText);
-		lblAsterisk4.setBounds(20, 549, 19, 21);
-		add(lblAsterisk4);
-                
+		lblAsterisk3.setBounds(5, 150, 19, 21);
+		pnlItemDetails.add(lblAsterisk3);
+
 		tfPartNumber = new JTextField();
 		tfPartNumber.setFont(fntPlainText);
-		tfPartNumber.setBounds(170, 123, 409, 30);
-		add(tfPartNumber);
+		tfPartNumber.setBounds(170, 30, 280, 30);
+		pnlItemDetails.add(tfPartNumber);
 
 		tfDescription = new JTextField();
 		tfDescription.setFont(fntPlainText);
-		tfDescription.setBounds(160, 158, 419, 30);
-		add(tfDescription);
+		tfDescription.setBounds(170, 70, 280, 30);
+		pnlItemDetails.add(tfDescription);
 
 		tfRackLocation = new JTextField();
 		tfRackLocation.setFont(fntPlainText);
-		tfRackLocation.setBounds(188, 193, 391, 30);
-		add(tfRackLocation);
+		tfRackLocation.setBounds(170, 110, 280, 30);
+		pnlItemDetails.add(tfRackLocation);
                 
                 ftfStockMinimum = new JFormattedTextField(new DecimalFormat("#,##0"));
                 ftfStockMinimum.setFont(fntPlainText);
+                ftfStockMinimum.setHorizontalAlignment(JTextField.RIGHT);
                 ftfStockMinimum.setValue(new Float(0));
-                ftfStockMinimum.setBounds(188, 228, 391, 30);
-                add(ftfStockMinimum);
+                ftfStockMinimum.setBounds(170, 150, 280, 30);
+                pnlItemDetails.add(ftfStockMinimum);
                 
                 ftfSisterCompanyPrice = new JFormattedTextField(new DecimalFormat("#,##0.00"));
                 ftfSisterCompanyPrice.setFont(fntPlainText);
+                ftfSisterCompanyPrice.setHorizontalAlignment(JTextField.RIGHT);
                 ftfSisterCompanyPrice.setValue(new Float(00.0F));
-                ftfSisterCompanyPrice.setBounds(258, 263, 321, 30);
-                add(ftfSisterCompanyPrice);
+                ftfSisterCompanyPrice.setBounds(230, 30, 220, 30);
+                pnlItemPrices.add(ftfSisterCompanyPrice);
                 
                 ftfRetailPrice = new JFormattedTextField(new DecimalFormat("#,##0.00"));
                 ftfRetailPrice.setFont(fntPlainText);
+                ftfRetailPrice.setHorizontalAlignment(JTextField.RIGHT);
                 ftfRetailPrice.setValue(new Float(00.0F));
-                ftfRetailPrice.setBounds(160, 298, 419, 30);
-                add(ftfRetailPrice);
+                ftfRetailPrice.setBounds(230, 70, 220, 30);
+                pnlItemPrices.add(ftfRetailPrice);
                 
                 ftfWalkinPrice = new JFormattedTextField(new DecimalFormat("#,##0.00"));
                 ftfWalkinPrice.setFont(fntPlainText);
+                ftfWalkinPrice.setHorizontalAlignment(JTextField.RIGHT);
                 ftfWalkinPrice.setValue(new Float(00.0F));
-                ftfWalkinPrice.setBounds(181, 333, 398, 30);
-                add(ftfWalkinPrice);
+                ftfWalkinPrice.setBounds(230, 110, 220, 30);
+                pnlItemPrices.add(ftfWalkinPrice);
 
                 ftfLastCost = new JFormattedTextField(new DecimalFormat("#,##0.00"));
                 ftfLastCost.setFont(fntPlainText);
+                ftfLastCost.setHorizontalAlignment(JTextField.RIGHT);
                 ftfLastCost.setValue(new Float(00.0F));
-                ftfLastCost.setBounds(135, 368, 444, 30);
-                add(ftfLastCost);
+                ftfLastCost.setBounds(230, 150, 220, 30);
+                pnlItemPrices.add(ftfLastCost);
                 
 		taNotes = new JTextArea();
 		taNotes.setFont(fntPlainText);
                 taNotes.setWrapStyleWord(true);
                 taNotes.setLineWrap(true);
-		taNotes.setBounds(30, 430, 550, 80);
 		add(taNotes);
 	
                 spNotes=new JScrollPane(taNotes);
-                spNotes.setBounds(30, 430, 550, 80);
+                spNotes.setBounds(515, 430, 450, 80);
                 add(spNotes);
-                
+               
                 chckbxInactiveItem = new JCheckBox("Inactive Item");
 		chckbxInactiveItem.setFont(fntPlainText);
-		chckbxInactiveItem.setBounds(30, 80, 182, 30);
+		chckbxInactiveItem.setBounds(30, 70, 182, 30);
 		add(chckbxInactiveItem);
                 
                 btnUpdateImage = new JButton("Update Image");
 		btnUpdateImage.setFont(fntPlainText);
-		btnUpdateImage.setBounds(695, 450, 190, 40);
+		btnUpdateImage.setBounds(670, 360, 190, 40);
 		add(btnUpdateImage);
                 btnUpdateImage.addActionListener(new ActionListener(){
                 public void actionPerformed(ActionEvent e) 
                 {
+                    try{
                          JFileChooser fileOpen = new JFileChooser();
                          String[] suffices = ImageIO.getReaderFileSuffixes();
                          for (int i = 0; i < suffices.length; i++)
@@ -211,11 +238,8 @@ public class ItemProfileGUI extends JPanel
                             fileOpen.addChoosableFileFilter(filter);
                          }
                         int ret = fileOpen.showDialog(null, "Open file");
-                        try
-                        {
                         imageLocation = fileOpen.getSelectedFile().getAbsolutePath();
                         imageLocation = imageLocation.replace('\\', '/');
-                        
                         BufferedImage img = null;
                         try 
                         {
@@ -227,12 +251,19 @@ public class ItemProfileGUI extends JPanel
                         {
                              JOptionPane.showMessageDialog(null, "Selected file is not an image. Please try again.");
                         }
-                        }catch(Exception exception)
-                        {
-                            
-                        }
+                        
+                    }catch(Exception exc)
+                    {
+                        
+                    }
                         
                 }
                 });
+        }
+        
+        public static void main(String args[]) throws IOException
+        {
+            GUIController temp= new GUIController();
+            temp.changePanelToAddItemProfile();
         }
 }
