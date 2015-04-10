@@ -10,7 +10,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import HailHydra.GUIController;
-import Payables.PayablesController;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -55,13 +56,46 @@ public class ModifySystemProfileGUI extends JPanel {
                 tfSystemName.setFont(fntPlainText);
 		tfSystemName.setBounds(200, 100, 415, 30);
 		add(tfSystemName);
+                tfSystemName.addKeyListener(new KeyAdapter() 
+                { 
+                    public void keyReleased(KeyEvent e) 
+                    {
+
+                    }
+
+                    public void keyTyped(KeyEvent e) 
+                    {
+
+                    }
+                    public void keyPressed(KeyEvent e) 
+                    {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                            btnSubmit.doClick();
+                    }
+                    });
 		
 		taAddress = new JTextArea();
                 taAddress.setFont(fntPlainText);
                 taAddress.setWrapStyleWord(true);
                 taAddress.setLineWrap(true);
-		taAddress.setBounds(200, 170, 415, 150);
 		add(taAddress);
+                taAddress.addKeyListener(new KeyAdapter() 
+                { 
+                    public void keyReleased(KeyEvent e) 
+                    {
+
+                    }
+
+                    public void keyTyped(KeyEvent e) 
+                    {
+
+                    }
+                    public void keyPressed(KeyEvent e) 
+                    {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                            btnSubmit.doClick();
+                    }
+                    });
                 
                 spAddress = new JScrollPane(taAddress);
                 spAddress.setBounds(200, 170, 415, 150);
