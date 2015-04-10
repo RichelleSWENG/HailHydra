@@ -165,6 +165,7 @@ public class GUIController
         modal= new JDialog(frame);
         modal.add(temp);
         modal.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+        modal.setResizable(false);
         modal.setModal(true);
         modal.setAlwaysOnTop(true);
         modal.setSize(650,450);
