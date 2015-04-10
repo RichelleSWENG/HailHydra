@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -487,5 +489,33 @@ public class ReturnSlipModel {
             e.getMessage();
         }
         return Integer.parseInt(quantity);
+    }
+
+    public String getLastRSID()
+    {
+
+            ResultSet rs = null;
+            String RSid = null;
+            try
+            {
+                statement = db.createStatement();
+                String sql = "SELECT return_slip_id FROM returnslip ORDER BY return_slip_id DESC LIMIT 1;";
+                rs = statement.executeQuery(sql);
+           
+            while (rs.next())
+            {
+                String tempID = rs.getString("return_slip_id");
+                RSid=tempID;
+            }
+             } catch (Exception e)
+            {
+                e.getMessage();
+            }
+            if(RSid==null)
+                return "null";
+            else
+                return RSid;
+       
+
     }
 }

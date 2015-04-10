@@ -177,4 +177,29 @@ public class CreditMemoModel
 
         return cm;
     }
+
+    public String getLastCMID()
+    {
+        ResultSet rs = null;
+            String CMid = null;
+            try
+            {
+                statement = db.createStatement();
+                String sql = "SELECT credit_memo_id FROM creditmemo ORDER BY credit_memo_id DESC LIMIT 1;";
+                rs = statement.executeQuery(sql);
+           
+            while (rs.next())
+            {
+                String tempID = rs.getString("credit_memo_id");
+                CMid=tempID;
+            }
+             } catch (Exception e)
+            {
+                e.getMessage();
+            }
+            if(CMid==null)
+                return "null";
+            else
+                return CMid;
+    }
 }

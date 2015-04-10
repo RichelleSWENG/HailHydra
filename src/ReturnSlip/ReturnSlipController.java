@@ -193,6 +193,11 @@ public class ReturnSlipController {
     {
         return this.returnslipItem;
     }
+
+    public String getLastRSID()
+    {
+        return returnslipModel.getLastRSID();
+    }
     
    
 }

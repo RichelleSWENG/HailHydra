@@ -98,6 +98,11 @@ public class CreditMemoController
     {
         return cm;
     }
+
+    public String getLastCMID()
+    {
+        return creditmemoModel.getLastCMID();
+    }
     
 
 }

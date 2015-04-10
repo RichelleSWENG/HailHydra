@@ -84,6 +84,37 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
         
               public void setViewComponents() 
     {
+        /*
+        tfRSNum.setEditable(false);
+        String lastRSID = mainController.getLastRSID();
+        String newRSID;
+        if(lastRSID.equals("null"))
+        {
+           newRSID = "000001";
+           tfRSNum.setText(newRSID);
+        }
+        else
+            {
+              String numValue = lastRSID.replaceFirst ("^0*", "");
+              newRSID = String.format("%06d", Integer.parseInt(numValue)+1); 
+              tfRSNum.setText(newRSID);
+             }
+        */
+        tfCreditMemoNum.setEditable(false);
+        String lastCMID = mainController.getLastCMID();
+        String newCMID;
+        if(lastCMID.equals("null"))
+        {
+           newCMID = "000001";
+           tfCreditMemoNum.setText(newCMID);
+        }
+        else
+            {
+              String numValue = lastCMID.replaceFirst ("^0*", "");
+              newCMID = String.format("%06d", Integer.parseInt(numValue)+1); 
+              tfCreditMemoNum.setText(newCMID);
+             }
+        
         setDataComponents();
         cmbSupplier.setEnabled(false);
         
