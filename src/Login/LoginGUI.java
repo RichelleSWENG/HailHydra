@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -61,7 +63,39 @@ public class LoginGUI extends JPanel {
 		pfPassword.setBounds(410, 265, 300, 30);
                 pfPassword.setFont(fntPlainText);
 		add(pfPassword);
-		
+                pfPassword.addKeyListener(new KeyAdapter() 
+                { 
+                public void keyReleased(KeyEvent e) 
+                    {
+                    
+                    }
+
+                public void keyTyped(KeyEvent e) 
+                    {
+                
+                    }
+
+                public void keyPressed(KeyEvent e) 
+                    {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                            {
+                            String password = new String(pfPassword.getPassword());
+                            if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
+                            {   
+                                    if(mainController.validate(tfUsername.getText(), password)!=null)
+                                        controllerGUI.changePanelToMainMenu();
+                                    else
+                                        JOptionPane.showMessageDialog(null, "Wrong username or password");
+                            }else
+                            {
+                                JOptionPane.showMessageDialog(null, "Please fill up all fields.");
+                            }
+                                
+                           
+                            }
+                    }
+                });
+                
 		btnLogin = new JButton("Login");
                 btnLogin.setFont(fntPlainText);
 		btnLogin.setBounds(470, 320, 100, 40);
