@@ -20,7 +20,6 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
         private AccountProfileController mainController;
         private String realName;
         private String realType;
-        private JPanel grpPnlBasicInfo, grpPnlContactInfo;
         
         public ModifyAccountProfileGUI(GUIController temp,AccountProfileController AccountProfileController)
         {
@@ -257,17 +256,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 		                    }
 		                });
 		    
-				grpPnlBasicInfo = new JPanel();
-				grpPnlBasicInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				grpPnlBasicInfo.setBounds(10, 147, 482, 394);
-				add(grpPnlBasicInfo);
-				grpPnlBasicInfo.setLayout(null);
 				
-				grpPnlContactInfo = new JPanel();
-				grpPnlContactInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				grpPnlContactInfo.setBounds(496, 147, 494, 333);
-				add(grpPnlContactInfo);
-				grpPnlContactInfo.setLayout(null);
         }                
         
         public void setMainController(AccountProfileController temp){
