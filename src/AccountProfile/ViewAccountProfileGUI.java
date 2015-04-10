@@ -5,13 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 public class ViewAccountProfileGUI extends AccountProfileGUI
 {
-        private JButton btnEdit, btnClose;
-        private JPanel grpPnlBasicInfo, grpPnlContactInfo;
+        private JButton btnModify, btnClose;
         private GUIController guiController;
         private AccountProfileController mainController;
         
@@ -73,11 +70,11 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                 else chckbxInactiveAccount.setSelected(false);
             
                 //The following code are for JButtons
-                btnEdit = new JButton("Modify");
-                btnEdit.setFont(fntPlainText);
-                btnEdit.setBounds(655, 545, 110, 40);
-                add(btnEdit);
-                btnEdit.addActionListener(
+                btnModify = new JButton("Modify");
+                btnModify.setFont(fntPlainText);
+                btnModify.setBounds(655, 545, 110, 40);
+                add(btnModify);
+                btnModify.addActionListener(
                     new ActionListener()
                     {
                         public void actionPerformed(ActionEvent e)
@@ -99,17 +96,7 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                         }
                     });
 		        
-		grpPnlBasicInfo = new JPanel();
-                grpPnlBasicInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-                grpPnlBasicInfo.setBounds(10, 147, 482, 394);
-                add(grpPnlBasicInfo);
-                grpPnlBasicInfo.setLayout(null);
-
-                grpPnlContactInfo = new JPanel();
-                grpPnlContactInfo.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-                grpPnlContactInfo.setBounds(496, 147, 494, 333);
-                add(grpPnlContactInfo);
-                grpPnlContactInfo.setLayout(null);
+		
         }
         
         public void setMainController(AccountProfileController temp){
