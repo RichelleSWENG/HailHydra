@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,6 +35,10 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                 ftfRetailPrice.setEditable(false);
                 ftfWalkinPrice.setEditable(false);
                 ftfLastCost.setEditable(false);
+                ftfSisterCompanyPrice.setToolTipText("Sister company price can be edited in set inventory price.");
+                ftfRetailPrice.setToolTipText("Retail price can be edited in set inventory price.");
+                ftfWalkinPrice.setToolTipText("Walk-in price can be edited in set inventory price.");
+                ftfLastCost.setToolTipText("Last Cost can be edited in set inventory last cost.");
                 
                 ArrayList itemProfile = mainController.getItemProfile(); //get the created array list to be placed on this view
 
@@ -51,12 +54,12 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                 ImageIcon icon;
                 if(!"null".equals(itemProfile.get(9)))
                 {
-                File ImageFile = new File(itemProfile.get(9).toString());
-            Image image = null;
-            image = ImageIO.read(ImageFile);
-            Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
-            icon = new ImageIcon(resizedImage);
-            lblImage.setIcon(icon);
+                    File ImageFile = new File(itemProfile.get(9).toString());
+                    Image image = null;
+                    image = ImageIO.read(ImageFile);
+                    Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
+                    icon = new ImageIcon(resizedImage);
+                    lblImage.setIcon(icon);
                 }
                 imagePath = itemProfile.get(9).toString();
                         
@@ -299,9 +302,4 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
         this.mainController = temp;        
     }
     
-    public static void main(String args[]) throws IOException
-    {
-                    GUIController temp=new GUIController();
-                    temp.changePanelToModifyItemProfile();
-     }
 }
