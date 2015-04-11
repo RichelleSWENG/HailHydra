@@ -1,6 +1,5 @@
 package Inventory;
 import HailHydra.GUIController;
-import Payables.Payment;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,14 +19,11 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 
 import TableRenderer.TableRenderer;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
@@ -44,12 +40,12 @@ public class SetInventorySellingPriceGUI extends JPanel
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
 	private String headers[] ={ "Part Number", 
-                        "<html><center>Reference<br>Sister Company<br>Price</center></html>", 
-                        "<html><center>Current<br>Sister Company<br>Price</center></html>",
-                        "<html><center>Reference<br>Retail Price</center></html>", 
-                        "<html><center>Current<br>Retail Price</center></html>",
-                        "<html><center>Reference<br>Walk-in Price</center></html>", 
-                        "<html><center>Current<br>Walk-in Price</center></html>" };
+                "<html><center>Reference<br>Sister Company<br>Price</center></html>", 
+                "<html><center>Current<br>Sister Company<br>Price</center></html>",
+                "<html><center>Reference<br>Retail Price</center></html>", 
+                "<html><center>Current<br>Retail Price</center></html>",
+                "<html><center>Reference<br>Walk-in Price</center></html>", 
+                "<html><center>Current<br>Walk-in Price</center></html>" };
 	private DefaultTableModel table;
 	private JTable setQuantityTable;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
@@ -168,6 +164,13 @@ public class SetInventorySellingPriceGUI extends JPanel
 
 		setQuantityTable = new JTable(table)
 		{
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				if(mColIndex == 2|| mColIndex==4|| mColIndex==6)
+					return true;
+				return false;
+			}
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
