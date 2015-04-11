@@ -16,7 +16,8 @@ Know if basicsystemsetting or login --- Janine <br>
 <br><br> 
 **ERRORS**
 <br>Purchase Transaction Computation
-<br> and many more.
+<br> and many more
+<br>
 ~~<View Payments -- JANINE <br>~~<
 ~~View Return Slip -- KINGSTON~~<br>
 ~~Add Credit Memo~~< --KINGSTON br>
