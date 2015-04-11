@@ -24,7 +24,6 @@ import javax.swing.table.TableColumnModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.util.Calendar;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -44,7 +43,7 @@ public class DebitMemoListGUI extends JPanel
         private Component component;
 	private JTable tbDebitMemo;
 	private JScrollPane spTable;
-	private String strHeader[] = { "Date", 
+	private String strHeader[] = { "    Date    ", 
                 "<html><center>Debit Memo<br>Number</center></html>", 
                 "Customer Name", "   Part Number   ", "Quantity",
                 "Amount" };
@@ -140,7 +139,6 @@ public class DebitMemoListGUI extends JPanel
 
 		cmbToYear.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -151,7 +149,6 @@ public class DebitMemoListGUI extends JPanel
                 });
                 cmbToMonth.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -162,7 +159,6 @@ public class DebitMemoListGUI extends JPanel
                 });
                 cmbFromMonth.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -173,7 +169,7 @@ public class DebitMemoListGUI extends JPanel
                 });
                 cmbFromYear.addActionListener(new ActionListener() 
                 {
-                    @Override
+
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(null); 
@@ -182,24 +178,14 @@ public class DebitMemoListGUI extends JPanel
                     }
 
                 });
-                
-		tbModel = new DefaultTableModel()
+
+		tbDebitMemo = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				return false;
 			}
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbDebitMemo = new JTable(tbModel)
-		{
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -252,7 +238,6 @@ public class DebitMemoListGUI extends JPanel
                 
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
                 {
-                    @Override
                     public void insertUpdate(DocumentEvent de)
                     {
                         try
@@ -264,7 +249,6 @@ public class DebitMemoListGUI extends JPanel
                         }
                     }   
 
-                    @Override
                     public void removeUpdate(DocumentEvent de)
                     {
                         try
@@ -276,7 +260,6 @@ public class DebitMemoListGUI extends JPanel
                         }
                     }
 
-                    @Override
                      public void changedUpdate(DocumentEvent de)
                     {
                         try
@@ -433,16 +416,28 @@ public class DebitMemoListGUI extends JPanel
         }
         
         public void setTableModel(TableModel tbm)
-        {                  // Setting the Headers
+        {                  
             tbDebitMemo.setModel(tbm);
             JTableHeader th = tbDebitMemo.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbDebitMemo.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbDebitMemo.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbDebitMemo, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbDebitMemo.repaint();
         }
         
         public void setMainController(DebitMemoController temp)
@@ -455,14 +450,26 @@ public class DebitMemoListGUI extends JPanel
             TableModel AllModel = mainController.getAllModel();
             tbDebitMemo.setModel(AllModel);
 
-            JTableHeader th = tbDebitMemo.getTableHeader();      // Setting the Headers
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
-            }
-            th.repaint();
+            JTableHeader th = tbDebitMemo.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++) 
+                {
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+                tbCellRenderer = tbDebitMemo.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbDebitMemo.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbDebitMemo, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbDebitMemo.repaint();
             setComboBox();
         }
 
