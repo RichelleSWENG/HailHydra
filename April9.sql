@@ -560,7 +560,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,2,1,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,2,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,3,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -607,7 +607,7 @@ DROP TABLE IF EXISTS `ptlineitem`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ptlineitem` (
-  `purchase_transaction_id` int(11) NOT NULL,
+  `purchase_transaction_id` varchar(45) NOT NULL,
   `quantity` int(11) NOT NULL,
   `part_num` varchar(20) NOT NULL,
   `unit_price` int(11) NOT NULL,
@@ -622,7 +622,7 @@ CREATE TABLE `ptlineitem` (
 
 LOCK TABLES `ptlineitem` WRITE;
 /*!40000 ALTER TABLE `ptlineitem` DISABLE KEYS */;
-INSERT INTO `ptlineitem` VALUES (1,2,'abc',12,24.00),(2,2,'abc',12,24.00),(1,1,'123',60,60.00),(3,1,'234',40,40.00),(123,1,'234',40,40.00),(1123,1,'234',40,40.00);
+INSERT INTO `ptlineitem` VALUES ('000001',1,'123',170,170.00),('000001',2,'234',40,80.00),('000002',1,'234',40,40.00);
 /*!40000 ALTER TABLE `ptlineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -634,7 +634,7 @@ DROP TABLE IF EXISTS `purchasetransaction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `purchasetransaction` (
-  `purchase_transaction_id` int(11) NOT NULL AUTO_INCREMENT,
+  `purchase_transaction_id` varchar(45) NOT NULL,
   `company_id` int(11) NOT NULL,
   `date` date NOT NULL,
   `original_amount` decimal(10,2) NOT NULL,
@@ -651,7 +651,7 @@ CREATE TABLE `purchasetransaction` (
   `address` varchar(100) DEFAULT NULL,
   `subtotal` decimal(10,2) DEFAULT '0.00',
   PRIMARY KEY (`purchase_transaction_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1124 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -660,7 +660,7 @@ CREATE TABLE `purchasetransaction` (
 
 LOCK TABLES `purchasetransaction` WRITE;
 /*!40000 ALTER TABLE `purchasetransaction` DISABLE KEYS */;
-INSERT INTO `purchasetransaction` VALUES (123,8,'2015-04-04',40.00,0.00,'12312','','23123','','',4.80,'231',44.80,'Open',NULL,0.00),(1123,9,'2015-04-04',40.00,0.00,'123','','123','','',4.80,'13',44.80,'Open',NULL,0.00);
+INSERT INTO `purchasetransaction` VALUES ('000001',9,'2015-04-11',250.00,0.00,'1616','','6416','','',30.00,'1616',280.00,'Open',NULL,0.00),('000002',8,'2015-04-11',40.00,0.00,'','','','','',4.80,'',44.80,'Open',NULL,0.00);
 /*!40000 ALTER TABLE `purchasetransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -899,4 +899,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-11 16:38:53
+-- Dump completed on 2015-04-11 20:20:02

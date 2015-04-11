@@ -241,7 +241,8 @@ public class GUIController
             PTController = new PurchaseTransactionController(new PurchasesModel(dbc));
             AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
             tempGUI.setController(PTController);
-            tempGUI.setDataComponents();
+            tempGUI.setViewComponents();
+            //tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }
@@ -256,6 +257,7 @@ public class GUIController
             ViewPurchaseTransactionGUI tempGUI = new ViewPurchaseTransactionGUI(this);
             tempGUI.setController(PTController);
             tempGUI.setViewComponents();
+            //tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
     }

@@ -1,5 +1,6 @@
 package Purchases;
 
+import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -125,8 +126,8 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
 
     public void setViewComponents()
     {
-        pt = mainController.getPurchaseTransaction();
         setDataComponents();
+        pt = mainController.getPurchaseTransaction();
         cmbSupplier.setEnabled(false);
         tfPurchaseTransactionNum.setText(pt.getPurchase_transaction_id());
         tfPONum.setText(pt.getPo_num());
@@ -143,31 +144,31 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
 
         cmbSupplier.addActionListener(new ActionListener()
         {
+            @Override
             public void actionPerformed(ActionEvent e)
             {
                 int i, rowCount;
                 rowCount = tbModel.getRowCount();
                 for (i = 0; i < rowCount; i++)
-                {
                     tbModel.removeRow(0);
-                }
                 tbModel.setRowCount(1);
                 mainController.removePending();
                 if (cmbSupplier.getSelectedIndex() != 0)
                 {
                     c = mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
-
+                    
+                    
                     partNums = new String[mainController.getItems().size() + 1];
                     partNums[0] = "";
                     for (i = 1; i < mainController.getItems().size() + 1; i++)
                     {
                         partNums[i] = mainController.getItems().get(i - 1).getPartNum();
                     }
-
+        
                     TableColumn col = tbPurchaseTransaction.getColumnModel().getColumn(1);
-                    col.setCellEditor(new MyComboBoxEditor(partNums));
-                    col.setCellRenderer(new MyComboBoxRenderer(partNums));
+                    col.setCellEditor(new ViewPurchaseTransactionGUI.MyComboBoxEditor(partNums));
+                    col.setCellRenderer(new ViewPurchaseTransactionGUI.MyComboBoxRenderer(partNums));
                 }
                 numItems = 0;
                 tbModel.setValueAt(defaultVal, numItems, 4);
@@ -179,8 +180,8 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
-           tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);
-           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);
+           tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);;
+           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);  
         }
         tbPurchaseTransaction.setEnabled(false);
     }    
@@ -204,6 +205,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         totalOfEverything = 0;
         for (i = 0; i < tbModel.getRowCount(); i++)
         {
+            if (tbModel.getValueAt(i, 4) != null)
             totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
         ftfSubtotal.setText(String.valueOf(totalOfEverything - Float.parseFloat(ftfDiscount.getText())));

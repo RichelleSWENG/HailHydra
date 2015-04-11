@@ -359,5 +359,30 @@ public class PurchasesModel
 
         return pt;
     }
+
+    public String getLastPTID()
+    {
+            ResultSet rs = null;
+            String PTid = null;
+            try
+            {
+                statement = db.createStatement();
+                String sql = "SELECT purchase_transaction_id FROM purchasetransaction ORDER BY purchase_transaction_id DESC LIMIT 1;";
+                rs = statement.executeQuery(sql);
+           
+            while (rs.next())
+            {
+                String tempID = rs.getString("purchase_transaction_id");
+                PTid=tempID;
+            }
+             } catch (Exception e)
+            {
+                e.getMessage();
+            }
+            if(PTid==null)
+                return "null";
+            else
+                return PTid;
+    }
         
 }

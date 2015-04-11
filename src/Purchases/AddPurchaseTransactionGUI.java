@@ -257,6 +257,27 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
      GUIController temp = new GUIController();
      temp.changePanelToAddPurchaseTransaction();
      }
+
+    public void setViewComponents()
+    {
+        setDataComponents();
+             
+        tfPurchaseTransactionNum.setEditable(false);
+        String lastPTID = mainController.getLastPTID();
+        String newPTID;
+        if(lastPTID.equals("null"))
+        {
+           newPTID = "000001";
+           tfPurchaseTransactionNum.setText(newPTID);
+        }
+        else
+            {
+              String numValue = lastPTID.replaceFirst ("^0*", "");
+              newPTID = String.format("%06d", Integer.parseInt(numValue)+1); 
+              tfPurchaseTransactionNum.setText(newPTID);
+             }
+        
+    }
     
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
     {

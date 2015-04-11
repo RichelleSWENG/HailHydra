@@ -144,6 +144,11 @@ public class PurchaseTransactionController {
     {
         return purchasesModel.getPT(ID);
     }
+
+    public String getLastPTID()
+    {
+       return purchasesModel.getLastPTID();
+    }
     
     
 }
