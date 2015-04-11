@@ -108,7 +108,10 @@ public class LoginGUI extends JPanel {
                             if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
                             {   
                                     if(mainController.validate(tfUsername.getText(), password)!=null)
+                                    {
                                         controllerGUI.changePanelToMainMenu();
+                                        controllerGUI.changePanelToProfiles();
+                                    }
                                     else
                                         JOptionPane.showMessageDialog(null, "Wrong username or password");
                             }else
