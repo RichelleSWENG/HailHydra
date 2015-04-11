@@ -1,4 +1,5 @@
 package Inventory;
+
 import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -20,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.ListSelectionModel;
 
 import TableRenderer.TableRenderer;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.event.DocumentEvent;
@@ -33,20 +35,24 @@ public class SetInventoryQuantityGUI extends JPanel
 	private JLabel  lblHeader, lblSearch, lblSearchBy, lblItemsFound,
 			lblNumOfItemsFound;
 	private JTextField tfSearch;
-	private JButton btnViewAllItems, btnSubmit, btnCancel;
-	private JRadioButton rdbtnPartNumber, rdbtnDescription;
-	private ButtonGroup searchBy;
-	private JScrollPane spQuantityTable;
-	private String headers[] ={ "Part Number", "Description", 
+	private String strHeader[] ={ "  Part Number  ", "  Description  ", 
                         "<html><center>Quantity<br>(Functional)</center></html>", 
                         "Counted","<html><center>Quantity<br>(Defective)</center></html>",
                         "Counted" };
-	private DefaultTableModel table;
-	private JTable setQuantityTable;
+        private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
+	private TableColumnModel tbColumnRenderer;
+	private TableColumn tbColumn;
+	private Component component;
+	private DefaultTableModel tbModel;
+	private JTable tbSetInventoryQuantity;
+        private JScrollPane spQuantityTable;
+        private JRadioButton rdbtnPartNumber, rdbtnDescription;
+	private ButtonGroup searchBy;
+        private JButton btnViewAllItems, btnSubmit, btnCancel;
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
         private QuantityController mainController;
-
+        private int modelRow;
 	
 	public SetInventoryQuantityGUI(GUIController temp)
 	{
@@ -89,7 +95,6 @@ public class SetInventoryQuantityGUI extends JPanel
 		add(tfSearch);
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
-			@Override
 			public void insertUpdate(DocumentEvent de)
 			{
 				try
@@ -101,7 +106,6 @@ public class SetInventoryQuantityGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void removeUpdate(DocumentEvent de)
 			{
 				try
@@ -113,7 +117,6 @@ public class SetInventoryQuantityGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void changedUpdate(DocumentEvent de)
 			{
 				try
@@ -140,60 +143,63 @@ public class SetInventoryQuantityGUI extends JPanel
 			}
 		});
 
-		table = new DefaultTableModel()
+		tbSetInventoryQuantity = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				if (mColIndex == 3 || mColIndex == 5)
 					return true;
 				else
 					return false;
 			}
-		};
-
-		table.setRowCount(15);
-
-		for (int i = 0; i < 6; i++)
-		{
-			table.addColumn(headers[i]);
-		}
-
-		setQuantityTable = new JTable(table)
-		{
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
 			}
+                        
+                        public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+                        {
+				component = super.prepareRenderer(renderer, row, column);
+				modelRow = convertRowIndexToModel(row);
+				if (!isRowSelected(modelRow)) 
+                                {
+					component.setBackground(Color.WHITE);
+				} else 
+                                {
+					component.setBackground(Color.yellow);
+				}
+				return component;
+			}
 		};
 		
-		setQuantityTable.getTableHeader().setFont(fntHeaderTableText);
-		setQuantityTable.getTableHeader().setPreferredSize(new Dimension(100, 55));
-		setQuantityTable.getTableHeader().setResizingAllowed(false);
-		TableCellRenderer rend = setQuantityTable.getTableHeader().getDefaultRenderer();
-		TableColumnModel tcm = setQuantityTable.getColumnModel();
-		for (int j = 0; j < tcm.getColumnCount(); j += 1)
-		{
-			TableColumn tc = tcm.getColumn(j);
-			TableCellRenderer rendCol = tc.getHeaderRenderer();
-			if (rendCol == null)
-				rendCol = rend;
-			Component c = rendCol.getTableCellRendererComponent(
-					setQuantityTable, tc.getHeaderValue(), false, false, 0, j);
-			tc.setPreferredWidth(c.getPreferredSize().width);
+		tbSetInventoryQuantity.getTableHeader().setFont(fntHeaderTableText);
+		tbSetInventoryQuantity.getTableHeader().setPreferredSize(new Dimension(100, 55));
+		tbSetInventoryQuantity.getTableHeader().setResizingAllowed(false);
+		tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1) 
+                {
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false,0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-		setQuantityTable.setFont(fntPlainText);
+		tbSetInventoryQuantity.setFont(fntPlainText);
 
-		spQuantityTable = new JScrollPane(setQuantityTable);
+		spQuantityTable = new JScrollPane(tbSetInventoryQuantity);
 		spQuantityTable.setBounds(30, 205, 935, 320);
 		add(spQuantityTable);
 
-		setQuantityTable.getParent().setBackground(setQuantityTable.getBackground());
-		setQuantityTable.getTableHeader().setResizingAllowed(false);
-		setQuantityTable.getTableHeader().setReorderingAllowed(false);
-		setQuantityTable.setColumnSelectionAllowed(true);
-		setQuantityTable.setRowSelectionAllowed(true);
-		setQuantityTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		setQuantityTable.setRowHeight(30);
+		tbSetInventoryQuantity.getParent().setBackground(tbSetInventoryQuantity.getBackground());
+		tbSetInventoryQuantity.getTableHeader().setResizingAllowed(false);
+		tbSetInventoryQuantity.getTableHeader().setReorderingAllowed(false);
+		tbSetInventoryQuantity.setColumnSelectionAllowed(true);
+		tbSetInventoryQuantity.setRowSelectionAllowed(true);
+		tbSetInventoryQuantity.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		tbSetInventoryQuantity.setRowHeight(30);
                 
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
@@ -228,6 +234,14 @@ public class SetInventoryQuantityGUI extends JPanel
 		btnViewAllItems.setFont(fntPlainText);
 		btnViewAllItems.setBounds(725, 150, 240, 40);
 		add(btnViewAllItems);
+                btnViewAllItems.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                            ViewAll();
+                    }
+                });
 
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);
@@ -259,9 +273,9 @@ public class SetInventoryQuantityGUI extends JPanel
         
         public void changeAllQuantity()
         {
-            for (int i= 0; i < setQuantityTable.getRowCount(); i++)
+            for (int i= 0; i < tbSetInventoryQuantity.getRowCount(); i++)
             {
-                    mainController.changeQuantity(setQuantityTable.getValueAt(i, 0).toString(),setQuantityTable.getValueAt(i, 3).toString(),setQuantityTable.getValueAt(i, 5).toString());
+                    mainController.changeQuantity(tbSetInventoryQuantity.getValueAt(i, 0).toString(),tbSetInventoryQuantity.getValueAt(i, 3).toString(),tbSetInventoryQuantity.getValueAt(i, 5).toString());
             }
         }
         public void setMainController(QuantityController temp){
@@ -275,30 +289,54 @@ public class SetInventoryQuantityGUI extends JPanel
         
         public void ViewAll()
         {
+            tfSearch.setText("");
             TableModel AllModel = mainController.getAllModel();
-            setQuantityTable.setModel(AllModel);
-
-            JTableHeader th = setQuantityTable.getTableHeader();      // Setting the Headers
+            tbSetInventoryQuantity.setModel(AllModel);
+            JTableHeader th = tbSetInventoryQuantity.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < headers.length; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(headers[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbSetInventoryQuantity.repaint();
         }
         
         public void setTableModel(TableModel tbm)
         {                  // Setting the Headers
-            setQuantityTable.setModel(tbm);
-            JTableHeader th = setQuantityTable.getTableHeader();
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < headers.length; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(headers[i]);
-            }
-            th.repaint();
+            tbSetInventoryQuantity.setModel(tbm);
+            JTableHeader th = tbSetInventoryQuantity.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++) 
+                {
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+                tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbSetInventoryQuantity.repaint();
         }
         
         public static void main(String args[]){
