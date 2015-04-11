@@ -1,7 +1,14 @@
 package DebitMemo;
 
+import AcknowledgementReceipt.ARLineItem;
+import AcknowledgementReceipt.AckReceiptModel;
+import AcknowledgementReceipt.AcknowledgementReceipt;
+import AcknowledgementReceipt.AcknowledgementReceiptListGUI;
+import Classes.Company;
+import Classes.Item;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.TableModel;
@@ -11,13 +18,68 @@ public class DebitMemoController {
     private DebitMemoModel debitmemoModel;
     private DebitMemoListGUI gui;
     private int itemcount;
+    private DebitMemoModel debitMemoModel;
+    private ArrayList<DMLineItem> pendingItems;
+    private DebitMemo memo;
     
     public DebitMemoController(DebitMemoModel tempModel, DebitMemoListGUI tempGUI)
     {
         this.debitmemoModel=tempModel;
         this.gui = tempGUI;
+        pendingItems = new ArrayList<>();
+        memo = null;
         
     }
+    
+    public DebitMemoController(DebitMemoModel debitMemoModel)
+    {
+        this.debitMemoModel = debitMemoModel;
+        pendingItems = new ArrayList<>();
+        memo = null;
+    }
+    
+    public ArrayList<Company> getCustomers()
+    {
+        return debitMemoModel.getCustomers();
+    }
+    
+    public Company getCustomer(int index)
+    {
+        return debitMemoModel.getCustomer(index);
+    }
+    
+     public ArrayList<DMLineItem> getItems(String customerType)
+    {
+        return debitMemoModel.getItems(customerType);
+    }
+    
+    public Item getItem(int index)
+    {
+        return debitMemoModel.getItem(index);
+    }
+    
+    public void addPendingItem(DMLineItem item)
+    {
+        pendingItems.add(item);
+    }
+    
+    public void removePending()
+    {
+        pendingItems.clear();
+    }
+    
+    public void addDM(String debit_memo_id, String date,float total_amount,String receipt_type,String receipt_number,String approved_by,String received_by,String approved_date,String notes, int status, String type, Company company)
+    {
+        DebitMemo mmo = new DebitMemo(debit_memo_id, date,total_amount, receipt_type, receipt_number, approved_by, received_by,approved_date, notes, status, type, pendingItems, company);
+        debitMemoModel.addDetail(mmo);
+
+    }
+    
+    public int getAvailQuantity(int index)
+    {
+        return debitMemoModel.getAvailQuantity(index);
+    }
+    
     
     TableModel getAllModel()
     {
@@ -76,6 +138,23 @@ public class DebitMemoController {
         }
         return "";
     }
+    
+    public void setMemoTarget(DebitMemo mmo)
+    {
+        this.memo = mmo;
+    }
+    
+    public DebitMemo getMemoTarget()
+    {
+        return memo;
+    }
+    
+    public DebitMemo getDM(String ID)
+    {
+        return debitMemoModel.getDM(ID);
+    }
+
+    
     
     
 }

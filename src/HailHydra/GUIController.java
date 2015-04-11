@@ -116,6 +116,7 @@ public class GUIController
     
     private JDialog modal;
     private CreditMemoController CMController;
+    private DebitMemoController DMController;
     
     public GUIController()
     {
@@ -514,7 +515,8 @@ public class GUIController
     public void changePanelToDebitMemo()
     {
             DebitMemoListGUI tempGUI = new DebitMemoListGUI(this);
-            tempGUI.setMainController(new DebitMemoController(new DebitMemoModel(dbc),tempGUI));
+            DMController = new DebitMemoController(new DebitMemoModel(dbc),tempGUI);
+            tempGUI.setMainController(DMController);
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
@@ -522,7 +524,11 @@ public class GUIController
     
     public void changePanelToAddDebitMemo()
     {
-            getContentPanel().add(new AddDebitMemoGUI(this));
+            AddDebitMemoGUI tempGUI = new AddDebitMemoGUI(this);
+            DMController = new DebitMemoController(new DebitMemoModel(dbc));
+            tempGUI.setMainController(DMController);
+            tempGUI.setDataComponents();
+            getContentPanel().add(tempGUI);
             frameRevalidate();
     }
     
@@ -559,11 +565,6 @@ public class GUIController
             getContentPanel().add(tempGUI);
             frameRevalidate();
             
-            /* ViewReturnSlipGUI tempGUI = new ViewReturnSlipGUI(this);
-            tempGUI.setMainController(RSController);
-            tempGUI.setViewComponents();
-            getContentPanel().add(tempGUI);
-            frameRevalidate();*/
     }
     
     public void changePanelToViewCreditMemo()

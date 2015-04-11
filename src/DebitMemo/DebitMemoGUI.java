@@ -51,7 +51,7 @@ public class DebitMemoGUI extends JPanel
                   "        Description        ", 
                   "<html><center>   Unit   <br>   Price   </center></html>",
                   "  Total  "};
-        protected JComboBox cmbCustomer;
+        protected JComboBox cmbCustomer, cmbRcptType, cmbRcptNumber;
         protected JCheckBox chckbxDefective, chckbxReplacement;
 	protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
@@ -96,7 +96,7 @@ public class DebitMemoGUI extends JPanel
 		lblSINum = new JLabel("S.I. Number:");
 		lblSINum.setFont(fntPlainText);
 		lblSINum.setBounds(530, 160, 120, 30);
-		add(lblSINum);
+		//add(lblSINum);
                 
                 lblApprovedBy = new JLabel("Approved By:");
 		lblApprovedBy.setFont(fntPlainText);
@@ -142,7 +142,7 @@ public class DebitMemoGUI extends JPanel
 		tfSINum = new JTextField();
 		tfSINum.setFont(fntPlainText);
 		tfSINum.setBounds(680, 160, 285, 30);
-		add(tfSINum);
+		//add(tfSINum);
 
 		tfApprovedBy = new JTextField();
 		tfApprovedBy.setFont(fntPlainText);
@@ -199,6 +199,18 @@ public class DebitMemoGUI extends JPanel
 		cmbCustomer.setFont(fntPlainText);
 		cmbCustomer.setBounds(138, 80, 362, 30);
 		add(cmbCustomer);
+                
+                String[] comboBoxArray = {"A.R.#","S.I.#"};
+                cmbRcptType = new JComboBox(comboBoxArray);
+                cmbRcptType.setFont(fntPlainText);
+                cmbRcptType.setBounds(530, 160, 120, 30);
+                add(cmbRcptType);
+                
+                cmbRcptNumber = new JComboBox();
+                AutoCompleteDecorator.decorate(cmbCustomer);
+                cmbRcptNumber.setFont(fntPlainText);
+                cmbRcptNumber.setBounds(680, 160, 285, 30);
+                add(cmbRcptNumber);
                 
 		tbModel = new DefaultTableModel()
 		{
