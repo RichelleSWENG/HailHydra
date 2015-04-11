@@ -68,15 +68,15 @@ public class CreditMemoModel
             String sql="";
             if(filter.equalsIgnoreCase("name"))
             {
-                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND company.name LIKE '%"+field+"%'";
+                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND company.name LIKE '%"+field+"%'";
             }	
             else if(filter.equalsIgnoreCase("credit memo number"))
             {
-                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND creditmemo.credit_memo_id LIKE '%"+field+"%'";
+                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND creditmemo.credit_memo_id LIKE '%"+field+"%'";
             }
             else if(filter.equalsIgnoreCase("return slip number"))
             {
-                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND creditmemo.return_slip_id LIKE '%"+field+"%'";
+                    sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"+startDate+"' AND '"+endDate+"' AND creditmemo.return_slip_id LIKE '%"+field+"%'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
