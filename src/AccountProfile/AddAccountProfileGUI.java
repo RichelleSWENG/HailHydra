@@ -1,285 +1,297 @@
-package Inventory;
+package AccountProfile;
 
 import HailHydra.GUIController;
 
-import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class AddItemProfileGUI extends ItemProfileGUI 
+public class AddAccountProfileGUI extends AccountProfileGUI 
 {
 
-        private JButton btnSubmit, btnCancel, btnUpdateImage;
-        private GUIController controller;
-        private InventoryController mainController;
-        private ArrayList<String> al;
-	
-	public AddItemProfileGUI(GUIController temp) 
-        {
-            
-                controller=temp;
-                setBounds(0, 0, 1000, 620);
-		setLayout(null);
-              
-                lblHeader.setText("Add Item Profile");
-                
-                btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(fntPlainText);
-		btnSubmit.setBounds(655, 545, 110, 40);
-		add(btnSubmit);
-                btnSubmit.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
-                {
-                    try
-                    {
-                        //(part_num,description,rack_location,stock_minimum,sister_company_price,traders_price,walk_in_price,last_cost,notes,image,status)
-                        //ftfStockMinimum, ftfSisterCompanyPrice, ftfRetailPrice, ftfWalkinPrice, ftfLastCost;
-                            al = new ArrayList();
-                            al.add(tfPartNumber.getText());
-                            al.add(tfDescription.getText());
-                            al.add(tfRackLocation.getText());
-                            al.add(ftfStockMinimum.getText().replaceAll(",", ""));
-                            al.add(ftfSisterCompanyPrice.getText().replaceAll(",", ""));
-                            al.add(ftfRetailPrice.getText().replaceAll(",", ""));
-                            al.add(ftfWalkinPrice.getText().replaceAll(",", ""));
-                            al.add(ftfLastCost.getText().replaceAll(",", ""));
-                            al.add(taNotes.getText());
-                            al.add(imageLocation);
-                            if(chckbxInactiveItem.isSelected())
-                                al.add("0");
-                            else al.add("1");
-                            
-                            boolean error = false;
+    private JButton btnSubmit, btnCancel;
+    private GUIController guiController;
+    private AccountProfileController mainController;
+    private ArrayList<String> al;
 
-                            if (tfPartNumber.getText().equals("") || tfDescription.getText().equals("") || ftfStockMinimum.getText().equals(""))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please fill in the required fields");
-                                error = true;
-                            }
-            
-                            if(tfPartNumber.getText().length()>20)
-                            {
-                                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
-                                error = true;
-                                lblPartNumber.setForeground(Color.orange);
-                            }
+    public AddAccountProfileGUI(GUIController temp) 
+    {
+        super();
+        guiController = temp;
 
-                            if(tfDescription.getText().length()>100)
-                            {
-                                JOptionPane.showMessageDialog(null, "Description can not exceed 100 characters. Please re-input the Description.");
-                                error = true;
-                                lblDescription.setForeground(Color.orange);
-                            }
-                        
-                            if(tfRackLocation.getText().length()>45)
-                            {
-                                JOptionPane.showMessageDialog(null, "Rack Location can not exceed 45 characters. Please re-input the Rack Location.");
-                                error = true;
-                                lblRackLocation.setForeground(Color.orange);
-                            }
-
-                            if(ftfStockMinimum.getText().length()>11)
-                            {
-                                JOptionPane.showMessageDialog(null, "Stock Minimum can not exceed 11 characters. Please re-input the Stock Minimum.");
-                                error = true;
-                                lblStockMinimum.setForeground(Color.orange);
-                            }
-                
-                            /*if(ftfSisterCompanyPrice.getText().length()>20)
-                            {
-                                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
-                                error = true;
-                            }
-
-                            if(ftfRetailPrice.getText().length()>20)
-                            {
-                                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
-                                error = true;
-                            }
-                        
-                            if(ftfWalkinPrice.getText().length()>20)
-                            {
-                                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
-                                error = true;
-                            }
-
-                            if(ftfLastCost.getText().length()>20)
-                            {
-                                JOptionPane.showMessageDialog(null, "Part Number can not exceed 20 characters. Please re-input the Part Number.");
-                                error = true;
-                            }
-                            */             
-                            if(taNotes.getText().length()>500)
-                            {
-                                JOptionPane.showMessageDialog(null, "Notes can not exceed 500 characters. Please re-input the Notes.");
-                                error = true;
-                                lblNotes.setForeground(Color.orange);
-                            }
-
-                            if (!isInteger(ftfStockMinimum.getText().replaceAll(",", "")))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid value for stock minimum");
-                                error = true;
-                                lblStockMinimum.setForeground(Color.orange);
-                            }
-                            
-                            if (!isFloat(ftfSisterCompanyPrice.getText().replaceAll(",", "")))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
-                                error = true;
-                                lblSisterCompanyPrice.setForeground(Color.orange);
-                            }
-                            
-                            if (!isFloat(ftfRetailPrice.getText().replaceAll(",", "")))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
-                                error = true;
-                                lblRetailPrice.setForeground(Color.orange);
-                            }
-                            
-                            if (!isFloat(ftfWalkinPrice.getText().replaceAll(",", "")))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
-                                error = true;
-                                lblWalkinPrice.setForeground(Color.orange);
-                            }
-
-                            if (!isFloat(ftfLastCost.getText().replaceAll(",", "")))
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost Price");
-                                error = true;
-                                lblLastCost.setForeground(Color.orange);
-                            }
-
-                            if (Integer.parseInt(ftfStockMinimum.getText().replaceAll(",", ""))<0)
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Stock Minimum");
-                                error = true;
-                                lblStockMinimum.setForeground(Color.orange);
-                            }
-
-                            if (Float.valueOf(ftfSisterCompanyPrice.getText().replaceAll(",", ""))<0.00f)
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
-                                error = true;
-                                lblSisterCompanyPrice.setForeground(Color.orange);
-                            }
-                            
-                            if (Float.parseFloat(ftfRetailPrice.getText().replaceAll(",", ""))<0.00f)
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
-                                error = true;
-                                lblRetailPrice.setForeground(Color.orange);
-                            }
-                            
-                            if (Float.parseFloat(ftfWalkinPrice.getText().replaceAll(",", ""))<0.00f)
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
-                                error = true;
-                                lblWalkinPrice.setForeground(Color.orange);
-                            }
-                            
-                            if (Float.parseFloat(ftfLastCost.getText().replaceAll(",", ""))<0.00f)
-                            {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost");
-                                error = true;
-                                lblLastCost.setForeground(Color.orange);
-                            }
-            
-                            if (error == false)
-                            {
-                                try
-                                {
-                                    mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText(), ftfSisterCompanyPrice.getText(), ftfRetailPrice.getText(), ftfWalkinPrice.getText(), ftfLastCost.getText(), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
-                                    controller.changePanelToInventory();
-                                } catch (SQLException ex)
-                                {
-                                    Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                                } catch (Exception ex)
-                                {
-                                    Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                                }
-                            }
-                       
-                    } catch (Exception ex)
-                    {
-                        Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }
-                
-                private boolean isInteger(String s)
-                {
-                    try
-                    {
-                        Integer.parseInt(s);
-                    } catch (NumberFormatException e)
-                    {
-                        return false;
-                    }
-                    // only got here if we didn't return false
-                    return true;
-                }
-
-                private boolean isFloat(String s)
-                {
-                    try
-                    {
-                        Float.parseFloat(s);
-                    } catch (NumberFormatException e)
-                    {
-                        return false;
-                    }
-                    return true;
-                }
+        lblHeader.setText("Add Account Profile");
+        al = new ArrayList();
         
-                private boolean hasSpecial(String s)
+        //The following code are for JButtons
+        btnSubmit = new JButton("Submit");
+        btnSubmit.setFont(fntPlainText);
+        btnSubmit.setBounds(655, 545, 110, 40);
+        add(btnSubmit);
+        btnSubmit.addActionListener(
+                new ActionListener() 
                 {
-                    Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
-                    Matcher m = p.matcher(s);
-                    boolean b = m.find();
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                        boolean error = false;
 
-                    if (b || s.contains(" "))
-                        return true;
-                    else 
-                        return false;
+                        if (tfName.getText().equals("") || ftfCreditLimit.getText().equals("") || ftfTerms.getText().equals("")) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields");
+                            error = true;
+                        }
+
+                        if (tfName.getText().length() > 50) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Name can not exceed 50 characters. Please re-input the name.");
+                            error = true;
+                            lblName.setForeground(Color.RED);
+                        }
+
+                        if (taAddress.getText().length() > 100) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Address can not exceed 100 characters. Please re-input the address.");
+                            error = true;
+                            lblAddress.setForeground(Color.RED);
+                        }
+
+                        if (tfCity.getText().length() > 45)
+                        {
+                            JOptionPane.showMessageDialog(null, "City can not exceed 45 characters. Please re-input the city.");
+                            error = true;
+                            lblCity.setForeground(Color.RED);
+                        }
+
+                        if (tfCountry.getText().length() > 45)
+                        {
+                            JOptionPane.showMessageDialog(null, "Country can not exceed 45 characters. Please re-input the country.");
+                            error = true;
+                            lblCountry.setForeground(Color.RED);
+                        }
+
+                        if (tfPostCode.getText().length() > 45)
+                        {
+                            JOptionPane.showMessageDialog(null, "Postcode can not exceed 45 characters. Please re-input the postcode.");
+                            error = true;
+                            lblPostCode.setForeground(Color.RED);
+                        }
+
+                        if (tfPhone1.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Phone #1 can not exceed 11 characters. Please re-input the phone #1.");
+                            error = true;
+                            lblPhone1.setForeground(Color.RED);
+                        }
+
+                        if (tfPhone2.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Phone #2 can not exceed 11 characters. Please re-input the phone #2.");
+                            error = true;
+                            lblPhone2.setForeground(Color.RED);
+                        }
+
+                        if (tfPhone3.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Phone #3 can not exceed 11 characters. Please re-input the phone #3.");
+                            error = true;
+                            lblPhone3.setForeground(Color.RED);
+                        }
+
+                        if (tfFaxNumber.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Fax Number can not exceed 11 characters. Please re-input the city.");
+                            error = true;
+                            lblFaxNumber.setForeground(Color.RED);
+                        }
+
+                        if (tfEmailAddress.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Email address can not exceed 45 characters. Please re-input the email.");
+                            error = true;
+                            lblEmailAddress.setForeground(Color.RED);
+                        }
+
+                        if (tfWebsite.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Website can not exceed 45 characters. Please re-input the website.");
+                            error = true;
+                            lblWebsite.setForeground(Color.RED);
+                        }
+
+                        if (tfContactPerson.getText().length() > 45) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Contact person can not exceed 45 characters. Please re-input the contact person.");
+                            error = true;
+                            lblContactPerson.setForeground(Color.RED);
+                        }
+
+                        if (ftfCreditLimit.getText().length() > 12)
+                        {
+                            JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999.");
+                            error = true;
+                            lblCreditLimit.setForeground(Color.RED);
+                        }
+
+                        if (Float.parseFloat(ftfCreditLimit.getText().replaceAll(",", "")) < 0.00f) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Credit Limit is invalid.");
+                            error = true;
+                        }
+                        
+                        if(Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))<0|| Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))>2000)
+                        {
+                        JOptionPane.showMessageDialog(null, "Terms(Days) is invalid");
+                            error = true;
+                        }
+
+                        if (!"".equals(tfPhone1.getText())) 
+                        {
+                            if (!isInteger(tfPhone1.getText()) || Integer.parseInt(tfPhone1.getText()) < 0) 
+                            {
+                                JOptionPane.showMessageDialog(null, "Tel Phone 1 # is invalid");
+                                error = true;
+                            }
+                        }
+
+                        if (!"".equals(tfPhone2.getText())) 
+                        {
+                            if (!isInteger(tfPhone2.getText()) || Integer.parseInt(tfPhone2.getText()) < 0) 
+                            {
+                                JOptionPane.showMessageDialog(null, "Tel Phone 2 # is invalid");
+                                error = true;
+                            }
+                        }
+
+                        if (!"".equals(tfPhone3.getText())) 
+                        {
+                            if (!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText()) < 0)
+                            {
+                                JOptionPane.showMessageDialog(null, "Phone#3 is invalid.");
+                                error = true;
+                            }
+                        }
+
+                        if (!"".equals(tfFaxNumber.getText())) 
+                        {
+                            if (!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText()) < 0)
+                            {
+                                JOptionPane.showMessageDialog(null, "Fax Number is invalid.");
+                                error = true;
+                            }
+                        }
+
+                        if (hasSpecial(tfPostCode.getText())) 
+                        {
+                            JOptionPane.showMessageDialog(null, "Please enter a valid postal code.");
+                            error = true;
+                        }
+
+                        if (error == false) 
+                        {
+                            try{
+                                al.removeAll(al);
+                                
+                                al.add(tfName.getText().toString());
+                                al.add(taAddress.getText().toString());
+                                al.add(tfCity.getText().toString());
+                                al.add(tfPostCode.getText().toString());
+                                al.add(tfCountry.getText().toString());
+                                al.add(ftfCreditLimit.getText().replaceAll(",", ""));
+                                al.add(ftfTerms.getText().replaceAll(",", ""));
+                                al.add(tfPhone1.getText().toString());
+                                al.add(tfPhone2.getText().toString());
+                                al.add(tfPhone3.getText().toString());
+                                al.add(tfFaxNumber.getText().toString());
+                                al.add(tfEmailAddress.getText().toString());
+                                al.add(tfWebsite.getText().toString());
+                                al.add(tfContactPerson.getText().toString());
+                                al.add(type.getSelection().getActionCommand().toString());
+
+                                if (chckbxInactiveAccount.isSelected()) 
+                                    al.add("Inactive");
+                                 else 
+                                    al.add("Active");
+
+                                mainController.AddAccountProfile(al); // add the account
+                            }catch(Exception exception)
+                            {
+                                exception.getStackTrace();
+                            }
+                            guiController.changePanelToAccountProfile();
+                        }
+
                     }
                 });
-                
-		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(fntPlainText);
-		btnCancel.setBounds(855, 545, 110, 40);
-		add(btnCancel);
-                btnCancel.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
+
+        btnCancel = new JButton("Cancel");
+        btnCancel.setFont(fntPlainText);
+        btnCancel.setBounds(855, 545, 110, 40);
+        add(btnCancel);    
+        btnCancel.addActionListener(
+                new ActionListener() 
                 {
-                    try
+                    public void actionPerformed(ActionEvent e) 
                     {
-                        controller.changePanelToInventory();
-                    } catch (Exception ex)
-                    {
-                        Logger.getLogger(AddItemProfileGUI.class.getName()).log(Level.SEVERE, null, ex);
+                        guiController.changePanelToAccountProfile();
                     }
-                }
-                });      
-	}
+                });
         
-        public void setMainController(InventoryController inventoryController)
+    }
+
+    public void setMainController(AccountProfileController temp) 
+    {
+        mainController = temp;
+    }
+
+    private boolean isInteger(String s) 
+    {
+        try 
         {
-                this.mainController = inventoryController;
+            Integer.parseInt(s);
+        } catch (NumberFormatException e) 
+        {
+            return false;
         }
         
-        public static void main(String args[])
+        return true;
+    }
+
+    private boolean isFloat(String s) 
+    {
+
+        try
         {
-                GUIController temp=new GUIController();
-                temp.changePanelToAddItemProfile();
+            Float.parseFloat(s);
+        } catch (NumberFormatException e) 
+        {
+            return false;
         }
-        
+        return true;
+    }
+
+    private boolean hasSpecial(String s) 
+    {
+        Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(s);
+        boolean b = m.find();
+
+        if (b || s.contains(" ")) 
+        {
+            return true;
+        } else 
+        {
+            return false;
+        }
+    }
+
+    public static void main(String args[]) 
+    {
+        GUIController temp = new GUIController();
+        temp.changePanelToAddAccountProfile();
+    }
 }
