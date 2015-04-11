@@ -2,6 +2,7 @@ package Inventory;
 
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -16,10 +17,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -38,7 +37,7 @@ public class SetInventoryLastCostGUI extends JPanel
 	private JRadioButton rdbtnPartNumber, rdbtnDescription;
 	private ButtonGroup searchBy;
 	private JScrollPane spQuantityTable;
-	private String headers[] ={ "Part Number", "Description", 
+	private String strHeader[] ={ "Part Number", "Description", 
                         "<html><center>Reference<br>Last Cost</center></html>", 
                         "<html><center>Current<br>Last Cost</center></html>" };
 	private DefaultTableModel tbModel;
@@ -50,7 +49,7 @@ public class SetInventoryLastCostGUI extends JPanel
         private Font fntPlainText, fntHeaderText, fntHeaderTableText;
         private GUIController controller;
         private LastCostController mainController;
-	
+	private int modelRow;
 
 	public SetInventoryLastCostGUI(GUIController temp)
 	{
@@ -89,7 +88,7 @@ public class SetInventoryLastCostGUI extends JPanel
 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(165, 120, 360, 30);
+		tfSearch.setBounds(140, 120, 360, 30);
 		add(tfSearch);
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
@@ -154,6 +153,15 @@ public class SetInventoryLastCostGUI extends JPanel
 			{
 				return new TableRenderer();
 			}
+                        
+                        public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+                        {
+				component = super.prepareRenderer(renderer, row, column);
+				modelRow = convertRowIndexToModel(row);
+				if(column==2)
+                                    component.setBackground(Color.lightGray);
+				return component;
+			}
 		};
                 tbSetInventoryQuantity.getTableHeader().setFont(fntHeaderTableText);
 		tbSetInventoryQuantity.getTableHeader().setPreferredSize(new Dimension(100, 55));
@@ -194,7 +202,7 @@ public class SetInventoryLastCostGUI extends JPanel
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
                 rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(165, 80, 169, 30);
+		rdbtnPartNumber.setBounds(140, 80, 160, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener()
 		{
@@ -206,7 +214,7 @@ public class SetInventoryLastCostGUI extends JPanel
                 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(368, 80, 157, 30);
+		rdbtnDescription.setBounds(310, 80, 157, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener()
 		{
@@ -224,7 +232,15 @@ public class SetInventoryLastCostGUI extends JPanel
 		btnViewAllItems.setFont(fntPlainText);
 		btnViewAllItems.setBounds(725, 150, 240, 40);
 		add(btnViewAllItems);
-
+                btnViewAllItems.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                            ViewAll();
+                    }
+                });
+                        
 		btnCancel = new JButton("Cancel");
 		btnCancel.setFont(fntPlainText);
 		btnCancel.setBounds(855, 545, 110, 40);
@@ -271,17 +287,29 @@ public class SetInventoryLastCostGUI extends JPanel
         }
         public void ViewAll()
         {
+            tfSearch.setText("");
             TableModel AllModel = mainController.getAllModel();
             tbSetInventoryQuantity.setModel(AllModel);
-
-            JTableHeader th = tbSetInventoryQuantity.getTableHeader();      // Setting the Headers
+            JTableHeader th = tbSetInventoryQuantity.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < headers.length; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(headers[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbSetInventoryQuantity.repaint();   
         }
         
         public void setTableModel(TableModel tbm)
@@ -289,12 +317,24 @@ public class SetInventoryLastCostGUI extends JPanel
             tbSetInventoryQuantity.setModel(tbm);
             JTableHeader th = tbSetInventoryQuantity.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < headers.length; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(headers[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbSetInventoryQuantity.repaint();
         }
         
         public static void main(String args[]){
