@@ -60,7 +60,7 @@ public class CreditMemoListGUI extends JPanel
         private int modelRow;
         private GUIController controller;
 	private CreditMemoController mainController;
-    private ReturnSlipController RSController;
+        private ReturnSlipController RSController;
         
 	public CreditMemoListGUI(GUIController temp)
 	{
@@ -140,7 +140,6 @@ public class CreditMemoListGUI extends JPanel
                 
                 cmbToYear.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -151,7 +150,6 @@ public class CreditMemoListGUI extends JPanel
                 });
                 cmbToMonth.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -162,7 +160,6 @@ public class CreditMemoListGUI extends JPanel
                 });
                 cmbFromMonth.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(""); 
@@ -173,7 +170,6 @@ public class CreditMemoListGUI extends JPanel
                 });
                 cmbFromYear.addActionListener(new ActionListener() 
                 {
-                    @Override
                     public void actionPerformed(ActionEvent ae)
                     {
                         tfSearch.setText(null); 
@@ -182,9 +178,9 @@ public class CreditMemoListGUI extends JPanel
                     }
 
                 });
+                
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
                 {
-                    @Override
                     public void insertUpdate(DocumentEvent de)
                     {
                         try
@@ -196,7 +192,6 @@ public class CreditMemoListGUI extends JPanel
                         }
                     }   
 
-                    @Override
                     public void removeUpdate(DocumentEvent de)
                     {
                         try
@@ -208,7 +203,6 @@ public class CreditMemoListGUI extends JPanel
                         }
                     }
 
-                    @Override
                      public void changedUpdate(DocumentEvent de)
                     {
                         try
@@ -236,24 +230,13 @@ public class CreditMemoListGUI extends JPanel
                         }
                     }});
 
-		tbModel = new DefaultTableModel()
+		tbCreditMemo = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				return false;
 			}
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-		
-
-		tbCreditMemo = new JTable(tbModel)
-		{
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -306,7 +289,7 @@ public class CreditMemoListGUI extends JPanel
 		rdbtnSupplierName = new JRadioButton("Supplier Name");
 		rdbtnSupplierName.setFont(fntPlainText);
 		rdbtnSupplierName.setSelected(true);
-		rdbtnSupplierName.setBounds(139, 80, 162, 25);
+		rdbtnSupplierName.setBounds(139, 80, 170, 25);
 		add(rdbtnSupplierName);
                 rdbtnSupplierName.addActionListener(
                     new ActionListener()
@@ -319,7 +302,7 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnCreditMemoNo = new JRadioButton("Credit Memo Number");
 		rdbtnCreditMemoNo.setFont(fntPlainText);
-		rdbtnCreditMemoNo.setBounds(305, 80, 226, 25);
+		rdbtnCreditMemoNo.setBounds(305, 80, 230, 25);
 		add(rdbtnCreditMemoNo);
                 rdbtnCreditMemoNo.addActionListener(
                     new ActionListener()
@@ -332,7 +315,7 @@ public class CreditMemoListGUI extends JPanel
 
 		rdbtnReturnSlipNo = new JRadioButton("Return Slip Number");
 		rdbtnReturnSlipNo.setFont(fntPlainText);
-		rdbtnReturnSlipNo.setBounds(539, 80, 226, 25);
+		rdbtnReturnSlipNo.setBounds(539, 80, 235, 25);
 		add(rdbtnReturnSlipNo);
                 rdbtnReturnSlipNo.addActionListener(
                     new ActionListener()
@@ -442,12 +425,24 @@ public class CreditMemoListGUI extends JPanel
             tbCreditMemo.setModel(tbm);
             JTableHeader th = tbCreditMemo.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbCreditMemo.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbCreditMemo.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbCreditMemo, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbCreditMemo.repaint();
         }
         
         public void setMainController(CreditMemoController temp){
@@ -456,17 +451,29 @@ public class CreditMemoListGUI extends JPanel
         
         public void ViewAll()
         {
+            tfSearch.setText("");
             TableModel AllModel = mainController.getAllModel();
             tbCreditMemo.setModel(AllModel);
-
-            JTableHeader th = tbCreditMemo.getTableHeader();      // Setting the Headers
+            JTableHeader th = tbCreditMemo.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbCreditMemo.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbCreditMemo.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbCreditMemo, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbCreditMemo.repaint();
             setComboBox();
         }
         
