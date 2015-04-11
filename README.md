@@ -11,10 +11,13 @@ View Debit Memo --- KINGSTON <br>
 Order Notification --- JOLO <br>
 Credit Limit Notification --- JOLO <br>
 Near Terms Notification --- JOLO<br>
-Exceeded Terms Notification<br>
+Exceeded Terms Notification --- JOLO<br>
 Know if basicsystemsetting or login --- Janine <br>
+<br><br> 
+**ERRORS**
+
 ~~View Return Slip~~<br>
 ~~Add Credit Memo~~<br>
 ~~View Credit Mamo~~ <br>
-~~Access Restriction~~<br>
+~~Access Restriction~~
 <br>~~Palagay yung system name sa Title bar~~
