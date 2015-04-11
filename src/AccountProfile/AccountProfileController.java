@@ -46,6 +46,8 @@ public class AccountProfileController {
                 searchBy = "supplier";
             TableModel tbm;
             tbm = accountModel.myModel(accountModel.searchDetail(text, searchBy));
+            this.itemcount=accountModel.getItemcount();
+            gui.setItemCount(itemcount);
             gui.setTableModel(tbm);
     }
 

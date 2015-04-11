@@ -238,6 +238,7 @@ public class GUIController
     
     public void changePanelToAddPurchaseTransaction()
     {
+            PTController = new PurchaseTransactionController(new PurchasesModel(dbc));
             AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
             tempGUI.setController(PTController);
             tempGUI.setDataComponents();

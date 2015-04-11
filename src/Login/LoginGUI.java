@@ -2,14 +2,10 @@ package Login;
 
 import HailHydra.GUIController;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -83,7 +79,11 @@ public class LoginGUI extends JPanel {
                             if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
                             {   
                                     if(mainController.validate(tfUsername.getText(), password)!=null)
+                                    {
                                         controllerGUI.changePanelToMainMenu();
+                                        controllerGUI.changePanelToProfiles();
+                                    }
+                                        
                                     else
                                         JOptionPane.showMessageDialog(null, "Wrong username or password");
                             }else

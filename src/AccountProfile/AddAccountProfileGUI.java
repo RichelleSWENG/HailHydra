@@ -26,6 +26,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
         guiController = temp;
 
         lblHeader.setText("Add Account Profile");
+        al = new ArrayList();
         
         //The following code are for JButtons
         btnSubmit = new JButton("Submit");
@@ -37,29 +38,6 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                 {
                     public void actionPerformed(ActionEvent e) 
                     {
-
-                        al = new ArrayList();
-                        al.add(tfName.getText());
-                        al.add(taAddress.getText());
-                        al.add(tfCity.getText());
-                        al.add(tfPostCode.getText());
-                        al.add(tfCountry.getText());
-                        al.add(ftfCreditLimit.getText().replaceAll(",", ""));
-                        al.add(ftfTerms.getText());
-                        al.add(tfPhone1.getText());
-                        al.add(tfPhone2.getText());
-                        al.add(tfPhone3.getText());
-                        al.add(tfFaxNumber.getText());
-                        al.add(tfEmailAddress.getText());
-                        al.add(tfWebsite.getText());
-                        al.add(tfContactPerson.getText());
-                        al.add(type.getSelection().getActionCommand());
-                        if (chckbxInactiveAccount.isSelected()) {
-                            al.add("Inactive");
-                        } else {
-                            al.add("Active");
-                        }
-
                         boolean error = false;
 
                         if (tfName.getText().equals("") || ftfCreditLimit.getText().equals("") || ftfTerms.getText().equals("")) 
@@ -72,100 +50,100 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                         {
                             JOptionPane.showMessageDialog(null, "Name can not exceed 50 characters. Please re-input the name.");
                             error = true;
-                            lblName.setForeground(Color.orange);
+                            lblName.setForeground(Color.RED);
                         }
 
                         if (taAddress.getText().length() > 100) 
                         {
                             JOptionPane.showMessageDialog(null, "Address can not exceed 100 characters. Please re-input the address.");
                             error = true;
-                            lblAddress.setForeground(Color.orange);
+                            lblAddress.setForeground(Color.RED);
                         }
 
                         if (tfCity.getText().length() > 45)
                         {
                             JOptionPane.showMessageDialog(null, "City can not exceed 45 characters. Please re-input the city.");
                             error = true;
-                            lblCity.setForeground(Color.orange);
+                            lblCity.setForeground(Color.RED);
                         }
 
                         if (tfCountry.getText().length() > 45)
                         {
                             JOptionPane.showMessageDialog(null, "Country can not exceed 45 characters. Please re-input the country.");
                             error = true;
-                            lblCountry.setForeground(Color.orange);
+                            lblCountry.setForeground(Color.RED);
                         }
 
                         if (tfPostCode.getText().length() > 45)
                         {
                             JOptionPane.showMessageDialog(null, "Postcode can not exceed 45 characters. Please re-input the postcode.");
                             error = true;
-                            lblPostCode.setForeground(Color.orange);
+                            lblPostCode.setForeground(Color.RED);
                         }
 
                         if (tfPhone1.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Phone #1 can not exceed 11 characters. Please re-input the phone #1.");
                             error = true;
-                            lblPhone1.setForeground(Color.orange);
+                            lblPhone1.setForeground(Color.RED);
                         }
 
                         if (tfPhone2.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Phone #2 can not exceed 11 characters. Please re-input the phone #2.");
                             error = true;
-                            lblPhone2.setForeground(Color.orange);
+                            lblPhone2.setForeground(Color.RED);
                         }
 
                         if (tfPhone3.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Phone #3 can not exceed 11 characters. Please re-input the phone #3.");
                             error = true;
-                            lblPhone3.setForeground(Color.orange);
+                            lblPhone3.setForeground(Color.RED);
                         }
 
                         if (tfFaxNumber.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Fax Number can not exceed 11 characters. Please re-input the city.");
                             error = true;
-                            lblFaxNumber.setForeground(Color.orange);
+                            lblFaxNumber.setForeground(Color.RED);
                         }
 
                         if (tfEmailAddress.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Email address can not exceed 45 characters. Please re-input the email.");
                             error = true;
-                            lblEmailAddress.setForeground(Color.orange);
+                            lblEmailAddress.setForeground(Color.RED);
                         }
 
                         if (tfWebsite.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Website can not exceed 45 characters. Please re-input the website.");
                             error = true;
-                            lblWebsite.setForeground(Color.orange);
+                            lblWebsite.setForeground(Color.RED);
                         }
 
                         if (tfContactPerson.getText().length() > 45) 
                         {
                             JOptionPane.showMessageDialog(null, "Contact person can not exceed 45 characters. Please re-input the contact person.");
                             error = true;
-                            lblContactPerson.setForeground(Color.orange);
+                            lblContactPerson.setForeground(Color.RED);
                         }
 
                         if (ftfCreditLimit.getText().length() > 12)
                         {
-                            JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
+                            JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999.");
                             error = true;
-                            lblCreditLimit.setForeground(Color.orange);
+                            lblCreditLimit.setForeground(Color.RED);
                         }
 
-                        if (/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText().replaceAll(",", "")) < 0.00f) 
+                        if (Float.parseFloat(ftfCreditLimit.getText().replaceAll(",", "")) < 0.00f) 
                         {
-                            JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
+                            JOptionPane.showMessageDialog(null, "Credit Limit is invalid.");
                             error = true;
                         }
                         
-                        if(Integer.parseInt(ftfTerms.getText())<0)
+                        if(Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))<0|| Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))>2000)
                         {
                         JOptionPane.showMessageDialog(null, "Terms(Days) is invalid");
                             error = true;
@@ -193,7 +171,7 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                         {
                             if (!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText()) < 0)
                             {
-                                JOptionPane.showMessageDialog(null, "Tel Phone 3 # is invalid");
+                                JOptionPane.showMessageDialog(null, "Phone#3 is invalid.");
                                 error = true;
                             }
                         }
@@ -202,20 +180,48 @@ public class AddAccountProfileGUI extends AccountProfileGUI
                         {
                             if (!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText()) < 0)
                             {
-                                JOptionPane.showMessageDialog(null, "Fax Number is invalid");
+                                JOptionPane.showMessageDialog(null, "Fax Number is invalid.");
                                 error = true;
                             }
                         }
 
                         if (hasSpecial(tfPostCode.getText())) 
                         {
-                            JOptionPane.showMessageDialog(null, "Please enter a valid postal code");
+                            JOptionPane.showMessageDialog(null, "Please enter a valid postal code.");
                             error = true;
                         }
 
                         if (error == false) 
                         {
-                            mainController.AddAccountProfile(al); // add the account
+                            try{
+                                al.removeAll(al);
+                                
+                                al.add(tfName.getText().toString());
+                                al.add(taAddress.getText().toString());
+                                al.add(tfCity.getText().toString());
+                                al.add(tfPostCode.getText().toString());
+                                al.add(tfCountry.getText().toString());
+                                al.add(ftfCreditLimit.getText().replaceAll(",", ""));
+                                al.add(ftfTerms.getText().replaceAll(",", ""));
+                                al.add(tfPhone1.getText().toString());
+                                al.add(tfPhone2.getText().toString());
+                                al.add(tfPhone3.getText().toString());
+                                al.add(tfFaxNumber.getText().toString());
+                                al.add(tfEmailAddress.getText().toString());
+                                al.add(tfWebsite.getText().toString());
+                                al.add(tfContactPerson.getText().toString());
+                                al.add(type.getSelection().getActionCommand().toString());
+
+                                if (chckbxInactiveAccount.isSelected()) 
+                                    al.add("Inactive");
+                                 else 
+                                    al.add("Active");
+
+                                mainController.AddAccountProfile(al); // add the account
+                            }catch(Exception exception)
+                            {
+                                exception.getStackTrace();
+                            }
                             guiController.changePanelToAccountProfile();
                         }
 
@@ -244,7 +250,6 @@ public class AddAccountProfileGUI extends AccountProfileGUI
 
     private boolean isInteger(String s) 
     {
-
         try 
         {
             Integer.parseInt(s);
@@ -252,9 +257,8 @@ public class AddAccountProfileGUI extends AccountProfileGUI
         {
             return false;
         }
-        // only got here if we didn't return false
+        
         return true;
-
     }
 
     private boolean isFloat(String s) 
