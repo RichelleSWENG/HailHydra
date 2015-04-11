@@ -4,13 +4,17 @@ Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 
 **To Do List** <br>
-Edit AR, SI, PT  <br>
-~~View Return Slip~~<br>
+Modify AR, SI, PT  ----JOLO <br>
 View Payments<br>
-~~Add Credit Memo~~<br>
 View Credit Mamo<br>
-Add Debit Memo<br>
+Add Debit Memo --- KINGSTON<br>
 View Debit Memo<br>
-Notifications<br>
-Access Restriction<br
-<br>Palagay yung system name sa Title bar
+Order Notification<br>
+Credit Limit Notification<br>
+Near Terms Notification<br>
+Exceeded Terms Notification<br>
+Know if basicsystemsetting or login --- Janine <br>
+~~View Return Slip~~<br>
+~~Add Credit Memo~~<br>
+~~Access Restriction~~<br>
+<br>~~Palagay yung system name sa Title bar~~
