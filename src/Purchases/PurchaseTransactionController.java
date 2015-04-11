@@ -24,6 +24,12 @@ public class PurchaseTransactionController {
         this.gui=tempGUI;
     }
     
+    public PurchaseTransactionController(PurchasesModel tempModel)
+    {
+        this.purchasesModel = tempModel;
+        pendingItems = new ArrayList<>();
+    }
+    
     TableModel getAllModel()
     {
        TableModel tbm = purchasesModel.myModel(purchasesModel.getAllDetail());
