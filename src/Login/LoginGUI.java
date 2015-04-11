@@ -95,7 +95,8 @@ public class LoginGUI extends JPanel {
                                     {
                                         if(mainController.validate(tfUsername.getText(), password).equals("1"))
                                             controllerGUI.setToEmployee();
-                                        
+                                        else if(mainController.validate(tfUsername.getText(), password).equals("0"))
+                                            controllerGUI.setToAdmin();
                                         
                                             controllerGUI.changePanelToMainMenu();
                                             controllerGUI.changePanelToProfiles();

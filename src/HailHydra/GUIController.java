@@ -144,6 +144,11 @@ public class GUIController
         administrator=false;
     }
     
+    public void setToAdmin()
+    {
+        administrator=true;
+    }
+    
     public JPanel getContentPanel()
     {
             frame.getContentPanel().removeAll();
