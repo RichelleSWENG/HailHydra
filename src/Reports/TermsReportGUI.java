@@ -101,11 +101,11 @@ public class TermsReportGUI extends JPanel
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(190, 160, 630, 30);
+		tfSearch.setBounds(150, 160, 630, 30);
 		add(tfSearch);
 		tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
-			@Override
+
 			public void insertUpdate(DocumentEvent de)
 			{
 				try
@@ -117,7 +117,6 @@ public class TermsReportGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void removeUpdate(DocumentEvent de)
 			{
 				try
@@ -129,7 +128,6 @@ public class TermsReportGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void changedUpdate(DocumentEvent de)
 			{
 				try
@@ -180,24 +178,13 @@ public class TermsReportGUI extends JPanel
 			}
 		});
 
-		tbModel = new DefaultTableModel()
+		tbTermsReport = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				return false;
 			}
-
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbTermsReport = new JTable(tbModel)
-		{
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -222,6 +209,7 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.getTableHeader().setFont(fntHeaderTableText);
 		tbTermsReport.getTableHeader().setPreferredSize(new Dimension(100, 55));
 		tbTermsReport.getTableHeader().setResizingAllowed(false);
+                
 		tbCellRenderer = tbTermsReport.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbTermsReport.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
@@ -252,7 +240,7 @@ public class TermsReportGUI extends JPanel
 		chckbxNearTerms = new JCheckBox("Near Terms");
 		chckbxNearTerms.setFont(fntPlainText);
 		chckbxNearTerms.setSelected(true);
-		chckbxNearTerms.setBounds(190, 80, 135, 30);
+		chckbxNearTerms.setBounds(150, 80, 150, 30);
 		add(chckbxNearTerms);
 		chckbxNearTerms.addActionListener(new ActionListener()
 		{
@@ -275,7 +263,7 @@ public class TermsReportGUI extends JPanel
 		chckbxExceededTerms = new JCheckBox("Exceeded Terms");
 		chckbxExceededTerms.setFont(fntPlainText);
 		chckbxExceededTerms.setSelected(true);
-		chckbxExceededTerms.setBounds(325, 80, 220, 30);
+		chckbxExceededTerms.setBounds(300, 80, 200, 30);
 		add(chckbxExceededTerms);
 		chckbxExceededTerms.addActionListener(new ActionListener()
 		{
@@ -297,7 +285,7 @@ public class TermsReportGUI extends JPanel
 
 		rdbtnCustomer = new JRadioButton("Customer");
 		rdbtnCustomer.setFont(fntPlainText);
-		rdbtnCustomer.setBounds(190, 120, 130, 30);
+		rdbtnCustomer.setBounds(150, 120, 130, 30);
 		rdbtnCustomer.setSelected(true);
 		add(rdbtnCustomer);
 		rdbtnCustomer.addActionListener(new ActionListener()
@@ -308,10 +296,9 @@ public class TermsReportGUI extends JPanel
 			}
 		});
 
-		rdbtnReceiptNumber = new JRadioButton(
-				"Sales Invoice/ Acknowledgement Receipt Number");
+		rdbtnReceiptNumber = new JRadioButton("Sales Invoice/ Acknowledgement Receipt Number");
 		rdbtnReceiptNumber.setFont(fntPlainText);
-		rdbtnReceiptNumber.setBounds(325, 120, 495, 30);
+		rdbtnReceiptNumber.setBounds(280, 120, 515, 30);
 		add(rdbtnReceiptNumber);
 		rdbtnReceiptNumber.addActionListener(new ActionListener()
 		{
@@ -385,12 +372,25 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.setModel(tbm);
 		JTableHeader th = tbTermsReport.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 5; i++)
-		{
+		for (int i = 0; i < strHeader.length; i++) 
+                {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbTermsReport.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbTermsReport.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbTermsReport, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                 }
+                
+                
+		tbTermsReport.repaint();
 	}
 
 	public void setMainController(ReportController temp)
@@ -400,17 +400,31 @@ public class TermsReportGUI extends JPanel
 
 	public void ViewAll()
 	{
+                tfSearch.setText("");
 		TableModel AllModel = mainController.getAllTermsModel();
 		tbTermsReport.setModel(AllModel);
 
-		JTableHeader th = tbTermsReport.getTableHeader(); // Setting the Headers
+                JTableHeader th = tbTermsReport.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < 5; i++)
-		{
+		for (int i = 0; i < strHeader.length; i++) 
+                {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbTermsReport.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbTermsReport.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbTermsReport, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                 }
+                
+                
+		tbTermsReport.repaint();
 	}
 
 	public static void main(String args[])
