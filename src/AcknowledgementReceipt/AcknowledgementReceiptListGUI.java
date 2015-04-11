@@ -41,7 +41,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
     private String strMonths[]
             = {"January", "February", "March", "April", "May", "June", "July", "August",
                 "September", "October", "November", "December"}, strHeader[]
-            = {"Customer Name", "Date",
+            = {"Customer Name", "     Date     ",
                 "<html><center>Acknowledgement<br>Receipt Number</center></html>",
                 "<html><center>Original Amount<br>Number</center></html>",
                 "<html><center>Current Balance<br>Number</center></html>"};
@@ -62,7 +62,8 @@ public class AcknowledgementReceiptListGUI extends JPanel
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
 
-    public AcknowledgementReceiptListGUI(GUIController temp) {
+    public AcknowledgementReceiptListGUI(GUIController temp) 
+    {
 
         guiController = temp;
         setBounds(0, 0, 1000, 620);
@@ -94,42 +95,42 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
         lblTo = new JLabel("TO");
         lblTo.setFont(fntPlainText);
-        lblTo.setBounds(490, 160, 30, 30);
+        lblTo.setBounds(415, 160, 30, 30);
         add(lblTo);
 
         lblReceiptsFound = new JLabel("Receipt/s Found: ");
         lblReceiptsFound.setFont(fntPlainText);
-        lblReceiptsFound.setBounds(30, 194, 165, 30);
+        lblReceiptsFound.setBounds(30, 194, 175, 30);
         add(lblReceiptsFound);
 
         lblNumOfReceiptsFound = new JLabel("0");
         lblNumOfReceiptsFound.setFont(fntPlainText);
-        lblNumOfReceiptsFound.setBounds(215, 194, 49, 30);
+        lblNumOfReceiptsFound.setBounds(200, 194, 250, 30);
         add(lblNumOfReceiptsFound);
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(215, 120, 580, 30);
+        tfSearch.setBounds(140, 120, 600, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
         cmbFromMonth.setFont(fntPlainText);
-        cmbFromMonth.setBounds(215, 160, 155, 30);
+        cmbFromMonth.setBounds(140, 160, 155, 30);
         add(cmbFromMonth);
 
         cmbFromYear = new JComboBox();
         cmbFromYear.setFont(fntPlainText);
-        cmbFromYear.setBounds(380, 160, 100, 30);
+        cmbFromYear.setBounds(305, 160, 100, 30);
         add(cmbFromYear);
 
         cmbToMonth = new JComboBox();
         cmbToMonth.setFont(fntPlainText);
-        cmbToMonth.setBounds(530, 160, 155, 30);
+        cmbToMonth.setBounds(455, 160, 155, 30);
         add(cmbToMonth);
 
         cmbToYear = new JComboBox();
         cmbToYear.setFont(fntPlainText);
-        cmbToYear.setBounds(695, 160, 100, 30);
+        cmbToYear.setBounds(620, 160, 100, 30);
         add(cmbToYear);
 
         for (int i = 0; i < strMonths.length; i++) 
@@ -140,7 +141,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
         cmbToYear.addActionListener(new ActionListener() 
         {
-            @Override
             public void actionPerformed(ActionEvent ae) 
             {
                 tfSearch.setText("");
@@ -150,7 +150,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         });
         cmbToMonth.addActionListener(new ActionListener() 
         {
-            @Override
             public void actionPerformed(ActionEvent ae) 
             {
                 tfSearch.setText("");
@@ -160,7 +159,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         });
         cmbFromMonth.addActionListener(new ActionListener() 
         {
-            @Override
             public void actionPerformed(ActionEvent ae) 
             {
                 tfSearch.setText("");
@@ -170,7 +168,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
         });
         cmbFromYear.addActionListener(new ActionListener() 
         {
-            @Override
             public void actionPerformed(ActionEvent ae) 
             {
                 tfSearch.setText(null);
@@ -180,7 +177,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
         tfSearch.getDocument().addDocumentListener(new DocumentListener() 
         {
-            @Override
             public void insertUpdate(DocumentEvent de) 
             {
                 try {
@@ -190,7 +186,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
                 }
             }
 
-            @Override
             public void removeUpdate(DocumentEvent de) 
             {
                 try {
@@ -200,7 +195,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
                 }
             }
 
-            @Override
             public void changedUpdate(DocumentEvent de) 
             {
                 try {
@@ -227,29 +221,19 @@ public class AcknowledgementReceiptListGUI extends JPanel
             }
         });
 
-        tbModel = new DefaultTableModel() 
+        tbAckReceipt = new JTable() 
         {
             public boolean isCellEditable(int rowIndex, int mColIndex) 
             {
                 return false;
             }
-        };
-
-        tbModel.setRowCount(15);
-
-        for (int i = 0; i < strHeader.length; i++) 
-        {
-            tbModel.addColumn(strHeader[i]);
-        }
-
-        tbAckReceipt = new JTable(tbModel) {
+            
             public TableCellRenderer getCellRenderer(int row, int column) 
             {
                 return new TableRenderer();
             }
 
-            public Component prepareRenderer(TableCellRenderer renderer,
-                    int row, int column) 
+            public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
             {
                 component = super.prepareRenderer(renderer, row, column);
                 modelRow = convertRowIndexToModel(row);
@@ -296,30 +280,35 @@ public class AcknowledgementReceiptListGUI extends JPanel
         rdbtnName = new JRadioButton("Name");
         rdbtnName.setFont(fntPlainText);
         rdbtnName.setSelected(true);
-        rdbtnName.setBounds(215, 80, 93, 30);
+        rdbtnName.setBounds(140, 80, 90, 30);
         add(rdbtnName);
-        rdbtnName.addActionListener(new ActionListener() {// Everytime All is selected
-            public void actionPerformed(ActionEvent e) {
+        rdbtnName.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e) 
+            {
                 tfSearch.setText(null);
             }
         });
 
         rdbtnAckReceiptNum = new JRadioButton("Acknowledgement Receipt Number");
         rdbtnAckReceiptNum.setFont(fntPlainText);
-        rdbtnAckReceiptNum.setBounds(310, 80, 350, 30);
+        rdbtnAckReceiptNum.setBounds(230, 80, 370, 30);
         add(rdbtnAckReceiptNum);
         rdbtnAckReceiptNum.addActionListener(new ActionListener() {// Everytime All is selected
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 tfSearch.setText(null);
             }
         });
 
         rdbtnPartNumber = new JRadioButton("Part Number");
         rdbtnPartNumber.setFont(fntPlainText);
-        rdbtnPartNumber.setBounds(620, 80, 170, 30);
+        rdbtnPartNumber.setBounds(600, 80, 170, 30);
         add(rdbtnPartNumber);
-        rdbtnPartNumber.addActionListener(new ActionListener() {// Everytime All is selected
-            public void actionPerformed(ActionEvent e) {
+        rdbtnPartNumber.addActionListener(new ActionListener() 
+        {
+            public void actionPerformed(ActionEvent e)
+            {
                 tfSearch.setText(null);
             }
         });
@@ -335,7 +324,8 @@ public class AcknowledgementReceiptListGUI extends JPanel
         add(btnViewAllReceipts);
         btnViewAllReceipts.addActionListener(new ActionListener() 
         {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 ViewAll();
             }
         });
@@ -346,7 +336,8 @@ public class AcknowledgementReceiptListGUI extends JPanel
         add(btnViewAckReceipt);
         btnViewAckReceipt.addActionListener(new ActionListener() 
         {
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e) 
+            {
                 int row;
                 row = tbAckReceipt.getSelectedRow();
                 if(row == -1 )
@@ -418,31 +409,54 @@ public class AcknowledgementReceiptListGUI extends JPanel
     }
 
     public void setTableModel(TableModel tbm) 
-    { // Setting the Headers
+    {
         tbAckReceipt.setModel(tbm);
         JTableHeader th = tbAckReceipt.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 5; i++) 
+        for (int i = 0; i < strHeader.length; i++) 
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
         }
-        th.repaint();
+        tbCellRenderer = tbAckReceipt.getTableHeader().getDefaultRenderer();
+        tbColumnRenderer = tbAckReceipt.getColumnModel();
+        for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+        {
+                tbColumn = tbColumnRenderer.getColumn(j);
+                tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                if (tbCellRendererColumn == null)
+                        tbCellRendererColumn = tbCellRenderer;
+                component = tbCellRendererColumn.getTableCellRendererComponent(tbAckReceipt, tbColumn.getHeaderValue(), false, false, 0,j);
+                tbColumn.setPreferredWidth(component.getPreferredSize().width);
+        }
+
+        tbAckReceipt.repaint();
     }
 
     public void ViewAll() 
     {
         TableModel AllModel = mainController.getAllModel();
         tbAckReceipt.setModel(AllModel);
-
-        JTableHeader th = tbAckReceipt.getTableHeader(); // Setting the Headers
+        JTableHeader th = tbAckReceipt.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 5; i++) 
+        for (int i = 0; i < strHeader.length; i++) 
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
         }
-        th.repaint();
+        tbCellRenderer = tbAckReceipt.getTableHeader().getDefaultRenderer();
+        tbColumnRenderer = tbAckReceipt.getColumnModel();
+        for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+        {
+                tbColumn = tbColumnRenderer.getColumn(j);
+                tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                if (tbCellRendererColumn == null)
+                        tbCellRendererColumn = tbCellRenderer;
+                component = tbCellRendererColumn.getTableCellRendererComponent(tbAckReceipt, tbColumn.getHeaderValue(), false, false, 0,j);
+                tbColumn.setPreferredWidth(component.getPreferredSize().width);
+        }
+
+        tbAckReceipt.repaint();
         setComboBox();
     }
 

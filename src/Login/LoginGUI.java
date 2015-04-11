@@ -62,38 +62,22 @@ public class LoginGUI extends JPanel {
                 pfPassword.addKeyListener(new KeyAdapter() 
                 { 
                 public void keyReleased(KeyEvent e) 
-                    {
-                    
-                    }
+                {
+
+                }
 
                 public void keyTyped(KeyEvent e) 
-                    {
-                
-                    }
+                {
+
+                }
 
                 public void keyPressed(KeyEvent e) 
+                {
+                    if (e.getKeyCode() == KeyEvent.VK_ENTER)
                     {
-                        if (e.getKeyCode() == KeyEvent.VK_ENTER)
-                            {
-                            String password = new String(pfPassword.getPassword());
-                            if(!tfUsername.getText().equals("")|| !password.equalsIgnoreCase(""))
-                            {   
-                                    if(mainController.validate(tfUsername.getText(), password)!=null)
-                                    {
-                                        controllerGUI.changePanelToMainMenu();
-                                        controllerGUI.changePanelToProfiles();
-                                    }
-                                        
-                                    else
-                                        JOptionPane.showMessageDialog(null, "Wrong username or password");
-                            }else
-                            {
-                                JOptionPane.showMessageDialog(null, "Please fill up all fields.");
-                            }
-                                
-                           
-                            }
-                    }
+                        btnLogin.doClick();
+                     }
+                }
                 });
                 
 		btnLogin = new JButton("Login");
@@ -109,8 +93,12 @@ public class LoginGUI extends JPanel {
                             {   
                                     if(mainController.validate(tfUsername.getText(), password)!=null)
                                     {
-                                        controllerGUI.changePanelToMainMenu();
-                                        controllerGUI.changePanelToProfiles();
+                                        if(mainController.validate(tfUsername.getText(), password).equals("1"))
+                                            controllerGUI.setToEmployee();
+                                        
+                                        
+                                            controllerGUI.changePanelToMainMenu();
+                                            controllerGUI.changePanelToProfiles();
                                     }
                                     else
                                         JOptionPane.showMessageDialog(null, "Wrong username or password");

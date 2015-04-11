@@ -1,4 +1,3 @@
-
 package Sales;
 
 import java.awt.Component;

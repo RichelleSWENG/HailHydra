@@ -100,7 +100,7 @@ public class SalesInvoiceListGUI extends JPanel
 
         lblTo = new JLabel("TO");
         lblTo.setFont(fntPlainText);
-        lblTo.setBounds(475, 160, 36, 30);
+        lblTo.setBounds(415, 160, 36, 30);
         add(lblTo);
 
         lblInvoicesFound = new JLabel("Invoice/s Found:");
@@ -113,23 +113,12 @@ public class SalesInvoiceListGUI extends JPanel
         lblNumofTransactions.setBounds(200, 200, 46, 30);
         add(lblNumofTransactions);
 
-        tbModel = new DefaultTableModel()
+        tbSalesInvoice = new JTable()
         {
             public boolean isCellEditable(int rowIndex, int mColIndex)
             {
                 return false;
             }
-        };
-
-        tbModel.setRowCount(15);
-
-        for (int i = 0; i < strHeader.length; i++)
-        {
-            tbModel.addColumn(strHeader[i]);
-        }
-
-        tbSalesInvoice = new JTable(tbModel)
-        {
             public TableCellRenderer getCellRenderer(int row, int column)
             {
                 return new TableRenderer();
@@ -187,27 +176,27 @@ public class SalesInvoiceListGUI extends JPanel
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(200, 120, 579, 30);
+        tfSearch.setBounds(140, 120, 590, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
         cmbFromMonth.setFont(fntPlainText);
-        cmbFromMonth.setBounds(200, 160, 148, 30);
+        cmbFromMonth.setBounds(140, 160, 148, 30);
         add(cmbFromMonth);
 
         cmbFromYear = new JComboBox();
         cmbFromYear.setFont(fntPlainText);
-        cmbFromYear.setBounds(358, 160, 100, 30);
+        cmbFromYear.setBounds(300, 160, 100, 30);
         add(cmbFromYear);
 
         cmbToMonth = new JComboBox();
         cmbToMonth.setFont(fntPlainText);
-        cmbToMonth.setBounds(521, 160, 148, 30);
+        cmbToMonth.setBounds(460, 160, 148, 30);
         add(cmbToMonth);
 
         cmbToYear = new JComboBox();
         cmbToYear.setFont(fntPlainText);
-        cmbToYear.setBounds(679, 160, 100, 30);
+        cmbToYear.setBounds(620, 160, 100, 30);
         add(cmbToYear);
 
         for (int i = 0; i < strMonths.length; i++)
@@ -218,7 +207,6 @@ public class SalesInvoiceListGUI extends JPanel
 
         cmbToYear.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -229,7 +217,6 @@ public class SalesInvoiceListGUI extends JPanel
         });
         cmbToMonth.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -240,7 +227,6 @@ public class SalesInvoiceListGUI extends JPanel
         });
         cmbFromMonth.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText("");
@@ -251,7 +237,6 @@ public class SalesInvoiceListGUI extends JPanel
         });
         cmbFromYear.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent ae)
             {
                 tfSearch.setText(null);
@@ -263,7 +248,6 @@ public class SalesInvoiceListGUI extends JPanel
 
         tfSearch.getDocument().addDocumentListener(new DocumentListener()
         {
-            @Override
             public void insertUpdate(DocumentEvent de)
             {
                 try
@@ -275,7 +259,6 @@ public class SalesInvoiceListGUI extends JPanel
                 }
             }
 
-            @Override
             public void removeUpdate(DocumentEvent de)
             {
                 try
@@ -287,7 +270,6 @@ public class SalesInvoiceListGUI extends JPanel
                 }
             }
 
-            @Override
             public void changedUpdate(DocumentEvent de)
             {
                 try
@@ -323,10 +305,10 @@ public class SalesInvoiceListGUI extends JPanel
         rdbtnCustomerName = new JRadioButton("Customer Name");
         rdbtnCustomerName.setFont(fntPlainText);
         rdbtnCustomerName.setSelected(true);
-        rdbtnCustomerName.setBounds(200, 80, 182, 30);
+        rdbtnCustomerName.setBounds(140, 80, 182, 30);
         add(rdbtnCustomerName);
         rdbtnCustomerName.addActionListener(new ActionListener()
-        {// Everytime
+        {
             public void actionPerformed(ActionEvent e)
             {
                 tfSearch.setText(null);
@@ -335,7 +317,7 @@ public class SalesInvoiceListGUI extends JPanel
 
         rdbtnSalesInvoiceNo = new JRadioButton("Sales Invoice Number");
         rdbtnSalesInvoiceNo.setFont(fntPlainText);
-        rdbtnSalesInvoiceNo.setBounds(390, 80, 229, 30);
+        rdbtnSalesInvoiceNo.setBounds(330, 80, 240, 30);
         add(rdbtnSalesInvoiceNo);
         rdbtnSalesInvoiceNo.addActionListener(new ActionListener()
         {// Everytime
@@ -346,7 +328,7 @@ public class SalesInvoiceListGUI extends JPanel
         });
 
         rdbtnPartNumber = new JRadioButton("Part Number");
-        rdbtnPartNumber.setBounds(631, 80, 148, 30);
+        rdbtnPartNumber.setBounds(580, 80, 148, 30);
         rdbtnPartNumber.setFont(fntPlainText);
         add(rdbtnPartNumber);
         rdbtnPartNumber.addActionListener(new ActionListener()
@@ -458,16 +440,26 @@ public class SalesInvoiceListGUI extends JPanel
     {
         TableModel AllModel = mainController.getAllModel();
         tbSalesInvoice.setModel(AllModel);
-
-        JTableHeader th = tbSalesInvoice.getTableHeader(); // Setting the
-        // Headers
+        JTableHeader th = tbSalesInvoice.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < strHeader.length; i++) 
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
         }
-        th.repaint();
+        tbCellRenderer = tbSalesInvoice.getTableHeader().getDefaultRenderer();
+        tbColumnRenderer = tbSalesInvoice.getColumnModel();
+        for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+        {
+                tbColumn = tbColumnRenderer.getColumn(j);
+                tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                if (tbCellRendererColumn == null)
+                        tbCellRendererColumn = tbCellRenderer;
+                component = tbCellRendererColumn.getTableCellRendererComponent(tbSalesInvoice, tbColumn.getHeaderValue(), false, false, 0,j);
+                tbColumn.setPreferredWidth(component.getPreferredSize().width);
+        }
+
+        tbSalesInvoice.repaint();
         setComboBox();
     }
 
@@ -476,12 +468,24 @@ public class SalesInvoiceListGUI extends JPanel
         tbSalesInvoice.setModel(tbm);
         JTableHeader th = tbSalesInvoice.getTableHeader();
         TableColumnModel tcm = th.getColumnModel();
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < strHeader.length; i++) 
         {
-            TableColumn tc = tcm.getColumn(i);
-            tc.setHeaderValue(strHeader[i]);
+                TableColumn tc = tcm.getColumn(i);
+                tc.setHeaderValue(strHeader[i]);
         }
-        th.repaint();
+        tbCellRenderer = tbSalesInvoice.getTableHeader().getDefaultRenderer();
+        tbColumnRenderer = tbSalesInvoice.getColumnModel();
+        for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+        {
+                tbColumn = tbColumnRenderer.getColumn(j);
+                tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                if (tbCellRendererColumn == null)
+                        tbCellRendererColumn = tbCellRenderer;
+                component = tbCellRendererColumn.getTableCellRendererComponent(tbSalesInvoice, tbColumn.getHeaderValue(), false, false, 0,j);
+                tbColumn.setPreferredWidth(component.getPreferredSize().width);
+        }
+
+        tbSalesInvoice.repaint();
     }
 
     public void setMainController(SalesInvoiceController temp)

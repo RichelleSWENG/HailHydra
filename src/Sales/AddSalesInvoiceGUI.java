@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
@@ -24,14 +26,9 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
     private GUIController guiController;
     private SalesInvoiceController mainController;
     private int numItems;
-    private float totalOfEverything;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
-    private float vat;
+    private double totalOfEverything, totalItemPrice, tentativeTotal, discount, vat, subtotal, everythingwithVAT;
     private final float defaultVal = 0;
     private float VATpercent = 12;
-    private float everythingwithVAT;
     private String partNums[];
     private Company c;
 
@@ -44,6 +41,32 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
 
         cmbCustomer.setEditable(true);
 
+        ftfDiscount.getDocument().addDocumentListener(new DocumentListener() 
+        {
+                public void changedUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void insertUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void removeUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                private void update()
+                {
+                    try{
+                        Float.parseFloat(ftfDiscount.getText());
+                        calcTotalBalance();
+                    }catch(Exception temp)
+                    {
+                        
+                    }
+                }
+                });
+        
         btnAddItem = new JButton("Add Item");
         btnAddItem.setFont(fntPlainText);
         btnAddItem.setBounds(30, 545, 147, 40);
@@ -51,7 +74,6 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         btnAddItem.addActionListener(
                 new ActionListener()
                 {
-                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         numItems++;
@@ -67,7 +89,6 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         btnSubmit.addActionListener(
                 new ActionListener()
                 {
-                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         try
@@ -134,7 +155,6 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         
         ftfDiscount.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 calcTotalBalance();
@@ -177,15 +197,15 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         {
             totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
-        ftfSubtotal.setText(String.valueOf(totalOfEverything - Float.parseFloat(ftfDiscount.getText())));
-        vat = VATpercent/100 * (totalOfEverything - Float.parseFloat(ftfDiscount.getText())) ;
-        ftfVat.setText(String.valueOf(vat));
-        everythingwithVAT = totalOfEverything - Float.parseFloat(ftfDiscount.getText()) + vat;
-        ftfTotal.setText(String.valueOf(everythingwithVAT));
-        ftfBalance.setText(String.valueOf(everythingwithVAT));
+        subtotal= ((100-VATpercent)/100)* (totalOfEverything - Double.parseDouble(ftfDiscount.getText()));
+        ftfSubtotal.setValue(subtotal);
+        vat = VATpercent/100 * (totalOfEverything - Double.parseDouble(ftfDiscount.getText())) ;
+        ftfVat.setValue(vat);
+        ftfTotal.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
+        ftfBalance.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
+
     }
 
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
