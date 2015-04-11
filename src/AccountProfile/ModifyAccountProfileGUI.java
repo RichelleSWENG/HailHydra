@@ -1,7 +1,6 @@
 package AccountProfile;
 
 import HailHydra.GUIController;
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -27,6 +26,11 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 
                 lblHeader.setText("Modify Account Profile");
                 al = new ArrayList();
+                
+                rdbtnRetailCustomer.setEnabled(false); 
+                rdbtnSisterCompanyCustomer.setEnabled(false);
+                rdbtnWalkinCustomer.setEnabled(false); 
+                rdbtnSupplier.setEnabled(false);
                 
                 ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
                 realName = accountProfile.get(0).toString(); //for pkey
