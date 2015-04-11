@@ -16,7 +16,6 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -38,9 +37,9 @@ public class CollectiblesListGUI extends JPanel
 			strHeader[] =
 			{
 					"Customer Name",
-					"Date",
+					"      Date      ",
 					"Type",
-					"<html><center>Sales Invoice/<br> Acknowledgement Receipt<br> Number</center></html>",
+					"<html><center>Sales Invoice/<br> Acknowledgement<br>Receipt<br> Number</center></html>",
 					"<html><center>Original<br>Amount</center></html>",
 					"<html><center>Current<br>Balance</center></html>",
 					"Status" };
@@ -137,7 +136,6 @@ public class CollectiblesListGUI extends JPanel
 		}
 		cmbFromMonth.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -178,7 +176,6 @@ public class CollectiblesListGUI extends JPanel
 		});
 		cmbFromYear.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -220,7 +217,6 @@ public class CollectiblesListGUI extends JPanel
 
 		cmbToMonth.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -240,8 +236,7 @@ public class CollectiblesListGUI extends JPanel
 									+ "-01", cmbToYear.getSelectedItem() + "-"
 									+ (cmbToMonth.getSelectedIndex() + 1)
 									+ "-31");
-				} else if (!chckbxActiveCollectibles.isSelected()
-						&& chckbxClosedPayables.isSelected())
+				} else if (!chckbxActiveCollectibles.isSelected()&& chckbxClosedPayables.isSelected())
 				{
 					mainController.ViewClosedCollectibles(
 							cmbFromYear.getSelectedItem() + "-"
@@ -261,7 +256,6 @@ public class CollectiblesListGUI extends JPanel
 		});
 		cmbToYear.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -303,7 +297,6 @@ public class CollectiblesListGUI extends JPanel
 
 		tfCustomer.getDocument().addDocumentListener(new DocumentListener()
 		{
-			@Override
 			public void insertUpdate(DocumentEvent de)
 			{
 				try
@@ -316,7 +309,6 @@ public class CollectiblesListGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void removeUpdate(DocumentEvent de)
 			{
 				try
@@ -329,7 +321,6 @@ public class CollectiblesListGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void changedUpdate(DocumentEvent de)
 			{
 				try
@@ -396,22 +387,13 @@ public class CollectiblesListGUI extends JPanel
 
 		});
 
-		tbModel = new DefaultTableModel()
+		tbCollectibles = new JTable()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
 				return false;
 			}
-		};
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbCollectibles = new JTable(tbModel)
-		{
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -435,7 +417,7 @@ public class CollectiblesListGUI extends JPanel
 
 		tbCollectibles.getTableHeader().setFont(fntHeaderTableText);
 		tbCollectibles.getTableHeader()
-				.setPreferredSize(new Dimension(100, 55));
+				.setPreferredSize(new Dimension(100, 80));
 		tbCollectibles.getTableHeader().setResizingAllowed(false);
 		tbCellRenderer = tbCollectibles.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbCollectibles.getColumnModel();
@@ -451,7 +433,7 @@ public class CollectiblesListGUI extends JPanel
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbCollectibles.setFont(fntPlainText);
-
+                
 		spTable = new JScrollPane(tbCollectibles);
 		spTable.setBounds(30, 255, 935, 280);
 		add(spTable);
@@ -472,7 +454,6 @@ public class CollectiblesListGUI extends JPanel
 		add(chckbxActiveCollectibles);
 		chckbxActiveCollectibles.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -516,7 +497,6 @@ public class CollectiblesListGUI extends JPanel
 		add(chckbxClosedPayables);
 		chckbxClosedPayables.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfCustomer.setText("");
@@ -626,8 +606,7 @@ public class CollectiblesListGUI extends JPanel
 		cmbToYear.removeAllItems();
 		cmbFromYear.removeAllItems();
 		int cnt = 0;
-		if (mainController.getMaxYear() != null
-				&& mainController.getMinYear() != null)
+		if (mainController.getMaxYear() != null && mainController.getMinYear() != null)
 		{
 			for (int i = Integer.parseInt(mainController.getMinYear()); i <= Integer
 					.parseInt(mainController.getMaxYear()); i++)
@@ -658,29 +637,53 @@ public class CollectiblesListGUI extends JPanel
 		TableModel AllModel = mainController.getAllModel();
 		tbCollectibles.setModel(AllModel);
 
-		JTableHeader th = tbCollectibles.getTableHeader(); // Setting the
-															// Headers
+		JTableHeader th = tbCollectibles.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
+		for (int i = 0; i < strHeader.length; i++) 
+                {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbCollectibles.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbCollectibles.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbCollectibles, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbCollectibles.repaint();
 		setComboBox();
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
 		tbCollectibles.setModel(tbm);
 		JTableHeader th = tbCollectibles.getTableHeader();
+                
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
+		for (int i = 0; i < strHeader.length; i++) 
+                {
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbCollectibles.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbCollectibles.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(tbCollectibles, tbColumn.getHeaderValue(), false, false, 0,j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                
+		tbCollectibles.repaint();
 	}
 
 	public static void main(String args[])
