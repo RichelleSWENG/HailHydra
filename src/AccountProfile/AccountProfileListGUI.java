@@ -166,23 +166,8 @@ public class AccountProfileListGUI extends JPanel
 				}
 			}
 		});
-                
-                tbModel = new DefaultTableModel() 
-                {
-			public boolean isCellEditable(int rowIndex, int mColIndex) 
-                        {
-				return false;
-			}
-		};
-
-		tbModel.setRowCount(15);
-
-		for (int i = 0; i < strHeader.length; i++) 
-                {
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbAccountProfile = new JTable(tbModel) 
+             
+		tbAccountProfile = new JTable() 
                 {
                         public boolean isCellEditable(int row, int column) 
                         {
