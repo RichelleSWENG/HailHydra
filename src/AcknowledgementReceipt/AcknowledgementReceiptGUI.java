@@ -1,13 +1,14 @@
 package AcknowledgementReceipt;
 
+import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -44,6 +45,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
     protected Component component;
     protected JTable tbARReceipt;
     protected JScrollPane spTable, spAddress, spDeliveryNotes;
+    protected JButton btnAddItem, btnDeleteItem;
     protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
     protected DateFormat dateFormat;
     protected JComboBox cmbCustomer;
@@ -80,7 +82,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
 
         lblDate = new JLabel("Date:");
         lblDate.setFont(fntPlainText);
-        lblDate.setBounds(530, 110, 73, 30);
+        lblDate.setBounds(610, 110, 73, 30);
         add(lblDate);
 
         lblPONum = new JLabel("P.O. Number:");
@@ -175,6 +177,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
         ftfTotal.setFont(fntPlainText);
         ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
         ftfTotal.setValue(new Float(00.0F));
+        ftfTotal.setEditable(false);
         ftfTotal.setBounds(800, 425, 165, 30);
         add(ftfTotal);
 
@@ -182,6 +185,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
         ftfBalance.setFont(fntPlainText);
         ftfBalance.setHorizontalAlignment(JTextField.RIGHT);
         ftfBalance.setValue(new Float(00.0F));
+        ftfBalance.setEditable(false);
         ftfBalance.setBounds(800, 505, 165, 30);
         add(ftfBalance);
 
@@ -221,12 +225,15 @@ public class AcknowledgementReceiptGUI extends JPanel {
             }
         };
 
-        for (int i = 0; i < strHeader.length; i++) {
+        for (int i = 0; i < strHeader.length; i++) 
+        {
             tbModel.addColumn(strHeader[i]);
         }
 
-        tbARReceipt = new JTable(tbModel) {
-            public TableCellRenderer getCellRenderer(int row, int column) {
+        tbARReceipt = new JTable(tbModel) 
+        {
+            public TableCellRenderer getCellRenderer(int row, int column) 
+            {
                 return new TableRenderer();
             }
         };
@@ -262,8 +269,24 @@ public class AcknowledgementReceiptGUI extends JPanel {
 
         cmbCustomer = new JComboBox();
         AutoCompleteDecorator.decorate(cmbCustomer);
-        cmbCustomer.setFont(new Font("Arial", Font.PLAIN, 21));
+        cmbCustomer.setFont(fntPlainText);
         cmbCustomer.setBounds(135, 80, 365, 30);
         add(cmbCustomer);
+        
+        btnAddItem = new JButton("Add Item");
+        btnAddItem.setFont(fntPlainText);
+        btnAddItem.setBounds(30, 385, 147, 40);
+        add(btnAddItem);
+        
+        btnDeleteItem= new JButton("Delete Item");
+        btnDeleteItem.setFont(fntPlainText);
+        btnDeleteItem.setBounds(190, 385, 147, 40);
+        add(btnDeleteItem);
+    }
+    
+    public static void main(String arg[])
+    {
+        GUIController temp= new GUIController();
+        temp.changePanelToAddAcknowledgementReceipt();
     }
 }
