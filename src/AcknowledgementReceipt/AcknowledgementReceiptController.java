@@ -26,6 +26,13 @@ public class AcknowledgementReceiptController
         receipt = null;
     }
     
+    public AcknowledgementReceiptController(AckReceiptModel ackReceiptModel)
+    {
+        this.ackReceiptModel = ackReceiptModel;
+        pendingItems = new ArrayList<>();
+        receipt = null;
+    }
+    
     public ArrayList<Company> getCustomers()
     {
         return ackReceiptModel.getCustomers();
