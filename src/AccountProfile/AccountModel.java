@@ -69,6 +69,9 @@ public class AccountModel extends Model
                 sql = "SELECT name,type, credit_limit, terms FROM company WHERE type ='Supplier' AND name LIKE '%" + field + "%'";
             }
             rs = statement.executeQuery(sql);
+            rs.last();                        // Get Item Count
+            itemCount = rs.getRow();
+            rs.beforeFirst();
         } catch (Exception e)
         {
             e.getMessage();

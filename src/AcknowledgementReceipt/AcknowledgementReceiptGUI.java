@@ -164,21 +164,21 @@ public class AcknowledgementReceiptGUI extends JPanel {
         tfDeliveredBy.setBounds(163, 463, 335, 30);
         add(tfDeliveredBy);
 
-        ftfDiscount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+        ftfDiscount = new JFormattedTextField(new DecimalFormat("###0.00"));
         ftfDiscount.setFont(fntPlainText);
         ftfDiscount.setHorizontalAlignment(JTextField.RIGHT);
         ftfDiscount.setValue(new Float(00.0F));
         ftfDiscount.setBounds(800, 385, 165, 30);
         add(ftfDiscount);
 
-        ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+        ftfTotal = new JFormattedTextField(new DecimalFormat("###0.00"));
         ftfTotal.setFont(fntPlainText);
         ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
         ftfTotal.setValue(new Float(00.0F));
         ftfTotal.setBounds(800, 425, 165, 30);
         add(ftfTotal);
 
-        ftfBalance = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+        ftfBalance = new JFormattedTextField(new DecimalFormat("###0.00"));
         ftfBalance.setFont(fntPlainText);
         ftfBalance.setHorizontalAlignment(JTextField.RIGHT);
         ftfBalance.setValue(new Float(00.0F));
