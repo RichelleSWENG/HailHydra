@@ -379,6 +379,7 @@ public class GUIController
     
     public void changePanelToAddSalesInvoice()
     {
+            SIController = new SalesInvoiceController(new SalesInvoiceModel(dbc));
             AddSalesInvoiceGUI tempGUI= new AddSalesInvoiceGUI(this);
             tempGUI.setController(SIController);
             tempGUI.setDataComponents();
