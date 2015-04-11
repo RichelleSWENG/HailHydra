@@ -9,8 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
 
 
 public class ModifyAccountProfileGUI extends AccountProfileGUI 
@@ -18,8 +16,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
         private JButton btnSubmit, btnCancel;
         private GUIController GUIController;
         private AccountProfileController mainController;
-        private String realName;
-        private String realType;
+        private String realName, realType;
+        private ArrayList al;
         
         public ModifyAccountProfileGUI(GUIController temp,AccountProfileController AccountProfileController)
         {
@@ -28,6 +26,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 GUIController=temp;
                 
                 lblHeader.setText("Modify Account Profile");
+                al = new ArrayList();
                 
                 ArrayList accountProfile = mainController.getAccountProfile(); //get the created array list to be placed on this view
                 realName = accountProfile.get(0).toString(); //for pkey
@@ -69,31 +68,11 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                     {
                         public void actionPerformed(ActionEvent e)
                         {
-                            ArrayList al = new ArrayList();
-                            al.add(tfName.getText());
-                            al.add(taAddress.getText());
-                            al.add(tfCity.getText());
-                            al.add(tfPostCode.getText());
-                            al.add(tfCountry.getText());
-                            al.add(ftfCreditLimit.getText());
-                            al.add(ftfTerms.getText());
-                            al.add(tfPhone1.getText());
-                            al.add(tfPhone2.getText());
-                            al.add(tfPhone3.getText());
-                            al.add(tfFaxNumber.getText());
-                            al.add(tfEmailAddress.getText());
-                            al.add(tfWebsite.getText());
-                            al.add(tfContactPerson.getText());
-                            al.add(type.getSelection().getActionCommand());
-                            if(chckbxInactiveAccount.isSelected())
-                                al.add("Inactive");
-                            else al.add("Active");
-                            
                            boolean error = false;
                             
                             if(tfName.getText().equals("") || ftfCreditLimit.getText().equals("") || ftfTerms.getText().equals(""))
                             {
-                                JOptionPane.showMessageDialog(null, "Please fill in the required fields");
+                                JOptionPane.showMessageDialog(null, "Please fill-up all required fields.");
                                 error = true;
                             }
                             
@@ -101,141 +80,148 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                             {                           
                                 JOptionPane.showMessageDialog(null, "Name can not exceed 50 characters. Please re-input the name.");
                                 error = true;
-                                lblName.setForeground(Color.orange);
                             }
                             
                             if(taAddress.getText().length()>100)
                             {
                                 JOptionPane.showMessageDialog(null, "Address can not exceed 100 characters. Please re-input the address.");
                                 error = true;
-                                lblAddress.setForeground(Color.orange);
                             }
                             
                             if(tfCity.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "City can not exceed 45 characters. Please re-input the city.");
                                 error = true;
-                                lblCity.setForeground(Color.orange);
                             }
                             
                             if(tfCountry.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Country can not exceed 45 characters. Please re-input the country.");
                                 error = true;
-                                lblCountry.setForeground(Color.orange);
                             }
                             
                             if(tfPostCode.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Postcode can not exceed 45 characters. Please re-input the postcode.");
                                 error = true;
-                                lblPostCode.setForeground(Color.orange);
                             }
                             
+                            if(Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))>2000)
+                            {
+                                JOptionPane.showMessageDialog(null, "Terms can not be greater than 2000. Please re-input the terms.");
+                                error = true;
+                            }
+                                
                             if(tfPhone1.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Phone #1 can not exceed 11 characters. Please re-input the phone #1.");
                                 error = true;
-                                lblPhone1.setForeground(Color.orange);
                             }
                             
                             if(tfPhone2.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Phone #2 can not exceed 11 characters. Please re-input the phone #2.");
                                 error = true;
-                                lblPhone2.setForeground(Color.orange);
                             }
                             
                             if(tfPhone3.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Phone #3 can not exceed 11 characters. Please re-input the phone #3.");
                                 error = true;
-                                lblPhone3.setForeground(Color.orange);
                             }
                             
                             if(tfFaxNumber.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Fax Number can not exceed 11 characters. Please re-input the city.");
                                 error = true;
-                                lblFaxNumber.setForeground(Color.orange);
                             }
                             
                             if(tfEmailAddress.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Email address can not exceed 45 characters. Please re-input the email.");
                                 error = true;
-                                lblEmailAddress.setForeground(Color.orange);
                             }
                             
                             if(tfWebsite.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Website can not exceed 45 characters. Please re-input the website.");
                                 error = true;
-                                lblWebsite.setForeground(Color.orange);
                             }
                             
                             if(tfContactPerson.getText().length()>45)
                             {
                                 JOptionPane.showMessageDialog(null, "Contact person can not exceed 45 characters. Please re-input the contact person.");
                                 error = true;
-                                lblContactPerson.setForeground(Color.orange);
                             }
                             
                             if(ftfCreditLimit.getText().length()>12)
                             {
                                 JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
                                 error = true;
-                                lblCreditLimit.setForeground(Color.orange);
                             }  
 
-                            if(/*!isFloat(ftfCreditLimit.getText()) || */Float.parseFloat(ftfCreditLimit.getText())<0.00f)
+                            if(Float.parseFloat(ftfCreditLimit.getText())<0.00f)
                             {
-                                JOptionPane.showMessageDialog(null, "Credit Limit is invalid");
+                                JOptionPane.showMessageDialog(null, "Credit Limit is invalid.");
+                                error= true;
                             }
                             
                             if(!"".equals(tfPhone1.getText()))
                                 if(!isInteger(tfPhone1.getText()) || Integer.parseInt(tfPhone1.getText())<0)
                                 {
-                                    JOptionPane.showMessageDialog(null, "Tel Phone 1 # is invalid");
+                                    JOptionPane.showMessageDialog(null, "Phone#1  is invalid.");
                                     error = true;
                                 }
                             
                             if(!"".equals(tfPhone2.getText()))
-                            if(!isInteger(tfPhone2.getText()) || Integer.parseInt(tfPhone2.getText())<0)
-                            {
-                                JOptionPane.showMessageDialog(null, "Tel Phone 2 # is invalid");
-                                error = true;
-                            }
+                                if(!isInteger(tfPhone2.getText()) || Integer.parseInt(tfPhone2.getText())<0)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Phone#2 is invalid.");
+                                    error = true;
+                                }
                             
-                            if(!"".equals(tfPhone3.getText())) {
-                                
-                            }
-
-                            if(!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText())<0)
-                            {
-                                JOptionPane.showMessageDialog(null, "Tel Phone 3 # is invalid");
-                                error = true;
-                            }
+                            if(!tfPhone3.getText().isEmpty())
+                                if(!isInteger(tfPhone3.getText()) || Integer.parseInt(tfPhone3.getText())<0)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Phone#3 is invalid.");
+                                    error = true;
+                                }
                             
-                            if(!"".equals(tfFaxNumber.getText())) {
-                                
-                            }
-
-                            if(!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText())<0)
-                            {
-                                JOptionPane.showMessageDialog(null, "Fax Number is invalid");
-                                error = true;
-                            }
+                            if(!"".equals(tfFaxNumber.getText())) 
+                                if(!isInteger(tfFaxNumber.getText()) || Integer.parseInt(tfFaxNumber.getText())<0)
+                                {
+                                    JOptionPane.showMessageDialog(null, "Fax Number is invalid.");
+                                    error = true;
+                                }
                      
                             if(hasSpecial(tfPostCode.getText()))
                             {
-                                JOptionPane.showMessageDialog(null, "Please enter a valid postal code");
+                                JOptionPane.showMessageDialog(null, "Please enter a valid postal code.");
                                 error = true;
                             }      
                             
 
                             if(error == false)
                             {
+                                al.add(tfName.getText());
+                                al.add(taAddress.getText());
+                                al.add(tfCity.getText());
+                                al.add(tfPostCode.getText());
+                                al.add(tfCountry.getText());
+                                al.add(ftfCreditLimit.getText());
+                                al.add(ftfTerms.getText());
+                                al.add(tfPhone1.getText());
+                                al.add(tfPhone2.getText());
+                                al.add(tfPhone3.getText());
+                                al.add(tfFaxNumber.getText());
+                                al.add(tfEmailAddress.getText());
+                                al.add(tfWebsite.getText());
+                                al.add(tfContactPerson.getText());
+                                al.add(type.getSelection().getActionCommand());
+                                if(chckbxInactiveAccount.isSelected())
+                                    al.add("Inactive");
+                                else al.add("Active");
+                            
                                 mainController.ModifyAccountProfile(al,realName,realType); // edit the account
                                 mainController.setAccountProfile(al);
                                 GUIController.changePanelToViewAccountProfile();
@@ -252,7 +238,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 		                {
 		                    public void actionPerformed(ActionEvent e)
 		                    {
-		                            GUIController.changePanelToViewAccountProfile();
+		                         GUIController.changePanelToViewAccountProfile();
 		                    }
 		                });
 		    
@@ -263,7 +249,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
             mainController=temp;
         }
         
-        private boolean isInteger(String s)
+        public boolean isInteger(String s)
         {
             try
             {
@@ -272,11 +258,10 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
             {
                 return false;
             }
-            // only got here if we didn't return false
             return true;
         }
 
-        private boolean isFloat(String s)
+        public boolean isFloat(String s)
         {
             try
             {
@@ -288,7 +273,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
             return true;
         }
         
-        private boolean hasSpecial(String s)
+        public boolean hasSpecial(String s)
         {
             Pattern p = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
             Matcher m = p.matcher(s);
@@ -300,9 +285,4 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
              return false;
         }
         
-        public static void main(String args[])
-        {
-            GUIController temp=new GUIController();
-            temp.changePanelToModifyAccountProfile();
-        }
 }
