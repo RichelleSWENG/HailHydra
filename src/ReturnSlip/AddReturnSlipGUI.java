@@ -328,7 +328,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
     
      public void UpdateInventory(String type)
     {
-     if(type.equals("Defective w/out Debit Memo"))
+     if(type.equals("Defective w/Debit Memo"))
      {
          ArrayList<RSLineItem> pending = mainController.getPending();
          for(int i=0; i<pending.size();i++)

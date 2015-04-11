@@ -363,8 +363,8 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
     
      private void updateInventory(int status, String type)
      {
-      mainController.updateFromDefec((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),status);
-      mainController.updateFromType((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),type);
+      mainController.updateFromDefec((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),status); // update if defective or not
+      mainController.updateFromType((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),type); // update if functional
      }
 
 }

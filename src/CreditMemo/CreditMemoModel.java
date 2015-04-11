@@ -237,6 +237,7 @@ public class CreditMemoModel
         
             statement = db.createStatement();
             String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            System.out.println(sql);
             statement.executeUpdate(sql);
 
         } catch (Exception e)
