@@ -202,4 +202,94 @@ public class CreditMemoModel
             else
                 return CMid;
     }
+
+    public void updateFromDefec(String quantity, String partNum, int status)
+    {
+        int Qfunc = getQuantityFunc(partNum);
+        int Qdef = getQuantityDef(partNum);
+        if(status == 1)        
+            Qdef = Qdef - Integer.parseInt(quantity);
+        else if(status == 0)
+            Qfunc = Qfunc - Integer.parseInt(quantity);    
+        
+         try
+        {
+        
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            statement.executeUpdate(sql);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public void updateFromType(String quantity, String partNum, String type)
+    {
+        int Qfunc = getQuantityFunc(partNum);
+        int Qdef = getQuantityDef(partNum);
+        if(type.equals("Replacement"))
+            Qfunc = Qfunc + Integer.parseInt(quantity);
+          try
+        {
+        
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            statement.executeUpdate(sql);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public int getQuantityFunc(String partNum)
+    {
+        
+        ResultSet rs = null;
+        String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_functional FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_functional");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
+   
+    }
+
+    public int getQuantityDef(String partNum)
+    {
+         ResultSet rs = null;
+         String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_defective FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_defective");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
+    }
+
 }

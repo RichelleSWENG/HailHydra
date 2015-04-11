@@ -104,5 +104,14 @@ public class CreditMemoController
         return creditmemoModel.getLastCMID();
     }
     
+    public void updateFromDefec(String quantity, String partNum, int status)
+    {
+        creditmemoModel.updateFromDefec(quantity, partNum, status);
+    }
 
+    public void updateFromType(String quantity, String partNum, String type)
+    {
+        creditmemoModel.updateFromType(quantity, partNum, type);
+    }
+    
 }

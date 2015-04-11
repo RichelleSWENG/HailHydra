@@ -64,8 +64,12 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
 
                             
                             mainController.addCreditMemo(tfCreditMemoNum.getText(),ftfDate.getText(),tfReplySlipNum.getText(), status,type,(tbModel.getValueAt(0, 1)).toString(),(tbModel.getValueAt(0, 4)).toString());
-                                controller.changePanelToCreditMemo();
+                            
+                            updateInventory(status, type);    
+                            controller.changePanelToCreditMemo();
                         }
+
+                   
                     });
 
 		btnCancel = new JButton("Cancel");
@@ -356,5 +360,12 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements TableModelListene
             mainController=temp;
             slip = RSController.getSlipTarget();
     }
+    
+     private void updateInventory(int status, String type)
+     {
+      mainController.updateFromDefec((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),status);
+      mainController.updateFromType((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),type);
+     }
 
 }
+
