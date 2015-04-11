@@ -5,7 +5,7 @@ Files are sorted by feature, each has its own controller and model because yolo 
 
 **To Do List** <br>
 Modify AR, SI, PT  ----JOLO <br>
-View Payments -- JANINE <br>
+
 Add Debit Memo --- KINGSTON <br>
 View Debit Memo --- KINGSTON <br>
 Order Notification --- JOLO <br>
@@ -15,9 +15,12 @@ Exceeded Terms Notification --- JOLO<br>
 Know if basicsystemsetting or login --- Janine <br>
 <br><br> 
 **ERRORS**
-
-~~View Return Slip~~<br>
-~~Add Credit Memo~~<br>
-~~View Credit Mamo~~ <br>
+<br>Purchase Transaction Computation
+<br> and many more.
+~~<View Payments -- JANINE <br>~~<
+~~View Return Slip -- KINGSTON~~<br>
+~~Add Credit Memo~~< --KINGSTON br>
+~~View Credit Mamo~~  -- KINGSTON<br>
 ~~Access Restriction~~
 <br>~~Palagay yung system name sa Title bar~~
+
