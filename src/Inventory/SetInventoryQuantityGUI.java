@@ -91,7 +91,7 @@ public class SetInventoryQuantityGUI extends JPanel
                 
                 tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(165, 120, 360, 30);
+		tfSearch.setBounds(140, 120, 360, 30);
 		add(tfSearch);
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
 		{
@@ -162,13 +162,8 @@ public class SetInventoryQuantityGUI extends JPanel
                         {
 				component = super.prepareRenderer(renderer, row, column);
 				modelRow = convertRowIndexToModel(row);
-				if (!isRowSelected(modelRow)) 
-                                {
-					component.setBackground(Color.WHITE);
-				} else 
-                                {
-					component.setBackground(Color.yellow);
-				}
+				if (column==2|| column==4)
+                                    component.setBackground(Color.lightGray);
 				return component;
 			}
 		};
@@ -204,7 +199,7 @@ public class SetInventoryQuantityGUI extends JPanel
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
                 rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(165, 80, 169, 30);
+		rdbtnPartNumber.setBounds(140, 80, 160, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener()
 		{
@@ -216,7 +211,7 @@ public class SetInventoryQuantityGUI extends JPanel
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(368, 80, 157, 30);
+		rdbtnDescription.setBounds(310, 80, 157, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener()
 		{
@@ -315,28 +310,28 @@ public class SetInventoryQuantityGUI extends JPanel
         }
         
         public void setTableModel(TableModel tbm)
-        {                  // Setting the Headers
+        {                  
             tbSetInventoryQuantity.setModel(tbm);
             JTableHeader th = tbSetInventoryQuantity.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-                tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
-		tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
-		{
-			tbColumn = tbColumnRenderer.getColumn(j);
-			tbCellRendererColumn = tbColumn.getHeaderRenderer();
-			if (tbCellRendererColumn == null)
-				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
-			tbColumn.setPreferredWidth(component.getPreferredSize().width);
-		}
-                
-		tbSetInventoryQuantity.repaint();
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++) 
+            {
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
+            }
+            tbCellRenderer = tbSetInventoryQuantity.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbSetInventoryQuantity, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbSetInventoryQuantity.repaint();
         }
         
         public static void main(String args[]){
