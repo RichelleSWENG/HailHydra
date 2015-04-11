@@ -1,10 +1,6 @@
 
-
 package Sales;
 
-
-import AcknowledgementReceipt.ARLineItem;
-import AcknowledgementReceipt.AcknowledgementReceipt;
 import Classes.Company;
 import Classes.Item;
 import java.sql.ResultSet;
@@ -33,6 +29,8 @@ public class SalesInvoiceController {
     public SalesInvoiceController(SalesInvoiceModel tempModel)
     {
         this.salesinvoiceModel = tempModel;
+        pendingItems = new ArrayList<>();
+        itemcount = 0;
     }
     
     TableModel getAllModel()
