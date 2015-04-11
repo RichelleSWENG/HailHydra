@@ -90,10 +90,9 @@ import SystemAccount.ModifyPasswordGUI;
 import SystemAccount.ModifySystemProfileGUI;
 import SystemAccount.SystemAccountController;
 import SystemAccount.SystemAccountModel;
-import java.awt.Dialog;
 import java.io.IOException;
-import java.sql.SQLException;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GUIController 
@@ -116,22 +115,29 @@ public class GUIController
     
     private JDialog modal;
     private CreditMemoController CMController;
+    private boolean administrator;
     
     public GUIController()
     {
+            administrator=true;
+            
             dbc = new DBConnection();
             frame=new HailHydraGUI();
             
             inventoryModel = new ItemModel(dbc);
             inventoryGUI= new InventoryListGUI (this);
             inventoryController = new InventoryController(inventoryModel,inventoryGUI);
-            
            
             modal= new JDialog(frame);
             
             changePanelToLogin();
             //changePanelToBasicSystemSettings();
             
+    }
+    
+    public void setToEmployee()
+    {
+        administrator=false;
     }
     
     public JPanel getContentPanel()
@@ -161,7 +167,8 @@ public class GUIController
             main.setVisible(true);
     }
     
-    public void dialogRevalidate(JPanel temp){
+    public void dialogRevalidate(JPanel temp)
+    {
         modal= new JDialog(frame);
         modal.add(temp);
         modal.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
@@ -180,15 +187,6 @@ public class GUIController
             frameRevalidate();
     }
     
-    public void changePanelToLogin()
-    {
-            main=new MainMenuGUI(this);
-            LoginGUI tempGUI =new LoginGUI(this);
-            tempGUI.setMainController(new LoginController(new LoginModel(dbc)));
-            getContentPanel().add(tempGUI);
-            frameRevalidate();
-    }
-    
     public void changePanelToBasicSystemSettings()
     {
             main=new MainMenuGUI(this);
@@ -198,6 +196,19 @@ public class GUIController
             frameRevalidate();
     }
     
+    public void changePanelToLogin()
+    {
+            main=new MainMenuGUI(this);
+            LoginGUI tempGUI =new LoginGUI(this);
+            tempGUI.setMainController(new LoginController(new LoginModel(dbc)));
+            getContentPanel().add(tempGUI);
+            frameRevalidate();
+    }
+    
+    public void AccessRestricted()
+    {
+        JOptionPane.showMessageDialog(null, "<html><center>You do not have access to this feature.<br>Please contact the administrator.</center></html>");
+    }
     public void changePanelToPayablesList()
     {
             PayablesListGUI tempGUI= new PayablesListGUI(this);
@@ -209,11 +220,15 @@ public class GUIController
     
     public void changePanelToAddPaymentPayables()
     {
+            if(administrator)
+            {
             AddPaymentPayablesGUI tempGUI = new AddPaymentPayablesGUI(this);
             tempGUI.setMainController(new PaymentController(new PaymentModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+            }else
+                AccessRestricted();
     }
     
     public void changePanelToViewPaymentPayables(String id)
@@ -238,19 +253,27 @@ public class GUIController
     
     public void changePanelToAddPurchaseTransaction()
     {
-            PTController = new PurchaseTransactionController(new PurchasesModel(dbc));
-            AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
-            tempGUI.setController(PTController);
-            tempGUI.setViewComponents();
-            //tempGUI.setDataComponents();
-            getContentPanel().add(tempGUI);
-            frameRevalidate();
+            if(administrator)
+            {
+                PTController = new PurchaseTransactionController(new PurchasesModel(dbc));
+                AddPurchaseTransactionGUI tempGUI= new AddPurchaseTransactionGUI(this);
+                tempGUI.setController(PTController);
+                tempGUI.setViewComponents();
+                //tempGUI.setDataComponents();
+                getContentPanel().add(tempGUI);
+                frameRevalidate();
+            }else
+                AccessRestricted();
     }
     
     public void changePanelToModifyPurchaseTransaction()
     {
-            getContentPanel().add(new ModifyPurchaseTransactionGUI(this));
-            frameRevalidate();
+            if(administrator)
+            {
+                getContentPanel().add(new ModifyPurchaseTransactionGUI(this));
+                frameRevalidate();
+            }else
+                AccessRestricted();
     }
     public void changePanelToViewPurchaseTransaction()
     {
@@ -272,10 +295,14 @@ public class GUIController
     
     public void changePanelToAddItemProfile()
     {
-            AddItemProfileGUI tempGUI= new AddItemProfileGUI(this);
-            tempGUI.setMainController(inventoryController);
-            getContentPanel().add(tempGUI);
-            frameRevalidate();
+            if(administrator)
+            {
+                AddItemProfileGUI tempGUI= new AddItemProfileGUI(this);
+                tempGUI.setMainController(inventoryController);
+                getContentPanel().add(tempGUI);
+                frameRevalidate();
+            }else
+                AccessRestricted();
     }
     
     public void changePanelToViewItemProfile() throws IOException
@@ -288,36 +315,52 @@ public class GUIController
     
     public void changePanelToModifyItemProfile() throws IOException
     {
+        if(administrator)
+        {
             ModifyItemProfileGUI tempGUI = new ModifyItemProfileGUI(this,inventoryController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToSetInventoryLastCost()
     {
+        if(administrator)
+        {
             SetInventoryLastCostGUI tempGUI = new SetInventoryLastCostGUI(this);
             tempGUI.setMainController(new LastCostController(new ItemModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToSetInventorySellingPrice()
     {
+        if(administrator)
+        {
             SetInventorySellingPriceGUI tempGUI=new SetInventorySellingPriceGUI(this);
             tempGUI.setMainController(new SellingPriceController(new ItemModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToSetInventoryQuantity()
     {
+        if(administrator)
+        {
             SetInventoryQuantityGUI tempGUI = new SetInventoryQuantityGUI(this);
             tempGUI.setMainController(new QuantityController(new ItemModel(dbc),tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToAcknowledgementReceipt()
@@ -332,12 +375,16 @@ public class GUIController
     
     public void changePanelToAddAcknowledgementReceipt()
     {
+        if(administrator)
+        {
             ARController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this);
             tempGUI.setMainController(ARController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToViewAcknowledgementReceipt()
@@ -351,10 +398,14 @@ public class GUIController
     
     public void changePanelToModifyAcknowledgementReceipt()
     {
+        if(administrator)
+        {
             ModifyAcknowledgementReceiptGUI tempGUI = new ModifyAcknowledgementReceiptGUI(this);
             tempGUI.setMainController(new AcknowledgementReceiptController(new AckReceiptModel(dbc),null));
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToCollectibles()
@@ -379,12 +430,16 @@ public class GUIController
     
     public void changePanelToAddSalesInvoice()
     {
+        if(administrator)
+        {
             SIController = new SalesInvoiceController(new SalesInvoiceModel(dbc));
             AddSalesInvoiceGUI tempGUI= new AddSalesInvoiceGUI(this);
             tempGUI.setController(SIController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
 
     }
     
@@ -399,18 +454,26 @@ public class GUIController
     
     public void changePanelToModifySalesInvoice()
     {
+        if(administrator)
+        {
             ModifySalesInvoiceGUI tempGUI= new ModifySalesInvoiceGUI(this);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToAddPaymentCollectibles()
     {
+        if(administrator)
+        {
             AddPaymentCollectiblesGUI tempGUI= new AddPaymentCollectiblesGUI(this);
             tempGUI.setMainController(new PaymentCollectiblesController(new PaymentCollectiblesModel(dbc), tempGUI));
             tempGUI.ViewAll();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToViewPaymentCollectibles(String id,String type)
@@ -435,11 +498,15 @@ public class GUIController
     
     public void changePanelToAddAccountProfile()
     {
+        if(administrator)
+        {
             Model tempModel = new AccountModel(dbc);
             AddAccountProfileGUI tempGUI= new AddAccountProfileGUI(this);
             tempGUI.setMainController(accountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToViewAccountProfile()
@@ -452,9 +519,13 @@ public class GUIController
     
     public void changePanelToModifyAccountProfile()
     {
+        if(administrator)
+        {      
             ModifyAccountProfileGUI tempGUI = new ModifyAccountProfileGUI(this,accountProfileController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToCreditLimitReport()
@@ -477,11 +548,15 @@ public class GUIController
     
     public void changePanelToAddReturnSlip()
     {
+        if(administrator)
+        {  
             AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
             tempGUI.setMainController(RSController);
             tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToViewReturnSlip()
@@ -522,8 +597,12 @@ public class GUIController
     
     public void changePanelToAddDebitMemo()
     {
+        if(administrator)
+        {  
             getContentPanel().add(new AddDebitMemoGUI(this));
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     
     public void changePanelToViewDebitMemo()
@@ -548,6 +627,8 @@ public class GUIController
     
     public void changePanelToAddCreditMemo()
     {
+        if(administrator)
+        {
             CreditMemoListGUI tempListGUI = new CreditMemoListGUI(this);
             
             CMController = new CreditMemoController(new CreditMemoModel(dbc), tempListGUI);
@@ -558,12 +639,8 @@ public class GUIController
             tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
-            
-            /* ViewReturnSlipGUI tempGUI = new ViewReturnSlipGUI(this);
-            tempGUI.setMainController(RSController);
-            tempGUI.setViewComponents();
-            getContentPanel().add(tempGUI);
-            frameRevalidate();*/
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToViewCreditMemo()
@@ -578,40 +655,60 @@ public class GUIController
     
     public void changePanelToAddBankAccount()
     {
+        if(administrator)
+        {
             if (systemAccountController == null)
                 systemAccountController = new SystemAccountController(new SystemAccountModel(dbc));
             AddBankAccountGUI tempGUI = new AddBankAccountGUI(this, systemAccountController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+        }else
+                AccessRestricted();
     }
     public void changePanelToAddCheckAccount()
     {
+        if(administrator)
+        {
              if (systemAccountController == null)
                 systemAccountController = new SystemAccountController(new SystemAccountModel(dbc));
             AddCheckAccountGUI tempGUI = new AddCheckAccountGUI(this, systemAccountController);
             getContentPanel().add(tempGUI);
             frameRevalidate();
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToModifyPassword()
     {
+        if(administrator)
+        {
             ModifyPasswordGUI tempGUI=new ModifyPasswordGUI(this);
             tempGUI.setMainController(new SystemAccountController(new SystemAccountModel(dbc),tempGUI));
             dialogRevalidate(tempGUI);
+         }else
+                AccessRestricted();
     }
     
     public void changePanelToModifySystemProfile()
     {
+        if(administrator)
+        {
             ModifySystemProfileGUI tempGUI =new ModifySystemProfileGUI(this);
             tempGUI.setMainController(new SystemAccountController(new SystemAccountModel(dbc)));
             tempGUI.setDetails();
             dialogRevalidate(tempGUI);
+         }else
+                AccessRestricted();
     }
     
     public void getAlert(String type)
     {
-    	FactoryModify fm= new FactoryModify();
-    	fm.createProduct(type,dbc);
+        if(administrator)
+        {
+            FactoryModify fm= new FactoryModify();
+            fm.createProduct(type,dbc);
+        }else
+                AccessRestricted();
     }
     
     /****MAIN MENU SECTION PANELS ***/
@@ -641,8 +738,13 @@ public class GUIController
     
     public void changePanelToSystemSettings()
     {
+        if(administrator)
+        {
             getSectionsPanel().add(new SystemSettingsGUI(this));
             mainMenuRevalidate();
+        }else
+            AccessRestricted();
+            
     }
     
     
