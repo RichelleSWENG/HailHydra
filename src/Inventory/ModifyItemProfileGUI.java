@@ -26,10 +26,11 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
     
     public ModifyItemProfileGUI(GUIController temp, InventoryController InventoryController) throws IOException
     {
-        setMainController(InventoryController);
+                setMainController(InventoryController);
                 guiController= temp; 
                 
                 lblHeader.setText("Modify Item Profile");
+                al = new ArrayList();
                
                 ftfSisterCompanyPrice.setEditable(false);
                 ftfRetailPrice.setEditable(false);
@@ -75,23 +76,7 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                     {
                         //(part_num,description,rack_location,stock_minimum,sister_company_price,traders_price,walk_in_price,last_cost,notes,image,status)
                         //ftfStockMinimum, ftfSisterCompanyPrice, ftfRetailPrice, ftfWalkinPrice, ftfLastCost;
-                            al = new ArrayList();
-                            al.add(tfPartNumber.getText());
-                            al.add(tfDescription.getText());
-                            al.add(tfRackLocation.getText());
-                            al.add(ftfStockMinimum.getText());
-                            al.add(ftfSisterCompanyPrice.getText());
-                            al.add(ftfRetailPrice.getText());
-                            al.add(ftfWalkinPrice.getText());
-                            al.add(ftfLastCost.getText());
-                            al.add(taNotes.getText());
-                            if(imageLocation == null) //if image is not changed
-                            al.add(imagePath);        //set previous
-                            else 
-                            al.add(imageLocation);    //set new
-                            if(chckbxInactiveItem.isSelected())
-                                al.add("0");
-                            else al.add("1");
+                           al.removeAll(al);
                             
                             boolean error = false;
            if (tfPartNumber.getText().equals("") || tfDescription.getText().equals("") || ftfStockMinimum.getText().equals(""))
@@ -160,33 +145,33 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                 lblNotes.setForeground(Color.orange);
             }
 
-            if (!isInteger(ftfStockMinimum.getText()))
+            if (!isInteger(ftfStockMinimum.getText().replaceAll(",", "")))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid value for stock minimum");
                 error = true;
                 lblStockMinimum.setForeground(Color.orange);
             }
-            if (!isFloat(ftfSisterCompanyPrice.getText()))
+            if (!isFloat(ftfSisterCompanyPrice.getText().replaceAll(",", "")))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
                 error = true;
                 lblSisterCompanyPrice.setForeground(Color.orange);
             }
-            if (!isFloat(ftfRetailPrice.getText()))
+            if (!isFloat(ftfRetailPrice.getText().replaceAll(",", "")))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
                 error = true;
                 lblRetailPrice.setForeground(Color.orange);
 
             }
-            if (!isFloat(ftfWalkinPrice.getText()))
+            if (!isFloat(ftfWalkinPrice.getText().replaceAll(",", "")))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
                 error = true;
                 lblWalkinPrice.setForeground(Color.orange);
 
             }
-            if (!isFloat(ftfLastCost.getText()))
+            if (!isFloat(ftfLastCost.getText().replaceAll(",", "")))
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost Price");
                 error = true;
@@ -194,32 +179,32 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
 
             }
 
-            if (Integer.parseInt(ftfStockMinimum.getText())<0)
+            if (Integer.parseInt(ftfStockMinimum.getText().replaceAll(",", ""))<0)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Stock Minimum");
                 error = true;
                 lblStockMinimum.setForeground(Color.orange);
             }
        
-            if (Float.valueOf(ftfSisterCompanyPrice.getText())<0.00f)
+            if (Float.valueOf(ftfSisterCompanyPrice.getText().replaceAll(",", ""))<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Sister Company Price");
                 error = true;
                 lblSisterCompanyPrice.setForeground(Color.orange);
             }
-            if (Float.parseFloat(ftfRetailPrice.getText())<0.00f)
+            if (Float.parseFloat(ftfRetailPrice.getText().replaceAll(",", ""))<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Retail Price");
                 error = true;
                 lblRetailPrice.setForeground(Color.orange);
             }
-            if (Float.parseFloat(ftfWalkinPrice.getText())<0.00f)
+            if (Float.parseFloat(ftfWalkinPrice.getText().replaceAll(",", ""))<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Walk in Price");
                 error = true;
                 lblWalkinPrice.setForeground(Color.orange);
             }
-            if (Float.parseFloat(ftfLastCost.getText())<0.00f)
+            if (Float.parseFloat(ftfLastCost.getText().replaceAll(",", ""))<0.00f)
             {
                 JOptionPane.showMessageDialog(null, "Please enter a valid Last Cost");
                 error = true;
@@ -229,6 +214,23 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
             {
                 try
                 {
+                    
+                    al.add(tfPartNumber.getText());
+                    al.add(tfDescription.getText());
+                    al.add(tfRackLocation.getText());
+                    al.add(ftfStockMinimum.getText().replaceAll(",", ""));
+                    al.add(ftfSisterCompanyPrice.getText().replaceAll(",", ""));
+                    al.add(ftfRetailPrice.getText().replaceAll(",", ""));
+                    al.add(ftfWalkinPrice.getText().replaceAll(",", ""));
+                    al.add(ftfLastCost.getText().replaceAll(",", ""));
+                    al.add(taNotes.getText());
+                    if(imageLocation == null) //if image is not changed
+                    al.add(imagePath);        //set previous
+                    else 
+                    al.add(imageLocation);    //set new
+                    if(chckbxInactiveItem.isSelected())
+                        al.add("0");
+                    else al.add("1");
                     mainController.setItemProfile(al);
                     mainController.ModifyItemProfile(al); 
                     guiController.changePanelToViewItemProfile();
