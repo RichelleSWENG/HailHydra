@@ -332,6 +332,7 @@ public class GUIController
     
     public void changePanelToAddAcknowledgementReceipt()
     {
+            ARController = new AcknowledgementReceiptController(new AckReceiptModel(dbc));
             AddAcknowledgementReceiptGUI tempGUI = new AddAcknowledgementReceiptGUI(this);
             tempGUI.setMainController(ARController);
             tempGUI.setDataComponents();

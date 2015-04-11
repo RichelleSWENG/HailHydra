@@ -17,34 +17,25 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.Font;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnDeleteItem, btnSubmit, btnCancel;
+    private JButton btnDeleteItem, btnSubmit, btnCancel;
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     private int numItems;
-    private float totalBalance;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
+    private float totalBalance, totalItemPrice, tentativeTotal, discount, dedBalance;
     private final float defaultVal = 0;
-    private float dedBalance;
     private String partNums[];
     private Company c;
 
     public AddAcknowledgementReceiptGUI(GUIController temp)
     {
         super();
-        tfDeliveredBy.setLocation(165, 496);
-        spDeliveryNotes.setLocation(30, 555);
-        lblDeliveryNotes.setLocation(30, 526);
-        lblDeliveredBy.setLocation(30, 496);
-        lblOrderedBy.setLocation(30, 466);
-        tfOrderedBy.setLocation(165, 466);
-        tfSalesperson.setLocation(165, 436);
-        lblSalesperson.setLocation(30, 436);
+        
         numItems = 0;
         totalItemPrice = 0;
         tentativeTotal = 0;
@@ -55,28 +46,38 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         c = null;
         cmbCustomer.setEditable(true);
         
-        lblSalesperson.setBounds(28, 431, 147, 30);
-        tfSalesperson.setBounds(163, 431, 335, 30);
-        
-        lblOrderedBy.setBounds(28, 461, 133, 30);
-        tfOrderedBy.setBounds(163, 461, 335, 30);
-        
-        lblDeliveredBy.setBounds(28, 491, 147, 30);
-        tfDeliveredBy.setBounds(163, 491, 335, 30);
-        
-        lblDeliveryNotes.setBounds(28, 521, 147, 30);
-        spDeliveryNotes.setBounds(28, 550, 472, 30);
+        ftfDiscount.getDocument().addDocumentListener(new DocumentListener() 
+        {
+                public void changedUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void insertUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void removeUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                private void update()
+                {
+                    try{
+                        Float.parseFloat(ftfDiscount.getText());
+                        calcTotalBalance();
+                    }catch(Exception temp)
+                    {
+                        
+                    }
+                }
+               
+              });
         
         lblHeader.setText("Add Acknowledgement Receipt");
 
-        btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(new Font("Arial", Font.PLAIN, 21));
-        btnAddItem.setBounds(30, 385, 147, 40);
-        add(btnAddItem);
         btnAddItem.addActionListener(
                 new ActionListener()
                 {
-                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         numItems++;
@@ -160,7 +161,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         
         ftfDiscount.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText())/100; 
@@ -179,9 +179,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         		
         	}
         });
-        btnDeleteItem.setFont(new Font("Arial", Font.PLAIN, 21));
-        btnDeleteItem.setBounds(190, 385, 147, 40);
-        add(btnDeleteItem);
         
     
     }
@@ -196,7 +193,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         temp.changePanelToAddAcknowledgementReceipt();
     }
 
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
@@ -301,6 +297,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         ftfTotal.setText(String.valueOf(dedBalance));
         ftfBalance.setText(String.valueOf(dedBalance));
     }
+    
 
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
     {
@@ -336,4 +333,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
             super(new JComboBox(str));
         }
     }
+    
+    
 }
