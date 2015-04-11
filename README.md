@@ -18,9 +18,9 @@ Know if basicsystemsetting or login --- Janine <br>
 <br>Purchase Transaction Computation
 <br> and many more
 <br><br>
-~~<View Payments ~~<-- JANINE <br>
-~~View Return Slip ~~<-- KINGSTONbr>
-~~Add Credit Memo~~< --KINGSTON br>
+~~<View Payments ~~ -- JANINE <br>
+~~View Return Slip ~~ -- KINGSTON<br>
+~~Add Credit Memo~~ --KINGSTON <br>
 ~~View Credit Mamo~~  -- KINGSTON<br>
 ~~Access Restriction~~
 <br>~~Palagay yung system name sa Title bar~~
