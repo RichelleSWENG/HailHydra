@@ -55,7 +55,8 @@ public class OrderReportGUI extends JPanel
 	
 
 	
-	public OrderReportGUI(GUIController temp) {
+	public OrderReportGUI(GUIController temp) 
+        {
             
                 controller=temp;
                 setBounds(0, 0, 1000, 620);
@@ -92,11 +93,10 @@ public class OrderReportGUI extends JPanel
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(165, 120, 284, 30);
+		tfSearch.setBounds(145, 120, 284, 30);
 		add(tfSearch);
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
                 {
-                    @Override
                     public void insertUpdate(DocumentEvent de)
                     {
                         try
@@ -108,7 +108,6 @@ public class OrderReportGUI extends JPanel
                         }
                     }   
 
-                    @Override
                     public void removeUpdate(DocumentEvent de)
                     {
                         try
@@ -120,7 +119,6 @@ public class OrderReportGUI extends JPanel
                         }
                     }
 
-                    @Override
                      public void changedUpdate(DocumentEvent de)
                     {
                         try
@@ -146,18 +144,16 @@ public class OrderReportGUI extends JPanel
                         }
                     }});
 
-                tbModel = new DefaultTableModel();
                 
-		tbModel.setRowCount(15);
 
-		for (int i = 0; i < strHeader.length; i++) 
+		tbOrderReport = new JTable() 
                 {
-			tbModel.addColumn(strHeader[i]);
-		}
-
-		tbOrderReport = new JTable(tbModel) 
-                {
-			public TableCellRenderer getCellRenderer(int row, int column) {
+                        public boolean isCellEditable(int row, int column) 
+                        {
+                                return false;
+                        }
+			public TableCellRenderer getCellRenderer(int row, int column) 
+                        {
 				return new TableRenderer();
 			}
                         
@@ -208,7 +204,7 @@ public class OrderReportGUI extends JPanel
                 rdbtnPartNumber = new JRadioButton("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(166, 76, 147, 30);
+		rdbtnPartNumber.setBounds(145, 76, 147, 30);
 		add(rdbtnPartNumber);
                 rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -219,7 +215,7 @@ public class OrderReportGUI extends JPanel
 
 		rdbtnDescription = new JRadioButton("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(315, 76, 134, 30);
+		rdbtnDescription.setBounds(300, 76, 134, 30);
 		add(rdbtnDescription);
                 rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
                 public void actionPerformed(ActionEvent e) 
@@ -282,16 +278,28 @@ public class OrderReportGUI extends JPanel
         }
         
         public void setTableModel(TableModel tbm)
-        {                  // Setting the Headers
+        {                  
             tbOrderReport.setModel(tbm);
             JTableHeader th = tbOrderReport.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbOrderReport.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbOrderReport.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbOrderReport, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbOrderReport.repaint();
         }
         
         public void setMainController(ReportController temp){
@@ -300,17 +308,30 @@ public class OrderReportGUI extends JPanel
         
         public void ViewAll()
         {
+            tfSearch.setText("");
             TableModel AllModel = mainController.getAllOrderModel();
             tbOrderReport.setModel(AllModel);
 
-            JTableHeader th = tbOrderReport.getTableHeader();      // Setting the Headers
+            JTableHeader th = tbOrderReport.getTableHeader();
             TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < strHeader.length; i++) 
             {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
             }
-            th.repaint();
+            tbCellRenderer = tbOrderReport.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbOrderReport.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbOrderReport, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
+
+            tbOrderReport.repaint();
         }
         
         public static void main(String args[]){
