@@ -10,6 +10,7 @@ Order Notification --- JOLO <br>
 Credit Limit Notification --- JOLO <br>
 Near Terms Notification --- JOLO<br>
 Exceeded Terms Notification --- JOLO<br>
+<br> IMAGES of Item profile. copy paste to system.
 Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE
 
 
