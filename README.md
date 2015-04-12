@@ -14,7 +14,17 @@ Know if basicsystemsetting or login --- Janine <br>
 <br><br> 
 **ERRORS**
 <br> Basic system setting model error. please update. theory: no id in sql statement.
+<br> error when view item profile is clicked.
+<br> di maka add ng item profile
+<br> di maka delete ng item profile
+<br> no message when deleting item profile. di madelete kasi nagamit na sa p.t. s.i. or a.r.
+<br> pag nag bago ng name sa modify purchase transaction, di dapat nabubura ung items
+<br> you will not buy sa purchase transaction, bakit may limit yung quantity?
+<br> dapat walang payment number sa view payment. di naman need ng client un
 <br>Purchase Transaction Computation
+<br> uneditable dapat ung view payment table and everything
+<br> sales invoice
+
 <br> and many more
 <br><br>
 DONE!!!
