@@ -13,6 +13,7 @@ Exceeded Terms Notification --- JOLO<br>
 Know if basicsystemsetting or login --- Janine <br>
 <br><br> 
 **ERRORS**
+<br> Basic system setting model error. please update. theory: no id in sql statement.
 <br>Purchase Transaction Computation
 <br> and many more
 <br><br>
