@@ -180,7 +180,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
-           tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);;
+           tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);
            tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);  
         }
         tbPurchaseTransaction.setEnabled(false);

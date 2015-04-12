@@ -69,6 +69,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                         try
                         {
                             int i;
+                            mainController.removePending();
                             for (i = 0; i < tbModel.getRowCount(); i++)
                             {
                                 mainController.addPendingItem(new PTLineItem(tfPurchaseTransactionNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
