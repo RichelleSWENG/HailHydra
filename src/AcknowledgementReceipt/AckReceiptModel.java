@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import Database.DBConnection;
+import java.sql.SQLException;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -137,6 +138,19 @@ public class AckReceiptModel
             statement = db.createStatement();
             String sql = "UPDATE acknowledgementreceipt SET acknowledgementreceipt.company_id='" + ar.getCompany_id() + "',date='" + ar.getDate() + "',po_num='" + ar.getPo_num() + "',delivery_receipt_num='" + ar.getDelivery_receipt_num() + "',sales_person='" + ar.getSales_person() + "',ordered_by='" + ar.getOrdered_by() + "',delivered_by='" + ar.getDelivered_by() + "',delivery_notes='" + ar.getDelivery_notes() + "',discount='" + ar.getDiscount() + "',original_amount='" + ar.getOriginal_amount() + "',current_balance='" + ar.getCurrent_balance() + "' WHERE acknowledgement_receipt_id LIKE '" + ar.getAcknowledgement_receipt_id() + "'";
             statement.executeUpdate(sql);
+
+            //Delete all items in PTLineItem
+            statement = db.createStatement();
+            sql = "DELETE FROM arlineitem WHERE acknowledgemnetreceipt_id = '" + ar.getAcknowledgement_receipt_id() + "'";
+            statement.executeUpdate(sql);
+
+            //Add new items
+            int i;
+            for (i = 0; i < ar.getItems().size(); i++)
+            {
+                arLineItemModel.addDetail(ar.getItems().get(i));
+                //arLineItemModel.updateQuantity(ar.getItems().get(i).getPartNum(), ar.getItems().get(i).getQuantity() + getAvailQuantity(i));
+            }
         } catch (Exception e)
         {
             e.getMessage();
@@ -370,4 +384,5 @@ public class AckReceiptModel
 
         return rcpt;
     }
+    
 }

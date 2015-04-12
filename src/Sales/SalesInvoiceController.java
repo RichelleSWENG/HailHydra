@@ -126,6 +126,13 @@ public class SalesInvoiceController {
         salesinvoiceModel.addDetail(si);
     }
     
+    public void editSI(String sales_invoice_id, String date,float original_amount,String po_num,String ordered_by,String sales_person,String delivered_by,String delivery_notes,String delivery_receipt_num,float discount,float current_balance, String status, String pwd_id_number_notes, float vat, Company company)
+    {
+        SalesInvoice si = new SalesInvoice(sales_invoice_id, date,original_amount,po_num,ordered_by,sales_person,delivered_by,delivery_notes,delivery_receipt_num,discount, current_balance,status, pwd_id_number_notes, vat, pendingItems, company);
+        salesinvoiceModel.editDetail(si);
+        setTarget(getSI(si.getSales_invoice_id()));
+    }
+    
     public int getAvailQuantity(int index)
     {
         return salesinvoiceModel.getAvailQuantity(index);
@@ -141,8 +148,13 @@ public class SalesInvoiceController {
         return SITarget;
     }
     
-    public SalesInvoice getAR(String ID)
+    public SalesInvoice getSI(String ID)
     {
         return salesinvoiceModel.getSI(ID);
+    }
+    
+    public float getCurrentVat()
+    {
+        return salesinvoiceModel.getCurrentVat();
     }
 }

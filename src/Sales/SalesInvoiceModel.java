@@ -7,6 +7,7 @@ import Database.DBConnection;
 import HailHydra.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
@@ -142,6 +143,19 @@ public class SalesInvoiceModel
             statement = db.createStatement();
             String sql = "UPDATE salesinvoice SET salesinvoice.company_id='" + si.getCompany_id() + "',date='" + si.getDate() + "',po_num='" + si.getPo_num() + "',delivery_receipt_num='" + si.getDelivery_receipt_num() + "',sales_person='" + si.getSales_person() + "',ordered_by='" + si.getOrdered_by() + "',delivered_by='" + si.getDelivered_by() + "',delivery_notes='" + si.getDelivery_notes() + "',discount='" + si.getDiscount() + "',original_amount='" + si.getOriginal_amount() + "',current_balance='" + si.getCurrent_balance() + "' WHERE sales_invoice_id LIKE '" + si.getSales_invoice_id() + "'";
             statement.executeUpdate(sql);
+            
+            //Delete all items in PTLineItem
+            statement = db.createStatement();
+            sql = "DELETE FROM silineitem WHERE sales_invoice_id = '" + si.getSales_invoice_id() + "'";
+            statement.executeUpdate(sql);
+
+            //Add new items
+            int i;
+            for (i = 0; i < si.getItems().size(); i++)
+            {
+                siLineItemModel.addDetail(si.getItems().get(i));
+                siLineItemModel.updateQuantity(si.getItems().get(i).getPartNum(), si.getItems().get(i).getQuantity() + getAvailQuantity(i));
+            }
         } catch (Exception e)
         {
             e.getMessage();
@@ -368,5 +382,34 @@ public class SalesInvoiceModel
             e.getMessage();
         }
         return si;
+    }
+    
+    public float getCurrentVat()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT vat_percentage FROM systeminfo WHERE system_info_id='1'";
+            rs = statement.executeQuery(sql);
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        try
+        {
+            if (!rs.next())
+            {
+                return 12;
+            } else
+            {
+                return rs.getFloat("vat_percentage");
+            }
+        } catch (SQLException ex)
+        {
+
+        }
+        return 12;
     }
 }

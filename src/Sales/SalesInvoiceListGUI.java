@@ -372,7 +372,7 @@ public class SalesInvoiceListGUI extends JPanel
                     JOptionPane.showMessageDialog(null, "Please select an item.");
                 } else
                 {
-                    mainController.setTarget(mainController.getAR(tbSalesInvoice.getValueAt(row, 2).toString()));
+                    mainController.setTarget(mainController.getSI(tbSalesInvoice.getValueAt(row, 2).toString()));
                     guiController.changePanelToViewSalesInvoice();
                 }
 
