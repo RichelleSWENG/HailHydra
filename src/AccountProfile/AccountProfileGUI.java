@@ -216,6 +216,7 @@ public class AccountProfileGUI extends JPanel
 
         ftfTerms = new JFormattedTextField(new DecimalFormat("#,##0"));
         ftfTerms.setFont(fntPlainText);
+        ftfTerms.setToolTipText("Terms can only have maximum of 2000 days.");
         ftfTerms.setHorizontalAlignment(JTextField.RIGHT);
         ftfTerms.setValue(new Float(00F));
         ftfTerms.setBounds(140, 70, 240, 30);
