@@ -7,9 +7,14 @@
 package BasicSystemSettings;
 
 import Database.DBConnection;
+import ModifyAlertVAT.FactoryModify;
 import Payables.Payment;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -50,6 +55,30 @@ public class SystemModel {
         {
             e.printStackTrace();
         }
+    }
+    
+    public String getCreditLimit()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT credit_alert FROM systeminfo WHERE system_info_id='1'";
+            rs = statement.executeQuery(sql);
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        try {
+                if(!rs.next())
+                    return null;
+                else
+                    return rs.getString("credit_alert");
+            } catch (SQLException ex) {
+                Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return "";
     }
     
 }
