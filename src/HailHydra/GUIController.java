@@ -133,8 +133,15 @@ public class GUIController
 
         modal = new JDialog(frame);
 
-        changePanelToLogin();
-            //changePanelToBasicSystemSettings();
+        
+        if(new SystemController(new SystemModel(dbc)).getInfo()==null)
+        {
+             changePanelToBasicSystemSettings();
+        }
+        else 
+        {
+            changePanelToLogin();
+        }
 
     }
 
@@ -199,7 +206,7 @@ public class GUIController
     {
         main = new MainMenuGUI(this);
         BasicSystemSettingsGUI tempGUI = new BasicSystemSettingsGUI(this);
-        tempGUI.setMainController(new SystemController(new SystemModel(dbc), tempGUI));
+        tempGUI.setMainController(new SystemController(new SystemModel(dbc)));
         getContentPanel().add(tempGUI);
         frameRevalidate();
     }
@@ -493,8 +500,8 @@ public class GUIController
         if (administrator)
         {
             ModifySalesInvoiceGUI tempGUI = new ModifySalesInvoiceGUI(this);
-            tempGUI.setMainController(SIController);
-            tempGUI.setViewComponents();
+            //tempGUI.setMainController(SIController);
+            //tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
         } else

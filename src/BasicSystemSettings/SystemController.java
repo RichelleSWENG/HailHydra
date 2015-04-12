@@ -12,12 +12,10 @@ package BasicSystemSettings;
  */
 public class SystemController {
     private SystemModel model;
-    private BasicSystemSettingsGUI gui;
     
-    public SystemController(SystemModel model,BasicSystemSettingsGUI gui)
+    public SystemController(SystemModel model)
     {
         this.model=model;
-        this.gui=gui;
     }
     
     public void addAccount(String username,String password,String type)
@@ -30,4 +28,9 @@ public class SystemController {
         model.addSystemInfo(name, vat, credit, terms);
     }
     
+    
+    public String getInfo()
+    {
+        return model.getCreditLimit();
+    }
 }

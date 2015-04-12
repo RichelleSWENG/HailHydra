@@ -5,6 +5,8 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import javax.swing.DefaultCellEditor;
@@ -85,6 +87,8 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                                     System.out.println("sex");
                         }
                     });
+                    MyItemListener actionListener = new MyItemListener();
+                    cmbRcptType.addItemListener(actionListener);
         cmbCustomer.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -296,7 +300,22 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
             super(new JComboBox(str));
         }
     }
-   
+    class MyItemListener implements ItemListener {
+  // This method is called only if a new item has been selected.
+  @Override
+  public void itemStateChanged(ItemEvent evt) {
+    JComboBox cb = (JComboBox) evt.getSource();
 
+    String item = evt.getItem().toString();
+
+    if (evt.getStateChange() == ItemEvent.SELECTED) {
+      System.out.println(item.toString());
+    } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
+      // Item is no longer selected
+    }
+  
+  }
+   
+  }
     
 }
