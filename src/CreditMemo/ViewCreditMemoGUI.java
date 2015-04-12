@@ -190,6 +190,7 @@ public class ViewCreditMemoGUI extends CreditMemoGUI implements TableModelListen
             super(items);
         }
 
+        @Override
         public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected,
                 boolean hasFocus, int row, int column)
         {

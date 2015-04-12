@@ -25,6 +25,7 @@ import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.JTableHeader;
@@ -350,9 +351,26 @@ public class DebitMemoListGUI extends JPanel
                 btnViewDebitMemo.addActionListener(
                     new ActionListener()
                     {
+                    private String debitmemoID;
+                    private String partNum;
                         public void actionPerformed(ActionEvent e)
                         {
-                                GUIController.changePanelToViewDebitMemo();
+                            int row;
+				row = tbDebitMemo.getSelectedRow();
+
+				if (row == -1)
+					JOptionPane.showMessageDialog(null,"Please select an item.");
+				else 
+                                {
+                                        //returnslipID = tbCreditMemo.getValueAt(row, 1).toString();
+                                        debitmemoID = tbDebitMemo.getValueAt(row, 1).toString();
+                                        partNum = tbDebitMemo.getValueAt(row, 3).toString();
+                                        mainController.setPartNumTarget(partNum);
+                                        mainController.setMemoTarget(mainController.getDM(debitmemoID));
+                                       // RSController.setSlipTarget(RSController.getRS(returnslipID));
+                                        GUIController.changePanelToViewDebitMemo();
+				}
+                                
                         }
                     });
                         

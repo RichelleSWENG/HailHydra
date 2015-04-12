@@ -28,6 +28,7 @@ class DebitMemo
     private ArrayList<DMLineItem> list;
     private Company company;
     private int company_id;
+    private String received_date;
 
     public DebitMemo()
     {
@@ -39,6 +40,7 @@ class DebitMemo
         this.approved_by = "";
         this.received_by = "";
         this.approved_date = "";
+        this.received_date ="";
         this.notes = "";
         this.status = 0;
         this.type = "";
@@ -46,7 +48,7 @@ class DebitMemo
         this.list = new ArrayList<>();
     }
 
-    public DebitMemo(String debit_memo_id,int company_id, String date, float total_amount, String receipt_type, String receipt_number, String approved_by, String received_by, String approved_date, String notes, int status, String type, ArrayList<DMLineItem> list)
+    public DebitMemo(String debit_memo_id,int company_id, String date, float total_amount, String receipt_type, String receipt_number, String approved_by, String received_by, String approved_date, String received_date,String notes, int status, String type, ArrayList<DMLineItem> list)
     {
         this.debit_memo_id = debit_memo_id;
         this.date = date;
@@ -56,6 +58,7 @@ class DebitMemo
         this.approved_by = approved_by;
         this.received_by = received_by;
         this.approved_date = approved_date;
+        this.received_date = received_date;
         this.notes = notes;
         this.status = status;
         this.type = type;
@@ -224,6 +227,17 @@ class DebitMemo
     public String getCompany_name()
     {
         return company.getName();
+    }
+
+    public String getReceived_date()
+    {
+        return received_date;
+    }
+
+
+    public void setReceived_date(String received_date)
+    {
+        this.received_date = received_date;
     }
     
 }

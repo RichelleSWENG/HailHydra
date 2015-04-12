@@ -85,7 +85,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                             else
                                 type = "Not Replacement";
           
-                            mainController.addDM(tfDBNum.getText(),mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),receiptType, cmbRcptNumber.getSelectedItem().toString(),tfApprovedBy.getText(),tfReceivedBy.getText(),ftfApprovedDate.getText(),taNotes.getText(),status,type);
+                            mainController.addDM(tfDBNum.getText(),mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),receiptType, cmbRcptNumber.getSelectedItem().toString(),tfApprovedBy.getText(),tfReceivedBy.getText(),ftfApprovedDate.getText(),ftfReceivedDate.getText(),taNotes.getText(),status,type);
                            updateInventory(status, type);
                             guiController.changePanelToReturnSlip();
                         }

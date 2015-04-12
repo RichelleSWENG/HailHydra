@@ -5,6 +5,7 @@ import Classes.Item;
 import Database.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
@@ -17,12 +18,14 @@ public class DebitMemoModel {
     private ArrayList<Company> customers;
     private ArrayList<DMLineItem> items;
     private DMLineItemModel dmLineItemModel;
+    private DebitMemo mmo;
     public DebitMemoModel(DBConnection db)
     {
         this.db = db.getConnection();
         customers = new ArrayList<>();
         items = new ArrayList<>();
         dmLineItemModel = new DMLineItemModel(db);
+        
     }
     
     public ResultSet getAllDetail()
@@ -99,7 +102,7 @@ public class DebitMemoModel {
         {
 
             statement = db.createStatement();
-            String sql = "INSERT INTO debitmemo(debit_memo_id, date,company_id,total_amount, receipt_type, number, approved_by, received_by,approved_date, notes, status, type) VALUES('" + dm.getDebit_memo_id() + "','" + dm.getDate() + "','" + dm.getCompany_id() + "','" + dm.getTotal_amount() + "','" + dm.getReceipt_type() + "','" + dm.getReceipt_number() + "','" + dm.getApproved_by() + "','" + dm.getReceived_by() + "','" + dm.getApproved_date() + "','" + dm.getNotes() + "','" + dm.getStatus() + "','" + dm.getType() + "')";
+            String sql = "INSERT INTO debitmemo(debit_memo_id, date,company_id,total_amount, receipt_type, number, approved_by, received_by,approved_date,received_date, notes, status, type) VALUES('" + dm.getDebit_memo_id() + "','" + dm.getDate() + "','" + dm.getCompany_id() + "','" + dm.getTotal_amount() + "','" + dm.getReceipt_type() + "','" + dm.getReceipt_number() + "','" + dm.getApproved_by() + "','" + dm.getReceived_by() + "','" + dm.getApproved_date() + "','" + dm.getReceived_date() + "','" + dm.getNotes() + "','" + dm.getStatus() + "','" + dm.getType() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
@@ -279,10 +282,10 @@ public class DebitMemoModel {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
 
-    public DebitMemo getDM(String ID)
+     public DebitMemo getDM(String ID)
     {
          ArrayList<DMLineItem> stuff;
-        DebitMemo mmo = null;
+        //DebitMemo mmo = null;
         int company_id = -1;
 
         ResultSet rs = null;
@@ -290,6 +293,7 @@ public class DebitMemoModel {
         {
             statement = db.createStatement();
             String sql = "SELECT * FROM debitmemo WHERE debit_memo_id = '" + ID + "'";
+            System.out.println(sql);
             rs = statement.executeQuery(sql);
 
             if (rs.next())
@@ -303,10 +307,11 @@ public class DebitMemoModel {
                 mmo.setApproved_by(rs.getString("approved_by"));
                 mmo.setReceived_by(rs.getString("received_by"));
                 mmo.setApproved_date(rs.getString("approved_date"));
+                mmo.setReceived_date(rs.getString("received_date"));
                 mmo.setNotes(rs.getString("notes"));
                 mmo.setStatus(rs.getInt("status"));
                 mmo.setType(rs.getString("type"));
-                company_id = rs.getInt("company_id");
+                mmo.setCompany_id(rs.getInt("company_id"));
             }
 
             if (mmo != null)
@@ -518,5 +523,26 @@ public class DebitMemoModel {
             e.getMessage();
         }
         return Integer.parseInt(quantity);
+    }
+
+    String getCustomerbyID(int company_id) throws SQLException
+    {
+         ResultSet rs = null;
+         String name = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT name FROM company WHERE company_id = '"+company_id+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+         while (rs.next())
+            {
+             String tempName = rs.getString("name");
+                name=tempName;
+            }
+        return name;
     }
 }

@@ -18,9 +18,9 @@ public class DebitMemoController {
     private DebitMemoModel debitmemoModel;
     private DebitMemoListGUI gui;
     private int itemcount;
-    private DebitMemoModel debitMemoModel;
     private ArrayList<DMLineItem> pendingItems;
     private DebitMemo memo;
+    private String partNum;
     
     public DebitMemoController(DebitMemoModel tempModel, DebitMemoListGUI tempGUI)
     {
@@ -33,29 +33,29 @@ public class DebitMemoController {
     
     public DebitMemoController(DebitMemoModel debitMemoModel)
     {
-        this.debitMemoModel = debitMemoModel;
+        this.debitmemoModel = debitMemoModel;
         pendingItems = new ArrayList<>();
         memo = null;
     }
     
     public ArrayList<Company> getCustomers()
     {
-        return debitMemoModel.getCustomers();
+        return debitmemoModel.getCustomers();
     }
     
     public Company getCustomer(int index)
     {
-        return debitMemoModel.getCustomer(index);
+        return debitmemoModel.getCustomer(index);
     }
     
      public ArrayList<DMLineItem> getItems(String customerType)
     {
-        return debitMemoModel.getItems(customerType);
+        return debitmemoModel.getItems(customerType);
     }
     
     public Item getItem(int index)
     {
-        return debitMemoModel.getItem(index);
+        return debitmemoModel.getItem(index);
     }
     
     public void addPendingItem(DMLineItem item)
@@ -68,16 +68,16 @@ public class DebitMemoController {
         pendingItems.clear();
     }
     
-    public void addDM(String debit_memo_id,int company_id, String date,float total_amount,String receipt_type,String receipt_number,String approved_by,String received_by,String approved_date,String notes, int status, String type)
+    public void addDM(String debit_memo_id,int company_id, String date,float total_amount,String receipt_type,String receipt_number,String approved_by,String received_by,String approved_date,String received_date,String notes, int status, String type)
     {
-        DebitMemo mmo = new DebitMemo(debit_memo_id,company_id, date,total_amount, receipt_type, receipt_number, approved_by, received_by,approved_date, notes, status, type, pendingItems);
-        debitMemoModel.addDetail(mmo);
+        DebitMemo mmo = new DebitMemo(debit_memo_id,company_id, date,total_amount, receipt_type, receipt_number, approved_by, received_by,approved_date,received_date, notes, status, type, pendingItems);
+        debitmemoModel.addDetail(mmo);
 
     }
     
     public int getAvailQuantity(int index)
     {
-        return debitMemoModel.getAvailQuantity(index);
+        return debitmemoModel.getAvailQuantity(index);
     }
     
     
@@ -139,45 +139,59 @@ public class DebitMemoController {
         return "";
     }
     
-    public void setMemoTarget(DebitMemo mmo)
+     public void setMemoTarget(DebitMemo mmo)
     {
         this.memo = mmo;
     }
     
-    public DebitMemo getMemoTarget()
+     public DebitMemo getMemoTarget()
     {
         return memo;
     }
     
     public DebitMemo getDM(String ID)
     {
-        return debitMemoModel.getDM(ID);
+    return debitmemoModel.getDM(ID);
     }
 
-    ArrayList<String> getReceiptNumbersAR(Company c)
+   public ArrayList<String> getReceiptNumbersAR(Company c)
     {
-        return debitMemoModel.getReceiptNumbersAR(String.valueOf(c.getId()));
+        return debitmemoModel.getReceiptNumbersAR(String.valueOf(c.getId()));
     }
 
-    ArrayList<String> getReceiptNumbersSI(Company c)
+    public ArrayList<String> getReceiptNumbersSI(Company c)
     {
-        return debitMemoModel.getReceiptNumbersSI(String.valueOf(c.getId()));
+        return debitmemoModel.getReceiptNumbersSI(String.valueOf(c.getId()));
     }
 
     public String getLastDMID()
     {
-        return debitMemoModel.getLastDMID();
+        return debitmemoModel.getLastDMID();
     }
      public void updateFromDefec(String quantity, String partNum, int status)
     {
-        debitMemoModel.updateFromDefec(quantity, partNum, status);
+        debitmemoModel.updateFromDefec(quantity, partNum, status);
     }
 
     public void updateFromType(String quantity, String partNum, String type)
     {
-        debitMemoModel.updateFromType(quantity, partNum, type);
+        debitmemoModel.updateFromType(quantity, partNum, type);
+    }
+
+    public void setPartNumTarget(String partNum)
+    {
+        this.partNum = partNum;
     }
     
+    public String getPartNumTarget()
+    {
+    return partNum;
+    }
+
+   public String getCustomerbyID(int company_id) throws SQLException
+    {
+        return debitmemoModel.getCustomerbyID(company_id);
+    }
     
     
 }
