@@ -354,7 +354,7 @@ CREATE TABLE `creditmemo` (
 
 LOCK TABLES `creditmemo` WRITE;
 /*!40000 ALTER TABLE `creditmemo` DISABLE KEYS */;
-INSERT INTO `creditmemo` VALUES ('000001','2015-04-10','000002','345',1,'Replacement',0.00),('000002','2015-04-10','000001','234',1,'Not Replacement',0.00),('000003','2015-04-10','000003','234',0,'Replacement',0.00);
+INSERT INTO `creditmemo` VALUES ('000001','2015-04-10','000002','345',1,'Replacement',0.00),('000002','2015-04-10','000001','234',1,'Not Replacement',0.00),('000003','2015-04-10','000003','234',0,'Replacement',0.00),('000004','2015-04-10','000003','234',0,'Not Replacement',0.00),('000005','2015-04-11','000006','234',1,'Not Replacement',0.00),('000006','2015-04-11','000007','234',0,'Not Replacement',0.00),('000007','2015-04-11','000007','234',0,'Replacement',0.00),('000008','2015-04-11','000007','234',0,'Replacement',0.00),('000009','2015-04-11','000007','234',0,'Replacement',0.00),('000010','2015-04-11','000007','234',0,'Not Replacement',0.00),('000011','2015-04-11','000007','234',0,'Replacement',0.00),('000012','2015-04-11','000004','234',1,'Replacement',0.00);
 /*!40000 ALTER TABLE `creditmemo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -439,6 +439,7 @@ CREATE TABLE `debitmemo` (
   `approved_date` date DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
+  `type` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`debit_memo_id`),
   KEY `company_id_idx` (`company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -450,7 +451,7 @@ CREATE TABLE `debitmemo` (
 
 LOCK TABLES `debitmemo` WRITE;
 /*!40000 ALTER TABLE `debitmemo` DISABLE KEYS */;
-INSERT INTO `debitmemo` VALUES ('1','2014-02-26',1,20.00,'Acknowledgement Receipt','1','sdsad','sdasda','2014-02-27','sadasddfdss',0);
+INSERT INTO `debitmemo` VALUES ('1','2014-02-26',1,20.00,'Acknowledgement Receipt','1','sdsad','sdasda','2014-02-27','sadasddfdss',0,NULL);
 /*!40000 ALTER TABLE `debitmemo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -505,31 +506,6 @@ INSERT INTO `dmlineitem` VALUES ('1',2,'123',10.00,20.00);
 UNLOCK TABLES;
 
 --
--- Table structure for table `dmlinetem`
---
-
-DROP TABLE IF EXISTS `dmlinetem`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dmlinetem` (
-  `debit_memo_id` varchar(45) NOT NULL,
-  `quantity` int(11) NOT NULL,
-  `part_num` varchar(20) NOT NULL,
-  `unit_price` float NOT NULL,
-  `line_total` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `dmlinetem`
---
-
-LOCK TABLES `dmlinetem` WRITE;
-/*!40000 ALTER TABLE `dmlinetem` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dmlinetem` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `item`
 --
 
@@ -560,7 +536,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,2,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,1,3,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,2,20,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,0,1,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -660,7 +636,7 @@ CREATE TABLE `purchasetransaction` (
 
 LOCK TABLES `purchasetransaction` WRITE;
 /*!40000 ALTER TABLE `purchasetransaction` DISABLE KEYS */;
-INSERT INTO `purchasetransaction` VALUES ('000001',9,'2015-04-11',250.00,0.00,'1616','','6416','','',30.00,'1616',280.00,'Open',NULL,0.00),('000002',8,'2015-04-11',40.00,0.00,'','','','','',4.80,'',44.80,'Open',NULL,0.00);
+INSERT INTO `purchasetransaction` VALUES ('000001',9,'2015-04-11',250.00,0.00,'1616','','6416','','',30.00,'1616',280.00,'Open',NULL,0.00),('000002',8,'2015-04-11',40.00,0.00,'959','','2066','','',4.80,'',44.80,'Open',NULL,0.00);
 /*!40000 ALTER TABLE `purchasetransaction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -676,7 +652,7 @@ CREATE TABLE `returnslip` (
   `date` date NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `company_id` int(11) NOT NULL,
-  `purchase_transaction_num` int(11) NOT NULL,
+  `purchase_transaction_num` varchar(45) NOT NULL,
   `returned_by` varchar(45) DEFAULT NULL,
   `returned_date` varchar(45) DEFAULT NULL,
   `approved_by` varchar(45) DEFAULT NULL,
@@ -696,7 +672,7 @@ CREATE TABLE `returnslip` (
 
 LOCK TABLES `returnslip` WRITE;
 /*!40000 ALTER TABLE `returnslip` DISABLE KEYS */;
-INSERT INTO `returnslip` VALUES ('000001','2015-04-10',0.00,11,1123,'','','','',NULL,'Defective w/Debit Memo','',''),('000002','2015-04-10',0.00,8,123,'','','','',NULL,'Defective w/Debit Memo','',''),('000003','2015-04-10',0.00,10,123,'','','','',NULL,'Functional','','');
+INSERT INTO `returnslip` VALUES ('000001','2015-04-10',0.00,11,'1123','','','','',NULL,'Defective w/Debit Memo','',''),('000002','2015-04-10',0.00,8,'123','','','','',NULL,'Defective w/Debit Memo','',''),('000003','2015-04-10',0.00,10,'123','','','','',NULL,'Functional','',''),('000004','2015-04-11',0.00,8,'1','','','','',NULL,'Defective w/Debit Memo','',''),('000005','2015-04-11',0.00,9,'2','','','','',NULL,'Defective w/Debit Memo','',''),('000006','2015-04-11',0.00,11,'1','','','','',NULL,'Defective w/Debit Memo','',''),('000007','2015-04-11',0.00,9,'1','','','','',NULL,'Functional','',''),('000008','2015-04-12',90.00,11,'1','','','','',NULL,'Functional','','');
 /*!40000 ALTER TABLE `returnslip` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -724,7 +700,7 @@ CREATE TABLE `rslineitem` (
 
 LOCK TABLES `rslineitem` WRITE;
 /*!40000 ALTER TABLE `rslineitem` DISABLE KEYS */;
-INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0),('Hellow',1,'234',30.00,30.00,0),('Hellow',1,'SHV_E300K',30.00,30.00,0),('Testing',1,'234',20.00,20.00,0),('Testing',1,'SHV_E300K',30.00,30.00,0),('1st',1,'123',30.00,30.00,0),('1st',1,'234',20.00,20.00,0),('001',2,'234',50.00,100.00,0),('001',1,'123',30.00,30.00,0),('002',1,'123',0.00,0.00,0),('003',0,'345',0.00,0.00,0),('004',1,'234',0.00,0.00,0),('',2,'SHV_E300K',0.00,0.00,0),('party',1,'234',0.00,0.00,0),('eto!',2,'234',0.00,0.00,0),('000001',1,'234',0.00,0.00,0),('000002',0,'345',0.00,0.00,0),('000003',2,'234',0.00,0.00,0);
+INSERT INTO `rslineitem` VALUES ('1',2,'123',10.00,20.00,0),('23',1,'345',20.00,20.00,0),('125',1,'234',20.00,20.00,0),('120',1,'234',0.00,0.00,0),('129',1,'234',200.00,200.00,0),('123',1,'234',20.00,20.00,0),('56',1,'123',20.00,20.00,0),('Hellow',1,'234',30.00,30.00,0),('Hellow',1,'SHV_E300K',30.00,30.00,0),('Testing',1,'234',20.00,20.00,0),('Testing',1,'SHV_E300K',30.00,30.00,0),('1st',1,'123',30.00,30.00,0),('1st',1,'234',20.00,20.00,0),('001',2,'234',50.00,100.00,0),('001',1,'123',30.00,30.00,0),('002',1,'123',0.00,0.00,0),('003',0,'345',0.00,0.00,0),('004',1,'234',0.00,0.00,0),('',2,'SHV_E300K',0.00,0.00,0),('party',1,'234',0.00,0.00,0),('eto!',2,'234',0.00,0.00,0),('000001',1,'234',0.00,0.00,0),('000002',0,'345',0.00,0.00,0),('000003',2,'234',0.00,0.00,0),('000004',1,'234',0.00,0.00,0),('000005',1,'234',0.00,0.00,0),('000006',1,'234',0.00,0.00,0),('000007',1,'234',0.00,0.00,0),('000008',1,'234',30.00,30.00,0),('000008',2,'123',30.00,60.00,0);
 /*!40000 ALTER TABLE `rslineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -765,7 +741,7 @@ CREATE TABLE `salesinvoice` (
 
 LOCK TABLES `salesinvoice` WRITE;
 /*!40000 ALTER TABLE `salesinvoice` DISABLE KEYS */;
-INSERT INTO `salesinvoice` VALUES ('1234',2,'2017-02-12',21.00,212.00,12.00,'12','21','sdasd','dada','sadasda','123','xcvcsc',12.00,'Open','',0.00,'Sales Invoice');
+INSERT INTO `salesinvoice` VALUES ('1234',2,'2017-02-12',21.00,212.00,12.00,'12','21','sdasd','dada','sadasda','123','xcvcsc',12.00,'Open','',0.00,'Sales Invoice'),('56s4da56sa',4,'2015-04-12',50.00,6.00,0.00,'13','','','','','adcda54','adsasd',56.00,'Open',NULL,0.00,'Sales Invoice');
 /*!40000 ALTER TABLE `salesinvoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -793,7 +769,7 @@ CREATE TABLE `silineitem` (
 
 LOCK TABLES `silineitem` WRITE;
 /*!40000 ALTER TABLE `silineitem` DISABLE KEYS */;
-INSERT INTO `silineitem` VALUES ('1234',2,'123',10.00,20.00);
+INSERT INTO `silineitem` VALUES ('1234',2,'123',10.00,20.00),('56s4da56sa',1,'123',50.00,50.00);
 /*!40000 ALTER TABLE `silineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -899,4 +875,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-11 20:20:02
+-- Dump completed on 2015-04-12 15:05:48
