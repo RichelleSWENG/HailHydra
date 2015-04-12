@@ -68,9 +68,9 @@ public class DebitMemoController {
         pendingItems.clear();
     }
     
-    public void addDM(String debit_memo_id, String date,float total_amount,String receipt_type,String receipt_number,String approved_by,String received_by,String approved_date,String notes, int status, String type, Company company)
+    public void addDM(String debit_memo_id,int company_id, String date,float total_amount,String receipt_type,String receipt_number,String approved_by,String received_by,String approved_date,String notes, int status, String type)
     {
-        DebitMemo mmo = new DebitMemo(debit_memo_id, date,total_amount, receipt_type, receipt_number, approved_by, received_by,approved_date, notes, status, type, pendingItems, company);
+        DebitMemo mmo = new DebitMemo(debit_memo_id,company_id, date,total_amount, receipt_type, receipt_number, approved_by, received_by,approved_date, notes, status, type, pendingItems);
         debitMemoModel.addDetail(mmo);
 
     }
@@ -154,6 +154,29 @@ public class DebitMemoController {
         return debitMemoModel.getDM(ID);
     }
 
+    ArrayList<String> getReceiptNumbersAR(Company c)
+    {
+        return debitMemoModel.getReceiptNumbersAR(String.valueOf(c.getId()));
+    }
+
+    ArrayList<String> getReceiptNumbersSI(Company c)
+    {
+        return debitMemoModel.getReceiptNumbersSI(String.valueOf(c.getId()));
+    }
+
+    public String getLastDMID()
+    {
+        return debitMemoModel.getLastDMID();
+    }
+     public void updateFromDefec(String quantity, String partNum, int status)
+    {
+        debitMemoModel.updateFromDefec(quantity, partNum, status);
+    }
+
+    public void updateFromType(String quantity, String partNum, String type)
+    {
+        debitMemoModel.updateFromType(quantity, partNum, type);
+    }
     
     
     

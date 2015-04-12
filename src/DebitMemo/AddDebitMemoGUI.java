@@ -31,6 +31,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
         private final float defaultVal = 0;
         private String partNums[];
         private Company c;
+        private String receiptType;
 	
 	public AddDebitMemoGUI(GUIController temp)
 	{
@@ -62,6 +63,36 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                     {
                         public void actionPerformed(ActionEvent e)
                         {
+                                                      try
+                        {
+                            int i;
+                            for (i = 0; i < tbModel.getRowCount(); i++)
+                            {
+                                mainController.addPendingItem(new DMLineItem(tfDBNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
+                            }
+                            if(cmbRcptType.getSelectedIndex() == 0)
+                                receiptType = "Acknowledgement Receipt";
+                            else if(cmbRcptType.getSelectedIndex() == 1)
+                                receiptType = "Sales Invoice Receipt";
+                            int status;
+                            String type;
+                            if(chckbxDefective.isSelected())
+                                status = 1;
+                            else
+                                status = 0;
+                            if(chckbxReplacement.isSelected())
+                                type = "Replacement";
+                            else
+                                type = "Not Replacement";
+          
+                            mainController.addDM(tfDBNum.getText(),mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1).getId(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()),receiptType, cmbRcptNumber.getSelectedItem().toString(),tfApprovedBy.getText(),tfReceivedBy.getText(),ftfApprovedDate.getText(),taNotes.getText(),status,type);
+                           updateInventory(status, type);
+                            guiController.changePanelToReturnSlip();
+                        }
+                        catch (NullPointerException exception)
+                        {
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding.", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
+                        }
                                 guiController.changePanelToDebitMemo();
                         }
                     });
@@ -104,7 +135,31 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                     c = mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
                     
-                    
+                    //populate receipt numbers
+
+                    if(cmbRcptType.getSelectedIndex()==0)
+                    {
+                    String[] receiptNumbers = new String[mainController.getReceiptNumbersAR(c).size()+1];
+                    int j;
+                    receiptNumbers[0] = "";
+                     for (j = 1; j < mainController.getReceiptNumbersAR(c).size()+1; j++)
+                     {
+                        receiptNumbers[j] = mainController.getReceiptNumbersAR(c).get(j - 1);
+                    }
+                    cmbRcptNumber.setModel(new DefaultComboBoxModel(receiptNumbers));
+                    //end of population
+                    }
+                    else if(cmbRcptType.getSelectedIndex() == 1)
+                    {
+                    String[] receiptNumbers = new String[mainController.getReceiptNumbersSI(c).size()+1];
+                    int j;
+                    receiptNumbers[0] = "";
+                     for (j = 1; j < mainController.getReceiptNumbersSI(c).size()+1; j++)
+                     {
+                        receiptNumbers[j] = mainController.getReceiptNumbersSI(c).get(j - 1);
+                    }
+                    cmbRcptNumber.setModel(new DefaultComboBoxModel(receiptNumbers));
+                    }
                     partNums = new String[mainController.getItems(c.getType()).size() + 1];
                     partNums[0] = "";
                     for (i = 1; i < mainController.getItems(c.getType()).size() + 1; i++)
@@ -144,22 +199,6 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
         }
         cmbCustomer.setModel(new DefaultComboBoxModel(customerNames));
         
-      /*  String[] receiptNumbers = new String[1];
-        int j;
-        receiptNumbers[0] = "";
-        cmbRcptNumber.setModel(new DefaultComboBoxModel(receiptNumbers));
-    */
-        
-        /*// PurchaseTransaction cmbobox
-        String[] salesInvoiceNumbers = new String[mainController.getPurchaseTransactionNumbers().size()+1];
-        int j;
-        salesInvoiceNumbers[0] = "";
-        for (j = 1; j < mainController.getPurchaseTransactionNumbers().size() + 1; j++)
-        {
-            purchaseTransactionNumbers[j] = mainController.getPurchaseTransactionNumbers().get(j - 1);
-        }
-        cmbPTNum.setModel(new DefaultComboBoxModel(purchaseTransactionNumbers));
-             */
     }
         
         public static void main(String args[]){
@@ -263,6 +302,25 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
         //ftfBalance.setText(String.valueOf(dedBalance));
      
     }
+
+    public void setViewComponents()
+    {
+        tfDBNum.setEditable(false);
+        String lastDMID = mainController.getLastDMID();
+        String newDMID;
+        if(lastDMID.equals("null"))
+        {
+           newDMID = "000001";
+           tfDBNum.setText(newDMID);
+        }
+        else
+            {
+              String numValue = lastDMID.replaceFirst ("^0*", "");
+              newDMID = String.format("%06d", Integer.parseInt(numValue)+1); 
+              tfDBNum.setText(newDMID);
+             }
+        setDataComponents();
+    }
     
 
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
@@ -309,7 +367,35 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
     String item = evt.getItem().toString();
 
     if (evt.getStateChange() == ItemEvent.SELECTED) {
-      System.out.println(item.toString());
+      if(item.equals("S.I.#"))
+      {
+          if(c!=null)
+          {
+      String[] receiptNumbers = new String[mainController.getReceiptNumbersSI(c).size()+1];
+                    int j;
+                    receiptNumbers[0] = "";
+                     for (j = 1; j < mainController.getReceiptNumbersSI(c).size()+1; j++)
+                     {
+                        receiptNumbers[j] = mainController.getReceiptNumbersSI(c).get(j - 1);
+                    }
+                    cmbRcptNumber.setModel(new DefaultComboBoxModel(receiptNumbers));
+          }
+      }
+      else if(item.equals("A.R.#"))
+      {
+          if(c!=null)
+          {
+       String[] receiptNumbers = new String[mainController.getReceiptNumbersAR(c).size()+1];
+                    int j;
+                    receiptNumbers[0] = "";
+                     for (j = 1; j < mainController.getReceiptNumbersAR(c).size()+1; j++)
+                     {
+                        receiptNumbers[j] = mainController.getReceiptNumbersAR(c).get(j - 1);
+                    }
+                    cmbRcptNumber.setModel(new DefaultComboBoxModel(receiptNumbers));
+          }
+      }
+          
     } else if (evt.getStateChange() == ItemEvent.DESELECTED) {
       // Item is no longer selected
     }
@@ -317,5 +403,10 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
   }
    
   }
+     private void updateInventory(int status, String type)
+     {
+      mainController.updateFromDefec((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),status); // update if defective or not
+      mainController.updateFromType((tbModel.getValueAt(0, 0)).toString(),(tbModel.getValueAt(0, 1)).toString(),type); // update if functional
+     }
     
 }
