@@ -127,6 +127,13 @@ public class PurchaseTransactionController {
     {
         PurchaseTransaction pt = new PurchaseTransaction(purchase_transaction_id, date, original_amount, po_num, received_by, ordered_by, receiving_notes, delivery_receipt_num, ref_sales_invoice_num, discount, vat, current_balance, status, pendingItems, company);
         purchasesModel.addDetail(pt);
+    }
+    
+    public void editPT(String purchase_transaction_id, String date, float original_amount, String po_num, String received_by, String ordered_by, String receiving_notes, String delivery_receipt_num, String ref_sales_invoice_num, float discount, float vat, float current_balance, String status, Company company)
+    {
+        PurchaseTransaction pt = new PurchaseTransaction(purchase_transaction_id, date, original_amount, po_num, received_by, ordered_by, receiving_notes, delivery_receipt_num, ref_sales_invoice_num, discount, vat, current_balance, status, pendingItems, company);
+        purchasesModel.editDetail(pt);
+        setPurchaseTransaction(getPT(pt.getPurchase_transaction_id()));
         //ackReceiptModel.addDetail(rcpt);
     }
 

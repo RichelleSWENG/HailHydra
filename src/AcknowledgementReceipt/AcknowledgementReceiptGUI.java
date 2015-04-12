@@ -2,6 +2,7 @@ package AcknowledgementReceipt;
 
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -223,6 +224,7 @@ public class AcknowledgementReceiptGUI extends JPanel {
                     return true;
                 }
             }
+            
         };
 
         for (int i = 0; i < strHeader.length; i++) 

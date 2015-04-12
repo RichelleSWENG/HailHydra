@@ -133,16 +133,30 @@ public class PurchasesModel
         }
     }
 
-    public void editDetail(ArrayList list)
+    public void editDetail(PurchaseTransaction pt)
     {
         try
         {
             statement = db.createStatement();
-            String sql = "";
+            String sql;
+            sql = "UPDATE purchasetransaction SET company_id = '" + pt.getCompany_id() + "', date = '" + pt.getDate() + "',original_amount = '" + pt.getOriginal_amount() + "',discount = '" + pt.getDiscount() + "', ref_sales_invoice_num = '"+ pt.getRef_sales_invoice_num() + "', ordered_by = '" + pt.getOrdered_by() + "', po_num = '" + pt.getPo_num() + "', received_by = '" + pt.getReceived_by() + "', receiving_notes = '" + pt.getReceiving_notes() + "', vat = '" + pt.getVat() + "', delivery_receipt_num = '" + pt.getDelivery_receipt_num() + "', current_balance = '" + pt.getCurrent_balance() + "', status = '" + pt.getStatus() + "' WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
             statement.executeUpdate(sql);
+            
+            //Delete all items in PTLineItem
+            statement = db.createStatement();
+            sql = "DELETE FROM ptlineitem WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
+            statement.executeUpdate(sql);
+            
+            //Add new items
+            int i;
+            for (i = 0; i < pt.getItems().size(); i++)
+            {
+                ptLineItemModel.addDetail(pt.getItems().get(i));
+                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(),pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
+            }
         } catch (Exception e)
         {
-            e.getMessage();
+            e.printStackTrace();
         }
     }
 

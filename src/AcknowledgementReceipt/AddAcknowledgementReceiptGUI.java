@@ -2,6 +2,7 @@ package AcknowledgementReceipt;
 
 import Classes.Company;
 import HailHydra.GUIController;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -175,8 +176,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         btnDeleteItem = new JButton("Delete Item");
         btnDeleteItem.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent arg0) {
-        		//delete selected item
-        		
+        		tbModel.removeRow(tbARReceipt.getSelectedRow());
         	}
         });
         
