@@ -48,8 +48,8 @@ public class ViewAccountProfileGUI extends AccountProfileGUI
                 tfCity.setText(accountProfile.get(2).toString());
                 tfPostCode.setText(accountProfile.get(3).toString());
                 tfCountry.setText(accountProfile.get(4).toString());
-                ftfCreditLimit.setText(accountProfile.get(5).toString());
-                ftfTerms.setText(accountProfile.get(6).toString());
+                ftfCreditLimit.setValue(Double.parseDouble(accountProfile.get(5).toString()));
+                ftfTerms.setValue(Integer.parseInt(accountProfile.get(6).toString()));
                 tfPhone1.setText(accountProfile.get(7).toString());
                 tfPhone2.setText(accountProfile.get(8).toString());
                 tfPhone3.setText(accountProfile.get(9).toString());

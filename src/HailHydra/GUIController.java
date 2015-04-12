@@ -661,7 +661,7 @@ public class GUIController
             DMController = new DebitMemoController(new DebitMemoModel(dbc));
             AddDebitMemoGUI tempGUI = new AddDebitMemoGUI(this);
             tempGUI.setMainController(DMController);
-            tempGUI.setViewComponents();
+            tempGUI.setDataComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
         } else
