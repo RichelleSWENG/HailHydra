@@ -10,7 +10,9 @@ Order Notification --- JOLO <br>
 Credit Limit Notification --- JOLO <br>
 Near Terms Notification --- JOLO<br>
 Exceeded Terms Notification --- JOLO<br>
-Know if basicsystemsetting or login --- Janine <br>
+Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE
+
+
 <br><br> 
 **ERRORS**
 <br> Basic system setting model error. please update. theory: no id in sql statement.
@@ -33,6 +35,7 @@ DONE!!!
 ~~View Return Slip ~~ -- KINGSTON<br>
 ~~Add Credit Memo~~ --KINGSTON <br>
 ~~View Credit Mamo~~  -- KINGSTON<br>
-~~Access Restriction~~
+~~Access Restriction~~ <br>
+~~ <Know if basicsystemsetting or login --- ~~ <Janine
 <br>~~Palagay yung system name sa Title bar~~
 
