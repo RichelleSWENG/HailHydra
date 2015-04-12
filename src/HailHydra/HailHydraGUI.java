@@ -30,19 +30,16 @@ public class HailHydraGUI extends JFrame
                 setTitle();
                 //setIconImage(Toolkit.getDefaultToolkit().createImage("hailhydra.PNG"));
                 this.setResizable(false);
-		        setBounds(100, 100, 1000, 650);
+		setBounds(100, 100, 1000, 650);
                 setVisible(true);
                 
-        		pnlContent = new JPanel();
-        		pnlContent.setLayout(null);
-        		getContentPane().add(pnlContent);
-        		getContentPane().add(pnlContent);
+		pnlContent = new JPanel();
+		pnlContent.setLayout(null);
+		getContentPane().add(pnlContent);
+		getContentPane().add(pnlContent);
                 
                 pnlDatabase=new DatabaseGUI();
                 getContentPane().add(pnlDatabase, BorderLayout.SOUTH);
-              
-                
-                
     }
     
     public void setTitle()
