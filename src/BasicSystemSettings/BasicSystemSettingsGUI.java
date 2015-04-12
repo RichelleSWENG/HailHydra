@@ -442,7 +442,7 @@ public class BasicSystemSettingsGUI extends JPanel
                                 mainController.addSystemInfo(tfSystemName.getText(), ftfVAT.getText(), ftfCreditLimitAlert.getText(), ftfTermsAlert.getText());
                                 JOptionPane.showMessageDialog(null, "System installation successful.");
                                 GUIcontroller.changePanelToLogin();
-                                GUIcontroller.setTitle();
+                               // GUIcontroller.setTitle();
                             }
                         }
                     });

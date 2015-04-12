@@ -437,6 +437,7 @@ CREATE TABLE `debitmemo` (
   `approved_by` varchar(45) DEFAULT NULL,
   `received_by` varchar(45) DEFAULT NULL,
   `approved_date` varchar(45) DEFAULT NULL,
+  `received_date` varchar(45) DEFAULT NULL,
   `notes` varchar(500) DEFAULT NULL,
   `status` int(1) NOT NULL DEFAULT '0',
   `type` varchar(45) DEFAULT NULL,
@@ -451,7 +452,7 @@ CREATE TABLE `debitmemo` (
 
 LOCK TABLES `debitmemo` WRITE;
 /*!40000 ALTER TABLE `debitmemo` DISABLE KEYS */;
-INSERT INTO `debitmemo` VALUES ('000001','2015-04-12',4,1000.00,'Sales Invoice Receipt','56s4da56sa','','','','',1,'Replacement'),('000002','2015-04-12',2,100.00,'Acknowledgement Receipt','1234','','','','',1,'Replacement');
+INSERT INTO `debitmemo` VALUES ('000001','2015-04-12',4,1000.00,'Sales Invoice Receipt','56s4da56sa','','','',NULL,'',1,'Replacement'),('000002','2015-04-12',2,100.00,'Acknowledgement Receipt','1234','','','',NULL,'',1,'Replacement'),('000003','2015-04-12',2,150.00,'Acknowledgement Receipt','23','','','',NULL,'',0,'Not Replacement'),('000004','2015-04-12',1,45.00,'Acknowledgement Receipt','6','2015-04-15','MArk','2015-04-15','2015-04-20','',0,'Not Replacement');
 /*!40000 ALTER TABLE `debitmemo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -501,7 +502,7 @@ CREATE TABLE `dmlineitem` (
 
 LOCK TABLES `dmlineitem` WRITE;
 /*!40000 ALTER TABLE `dmlineitem` DISABLE KEYS */;
-INSERT INTO `dmlineitem` VALUES ('1',2,'123',10.00,20.00),('abc',1,'234',45.00,45.00),('111',1,'234',45.00,45.00),('111',2,'123',50.00,100.00),('000001',20,'123',50.00,1000.00),('000002',2,'123',50.00,100.00);
+INSERT INTO `dmlineitem` VALUES ('1',2,'123',10.00,20.00),('abc',1,'234',45.00,45.00),('111',1,'234',45.00,45.00),('111',2,'123',50.00,100.00),('000001',20,'123',50.00,1000.00),('000002',2,'123',50.00,100.00),('000003',2,'123',50.00,100.00),('000003',1,'SHV_E300K',50.00,50.00),('000004',1,'234',45.00,45.00);
 /*!40000 ALTER TABLE `dmlineitem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -536,7 +537,7 @@ CREATE TABLE `item` (
 
 LOCK TABLES `item` WRITE;
 /*!40000 ALTER TABLE `item` DISABLE KEYS */;
-INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,4,18,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,0,1,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
+INSERT INTO `item` VALUES ('123','nothing',2,'sdda',170.00,50.00,50.00,40.00,4,20,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.36.15 AM.png',1),('234','cdfjdsl',2,'czxcm,dc',40.00,45.00,45.00,45.00,0,2,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.18.37 PM.png',1),('345','great description',5,'',156.00,50.00,100.00,50.00,0,0,'','C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-16 at 11.35.54 AM.png',1),('SHV_E300K','Samsung S4',3,'Rack Number 5',200.00,50.00,50.00,55.00,1,5,NULL,'C:/Users/Janine/Desktop/Inventory/Screen Shot 2015-03-14 at 10.32.56 PM.png',1);
 /*!40000 ALTER TABLE `item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -875,4 +876,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-12 17:20:39
+-- Dump completed on 2015-04-12 22:15:02
