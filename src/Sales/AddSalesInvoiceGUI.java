@@ -28,7 +28,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
     private int numItems;
     private double totalOfEverything, totalItemPrice, tentativeTotal, discount, vat, subtotal, everythingwithVAT;
     private final float defaultVal = 0;
-    private float VATpercent = 12;
+    private float VATpercent;
     private String partNums[];
     private Company c;
 
@@ -169,6 +169,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
     public void setController(SalesInvoiceController temp)
     {
         mainController = temp;
+        VATpercent = mainController.getCurrentVat();
     }
 
     public static void main(String args[])

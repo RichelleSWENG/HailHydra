@@ -5,21 +5,23 @@ import Database.DBConnection;
 import HailHydra.Model;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-public class PurchasesModel 
+public class PurchasesModel
 {
+
     protected Connection db;
     protected Statement statement;
     private int itemCount = 0;
-    
+
     private ArrayList<Company> suppliers;
     private ArrayList<PTLineItem> items;
     private PTLineItemModel ptLineItemModel;
-    
+
     public PurchasesModel(DBConnection db)
     {
         this.db = db.getConnection();
@@ -60,13 +62,14 @@ public class PurchasesModel
         }
         return rs;
     }
-    public ResultSet getAllDetailbyDate(String startDate,String endDate)
+
+    public ResultSet getAllDetailbyDate(String startDate, String endDate)
     {
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id=purchasetransaction.company_id AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+            String sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id=purchasetransaction.company_id AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
             itemCount = rs.getRow();
@@ -77,26 +80,24 @@ public class PurchasesModel
         }
         return rs;
     }
-    
-    public ResultSet searchDetail(String field, String filter,String startDate,String endDate)
+
+    public ResultSet searchDetail(String field, String filter, String startDate, String endDate)
     {
-         ResultSet rs = null;
+        ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql="";
-            if(filter.equalsIgnoreCase("name"))
+            String sql = "";
+            if (filter.equalsIgnoreCase("name"))
             {
-                    sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND company.name LIKE '%" + field + "%' AND purchasetransaction.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-            }	
-            else if(filter.equalsIgnoreCase("transaction number"))
+                sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND company.name LIKE '%" + field + "%' AND purchasetransaction.date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+            } else if (filter.equalsIgnoreCase("transaction number"))
             {
-                    sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND purchase_transaction_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-                    System.out.println(sql);
-            }
-            else if(filter.equalsIgnoreCase("part number"))
+                sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND purchase_transaction_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
+                System.out.println(sql);
+            } else if (filter.equalsIgnoreCase("part number"))
             {
-                    sql = "SELECT company.name, date, purchasetransaction.purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction,ptlineitem WHERE company.company_id= purchasetransaction.company_id AND purchasetransaction.purchase_transaction_id=ptlineitem.purchase_transaction_id AND part_num LIKE '%"+field+"%' AND date BETWEEN '"+startDate+"' AND '"+endDate+"'";
+                sql = "SELECT company.name, date, purchasetransaction.purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction,ptlineitem WHERE company.company_id= purchasetransaction.company_id AND purchasetransaction.purchase_transaction_id=ptlineitem.purchase_transaction_id AND part_num LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
             }
             rs = statement.executeQuery(sql);
             rs.last();                        // Get Item Count
@@ -107,25 +108,25 @@ public class PurchasesModel
             e.getMessage();
         }
         return rs;
-           
+
     }
 
-     public void addDetail(PurchaseTransaction obj)
-     {
- 
+    public void addDetail(PurchaseTransaction obj)
+    {
+
         PurchaseTransaction pt = obj;
         try
         {
-        
+
             statement = db.createStatement();
-            String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, receiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id()  + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance()+ "','" + pt.getStatus() + "')";
+            String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, receiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id() + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance() + "','" + pt.getStatus() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
             for (i = 0; i < pt.getItems().size(); i++)
             {
                 ptLineItemModel.addDetail(pt.getItems().get(i));
-                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(),pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
+                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(), pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
             }
         } catch (Exception e)
         {
@@ -139,20 +140,20 @@ public class PurchasesModel
         {
             statement = db.createStatement();
             String sql;
-            sql = "UPDATE purchasetransaction SET company_id = '" + pt.getCompany_id() + "', date = '" + pt.getDate() + "',original_amount = '" + pt.getOriginal_amount() + "',discount = '" + pt.getDiscount() + "', ref_sales_invoice_num = '"+ pt.getRef_sales_invoice_num() + "', ordered_by = '" + pt.getOrdered_by() + "', po_num = '" + pt.getPo_num() + "', received_by = '" + pt.getReceived_by() + "', receiving_notes = '" + pt.getReceiving_notes() + "', vat = '" + pt.getVat() + "', delivery_receipt_num = '" + pt.getDelivery_receipt_num() + "', current_balance = '" + pt.getCurrent_balance() + "', status = '" + pt.getStatus() + "' WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
+            sql = "UPDATE purchasetransaction SET company_id = '" + pt.getCompany_id() + "', date = '" + pt.getDate() + "',original_amount = '" + pt.getOriginal_amount() + "',discount = '" + pt.getDiscount() + "', ref_sales_invoice_num = '" + pt.getRef_sales_invoice_num() + "', ordered_by = '" + pt.getOrdered_by() + "', po_num = '" + pt.getPo_num() + "', received_by = '" + pt.getReceived_by() + "', receiving_notes = '" + pt.getReceiving_notes() + "', vat = '" + pt.getVat() + "', delivery_receipt_num = '" + pt.getDelivery_receipt_num() + "', current_balance = '" + pt.getCurrent_balance() + "', status = '" + pt.getStatus() + "' WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
             statement.executeUpdate(sql);
-            
+
             //Delete all items in PTLineItem
             statement = db.createStatement();
             sql = "DELETE FROM ptlineitem WHERE purchase_transaction_id = '" + pt.getPurchase_transaction_id() + "'";
             statement.executeUpdate(sql);
-            
+
             //Add new items
             int i;
             for (i = 0; i < pt.getItems().size(); i++)
             {
                 ptLineItemModel.addDetail(pt.getItems().get(i));
-                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(),pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
+                ptLineItemModel.updateQuantity(pt.getItems().get(i).getPartNum(), pt.getItems().get(i).getQuantity() + getAvailQuantity(i));
             }
         } catch (Exception e)
         {
@@ -172,13 +173,13 @@ public class PurchasesModel
             e.getMessage();
         }
     }
-    
+
     public TableModel myModel(ResultSet rs)
-    {     
+    {
         TableModel model = DbUtils.resultSetToTableModel(rs);
         return model;
     }
-    
+
     public ResultSet getMinYear()
     {
         ResultSet rs = null;
@@ -187,14 +188,14 @@ public class PurchasesModel
             statement = db.createStatement();
             String sql = "SELECT MIN(YEAR(date)) FROM purchasetransaction";
             rs = statement.executeQuery(sql);
-            
+
         } catch (Exception e)
         {
             e.getMessage();
         }
         return rs;
     }
-    
+
     public ResultSet getMaxYear()
     {
         ResultSet rs = null;
@@ -209,12 +210,12 @@ public class PurchasesModel
         }
         return rs;
     }
-     
+
     public int getItemcount()
     {
         return this.itemCount;
     }
-    
+
     public ArrayList<Company> getSuppliers()
     {
         suppliers = new ArrayList<>();
@@ -255,8 +256,8 @@ public class PurchasesModel
         }
         return suppliers;
     }
-    
-     public ArrayList<PTLineItem> getItems()
+
+    public ArrayList<PTLineItem> getItems()
     {
         items = new ArrayList<>();
         ResultSet rs;
@@ -283,22 +284,22 @@ public class PurchasesModel
         }
         return items;
     }
-    
+
     public Company getSupplier(int index)
     {
         return suppliers.get(index);
     }
-    
+
     public PTLineItem getItem(int index)
     {
         return items.get(index);
     }
-    
+
     public int getAvailQuantity(int index)
     {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
-    
+
     public PurchaseTransaction getPT(String ID)
     {
         PurchaseTransaction pt = null;
@@ -376,27 +377,59 @@ public class PurchasesModel
 
     public String getLastPTID()
     {
-            ResultSet rs = null;
-            String PTid = null;
-            try
-            {
-                statement = db.createStatement();
-                String sql = "SELECT purchase_transaction_id FROM purchasetransaction ORDER BY purchase_transaction_id DESC LIMIT 1;";
-                rs = statement.executeQuery(sql);
-           
+        ResultSet rs = null;
+        String PTid = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT purchase_transaction_id FROM purchasetransaction ORDER BY purchase_transaction_id DESC LIMIT 1;";
+            rs = statement.executeQuery(sql);
+
             while (rs.next())
             {
                 String tempID = rs.getString("purchase_transaction_id");
-                PTid=tempID;
+                PTid = tempID;
             }
-             } catch (Exception e)
-            {
-                e.getMessage();
-            }
-            if(PTid==null)
-                return "null";
-            else
-                return PTid;
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        if (PTid == null)
+        {
+            return "null";
+        } else
+        {
+            return PTid;
+        }
     }
-        
+
+    public float getCurrentVat()
+    {
+        ResultSet rs = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT vat_percentage FROM systeminfo WHERE system_info_id='1'";
+            rs = statement.executeQuery(sql);
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        try
+        {
+            if (!rs.next())
+            {
+                return 12;
+            } else
+            {
+                return rs.getFloat("vat_percentage");
+            }
+        } catch (SQLException ex)
+        {
+
+        }
+        return 12;
+    }
+
 }

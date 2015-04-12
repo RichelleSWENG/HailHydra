@@ -30,7 +30,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
     private float discount;
     private float vat;
     private final float defaultVal = 0;
-    private float VATpercent = 12;
+    private float VATpercent;
     private float everythingwithVAT;
     private String partNums[];
     private Company c;
@@ -175,6 +175,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
     public void setController(PurchaseTransactionController temp)
     {
         mainController = temp;
+        VATpercent = mainController.getCurrentVat();
     }
 
     @Override

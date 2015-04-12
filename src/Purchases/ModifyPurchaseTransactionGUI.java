@@ -30,7 +30,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI impleme
     private float discount;
     private float vat;
     private final float defaultVal = 0;
-    private float VATpercent = 12;
+    private float VATpercent;
     private float everythingwithVAT;
     private String partNums[];
     private Company c;
@@ -133,12 +133,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI impleme
     public void setController(PurchaseTransactionController temp)
     {
         mainController = temp;
-    }
-
-    public static void main(String args[])
-    {
-        GUIController temp = new GUIController();
-        temp.changePanelToModifyPurchaseTransaction();
+        VATpercent = mainController.getCurrentVat();
     }
 
     public void setViewComponents()

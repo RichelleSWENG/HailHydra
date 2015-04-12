@@ -116,12 +116,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
     public void setController(PurchaseTransactionController temp)
     {
         mainController = temp;
-    }
-
-    public static void main(String args[])
-    {
-        GUIController temp = new GUIController();
-        temp.changePanelToViewPurchaseTransaction();
+        VATpercent = mainController.getCurrentVat();
     }
 
     public void setViewComponents()

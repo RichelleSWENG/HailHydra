@@ -32,6 +32,7 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
     private float tentativeTotal;
     private float discount;
     private final float defaultVal = 0;
+    private float VATpercent;
     private float dedBalance;
     private String partNums[];
     private Company c;
@@ -85,6 +86,7 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
     public void setMainController(SalesInvoiceController temp)
     {
             mainController=temp;
+            VATpercent = mainController.getCurrentVat();
             si = mainController.getTarget();
     }
     

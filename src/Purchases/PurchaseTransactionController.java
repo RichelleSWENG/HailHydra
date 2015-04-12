@@ -157,5 +157,10 @@ public class PurchaseTransactionController {
        return purchasesModel.getLastPTID();
     }
     
+    public Float getCurrentVat()
+    {
+       return purchasesModel.getCurrentVat();
+    }
+    
     
 }

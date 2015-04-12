@@ -49,11 +49,25 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI i
         btnSubmit.setBounds(655, 545, 110, 40);
         add(btnSubmit);
         btnSubmit.addActionListener(
-                new ActionListener()
+               new ActionListener()
                 {
+                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
-                        guiController.changePanelToViewAcknowledgementReceipt();
+                        try
+                        {
+                            int i;
+                            for (i = 0; i < tbModel.getRowCount(); i++)
+                            {
+                                mainController.addPendingItem(new ARLineItem(tfARNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
+                            }
+                            mainController.editAR(tfARNum.getText(), ftfDate.getText(), Float.parseFloat(ftfTotal.getText()), tfPONum.getText(), tfOrderedBy.getText(), tfSalesperson.getText(), tfDeliveredBy.getText(), taDeliveryNotes.getText(), tfDRNum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfBalance.getText()), "Open", mainController.getCustomer(cmbCustomer.getSelectedIndex() - 1) );
+                            guiController.changePanelToViewAcknowledgementReceipt();
+                        }
+                        catch (NullPointerException exception)
+                        {
+                            JOptionPane.showMessageDialog(null, "Please fill in the required fields before adding. I do not like you po", "Fill in Required Fiels", JOptionPane.ERROR_MESSAGE);
+                        }
                     }
                 });
         btnAddItem.addActionListener(
