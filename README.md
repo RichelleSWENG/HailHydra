@@ -4,7 +4,6 @@ Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 
 **To Do List** <br>
-Modify AR, SI, PT  ----JOLO <br>
 Add Debit Memo --- KINGSTON <br>
 View Debit Memo --- KINGSTON <br>
 Order Notification --- JOLO <br>
@@ -17,6 +16,8 @@ Know if basicsystemsetting or login --- Janine <br>
 <br>Purchase Transaction Computation
 <br> and many more
 <br><br>
+DONE!!!
+~~Modify AR, SI, PT~~  ----JOLO <br>
 ~~<View Payments ~~ -- JANINE <br>
 ~~View Return Slip ~~ -- KINGSTON<br>
 ~~Add Credit Memo~~ --KINGSTON <br>
