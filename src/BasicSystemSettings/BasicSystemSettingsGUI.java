@@ -435,14 +435,14 @@ public class BasicSystemSettingsGUI extends JPanel
                             else if(changeTermsStatus()==false) JOptionPane.showMessageDialog(null, "<html><center>Terms can not exceed 2000 days and can not be negative.<br>Please re-enter the terms.</center></html>");
                             else
                             {
-                                JOptionPane.showMessageDialog(null, "System installation successful.");
-                                GUIcontroller.changePanelToLogin();
                                 String AdminPassword= new String(pfAdministratorPassword.getPassword());
                                 String EmployeePassword = new String(pfEmployeePassword.getPassword());
                                 mainController.addAccount(tfAdminUsername.getText(), AdminPassword, "0");
                                 mainController.addAccount(tfEmployeeUsername.getText(), EmployeePassword, "1");
                                 mainController.addSystemInfo(tfSystemName.getText(), ftfVAT.getText(), ftfCreditLimitAlert.getText(), ftfTermsAlert.getText());
-                                
+                                JOptionPane.showMessageDialog(null, "System installation successful.");
+                                GUIcontroller.changePanelToLogin();
+                                GUIcontroller.setTitle();
                             }
                         }
                     });
