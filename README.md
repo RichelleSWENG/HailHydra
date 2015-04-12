@@ -4,8 +4,8 @@ Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 
 **To Do List** <br>
-Add Debit Memo --- KINGSTON <br>
-View Debit Memo --- KINGSTON <br>
+~~Add Debit Memo~~ --- KINGSTON <-Test dis <br>
+~~View Debit Memo~~ --- KINGSTON <-Test dis <br>
 Order Notification --- JOLO <br>
 Credit Limit Notification --- JOLO <br>
 Near Terms Notification --- JOLO<br>
