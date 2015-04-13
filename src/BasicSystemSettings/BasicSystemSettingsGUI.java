@@ -1,7 +1,6 @@
 package BasicSystemSettings;
 
 import HailHydra.GUIController;
-import Payables.PaymentController;
 import java.awt.Color;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -184,7 +183,7 @@ public class BasicSystemSettingsGUI extends JPanel
                         private void checkMaxNum()
                         {
                             if(tfSystemName.getText().length()>60)
-                              lblSystemStatus.setText("Username can not exceed 60 characters.");
+                              lblSystemStatus.setText("System Name can not exceed 60 characters.");
                             else if(tfSystemName.getText().isEmpty())
                               lblSystemStatus.setText("Please fill-up everything.");
                             else
@@ -433,6 +432,9 @@ public class BasicSystemSettingsGUI extends JPanel
                             else if(changeVATStatus()==false) JOptionPane.showMessageDialog(null, "<html><center>VAT percentage can not exceed 100% and can not be negative.<br>Please re-enter the VAT percentage.</center></html>");
                             else if(changeCreditLimitStatus()==false) JOptionPane.showMessageDialog(null, "<html><center>Credit limit percentage can not exceed 100% and can not be negative.<br>Please re-enter the credit limit percentage.</center></html>");
                             else if(changeTermsStatus()==false) JOptionPane.showMessageDialog(null, "<html><center>Terms can not exceed 2000 days and can not be negative.<br>Please re-enter the terms.</center></html>");
+                            else if(tfSystemName.getText().length()>60) JOptionPane.showMessageDialog(null, "<html><center>System name can not exceed 60 characters.<br>Please re-enter the system name.</center></html>");
+                            else if(tfAdminUsername.getText().length()>45) JOptionPane.showMessageDialog(null, "<html><center>Administrator username can not exceed 45 characters.<br>Please re-enter the administrator username.</center></html>");
+                            else if(tfEmployeeUsername.getText().length()>45) JOptionPane.showMessageDialog(null, "<html><center> Employee username can not exceed 45 characters.<br>Please re-enter the employee username.</center></html>");
                             else
                             {
                                 String AdminPassword= new String(pfAdministratorPassword.getPassword());
