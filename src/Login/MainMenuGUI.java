@@ -149,8 +149,8 @@ public class MainMenuGUI extends JPanel {
 		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblNews = new JLabel("<html> <b>" + notifs.get(i).getType() + "</b> <br> " + notifs.get(i).getDescription() + "</html>");
-		lblNews.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                lblNews.setPreferredSize(new Dimension(280, 70));
+		lblNews.setFont(new Font("Arial", Font.PLAIN, 14));
+                lblNews.setPreferredSize(new Dimension(280, 80));
 		feedPanel.add(lblNews);
                 feedPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
                 

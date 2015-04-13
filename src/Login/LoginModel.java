@@ -93,19 +93,19 @@ public class LoginModel
             }
             
             //Exceeded Terms Notifications
-            sql =   "SELECT company_id, name, id, date, terms\n" +
+            sql =   "SELECT company_id, name, id, date, terms, current_balance\n" +
                     "FROM\n" +
-                    "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms\n" +
+                    "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms, s.current_balance\n" +
                     "	FROM company c, salesinvoice s\n" +
                     "	WHERE c.company_id=s.company_id AND s.status = 'Open'\n" +
-                    "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms\n" +
+                    "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms, a.current_balance\n" +
                     "	FROM company c ,acknowledgementreceipt a \n" +
                     "	WHERE c.company_id=a.company_id AND a.status = 'Open') AS t1\n" +
                     "WHERE DATE_ADD(date, INTERVAL terms day) <= NOW() AND terms > 0";
             rs = statement.executeQuery(sql);
             while (rs.next())
             {
-                notifs.add(new Notification("Exceeded Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") has exceeded terms: <br> SI/AR ID: " + rs.getString("id") + "<br> Dated: " + rs.getString("date")));
+                notifs.add(new Notification("Exceeded Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") has exceeded terms: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))));
             }
             
             //Near Terms Notifications
@@ -115,12 +115,12 @@ public class LoginModel
             rs.next();
             int daysLimit = rs.getInt("terms_report");
             
-            sql =   "SELECT company_id, name, id, date, terms\n" +
+            sql =   "SELECT company_id, name, id, date, terms, current_balance\n" +
                     "FROM\n" +
-                    "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms\n" +
+                    "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms, s.current_balance\n" +
                     "	FROM company c, salesinvoice s\n" +
                     "	WHERE c.company_id=s.company_id AND s.status = 'Open'\n" +
-                    "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms\n" +
+                    "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms, a.current_balance\n" +
                     "	FROM company c ,acknowledgementreceipt a \n" +
                     "	WHERE c.company_id=a.company_id AND a.status = 'Open') AS t1\n" +
                     "WHERE DATE_ADD(date, INTERVAL terms +" + daysLimit + " day) <= NOW() AND terms > 0 AND NOT DATE_ADD(date, INTERVAL terms day) <= NOW()";
@@ -128,7 +128,7 @@ public class LoginModel
             while (rs.next())
             {
                 //add to list of notifs
-                notifs.add(new Notification("Near Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") is nearing its terms: <br> SI/AR ID: " + rs.getString("id") + "<br> Dated: " + rs.getString("date")));
+                notifs.add(new Notification("Near Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") is nearing its terms: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))));
             }
             
         } catch (Exception e)
