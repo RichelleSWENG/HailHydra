@@ -4,14 +4,8 @@ Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 
 **To Do List** <br>
-~~Add Debit Memo~~ --- KINGSTON <-Test dis <br>
-~~View Debit Memo~~ --- KINGSTON <-Test dis <br>
-Order Notification --- JOLO <br>
-Credit Limit Notification --- JOLO <br>
-Near Terms Notification --- JOLO<br>
-Exceeded Terms Notification --- JOLO<br>
 <br> IMAGES of Item profile. copy paste to system.
-Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE
+Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE huuuuuuh
 
 
 <br><br> 
@@ -31,6 +25,13 @@ Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE
 <br> and many more
 <br><br>
 **DONE**!!!<br>
+~~Add Debit Memo~~ --- KINGSTON <-Test dis <br>
+~~View Debit Memo~~ --- KINGSTON <-Test dis <br>
+~~
+Order Notification --- JOLO <br>
+Credit Limit Notification --- JOLO <br>
+Near Terms Notification --- JOLO<br>
+Exceeded Terms Notification --- JOLO<br>~~ <--test these pls
 ~~Modify AR, SI, PT~~  ----JOLO <br>
 ~~<View Payments ~~ -- JANINE <br>
 ~~View Return Slip ~~ -- KINGSTON<br>
