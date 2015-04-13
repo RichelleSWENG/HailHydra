@@ -109,7 +109,7 @@ public class GUIController
     private ReturnSlipController RSController;
     private PurchaseTransactionController PTController;
     private SalesInvoiceController SIController;
-
+    
     private ItemModel inventoryModel;
     private DBConnection dbc;
 
@@ -198,6 +198,7 @@ public class GUIController
     public void changePanelToMainMenu()
     {
         modal.dispose();
+        main.setMainController(new LoginController(new LoginModel(dbc)));
         getContentPanel().add(main);
         frameRevalidate();
     }

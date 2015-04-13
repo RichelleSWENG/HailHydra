@@ -9,6 +9,7 @@ package Login;
 import Payables.PayablesController;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -40,6 +41,11 @@ public class LoginController {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
          return "";
+    }
+    
+    public ArrayList<Notification> getNotifs()
+    {
+        return model.getNotifs();
     }
     
 }

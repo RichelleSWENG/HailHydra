@@ -19,6 +19,7 @@ public class MainMenuGUI extends JPanel {
 			btnPayments, systemSettingsBtn;
 	private Font fntHeaderText, fntPlainText, fntMarkerText;
 	private GUIController controller;
+        private LoginController mainController;
 
 	public MainMenuGUI(GUIController temp) {
 
@@ -128,6 +129,16 @@ public class MainMenuGUI extends JPanel {
 	public JPanel getSectionsPanel() {
 		return pnlSections;
 	}
+        
+        public void getNotifs()
+        {
+            
+        }
+        
+        public void setMainController(LoginController mainController)
+        {
+            this.mainController = mainController;
+        }
 
 	public static void main(String args[]) {
 		GUIController temp = new GUIController();

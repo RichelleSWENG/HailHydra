@@ -16,7 +16,7 @@ Know if basicsystemsetting or login --- Janine <br>
 <br>Purchase Transaction Computation
 <br> and many more
 <br><br>
-DONE!!!
+**DONE**!!!<br>
 ~~Modify AR, SI, PT~~  ----JOLO <br>
 ~~<View Payments ~~ -- JANINE <br>
 ~~View Return Slip ~~ -- KINGSTON<br>
