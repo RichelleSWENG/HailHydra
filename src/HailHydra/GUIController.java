@@ -645,8 +645,9 @@ public class GUIController
 
     public void changePanelToDebitMemo()
     {
-        DebitMemoListGUI tempGUI = new DebitMemoListGUI(this);
-        DMController = new DebitMemoController(new DebitMemoModel(dbc), tempGUI);
+         DebitMemoListGUI tempGUI = new DebitMemoListGUI(this);
+        //tempGUI.setRSController(RSController);
+        DMController = new DebitMemoController(new DebitMemoModel(dbc),tempGUI);
         tempGUI.setMainController(DMController);
         tempGUI.ViewAll();
         getContentPanel().add(tempGUI);
@@ -671,9 +672,13 @@ public class GUIController
     }
 
     public void changePanelToViewDebitMemo()
-    {
-        getContentPanel().add(new ViewDebitMemoGUI(this));
+    {       
+        ViewDebitMemoGUI tempGUI = new ViewDebitMemoGUI(this);
+        tempGUI.setMainController(DMController);
+        tempGUI.setViewComponents();
+        getContentPanel().add(tempGUI);
         frameRevalidate();
+        
     }
 
     public void changePanelToCreditMemo()

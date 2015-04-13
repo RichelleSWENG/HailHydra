@@ -11,8 +11,11 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.awt.Toolkit;
 
 
 public class HailHydraGUI extends JFrame
@@ -25,6 +28,7 @@ public class HailHydraGUI extends JFrame
     {
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setTitle();
+                //setIconImage(Toolkit.getDefaultToolkit().createImage("hailhydra.PNG"));
                 this.setResizable(false);
 		setBounds(100, 100, 1000, 650);
                 setVisible(true);
@@ -32,13 +36,10 @@ public class HailHydraGUI extends JFrame
 		pnlContent = new JPanel();
 		pnlContent.setLayout(null);
 		getContentPane().add(pnlContent);
-		add(pnlContent);
+		getContentPane().add(pnlContent);
                 
                 pnlDatabase=new DatabaseGUI();
                 getContentPane().add(pnlDatabase, BorderLayout.SOUTH);
-              
-                
-                
     }
     
     public void setTitle()
@@ -65,8 +66,4 @@ public class HailHydraGUI extends JFrame
     {
         return pnlContent;
     }
-    
-    
-    
-    
 }

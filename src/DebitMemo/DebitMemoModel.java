@@ -5,6 +5,7 @@ import Classes.Item;
 import Database.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
@@ -17,13 +18,14 @@ public class DebitMemoModel {
     private ArrayList<Company> customers;
     private ArrayList<DMLineItem> items;
     private DMLineItemModel dmLineItemModel;
-    
+    private DebitMemo mmo;
     public DebitMemoModel(DBConnection db)
     {
         this.db = db.getConnection();
         customers = new ArrayList<>();
         items = new ArrayList<>();
         dmLineItemModel = new DMLineItemModel(db);
+        
     }
     
     public ResultSet getAllDetail()
@@ -100,7 +102,7 @@ public class DebitMemoModel {
         {
 
             statement = db.createStatement();
-            String sql = "INSERT INTO debitmemo(debit_memo_id, date,company_id,total_amount, receipt_type, number, approved_by, received_by,approved_date, notes, status, type) VALUES('" + dm.getDebit_memo_id() + "','" + dm.getDate() + "','" + dm.getCompany_id() + "','" + dm.getTotal_amount() + "','" + dm.getReceipt_type() + "','" + dm.getReceipt_number() + "','" + dm.getApproved_by() + "','" + dm.getReceived_by() + "','" + dm.getApproved_date() + "','" + dm.getNotes() + "','" + dm.getStatus() + "','" + dm.getType() + "')";
+            String sql = "INSERT INTO debitmemo(debit_memo_id, date,company_id,total_amount, receipt_type, number, approved_by, received_by,approved_date,received_date, notes, status, type) VALUES('" + dm.getDebit_memo_id() + "','" + dm.getDate() + "','" + dm.getCompany_id() + "','" + dm.getTotal_amount() + "','" + dm.getReceipt_type() + "','" + dm.getReceipt_number() + "','" + dm.getApproved_by() + "','" + dm.getReceived_by() + "','" + dm.getApproved_date() + "','" + dm.getReceived_date() + "','" + dm.getNotes() + "','" + dm.getStatus() + "','" + dm.getType() + "')";
             System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
@@ -280,10 +282,10 @@ public class DebitMemoModel {
         return items.get(index).getQuantityFunc() /*- items.get(index).getMinimum()*/;
     }
 
-    public DebitMemo getDM(String ID)
+     public DebitMemo getDM(String ID)
     {
          ArrayList<DMLineItem> stuff;
-        DebitMemo mmo = null;
+        //DebitMemo mmo = null;
         int company_id = -1;
 
         ResultSet rs = null;
@@ -291,6 +293,7 @@ public class DebitMemoModel {
         {
             statement = db.createStatement();
             String sql = "SELECT * FROM debitmemo WHERE debit_memo_id = '" + ID + "'";
+            System.out.println(sql);
             rs = statement.executeQuery(sql);
 
             if (rs.next())
@@ -304,10 +307,11 @@ public class DebitMemoModel {
                 mmo.setApproved_by(rs.getString("approved_by"));
                 mmo.setReceived_by(rs.getString("received_by"));
                 mmo.setApproved_date(rs.getString("approved_date"));
+                mmo.setReceived_date(rs.getString("received_date"));
                 mmo.setNotes(rs.getString("notes"));
                 mmo.setStatus(rs.getInt("status"));
                 mmo.setType(rs.getString("type"));
-                company_id = rs.getInt("company_id");
+                mmo.setCompany_id(rs.getInt("company_id"));
             }
 
             if (mmo != null)
@@ -354,5 +358,191 @@ public class DebitMemoModel {
         return mmo;
     }
 
+    public ArrayList<String> getReceiptNumbersAR(String ID)
+    {
+        
 
+        ResultSet rs = null;
+        ArrayList<String> receiptNumbersAR = new ArrayList<String>();
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT acknowledgement_receipt_id FROM acknowledgementreceipt WHERE company_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                receiptNumbersAR.add(rs.getString("acknowledgement_receipt_id"));
+            }
+    
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return receiptNumbersAR;
+
+
+    }
+    
+    public ArrayList<String> getReceiptNumbersSI(String ID)
+    {
+        
+
+        ResultSet rs = null;
+        ArrayList<String> receiptNumbersSI = new ArrayList<String>();
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT sales_invoice_id FROM salesinvoice WHERE company_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                receiptNumbersSI.add(rs.getString("sales_invoice_id"));
+            }
+    
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return receiptNumbersSI;
+
+
+    }
+
+    public String getLastDMID()
+    {
+            ResultSet rs = null;
+            String DMid = null;
+            try
+            {
+                statement = db.createStatement();
+                String sql = "SELECT debit_memo_id FROM debitmemo ORDER BY debit_memo_id DESC LIMIT 1;";
+                rs = statement.executeQuery(sql);
+           
+            while (rs.next())
+            {
+                String tempID = rs.getString("debit_memo_id");
+                DMid=tempID;
+            }
+             } catch (Exception e)
+            {
+                e.getMessage();
+            }
+            if(DMid==null)
+                return "null";
+            else
+                return DMid;
+    }
+    
+     public void updateFromDefec(String quantity, String partNum, int status)
+    {
+        int Qfunc = getQuantityFunc(partNum);
+        int Qdef = getQuantityDef(partNum);
+        if(status == 1)        
+            Qdef = Qdef + Integer.parseInt(quantity);
+        else if(status == 0)
+            Qfunc = Qfunc + Integer.parseInt(quantity);    
+        
+         try
+        {
+        
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            statement.executeUpdate(sql);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+
+    public void updateFromType(String quantity, String partNum, String type)
+    {
+        int Qfunc = getQuantityFunc(partNum);
+        int Qdef = getQuantityDef(partNum);
+        if(type.equals("Replacement"))
+            Qfunc = Qfunc - Integer.parseInt(quantity);
+          try
+        {
+        
+            statement = db.createStatement();
+            String sql = "UPDATE item SET quantity_functional = '"+Qfunc+"', quantity_defective = '"+Qdef+"' WHERE part_num ='"+partNum+"'";
+            System.out.println(sql);
+            statement.executeUpdate(sql);
+
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public int getQuantityFunc(String partNum)
+    {
+        
+        ResultSet rs = null;
+        String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_functional FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_functional");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
+   
+    }
+
+    public int getQuantityDef(String partNum)
+    {
+         ResultSet rs = null;
+         String quantity = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT quantity_defective FROM item WHERE part_num='"+partNum+"'";
+            rs = statement.executeQuery(sql);
+            String temp;
+            while (rs.next())
+            {
+                temp = rs.getString("quantity_defective");
+                quantity=temp;
+            }
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return Integer.parseInt(quantity);
+    }
+
+    String getCustomerbyID(int company_id) throws SQLException
+    {
+         ResultSet rs = null;
+         String name = null;
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT name FROM company WHERE company_id = '"+company_id+"'";
+            rs = statement.executeQuery(sql);
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+         while (rs.next())
+            {
+             String tempName = rs.getString("name");
+                name=tempName;
+            }
+        return name;
+    }
 }
