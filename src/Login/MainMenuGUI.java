@@ -14,11 +14,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
 public class MainMenuGUI extends JPanel {
 
 	private JLabel lblHeader, lblNotifications;
 	private JPanel pnlNotifications, pnlSections;
+        private JScrollPane spNotifications;
 	private JButton btnLogout, btnProfiles, btnPurchases, btnSales,
 			btnPayments, systemSettingsBtn;
 	private Font fntHeaderText, fntPlainText, fntMarkerText;
@@ -54,9 +58,15 @@ public class MainMenuGUI extends JPanel {
 
 		pnlNotifications = new JPanel();
 		pnlNotifications.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+                pnlNotifications.setLayout(new BoxLayout(pnlNotifications, BoxLayout.PAGE_AXIS));
 		pnlNotifications.setBounds(30, 127, 300, 450);
                 pnlNotifications.setBackground(Color.white);
 		add(pnlNotifications);
+                
+                spNotifications = new JScrollPane(pnlNotifications);
+                spNotifications.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+                spNotifications.setBounds(30, 127, 300, 450);
+                add(spNotifications);
 
 		pnlSections = new JPanel();
 		pnlSections.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -145,12 +155,11 @@ public class MainMenuGUI extends JPanel {
             for (int i = 0; i < notifs.size(); i++)
             {
                 feedPanel = new JPanel();
-		feedPanel.setBackground(Color.WHITE);
-		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 		
-		JLabel lblNews = new JLabel("<html> <b>" + notifs.get(i).getType() + "</b> <br> " + notifs.get(i).getDescription() + "</html>");
-		lblNews.setFont(new Font("Arial", Font.PLAIN, 14));
-                lblNews.setPreferredSize(new Dimension(280, 80));
+		JLabel lblNews = new JLabel("<html><center> <b>" + notifs.get(i).getType() + " Alert:</b> <br> " + notifs.get(i).getDescription() + "<br></center></html>");
+		lblNews.setFont(fntPlainText);
+                lblNews.setPreferredSize(new Dimension(240, 150));
 		feedPanel.add(lblNews);
                 feedPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
                 
