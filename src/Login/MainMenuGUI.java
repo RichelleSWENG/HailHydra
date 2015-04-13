@@ -7,9 +7,13 @@ import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.BorderFactory;
 
 public class MainMenuGUI extends JPanel {
 
@@ -51,6 +55,7 @@ public class MainMenuGUI extends JPanel {
 		pnlNotifications = new JPanel();
 		pnlNotifications.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
 		pnlNotifications.setBounds(30, 127, 300, 450);
+                pnlNotifications.setBackground(Color.white);
 		add(pnlNotifications);
 
 		pnlSections = new JPanel();
@@ -124,6 +129,7 @@ public class MainMenuGUI extends JPanel {
 				controller.changePanelToSystemSettings();
 			}
 		});
+                
 	}
 
 	public JPanel getSectionsPanel() {
@@ -132,12 +138,33 @@ public class MainMenuGUI extends JPanel {
         
         public void getNotifs()
         {
+            ArrayList<Notification> notifs = mainController.getNotifs();
+            pnlNotifications.removeAll();
+            JPanel feedPanel = new JPanel();
+            JLabel lblInfo = new JLabel();
+            for (int i = 0; i < notifs.size(); i++)
+            {
+                feedPanel = new JPanel();
+		feedPanel.setBackground(Color.WHITE);
+		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		
+		JLabel lblNews = new JLabel("<html> <b>" + notifs.get(i).getType() + "</b> <br> " + notifs.get(i).getDescription() + "</html>");
+		lblNews.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                lblNews.setPreferredSize(new Dimension(280, 70));
+		feedPanel.add(lblNews);
+                feedPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
+                
+                pnlNotifications.add(feedPanel);
+            }
+            
+            pnlNotifications.revalidate();
             
         }
         
         public void setMainController(LoginController mainController)
         {
             this.mainController = mainController;
+            getNotifs();
         }
 
 	public static void main(String args[]) {
