@@ -27,11 +27,10 @@ Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE huuuuuuh
 **DONE**!!!<br>
 ~~Add Debit Memo~~ --- KINGSTON <-Test dis <br>
 ~~View Debit Memo~~ --- KINGSTON <-Test dis <br>
-~~
-Order Notification --- JOLO <br>
+~~Order Notification --- JOLO <br>
 Credit Limit Notification --- JOLO <br>
 Near Terms Notification --- JOLO<br>
-Exceeded Terms Notification --- JOLO<br>~~ <--test these pls
+Exceeded Terms Notification --- JOLO~~ <--test these pls <br>
 ~~Modify AR, SI, PT~~  ----JOLO <br>
 ~~<View Payments ~~ -- JANINE <br>
 ~~View Return Slip ~~ -- KINGSTON<br>
