@@ -164,7 +164,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                                 error = true;
                             }  
 
-                            if(Float.parseFloat(ftfCreditLimit.getText())<0.00f)
+                            if(Float.parseFloat(ftfCreditLimit.getText().replaceAll(",", ""))<0.00f)
                             {
                                 JOptionPane.showMessageDialog(null, "Credit Limit is invalid.");
                                 error= true;
@@ -242,7 +242,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 		                {
 		                    public void actionPerformed(ActionEvent e)
 		                    {
-		                         GUIController.changePanelToViewAccountProfile();
+                                         if(JOptionPane.showConfirmDialog(null, "<html><center>All modifications will be disregarded.<br>Are you sure you want to cancel transaction?</center> </html>",null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) 
+                                            GUIController.changePanelToViewAccountProfile();
 		                    }
 		                });
 		    
