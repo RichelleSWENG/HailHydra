@@ -849,7 +849,7 @@ DROP TABLE IF EXISTS `systeminfo`;
 CREATE TABLE `systeminfo` (
   `system_info_id` int(11) NOT NULL AUTO_INCREMENT,
   `company_name` varchar(60) NOT NULL,
-  `company_address` varchar(100) NOT NULL,
+  `company_address` varchar(200) DEFAULT NULL,
   `vat_percentage` int(11) NOT NULL,
   `credit_alert` int(11) NOT NULL,
   `terms_report` int(11) NOT NULL,
