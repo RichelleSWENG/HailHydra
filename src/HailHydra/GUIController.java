@@ -145,6 +145,10 @@ public class GUIController
 
     }
 
+    public void setTitle()
+    {
+        frame.setTitle();
+    }
     public void setToEmployee()
     {
         administrator = false;
@@ -843,7 +847,6 @@ public class GUIController
     public static void main(String args[])
     {
         new GUIController();
-
     }
 
 }
