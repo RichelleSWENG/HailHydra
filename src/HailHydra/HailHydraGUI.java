@@ -3,6 +3,7 @@ package HailHydra;
 
 import Database.DBConnection;
 import Database.DatabaseGUI;
+import ModifyAlertVAT.FactoryModify;
 
 import java.awt.BorderLayout;
 import java.awt.SystemColor;
@@ -16,6 +17,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class HailHydraGUI extends JFrame
@@ -24,8 +27,9 @@ public class HailHydraGUI extends JFrame
     private JPanel pnlContent, pnlDatabase;
     
     
-    public HailHydraGUI()
+    public HailHydraGUI(DBConnection db)
     {
+                this.db=db.getConnection();
                 setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 setTitle();
                 //setIconImage(Toolkit.getDefaultToolkit().createImage("hailhydra.PNG"));
@@ -44,22 +48,28 @@ public class HailHydraGUI extends JFrame
     
     public void setTitle()
     {
-        DBConnection dbc = new DBConnection();
-                db=dbc.getConnection();
-                try
+        ResultSet rs = null;
+        try
+        {
+            Statement statement = db.createStatement();
+            String sql = "SELECT company_name FROM systeminfo WHERE system_info_id='1'";
+            rs = statement.executeQuery(sql);
+
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        try {
+                if(!rs.next())
                 {
-                Statement statement= db.createStatement();
-                String sql="SELECT company_name FROM systeminfo WHERE system_info_id=1 ";
-                ResultSet rs= statement.executeQuery(sql);
-                ResultSetMetaData metadata = rs.getMetaData();
-                if(rs.next())
-                {
-                this.setTitle(""+rs.getString(1));
+                    this.setTitle("");
+                    return;
                 }
-                }catch(Exception e)
-                {
-                    e.printStackTrace();
-                }
+                else
+                    this.setTitle(rs.getString("company_name"));
+            } catch (SQLException ex) {
+                Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
+            }
     }
     
     public JPanel getContentPanel()

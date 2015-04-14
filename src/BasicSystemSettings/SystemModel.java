@@ -48,7 +48,7 @@ public class SystemModel {
         try
         {
             statement = db.createStatement();
-            String sql = "INSERT INTO systeminfo(company_name,vat_percentage,credit_alert,terms_report) VALUES('"+name+"','"+vat+"','"+credit+"','"+terms+"')";
+            String sql = "INSERT INTO systeminfo(system_info_id,company_name,vat_percentage,credit_alert,terms_report) VALUES('1','"+name+"','"+vat+"','"+credit+"','"+terms+"')";
             statement.executeUpdate(sql);
             System.out.println(sql);
         } catch (Exception e)
@@ -57,13 +57,13 @@ public class SystemModel {
         }
     }
     
-    public String getCreditLimit()
+    public String getCompanyName()
     {
         ResultSet rs = null;
         try
         {
             statement = db.createStatement();
-            String sql = "SELECT credit_alert FROM systeminfo WHERE system_info_id='1'";
+            String sql = "SELECT company_name FROM systeminfo WHERE system_info_id='1'";
             rs = statement.executeQuery(sql);
 
         } catch (Exception e)
@@ -74,7 +74,7 @@ public class SystemModel {
                 if(!rs.next())
                     return null;
                 else
-                    return rs.getString("credit_alert");
+                    return rs.getString("company_name");
             } catch (SQLException ex) {
                 Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
             }

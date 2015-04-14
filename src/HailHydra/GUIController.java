@@ -125,7 +125,7 @@ public class GUIController
         administrator = true;
 
         dbc = new DBConnection();
-        frame = new HailHydraGUI();
+        frame = new HailHydraGUI(dbc);
 
         inventoryModel = new ItemModel(dbc);
         inventoryGUI = new InventoryListGUI(this);
