@@ -1,5 +1,6 @@
 package Sales;
 
+import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -20,6 +21,7 @@ import TableRenderer.TableRenderer;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
@@ -46,6 +48,7 @@ public class SalesInvoiceGUI extends JPanel
         protected Component component;
 	protected JTable tbSalesInvoice;
         protected JScrollPane spTable, spAddress, spDeliveryNotes;
+        protected JButton btnAddItem, btnDeleteItem;
         protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
         protected JComboBox cmbCustomer;
@@ -88,37 +91,37 @@ public class SalesInvoiceGUI extends JPanel
                 
                 lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(530, 110, 73, 30);
+		lblDate.setBounds(630, 110, 73, 30);
 		add(lblDate);
                 
                 lblPONum = new JLabel("P.O. Number:");
 		lblPONum.setFont(fntPlainText);
-		lblPONum.setBounds(530, 140, 138, 30);
+		lblPONum.setBounds(552, 140, 138, 30);
 		add(lblPONum);
                 
                 lblDRNum = new JLabel("D.R. Number:");
 		lblDRNum.setFont(fntPlainText);
-		lblDRNum.setBounds(530, 170, 138, 30);
+		lblDRNum.setBounds(552, 170, 138, 30);
 		add(lblDRNum);
                 
                 lblSalesperson = new JLabel("Salesperson:");
 		lblSalesperson.setFont(fntPlainText);
-		lblSalesperson.setBounds(30, 385, 147, 30);
+		lblSalesperson.setBounds(30, 435, 147, 30);
 		add(lblSalesperson);
                 
                 lblOrderedBy = new JLabel("Ordered By:");
 		lblOrderedBy.setFont(fntPlainText);
-		lblOrderedBy.setBounds(30, 415, 133, 30);
+		lblOrderedBy.setBounds(30, 465, 133, 30);
 		add(lblOrderedBy);
 
 		lblDeliveredBy = new JLabel("Delivered By:");
 		lblDeliveredBy.setFont(fntPlainText);
-		lblDeliveredBy.setBounds(30, 445, 147, 30);
+		lblDeliveredBy.setBounds(30, 495, 147, 30);
 		add(lblDeliveredBy);
 
 		lblDeliveryNotes = new JLabel("Delivery Notes:");
 		lblDeliveryNotes.setFont(fntPlainText);
-		lblDeliveryNotes.setBounds(30, 475, 147, 30);
+		lblDeliveryNotes.setBounds(30, 525, 147, 30);
 		add(lblDeliveryNotes);
                 
                 lblDiscount = new JLabel("Discount:");
@@ -174,17 +177,17 @@ public class SalesInvoiceGUI extends JPanel
 
 		tfSalesperson = new JTextField();
 		tfSalesperson.setFont(fntPlainText);
-		tfSalesperson.setBounds(165, 385, 335, 30);
+		tfSalesperson.setBounds(165, 435, 335, 30);
 		add(tfSalesperson);
 
 		tfOrderedBy = new JTextField();
 		tfOrderedBy.setFont(fntPlainText);
-		tfOrderedBy.setBounds(165, 415, 335, 30);
+		tfOrderedBy.setBounds(165, 465, 335, 30);
 		add(tfOrderedBy);
 
 		tfDeliveredBy = new JTextField();
 		tfDeliveredBy.setFont(fntPlainText);
-		tfDeliveredBy.setBounds(165, 445, 335, 30);
+		tfDeliveredBy.setBounds(165, 495, 335, 30);
 		add(tfDeliveredBy);
                 
 		ftfDiscount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -237,14 +240,13 @@ public class SalesInvoiceGUI extends JPanel
                 taAddress.setFont(fntPlainText);
                 taAddress.setWrapStyleWord(true);
                 taAddress.setLineWrap(true);
-		taAddress.setBounds(125, 115, 375, 50);
+                taAddress.setEnabled(false);
 		add(taAddress);
                 
                 taDeliveryNotes = new JTextArea();
 		taDeliveryNotes.setFont(fntPlainText);
                 taDeliveryNotes.setWrapStyleWord(true);
                 taDeliveryNotes.setLineWrap(true);
-		taDeliveryNotes.setBounds(30, 504, 472, 30);
 		add(taDeliveryNotes);
                 
                 spAddress = new JScrollPane(taAddress);
@@ -252,13 +254,12 @@ public class SalesInvoiceGUI extends JPanel
 		add(spAddress);
                 
                 spDeliveryNotes = new JScrollPane(taDeliveryNotes);
-		spDeliveryNotes.setBounds(30, 504, 472, 30);
+		spDeliveryNotes.setBounds(30, 554, 472, 30);
 		add(spDeliveryNotes);
                 
  
 		tbModel = new DefaultTableModel() 
                 {
-                        @Override
 			public boolean isCellEditable(int rowIndex, int mColIndex) 
                         {
                             if (cmbCustomer.getSelectedItem() == null || cmbCustomer.getSelectedItem().equals(""))
@@ -302,7 +303,7 @@ public class SalesInvoiceGUI extends JPanel
 		tbSalesInvoice.setFont(fntPlainText);
 
 		spTable = new JScrollPane(tbSalesInvoice);
-		spTable.setBounds(30, 212, 935, 164);
+		spTable.setBounds(30, 212, 935, 163);
 		add(spTable);
 
 		tbSalesInvoice.getParent().setBackground(tbSalesInvoice.getBackground());
@@ -311,6 +312,23 @@ public class SalesInvoiceGUI extends JPanel
 		tbSalesInvoice.setColumnSelectionAllowed(true);
 		tbSalesInvoice.setRowSelectionAllowed(true);
 		tbSalesInvoice.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		tbSalesInvoice.setRowHeight(30);		
+		tbSalesInvoice.setRowHeight(30);
+                
+                btnAddItem = new JButton("Add Item");
+                btnAddItem.setFont(fntPlainText);
+                btnAddItem.setBounds(30, 385, 147, 40);
+                add(btnAddItem);
+
+                btnDeleteItem= new JButton("Delete Item");
+                btnDeleteItem.setFont(fntPlainText);
+                btnDeleteItem.setBounds(190, 385, 147, 40);
+                add(btnDeleteItem);
+                
+        }
+        
+        public static void main(String args[])
+        {
+            GUIController temp = new GUIController();
+            temp.changePanelToAddSalesInvoice();
         }
 }
