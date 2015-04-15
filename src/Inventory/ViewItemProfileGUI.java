@@ -45,11 +45,11 @@ public class ViewItemProfileGUI extends ItemProfileGUI
                 tfPartNumber.setText(itemProfile.get(0).toString());
                 tfDescription.setText(itemProfile.get(1).toString());
                 tfRackLocation.setText(itemProfile.get(2).toString());
-                ftfStockMinimum.setText(itemProfile.get(3).toString());
-                ftfSisterCompanyPrice.setText(itemProfile.get(4).toString());
-                ftfRetailPrice.setText(itemProfile.get(5).toString());
-                ftfWalkinPrice.setText(itemProfile.get(6).toString());
-                ftfLastCost.setText(itemProfile.get(7).toString());
+                ftfStockMinimum.setValue(Double.parseDouble(itemProfile.get(3).toString()));
+                ftfSisterCompanyPrice.setValue(Double.parseDouble(itemProfile.get(4).toString()));
+                ftfRetailPrice.setValue(Double.parseDouble(itemProfile.get(5).toString()));
+                ftfWalkinPrice.setValue(Double.parseDouble(itemProfile.get(6).toString()));
+                ftfLastCost.setValue(Double.parseDouble(itemProfile.get(7).toString()));
                 taNotes.setText(itemProfile.get(8).toString());
                 ImageIcon icon;
     
@@ -67,8 +67,9 @@ public class ViewItemProfileGUI extends ItemProfileGUI
                         
                     }
                 }
+                
                 if((itemProfile.get(10)).equals("0"))
-                chckbxInactiveItem.setSelected(true);
+                    chckbxInactiveItem.setSelected(true);
                 
                 btnModify = new JButton("Modify");
 		btnModify.setFont(fntPlainText);
@@ -97,7 +98,8 @@ public class ViewItemProfileGUI extends ItemProfileGUI
                 {
                     try {
                         guiController.changePanelToInventory();
-                    } catch (Exception ex) {
+                    } catch (Exception ex) 
+                    {
                         ex.printStackTrace();
                     }
                 }
