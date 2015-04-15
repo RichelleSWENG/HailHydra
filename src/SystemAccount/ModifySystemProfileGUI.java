@@ -15,21 +15,21 @@ import java.awt.event.KeyEvent;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class ModifySystemProfileGUI extends JPanel {
-
+public class ModifySystemProfileGUI extends JPanel 
+{
 	private JLabel lblHeader, lblSystemName, lblSystemAddress;
         private JTextField tfSystemName;
 	private JTextArea taAddress;
 	private JButton btnSubmit, btnCancel;
         private JScrollPane spAddress;
         private Font fntPlainText, fntHeaderText;
-	private GUIController controller;
+	private GUIController GUIcontroller;
         private SystemAccountController mainController;
 	
 
 	public ModifySystemProfileGUI(GUIController temp) 
         {  
-		controller = temp;
+		GUIcontroller = temp;
                 
 		fntPlainText=new Font("Arial", Font.PLAIN, 21);
                 fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -105,10 +105,13 @@ public class ModifySystemProfileGUI extends JPanel {
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(370, 350, 110, 40);
 		add(btnSubmit);
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnSubmit.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
                                 mainController.changeInfo(tfSystemName.getText(),taAddress.getText());
-				controller.changePanelToMainMenu();
+                                GUIcontroller.setTitle();
+				GUIcontroller.changePanelToMainMenu();
 			}
 		});
 
@@ -116,16 +119,19 @@ public class ModifySystemProfileGUI extends JPanel {
 		btnCancel.setFont(fntPlainText);
 		btnCancel.setBounds(505, 350, 110, 40);
 		add(btnCancel);
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToMainMenu();
+		btnCancel.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToMainMenu();
                                 
 			}
 		});
                 
 	}
         
-        public void setMainController(SystemAccountController temp){
+        public void setMainController(SystemAccountController temp)
+        {
             mainController=temp;
         }
         
