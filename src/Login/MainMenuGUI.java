@@ -18,7 +18,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-public class MainMenuGUI extends JPanel {
+public class MainMenuGUI extends JPanel 
+{
 
 	private JLabel lblHeader, lblNotifications;
 	private JPanel pnlNotifications, pnlSections;
@@ -29,13 +30,15 @@ public class MainMenuGUI extends JPanel {
 	private GUIController GUIcontroller;
         private LoginController mainController;
 
-	public MainMenuGUI(GUIController temp) {
+	public MainMenuGUI(GUIController temp)
+	{
 
 		GUIcontroller = temp;
 		try {
 			UIManager.setLookAndFeel(UIManager
 					.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 
