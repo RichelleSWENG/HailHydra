@@ -50,6 +50,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                 tfEmailAddress.setText(accountProfile.get(11).toString());
                 tfWebsite.setText(accountProfile.get(12).toString());
                 tfContactPerson.setText(accountProfile.get(13).toString());
+                
                 if(accountProfile.get(14).toString().equals("Sister Company Customer"))
                     rdbtnSisterCompanyCustomer.setSelected(true);
                 else if(accountProfile.get(14).toString().equals("Retail Customer"))
@@ -112,7 +113,7 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                             
                             if(Integer.parseInt(ftfTerms.getText().replaceAll(",", ""))>2000)
                             {
-                                JOptionPane.showMessageDialog(null, "Terms can not be greater than 2000. Please re-input the terms.");
+                                JOptionPane.showMessageDialog(null, "Terms can not be greater than 2,000. Please re-input the terms.");
                                 error = true;
                             }
                                 
@@ -136,31 +137,31 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                             
                             if(tfFaxNumber.getText().length()>45)
                             {
-                                JOptionPane.showMessageDialog(null, "Fax Number can not exceed 11 characters. Please re-input the city.");
+                                JOptionPane.showMessageDialog(null, "Fax Number can not exceed 11 characters. Please re-input fax number.");
                                 error = true;
                             }
                             
                             if(tfEmailAddress.getText().length()>45)
                             {
-                                JOptionPane.showMessageDialog(null, "Email address can not exceed 45 characters. Please re-input the email.");
+                                JOptionPane.showMessageDialog(null, "Email address can not exceed 45 characters. Please re-input email.");
                                 error = true;
                             }
                             
                             if(tfWebsite.getText().length()>45)
                             {
-                                JOptionPane.showMessageDialog(null, "Website can not exceed 45 characters. Please re-input the website.");
+                                JOptionPane.showMessageDialog(null, "Website can not exceed 45 characters. Please re-input website.");
                                 error = true;
                             }
                             
                             if(tfContactPerson.getText().length()>45)
                             {
-                                JOptionPane.showMessageDialog(null, "Contact person can not exceed 45 characters. Please re-input the contact person.");
+                                JOptionPane.showMessageDialog(null, "Contact person can not exceed 45 characters. Please re-input contact person.");
                                 error = true;
                             }
                             
                             if(ftfCreditLimit.getText().length()>12)
                             {
-                                JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 999,999,999,999");
+                                JOptionPane.showMessageDialog(null, "Credit Limit can not exceed 9,999,999");
                                 error = true;
                             }  
 
@@ -250,7 +251,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 				
         }                
         
-        public void setMainController(AccountProfileController temp){
+        public void setMainController(AccountProfileController temp)
+        {
             mainController=temp;
         }
         
