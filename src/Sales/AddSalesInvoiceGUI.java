@@ -22,7 +22,7 @@ import javax.swing.table.TableColumn;
 public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnSubmit, btnCancel;
+    private JButton btnSubmit, btnCancel;
     private GUIController guiController;
     private SalesInvoiceController mainController;
     private int numItems;
@@ -67,11 +67,8 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
                 }
                 });
         
-        btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 545, 147, 40);
-        add(btnAddItem);
-        btnAddItem.addActionListener(
+        
+            btnAddItem.addActionListener(
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent e)
@@ -172,11 +169,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         VATpercent = mainController.getCurrentVat();
     }
 
-    public static void main(String args[])
-    {
-        GUIController temp = new GUIController();
-        temp.changePanelToAddSalesInvoice();
-    }
+    
 
     public void setDataComponents()
     {
@@ -314,6 +307,12 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         {
             super(new JComboBox(str));
         }
+    }
+    
+    public static void main(String args[])
+    {
+        GUIController temp = new GUIController();
+        temp.changePanelToAddSalesInvoice();
     }
     
 }
