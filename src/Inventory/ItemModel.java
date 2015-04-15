@@ -2,7 +2,6 @@ package Inventory;
 
 import Database.DBConnection;
 import HailHydra.Model;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -13,13 +12,13 @@ public class ItemModel extends Model
 {
     private Connection con;
     private int itemCount=0;
+    
 	public ItemModel(DBConnection db)
 	{
 		super(db);
                 
 	}
 
-	@Override
 	public ResultSet getDetail(String ID)
 	{
 		ResultSet rs = null;
@@ -36,7 +35,6 @@ public class ItemModel extends Model
 		return rs;
 	}
 
-	@Override
 	public ResultSet getAllDetail()
 	{
 		ResultSet rs = null;
@@ -56,7 +54,6 @@ public class ItemModel extends Model
 		return rs;
 	}
 
-	@Override
 	public ResultSet searchDetail(String field, String filter)
 	{
 		ResultSet rs = null;
@@ -83,7 +80,6 @@ public class ItemModel extends Model
 		return rs;
 	}
 
-	@Override
 	public void addDetail(ArrayList list)
 	{
 		try
@@ -98,7 +94,6 @@ public class ItemModel extends Model
 		}
 	}
 
-	@Override
 	public void editDetail(ArrayList list)
 	{
 		try
@@ -114,7 +109,6 @@ public class ItemModel extends Model
 
 	}
 
-	@Override
 	public void deleteDetail(String ID)
 	{
 		try
@@ -129,6 +123,7 @@ public class ItemModel extends Model
 		}
 
 	}
+        
          public ResultSet getAllPrices()
 	{
 		ResultSet rs = null;
