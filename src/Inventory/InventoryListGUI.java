@@ -105,12 +105,12 @@ public class InventoryListGUI extends JPanel
 
 		lblNumOfItemsFound = new JLabel("0");
 		lblNumOfItemsFound.setFont(fntPlainText);
-		lblNumOfItemsFound.setBounds(167, 160, 46, 30);
+		lblNumOfItemsFound.setBounds(167, 160, 250, 30);
 		add(lblNumOfItemsFound);
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(167, 120, 330, 30);
+		tfSearch.setBounds(150, 120, 500, 30);
 		add(tfSearch);
                 
                 tfSearch.getDocument().addDocumentListener(new DocumentListener()
@@ -160,10 +160,12 @@ public class InventoryListGUI extends JPanel
 			{
 				return false;
 			}
+                        
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
 			}
+                        
                         public Component prepareRenderer(TableCellRenderer renderer, int row, int column)
                          {
                             component = super.prepareRenderer(renderer, row, column);
@@ -178,6 +180,7 @@ public class InventoryListGUI extends JPanel
                             return component;
                             }
 		};
+                
 		tbInventory.getTableHeader().setFont(fntHeaderTableText);
 		tbInventory.getTableHeader().setPreferredSize(new Dimension(100, 55));
 		tbInventory.getTableHeader().setResizingAllowed(false);
@@ -198,7 +201,8 @@ public class InventoryListGUI extends JPanel
 		spInventoryTable = new JScrollPane(tbInventory);
 		spInventoryTable.setBounds(30, 205, 935, 325);
 		add(spInventoryTable);
-               
+                
+                tbInventory.getTableHeader().setFont(fntHeaderTableText);
 		tbInventory.getParent().setBackground(tbInventory.getBackground());
 		tbInventory.getTableHeader().setResizingAllowed(false);
 		tbInventory.getTableHeader().setReorderingAllowed(false);
@@ -211,25 +215,27 @@ public class InventoryListGUI extends JPanel
                 rdbtnPartNumber.setActionCommand("Part Number");
 		rdbtnPartNumber.setFont(fntPlainText);
 		rdbtnPartNumber.setSelected(true);
-		rdbtnPartNumber.setBounds(166, 80, 158, 30);
+		rdbtnPartNumber.setBounds(150, 80, 158, 30);
 		add(rdbtnPartNumber);
-                rdbtnPartNumber.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
+                rdbtnPartNumber.addActionListener(new ActionListener()
                 {
-                         tfSearch.setText(null);
-                }
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                             tfSearch.setText(null);
+                    }
                 });
                 
 		rdbtnDescription = new JRadioButton("Description");
                 rdbtnDescription.setActionCommand("Description");
 		rdbtnDescription.setFont(fntPlainText);
-		rdbtnDescription.setBounds(339, 80, 158, 30);
+		rdbtnDescription.setBounds(310, 80, 158, 30);
 		add(rdbtnDescription);
-                rdbtnDescription.addActionListener(new ActionListener(){//Everytime All is selected 
-                public void actionPerformed(ActionEvent e) 
+                rdbtnDescription.addActionListener(new ActionListener()
                 {
-                         tfSearch.setText(null);
-                }
+                    public void actionPerformed(ActionEvent e) 
+                    {
+                             tfSearch.setText(null);
+                    }
                 });
 
 
@@ -395,23 +401,23 @@ public class InventoryListGUI extends JPanel
             tbInventory.setModel(AllModel);
 
             JTableHeader th = tbInventory.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-                tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
-		tbColumnRenderer = tbInventory.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
-		{
-			tbColumn = tbColumnRenderer.getColumn(j);
-			tbCellRendererColumn = tbColumn.getHeaderRenderer();
-			if (tbCellRendererColumn == null)
-				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
-			tbColumn.setPreferredWidth(component.getPreferredSize().width);
-		}
+            TableColumnModel tcm = th.getColumnModel();
+            for (int i = 0; i < strHeader.length; i++) 
+            {
+                    TableColumn tc = tcm.getColumn(i);
+                    tc.setHeaderValue(strHeader[i]);
+            }
+            tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
+            tbColumnRenderer = tbInventory.getColumnModel();
+            for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+            {
+                    tbColumn = tbColumnRenderer.getColumn(j);
+                    tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                    if (tbCellRendererColumn == null)
+                            tbCellRendererColumn = tbCellRenderer;
+                    component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
+                    tbColumn.setPreferredWidth(component.getPreferredSize().width);
+            }
                 
 		tbInventory.repaint();
         }
@@ -429,6 +435,7 @@ public class InventoryListGUI extends JPanel
 
                 JTableHeader th = tbInventory.getTableHeader();
                 TableColumnModel tcm = th.getColumnModel();
+                
                 for (int i = 0; i < strHeader.length; i++) 
                 {
                         TableColumn tc = tcm.getColumn(i);
@@ -445,8 +452,6 @@ public class InventoryListGUI extends JPanel
                         component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
                         tbColumn.setPreferredWidth(component.getPreferredSize().width);
                 }
-                
-		
 
                 tbInventory.repaint();
                 }
@@ -456,13 +461,26 @@ public class InventoryListGUI extends JPanel
         {                  // Setting the Headers
             tbInventory.setModel(tbm);
             JTableHeader th = tbInventory.getTableHeader();
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < strHeader.length; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
-            }
-            th.repaint();
+                TableColumnModel tcm = th.getColumnModel();
+                
+                for (int i = 0; i < strHeader.length; i++) 
+                {
+                        TableColumn tc = tcm.getColumn(i);
+                        tc.setHeaderValue(strHeader[i]);
+                }
+                tbCellRenderer = tbInventory.getTableHeader().getDefaultRenderer();
+                tbColumnRenderer = tbInventory.getColumnModel();
+                for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+                {
+                        tbColumn = tbColumnRenderer.getColumn(j);
+                        tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                        if (tbCellRendererColumn == null)
+                                tbCellRendererColumn = tbCellRenderer;
+                        component = tbCellRendererColumn.getTableCellRendererComponent(tbInventory, tbColumn.getHeaderValue(), false, false, 0,j);
+                        tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                }
+
+                tbInventory.repaint();
         }
 
         class btnAddItemProfile_Action implements ActionListener
