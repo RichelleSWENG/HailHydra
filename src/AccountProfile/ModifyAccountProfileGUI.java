@@ -212,8 +212,8 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
                                 al.add(tfCity.getText());
                                 al.add(tfPostCode.getText());
                                 al.add(tfCountry.getText());
-                                al.add(ftfCreditLimit.getText());
-                                al.add(ftfTerms.getText());
+                                al.add(ftfCreditLimit.getText().replaceAll(",", ""));
+                                al.add(ftfTerms.getText().replaceAll(",", ""));
                                 al.add(tfPhone1.getText());
                                 al.add(tfPhone2.getText());
                                 al.add(tfPhone3.getText());
