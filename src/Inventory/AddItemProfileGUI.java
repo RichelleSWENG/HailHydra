@@ -195,7 +195,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
                     if(chckbxInactiveItem.isSelected())
                         al.add("0");
                     else al.add("1");
-                    mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText().replaceAll(",", ""), ftfSisterCompanyPrice.getText(), ftfRetailPrice.getText(), ftfWalkinPrice.getText(), ftfLastCost.getText(), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
+                    mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText().replaceAll(",", ""), ftfSisterCompanyPrice.getText().replaceAll(",", ""), ftfRetailPrice.getText().replaceAll(",", ""), ftfWalkinPrice.getText().replaceAll(",", ""), ftfLastCost.getText().replaceAll(",", ""), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
                     controller.changePanelToInventory();
                     
                 } catch (Exception ex)
