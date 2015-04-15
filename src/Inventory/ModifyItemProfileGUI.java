@@ -293,7 +293,7 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                         {
                             try
                             {
-                                // if(JOptionPane.showConfirmDialog(null, "All inputted data will be disregarded. Are you sure you want to cancel?", "Cancel", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+                                 if(JOptionPane.showConfirmDialog(null, "All inputted data will be disregarded. Are you sure you want to cancel?", "Cancel", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
                                 guiController.changePanelToViewItemProfile();
                             } catch (IOException ex)
                             {
