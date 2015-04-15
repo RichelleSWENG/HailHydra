@@ -90,6 +90,7 @@ public class AccountProfileGUI extends JPanel
         lblAddress = new JLabel("Address:");
         lblAddress.setFont(fntPlainText);
         lblAddress.setBounds(50, 70, 103, 30);
+        lblAddress.setToolTipText("Address can not exceed 100 characters.");
         pnlCompanyDetails.add(lblAddress);
 
         lblCity = new JLabel("City:");
@@ -100,6 +101,7 @@ public class AccountProfileGUI extends JPanel
         lblPostCode = new JLabel("Postal Code:");
         lblPostCode.setFont(fntPlainText);
         lblPostCode.setBounds(10, 210, 150, 30);
+        lblPostCode.setToolTipText("Post Code can only accept integers.");
         pnlCompanyDetails.add(lblPostCode);
 
         lblCountry = new JLabel("Country:");
@@ -110,11 +112,13 @@ public class AccountProfileGUI extends JPanel
         lblCreditLimit = new JLabel("Credit Limit:");
         lblCreditLimit.setFont(fntPlainText);
         lblCreditLimit.setBounds(15, 30, 133, 30);
+        lblCreditLimit.setToolTipText("Credit limit can not exceed 9,999,999.");
         pnlAlertDetails.add(lblCreditLimit);
 
         lblTermsDays = new JLabel("Terms:");
         lblTermsDays.setFont(fntPlainText);
         lblTermsDays.setBounds(60, 70, 172, 30);
+        lblTermsDays.setToolTipText("Terms can not exceed 2,000 and can not be negative.");
         pnlAlertDetails.add(lblTermsDays);
         
         lblDays = new JLabel("Days");
