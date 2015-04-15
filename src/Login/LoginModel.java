@@ -11,9 +11,8 @@ import java.util.ArrayList;
 
 public class LoginModel
 {
-
-    protected Connection db;
-    protected Statement statement;
+    private Connection db;
+    private Statement statement;
     private ArrayList<Notification> notifs;
 
     public LoginModel(DBConnection db)
