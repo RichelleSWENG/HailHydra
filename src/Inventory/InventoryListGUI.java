@@ -330,7 +330,7 @@ public class InventoryListGUI extends JPanel
                                 pkey = tbInventory.getValueAt(row, 0).toString();
                                 try
                                 {
-                                    confirmMessage("Are you sure you want to delete Item Profile# "+ pkey +" of Inventory?\n Deleted Item Profile can not be recovered. ");
+                                    confirmMessage("<html><center>Are you sure you want to delete part number:"+ pkey +"?<br> Deleted item can not be recovered.</center></html> ");
                                 } catch (SQLException ex)
                                 {
                                     Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
