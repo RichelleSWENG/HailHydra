@@ -4,17 +4,19 @@ Project in NetBeans, SQL in MySQL Workbench <br>
 Files are sorted by feature, each has its own controller and model because yolo life lol <br>
 
 **To Do List** <br>
+<br> ayusin ang notifs. di pwede talaga ganun kasi paano malalaman na may new stock na kulang? atleast lahat ng bagong gawa nasa taas. (use stack principles)
 <br> IMAGES of Item profile. copy paste to system.
-Add Sales Invoice, P.T. A.R. - DI PA TAPOS. PATAPOS PLEASE huuuuuuh
-
+<br> ADD DELETE GUI
+<br> NO MODIFY SALES INVOICE
+<br> NO RETRIEVAL OF VAT
+<br> hindi nagchecheck kapag una ung quantity bago part number. hindi nagchecheck kung magnenegative.
+<br> check if there is sales invoice number
+<br> discount in the modify acknowledgement receipt di gumagana.
+<br> DISCOUNTS SHOULD BE STORED IN THE DATABASE. DI DAPAT MA AAPEKTUHAN UNG VIEW KAPAG PINALITAN UNG VAT NG SYSTEM.
+<br> KINGSTON: (return slip) hindi lahat ng p.t. number kay nancy, dapat lalabas lang sa combo box ung p.t.number ni nancy
 
 <br><br> 
 **ERRORS**
-<br> Basic system setting model error. please update. theory: no id in sql statement.
-<br> error when view item profile is clicked.
-<br> di maka add ng item profile
-<br> di maka delete ng item profile
-<br> no message when deleting item profile. di madelete kasi nagamit na sa p.t. s.i. or a.r.
 <br> pag nag bago ng name sa modify purchase transaction, di dapat nabubura ung items
 <br> you will not buy sa purchase transaction, bakit may limit yung quantity?
 <br> dapat walang payment number sa view payment. di naman need ng client un
