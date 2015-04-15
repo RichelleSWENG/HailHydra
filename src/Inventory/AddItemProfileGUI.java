@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -196,8 +195,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
                     if(chckbxInactiveItem.isSelected())
                         al.add("0");
                     else al.add("1");
-                    mainController.setItemProfile(al);
-                    mainController.ModifyItemProfile(al); 
+                    mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText(), ftfSisterCompanyPrice.getText(), ftfRetailPrice.getText(), ftfWalkinPrice.getText(), ftfLastCost.getText(), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
                     controller.changePanelToInventory();
                     
                 } catch (Exception ex)
