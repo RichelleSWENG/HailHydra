@@ -330,7 +330,7 @@ public class InventoryListGUI extends JPanel
                                 pkey = tbInventory.getValueAt(row, 0).toString();
                                 try
                                 {
-                                    confirmMessage("<html><center>Are you sure you want to delete part number:"+ pkey +"?<br> Deleted item can not be recovered.</center></html> ");
+                                    confirmMessage("<html><center>Are you sure you want to delete part number: "+ pkey +"?<br> Deleted item can not be recovered.</center></html> ");
                                 } catch (SQLException ex)
                                 {
                                     Logger.getLogger(InventoryListGUI.class.getName()).log(Level.SEVERE, null, ex);
@@ -375,7 +375,7 @@ public class InventoryListGUI extends JPanel
                 mainController.DeleteItem(pkey);
                 //System.out.println("the key "+pkey);
                 ViewAll();
-                infoMessage("You have DELETED "+pkey+"");
+                infoMessage("You have successfully deleted item number: "+pkey+".");
             } else if (response == JOptionPane.CLOSED_OPTION)
             {
                 System.out.println("JOptionPane closed");
