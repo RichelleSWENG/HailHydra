@@ -20,18 +20,13 @@ import javax.swing.table.TableColumn;
 public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnSubmit, btnCancel;
+    private JButton btnSubmit, btnCancel;
     private GUIController guiController;
     private SalesInvoiceController mainController;
     private SalesInvoice si;
     private int numItems;
-    private float totalBalance;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
+    private float totalBalance, totalItemPrice, tentativeTotal, discount, VATpercent, dedBalance;
     private final float defaultVal = 0;
-    private float VATpercent;
-    private float dedBalance;
     private String partNums[];
     private Company c;
 
@@ -42,21 +37,16 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements TableModel
         lblHeader.setText("Modify Sales Invoice");
 
         cmbCustomer.setEditable(true);
-
-        btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 545, 147, 40);
+        
         btnAddItem.addActionListener(
                 new ActionListener()
                 {
-                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         tbModel.setRowCount(numItems + 1);
                         tbModel.setValueAt(defaultVal, numItems, 4);
                     }
                 });
-        add(btnAddItem);
 
         btnSubmit = new JButton("Submit");
         btnSubmit.setFont(fntPlainText);
@@ -225,7 +215,6 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements TableModel
         }
     }
 
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
