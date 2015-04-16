@@ -1,4 +1,4 @@
-package ModifyAlertVAT;
+package ModifyAlert;
 
 public class PopUp {
 	protected String input;

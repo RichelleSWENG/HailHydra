@@ -1,4 +1,4 @@
-package ModifyAlertVAT;
+package ModifyAlert;
 
 import Database.DBConnection;
 import java.sql.Connection;
