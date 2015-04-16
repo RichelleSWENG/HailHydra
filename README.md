@@ -10,6 +10,8 @@ Files are sorted by feature, each has its own controller and model because yolo 
 <br> ORIGINAL AMOUNT means total. Current Balance means total minus payment. PLEASE CHANGE S.I. P.T. and A.R. list
 <br> DISCOUNTS SHOULD BE STORED IN THE DATABASE. DI DAPAT MA AAPEKTUHAN UNG VIEW KAPAG PINALITAN UNG VAT NG SYSTEM.
 <br> KINGSTON: (return slip) hindi lahat ng p.t. number kay nancy, dapat lalabas lang sa combo box ung p.t.number ni nancy
+<br> check if there id existing item profile na same item number para malalaman ng user na hindi pwede i-add kasi may same na
+<br> add account profile... check if there is name sa supplier or customer para alam ng user na bawal.
 
 <br><br> 
 **ERRORS**
