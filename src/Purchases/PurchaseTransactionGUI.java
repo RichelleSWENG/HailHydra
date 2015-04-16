@@ -49,6 +49,8 @@ public class PurchaseTransactionGUI extends JPanel
 	protected DateFormat dateFormat;
 	protected JComboBox cmbSupplier;
 	protected int modelRow;
+        protected double totalOfEverything, totalItemPrice, tentativeTotal, discount, VAT, VATpercent, everythingwithVAT, subtotal;
+        protected final float defaultVal = 0;
 
 	public PurchaseTransactionGUI()
 	{
@@ -309,6 +311,22 @@ public class PurchaseTransactionGUI extends JPanel
                 btnDeleteItem.setBounds(190, 385, 147, 40);
                 add(btnDeleteItem);
 	}
+        
+        public void calcTotalBalance()
+        {
+            int i;
+            totalOfEverything = 0;
+            for (i = 0; i < tbModel.getRowCount(); i++)
+            {
+                totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
+            }
+            subtotal= ((100-VATpercent)/100)* (totalOfEverything - Double.parseDouble(ftfDiscount.getText()));
+            ftfSubtotal.setValue(subtotal);
+            VAT = VATpercent/100 * (totalOfEverything - Double.parseDouble(ftfDiscount.getText())) ;
+            ftfVat.setValue(VAT);
+            ftfTotal.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
+            ftfBalance.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
+        }
         
         public static void main(String args[])
         {
