@@ -271,9 +271,17 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI imp
                 }
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {    
-                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
-                    tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-                    calcTotalBalance();
+                    if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1))
+                    {
+                        totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
+                        tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+                        calcTotalBalance();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy " + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
+                        tbModel.setValueAt("0", e.getFirstRow(), 0);
+                    }
                 }
             }
         }

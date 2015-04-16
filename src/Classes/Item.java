@@ -12,6 +12,7 @@ public class Item
     protected float price;
     protected int minimum;
     protected int quantityFunc;
+    private int status;
 
     public Item()
     {
@@ -20,6 +21,7 @@ public class Item
         price = 0;
         minimum = 0;
         quantityFunc = 0;
+        status = 0;
     }
     
     public Item(String partNum, String description, float price, int minimum, int quantityFunc)
@@ -91,6 +93,16 @@ public class Item
     public void setQuantityFunc(int quantityFunc)
     {
         this.quantityFunc = quantityFunc;
+    }
+
+    public int getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(int status)
+    {
+        this.status = status;
     }
     
     

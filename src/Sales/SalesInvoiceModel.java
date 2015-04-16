@@ -233,26 +233,28 @@ public class SalesInvoiceModel
             while (rs.next())
             {
                 tempCustomer = new Company();
-                tempCustomer.setId(rs.getInt("company_id"));
-                tempCustomer.setName(rs.getString("name"));
-                tempCustomer.setAddressLoc(rs.getString("address_location"));
-                tempCustomer.setAddressCity(rs.getString("address_city"));
-                tempCustomer.setAddressCountry(rs.getString("address_country"));
-                tempCustomer.setPostalCode(rs.getString("address_postal_code"));
-                tempCustomer.setPhone1(rs.getString("phone1"));
-                tempCustomer.setPhone2(rs.getString("phone2"));
-                tempCustomer.setPhone3(rs.getString("phone3"));
-                tempCustomer.setFaxNum(rs.getString("fax_num"));
-                tempCustomer.setWebsite(rs.getString("website"));
-                tempCustomer.setEmail(rs.getString("email"));
-                tempCustomer.setContactPerson(rs.getString("contact_person"));
                 tempCustomer.setStatus(rs.getString("status"));
-                tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
-                tempCustomer.setTerms(rs.getInt("terms"));
-                tempCustomer.setType(rs.getString("type"));
-                customers.add(tempCustomer);
+                if (tempCustomer.getStatus().equals("Active"))
+                {
+                    tempCustomer.setId(rs.getInt("company_id"));
+                    tempCustomer.setName(rs.getString("name"));
+                    tempCustomer.setAddressLoc(rs.getString("address_location"));
+                    tempCustomer.setAddressCity(rs.getString("address_city"));
+                    tempCustomer.setAddressCountry(rs.getString("address_country"));
+                    tempCustomer.setPostalCode(rs.getString("address_postal_code"));
+                    tempCustomer.setPhone1(rs.getString("phone1"));
+                    tempCustomer.setPhone2(rs.getString("phone2"));
+                    tempCustomer.setPhone3(rs.getString("phone3"));
+                    tempCustomer.setFaxNum(rs.getString("fax_num"));
+                    tempCustomer.setWebsite(rs.getString("website"));
+                    tempCustomer.setEmail(rs.getString("email"));
+                    tempCustomer.setContactPerson(rs.getString("contact_person"));
+                    tempCustomer.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempCustomer.setTerms(rs.getInt("terms"));
+                    tempCustomer.setType(rs.getString("type"));
+                    customers.add(tempCustomer);
+                }
             }
-            System.out.println(customers.size());
 
         } catch (Exception e)
         {
@@ -274,19 +276,29 @@ public class SalesInvoiceModel
             while (rs.next())
             {
                 tempItem = new SILineItem();
-                tempItem.setPartNum(rs.getString("part_num"));
-                tempItem.setDescription(rs.getString("description"));
-                
-                if (customerType.equals("Walk-in Customer"))
-                    tempItem.setPrice(rs.getFloat("walk_in_price"));
-                if (customerType.equals("Retail Customer"))
-                    tempItem.setPrice(rs.getFloat("traders_price"));
-                if (customerType.equals("Sister Company Customer"))
-                    tempItem.setPrice(rs.getFloat("sister_company_price"));
-                items.add(tempItem);
-                
-                tempItem.setMinimum(rs.getInt("stock_minimum"));
-                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                tempItem.setStatus(rs.getInt("status"));
+                if (tempItem.getStatus() == 1)
+                {
+                    tempItem.setPartNum(rs.getString("part_num"));
+                    tempItem.setDescription(rs.getString("description"));
+
+                    if (customerType.equals("Walk-in Customer"))
+                    {
+                        tempItem.setPrice(rs.getFloat("walk_in_price"));
+                    }
+                    if (customerType.equals("Retail Customer"))
+                    {
+                        tempItem.setPrice(rs.getFloat("traders_price"));
+                    }
+                    if (customerType.equals("Sister Company Customer"))
+                    {
+                        tempItem.setPrice(rs.getFloat("sister_company_price"));
+                    }
+                    items.add(tempItem);
+
+                    tempItem.setMinimum(rs.getInt("stock_minimum"));
+                    tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                }
             }
 
         } catch (Exception e)

@@ -274,12 +274,16 @@ public class PurchasesModel
             while (rs.next())
             {
                 tempItem = new PTLineItem();
-                tempItem.setPartNum(rs.getString("part_num"));
-                tempItem.setDescription(rs.getString("description"));
-                tempItem.setPrice(rs.getFloat("last_cost"));
-                items.add(tempItem);
-                tempItem.setMinimum(rs.getInt("stock_minimum"));
-                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                tempItem.setStatus(rs.getInt("status"));
+                if (tempItem.getStatus() == 1)
+                {
+                    tempItem.setPartNum(rs.getString("part_num"));
+                    tempItem.setDescription(rs.getString("description"));
+                    tempItem.setPrice(rs.getFloat("last_cost"));
+                    items.add(tempItem);
+                    tempItem.setMinimum(rs.getInt("stock_minimum"));
+                    tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                }
             }
 
         } catch (Exception e)
