@@ -14,6 +14,7 @@ Files are sorted by feature, each has its own controller and model because yolo 
 <br> hindi nagchecheck kapag una ung quantity bago part number. hindi nagchecheck kung magnenegative.
 <br> check if there is sales invoice number(can not be missing
 <br> SALES INVOICE, P.T., A.R. - Can not select an inactive account orinactive item
+<br> ORIGINAL AMOUNT means total. Current Balance means total minus payment. PLEASE CHANGE S.I. P.T. and A.R. list
 <br> discount in the modify acknowledgement receipt di gumagana.
 <br> DISCOUNTS SHOULD BE STORED IN THE DATABASE. DI DAPAT MA AAPEKTUHAN UNG VIEW KAPAG PINALITAN UNG VAT NG SYSTEM.
 <br> KINGSTON: (return slip) hindi lahat ng p.t. number kay nancy, dapat lalabas lang sa combo box ung p.t.number ni nancy
