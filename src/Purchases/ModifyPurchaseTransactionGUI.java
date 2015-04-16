@@ -42,6 +42,20 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI impleme
                 tbModel.setValueAt(defaultVal, numItems, 4);
             }
         });
+        
+        btnDeleteItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (tbPurchaseTransaction.getSelectedRow() != -1 && tbModel.getRowCount() > 1)
+                        {
+                            tbModel.removeRow(tbPurchaseTransaction.getSelectedRow());
+                            numItems--;
+                            calcTotalBalance();
+                        }
+                    }
+                });
 
         btnSubmit = new JButton("Submit");
         btnSubmit.setFont(fntPlainText);

@@ -48,6 +48,20 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements TableModel
                         tbModel.setValueAt(defaultVal, numItems, 4);
                     }
                 });
+        
+        btnDeleteItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (tbSalesInvoice.getSelectedRow() != -1 && tbModel.getRowCount() > 1)
+                        {
+                            tbModel.removeRow(tbSalesInvoice.getSelectedRow());
+                            numItems--;
+                            calcTotalBalance();
+                        }
+                    }
+                });
 
         btnSubmit = new JButton("Submit");
         btnSubmit.setFont(fntPlainText);

@@ -269,6 +269,20 @@ public class ReturnSlipGUI extends JPanel
 			{
 				return new TableRenderer();
 			}
+                        public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+                        {
+                            component = super.prepareRenderer(renderer, row, column);
+                            int modelRow = convertRowIndexToModel(row);
+                            if (!isRowSelected(modelRow)) 
+                            {
+                                component.setBackground(Color.WHITE);
+                            } 
+                            else 
+                            {
+                                component.setBackground(Color.yellow);
+                            }
+                            return component;
+                        }
 		};
 		spTable = new JScrollPane(tbReturnSlip);
 		spTable.setBounds(30, 210, 935, 158);

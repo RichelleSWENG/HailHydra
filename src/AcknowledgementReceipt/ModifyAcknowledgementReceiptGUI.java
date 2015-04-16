@@ -70,6 +70,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI i
                         }
                     }
                 });
+        
         btnAddItem.addActionListener(
                 new ActionListener()
                 {
@@ -77,6 +78,20 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI i
                     {
                         tbModel.setRowCount(numItems + 1);
                         tbModel.setValueAt(defaultVal, numItems, 4);
+                    }
+                });
+        
+        btnDeleteItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (tbARReceipt.getSelectedRow() != -1 && tbModel.getRowCount() > 1)
+                        {
+                            tbModel.removeRow(tbARReceipt.getSelectedRow());
+                            numItems--;
+                            calcTotalBalance();
+                        }
                     }
                 });
 

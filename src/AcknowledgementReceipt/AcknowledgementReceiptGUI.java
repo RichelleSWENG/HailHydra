@@ -238,6 +238,18 @@ public class AcknowledgementReceiptGUI extends JPanel {
             {
                 return new TableRenderer();
             }
+            
+            public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
+            {
+                component = super.prepareRenderer(renderer, row, column);
+                int modelRow = convertRowIndexToModel(row);
+                if (!isRowSelected(modelRow)) {
+                    component.setBackground(Color.WHITE);
+                } else {
+                    component.setBackground(Color.yellow);
+                }
+                return component;
+            }
         };
 
         tbARReceipt.getTableHeader().setFont(fntHeaderTableText);

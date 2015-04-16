@@ -52,6 +52,20 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                     tbModel.setValueAt(defaultVal, numItems, 4);       
                     }
                 });
+                
+                btnDeleteItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (tbReturnSlip.getSelectedRow() != -1 && tbModel.getRowCount() > 1)
+                        {
+                            tbModel.removeRow(tbReturnSlip.getSelectedRow());
+                            numItems--;
+                            calcTotalBalance();
+                        }
+                    }
+                });
 		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);

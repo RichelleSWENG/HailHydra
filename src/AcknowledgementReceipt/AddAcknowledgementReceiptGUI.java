@@ -24,7 +24,7 @@ import javax.swing.event.DocumentListener;
 public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI implements TableModelListener
 {
 
-    private JButton btnDeleteItem, btnSubmit, btnCancel;
+    private JButton btnSubmit, btnCancel;
     private GUIController guiController;
     private AcknowledgementReceiptController mainController;
     private int numItems;
@@ -86,6 +86,21 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
                         tbModel.setValueAt(defaultVal, numItems, 4);
                     }
                 });
+        
+        btnDeleteItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (tbARReceipt.getSelectedRow() != -1 && tbModel.getRowCount() > 1)
+                        {
+                            tbModel.removeRow(tbARReceipt.getSelectedRow());
+                            numItems--;
+                            calcTotalBalance();
+                        }
+                    }
+                });
+        
 
         btnSubmit = new JButton("Submit");
         btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
@@ -172,15 +187,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
         tbModel.setRowCount(1);
         tbModel.setValueAt(defaultVal, numItems, 4);
         tbModel.addTableModelListener(this);
-        
-        btnDeleteItem = new JButton("Delete Item");
-        btnDeleteItem.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
-        		tbModel.removeRow(tbARReceipt.getSelectedRow());
-        	}
-        });
-        
-    
+
     }
     public void setController(AcknowledgementReceiptController temp)
     {
@@ -296,6 +303,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI impl
     public void calcTotalBalance()
     {
         int i;
+        
         totalBalance = 0;
         for (i = 0; i < tbModel.getRowCount(); i ++)
         {
