@@ -23,7 +23,7 @@ import javax.swing.table.TableColumn;
 
 public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 {
-        private JButton btnAddItem, btnSubmit, btnCancel;
+        private JButton btnSubmit, btnCancel;
         private GUIController guiController;
         private DebitMemoController mainController;
         private int numItems;
@@ -39,9 +39,6 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 
                 lblHeader.setText("Add Debit Memo");
                 
-		btnAddItem = new JButton("Add Item");
-		btnAddItem.setFont(fntPlainText);
-		btnAddItem.setBounds(30, 545, 150, 40);
 		add(btnAddItem);
                 btnAddItem.addActionListener(
                 new ActionListener()

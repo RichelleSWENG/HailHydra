@@ -1,8 +1,18 @@
 package DebitMemo;
 
-import HailHydra.GUIController;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -10,25 +20,16 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import TableRenderer.TableRenderer;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.SystemColor;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
-import javax.swing.border.TitledBorder;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
+
+import HailHydra.GUIController;
+import TableRenderer.TableRenderer;
 
 public class DebitMemoGUI extends JPanel
 {
@@ -56,6 +57,7 @@ public class DebitMemoGUI extends JPanel
 	protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
         protected DateFormat dateFormat;
         private TitledBorder title;
+        protected JButton btnAddItem, btnDeleteItem;
         
         public DebitMemoGUI()
         {
@@ -100,22 +102,22 @@ public class DebitMemoGUI extends JPanel
                 
                 lblApprovedBy = new JLabel("Approved By:");
 		lblApprovedBy.setFont(fntPlainText);
-		lblApprovedBy.setBounds(30, 378, 145, 30);
+		lblApprovedBy.setBounds(30, 427, 145, 30);
 		add(lblApprovedBy);
                 
                 lblReceivedBy = new JLabel("Received By:");
 		lblReceivedBy.setFont(fntPlainText);
-		lblReceivedBy.setBounds(30, 419, 145, 30);
+		lblReceivedBy.setBounds(30, 468, 145, 30);
 		add(lblReceivedBy);
                 
                 lblApprovedDate = new JLabel("Date:");
 		lblApprovedDate.setFont(fntPlainText);
-		lblApprovedDate.setBounds(345, 378, 60, 30);
+		lblApprovedDate.setBounds(345, 427, 60, 30);
 		add(lblApprovedDate);
                 
 		lblReceivedDate = new JLabel("Date:");
 		lblReceivedDate.setFont(fntPlainText);
-		lblReceivedDate.setBounds(345, 419, 60, 30);
+		lblReceivedDate.setBounds(345, 468, 60, 30);
 		add(lblReceivedDate);
                 
                 lblTotal = new JLabel("Total:");
@@ -125,7 +127,7 @@ public class DebitMemoGUI extends JPanel
                 
                 lblNotes = new JLabel("Notes:");
 		lblNotes.setFont(fntPlainText);
-		lblNotes.setBounds(30, 460, 77, 30);
+		lblNotes.setBounds(30, 505, 77, 30);
 		add(lblNotes);
 
 		tfDBNum = new JTextField();
@@ -146,22 +148,22 @@ public class DebitMemoGUI extends JPanel
 
 		tfApprovedBy = new JTextField();
 		tfApprovedBy.setFont(fntPlainText);
-		tfApprovedBy.setBounds(164, 378, 170, 30);
+		tfApprovedBy.setBounds(164, 427, 170, 30);
 		add(tfApprovedBy);
 
 		tfReceivedBy = new JTextField();
 		tfReceivedBy.setFont(fntPlainText);
-		tfReceivedBy.setBounds(164, 419, 170, 30);
+		tfReceivedBy.setBounds(164, 468, 170, 30);
 		add(tfReceivedBy);
 
                 ftfApprovedDate= new JFormattedTextField(dateFormat);
                 ftfApprovedDate.setFont(fntPlainText);
-                ftfApprovedDate.setBounds(400, 378, 120, 30);
+                ftfApprovedDate.setBounds(400, 427, 120, 30);
                 add(ftfApprovedDate);
         
                 ftfReceivedDate= new JFormattedTextField(dateFormat);
                 ftfReceivedDate.setFont(fntPlainText);
-                ftfReceivedDate.setBounds(400, 419, 120, 30);
+                ftfReceivedDate.setBounds(400, 468, 120, 30);
                 add(ftfReceivedDate);             
                 
                 ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -191,7 +193,7 @@ public class DebitMemoGUI extends JPanel
                 add(spAddress);
                 
                 spNotes = new JScrollPane(taNotes);
-                spNotes.setBounds(30, 495, 490, 40);
+                spNotes.setBounds(30, 536, 490, 40);
                 add(spNotes);
                 
                 cmbCustomer = new JComboBox();
@@ -282,6 +284,16 @@ public class DebitMemoGUI extends JPanel
 		chckbxReplacement.setFont(fntPlainText);
 		chckbxReplacement.setBounds(30, 70, 200, 30);
 		pnlType.add(chckbxReplacement);
+		
+		btnAddItem = new JButton("Add Item");
+        btnAddItem.setFont(fntPlainText);
+        btnAddItem.setBounds(30, 378, 147, 40);
+        add(btnAddItem);
+
+        btnDeleteItem= new JButton("Delete Item");
+        btnDeleteItem.setFont(fntPlainText);
+        btnDeleteItem.setBounds(190, 378, 147, 40);
+        add(btnDeleteItem);
             
         }
         
