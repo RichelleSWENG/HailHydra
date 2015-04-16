@@ -81,17 +81,17 @@ public class ReturnSlipListGUI extends JPanel {
 
 		lblSearch = new JLabel("Search: ");
 		lblSearch.setFont(fntPlainText);
-		lblSearch.setBounds(30, 120, 100, 30);
+		lblSearch.setBounds(30, 160, 100, 30);
 		add(lblSearch);
 
 		lblRange = new JLabel("Range:");
 		lblRange.setFont(fntPlainText);
-		lblRange.setBounds(30, 160, 84, 30);
+		lblRange.setBounds(30, 120, 84, 30);
 		add(lblRange);
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(435, 160, 36, 30);
+		lblTo.setBounds(435, 120, 36, 30);
 		add(lblTo);
 
 		lblSlipsFound = new JLabel("Slip/s Found:");
@@ -106,27 +106,27 @@ public class ReturnSlipListGUI extends JPanel {
 
 		tfSearch = new JTextField();
 		tfSearch.setFont(fntPlainText);
-		tfSearch.setBounds(160, 120, 585, 30);
+		tfSearch.setBounds(160, 160, 585, 30);
 		add(tfSearch);
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(160, 160, 149, 30);
+		cmbFromMonth.setBounds(160, 120, 149, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(319, 160, 100, 30);
+		cmbFromYear.setBounds(319, 120, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(481, 160, 149, 30);
+		cmbToMonth.setBounds(481, 120, 149, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(645, 160, 100, 30);
+		cmbToYear.setBounds(645, 120, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
