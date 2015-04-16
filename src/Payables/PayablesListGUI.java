@@ -84,17 +84,17 @@ public class PayablesListGUI extends JPanel
 
 		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
-		lblSupplier.setBounds(30, 120, 107, 30);
+		lblSupplier.setBounds(30, 160, 107, 30);
 		add(lblSupplier);
 
 		lblRrange = new JLabel("Range:");
 		lblRrange.setFont(fntPlainText);
-		lblRrange.setBounds(30, 160, 87, 30);
+		lblRrange.setBounds(30, 120, 87, 30);
 		add(lblRrange);
                 
                 lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(405, 160, 36, 30);
+		lblTo.setBounds(405, 120, 36, 30);
 		add(lblTo);
                 
                 lblPayablesFound = new JLabel("Payable/s Found: ");
@@ -109,27 +109,27 @@ public class PayablesListGUI extends JPanel
 
                 tfSupplier = new JTextField();
 		tfSupplier.setFont(fntPlainText);
-		tfSupplier.setBounds(125, 120, 585, 30);
+		tfSupplier.setBounds(125, 160, 585, 30);
 		add(tfSupplier);
                 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(125, 160, 155, 30);
+		cmbFromMonth.setBounds(135, 120, 155, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
 		cmbFromYear.setFont(fntPlainText);
-		cmbFromYear.setBounds(295, 160, 100, 30);
+		cmbFromYear.setBounds(295, 120, 100, 30);
 		add(cmbFromYear);
 
 		cmbToMonth = new JComboBox();
 		cmbToMonth.setFont(fntPlainText);
-		cmbToMonth.setBounds(440, 160, 155, 30);
+		cmbToMonth.setBounds(440, 120, 155, 30);
 		add(cmbToMonth);
 
 		cmbToYear = new JComboBox();
 		cmbToYear.setFont(fntPlainText);
-		cmbToYear.setBounds(610, 160, 100, 30);
+		cmbToYear.setBounds(610, 120, 100, 30);
 		add(cmbToYear);
 
 		for (int i = 0; i < strMonths.length; i++)
