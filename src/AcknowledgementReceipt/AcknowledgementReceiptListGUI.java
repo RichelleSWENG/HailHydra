@@ -85,18 +85,18 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
         lblSearch = new JLabel("Search:");
         lblSearch.setFont(fntPlainText);
-        lblSearch.setBounds(30, 120, 93, 30);
+        lblSearch.setBounds(30, 160, 93, 30);
         add(lblSearch);
 
         lblRange = new JLabel("Range:");
         lblRange.setFont(fntPlainText);
-        lblRange.setBounds(30, 160, 85, 30);
+        lblRange.setBounds(30, 120, 85, 30);
         add(lblRange);
-
-        lblTo = new JLabel("TO");
-        lblTo.setFont(fntPlainText);
-        lblTo.setBounds(415, 160, 30, 30);
-        add(lblTo);
+        
+                lblTo = new JLabel("TO");
+                lblTo.setFont(fntPlainText);
+                lblTo.setBounds(415, 120, 30, 30);
+                add(lblTo);
 
         lblReceiptsFound = new JLabel("Receipt/s Found: ");
         lblReceiptsFound.setFont(fntPlainText);
@@ -110,27 +110,35 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(140, 120, 600, 30);
+        tfSearch.setBounds(140, 160, 600, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
         cmbFromMonth.setFont(fntPlainText);
-        cmbFromMonth.setBounds(140, 160, 155, 30);
+        cmbFromMonth.setBounds(140, 120, 155, 30);
         add(cmbFromMonth);
-
-        cmbFromYear = new JComboBox();
-        cmbFromYear.setFont(fntPlainText);
-        cmbFromYear.setBounds(305, 160, 100, 30);
-        add(cmbFromYear);
+        
+                cmbFromYear = new JComboBox();
+                cmbFromYear.setFont(fntPlainText);
+                cmbFromYear.setBounds(305, 120, 100, 30);
+                add(cmbFromYear);
+                cmbFromYear.addActionListener(new ActionListener() 
+                {
+                    public void actionPerformed(ActionEvent ae) 
+                    {
+                        tfSearch.setText(null);
+                        mainController.searchbyDate(cmbFromYear.getSelectedItem() + "-" + (cmbFromMonth.getSelectedIndex() + 1) + "-01", cmbToYear.getSelectedItem() + "-" + (cmbToMonth.getSelectedIndex() + 1) + "-31");
+                    }
+                });
 
         cmbToMonth = new JComboBox();
         cmbToMonth.setFont(fntPlainText);
-        cmbToMonth.setBounds(455, 160, 155, 30);
+        cmbToMonth.setBounds(455, 120, 155, 30);
         add(cmbToMonth);
 
         cmbToYear = new JComboBox();
         cmbToYear.setFont(fntPlainText);
-        cmbToYear.setBounds(620, 160, 100, 30);
+        cmbToYear.setBounds(620, 120, 100, 30);
         add(cmbToYear);
 
         for (int i = 0; i < strMonths.length; i++) 
@@ -165,14 +173,6 @@ public class AcknowledgementReceiptListGUI extends JPanel
                 mainController.searchbyDate(cmbFromYear.getSelectedItem() + "-" + (cmbFromMonth.getSelectedIndex() + 1) + "-01", cmbToYear.getSelectedItem() + "-" + (cmbToMonth.getSelectedIndex() + 1) + "-31");
             }
 
-        });
-        cmbFromYear.addActionListener(new ActionListener() 
-        {
-            public void actionPerformed(ActionEvent ae) 
-            {
-                tfSearch.setText(null);
-                mainController.searchbyDate(cmbFromYear.getSelectedItem() + "-" + (cmbFromMonth.getSelectedIndex() + 1) + "-01", cmbToYear.getSelectedItem() + "-" + (cmbToMonth.getSelectedIndex() + 1) + "-31");
-            }
         });
 
         tfSearch.getDocument().addDocumentListener(new DocumentListener() 
