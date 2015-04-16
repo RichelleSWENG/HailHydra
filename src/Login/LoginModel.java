@@ -46,7 +46,7 @@ public class LoginModel
         {
             //Order Notifications
             statement = db.createStatement();
-            sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE stock_minimum >= quantity_functional";
+            sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE quantity_functional<=stock_minimum";
             rs = statement.executeQuery(sql);
             while (rs.next())
             {

@@ -3,7 +3,7 @@ package HailHydra;
 
 import Database.DBConnection;
 import Database.DatabaseGUI;
-import ModifyAlertVAT.FactoryModify;
+import ModifyAlert.FactoryModify;
 
 import java.awt.BorderLayout;
 import java.awt.SystemColor;

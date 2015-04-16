@@ -54,7 +54,7 @@ import Login.ProfilesGUI;
 import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
-import ModifyAlertVAT.FactoryModify;
+import ModifyAlert.FactoryModify;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesController;
 import Payables.PayablesListGUI;
@@ -202,7 +202,7 @@ public class GUIController
     public void changePanelToMainMenu()
     {
         modal.dispose();
-        main.setMainController(new LoginController(new LoginModel(dbc)));
+        main.setMainController(new LoginController(new LoginModel(dbc),main));
         getContentPanel().add(main);
         frameRevalidate();
     }

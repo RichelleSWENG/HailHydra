@@ -7,7 +7,7 @@
 package BasicSystemSettings;
 
 import Database.DBConnection;
-import ModifyAlertVAT.FactoryModify;
+import ModifyAlert.FactoryModify;
 import Payables.Payment;
 import java.sql.Connection;
 import java.sql.ResultSet;
