@@ -14,30 +14,39 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 
-public class MainMenuGUI extends JPanel {
+public class MainMenuGUI extends JPanel 
+{
 
 	private JLabel lblHeader, lblNotifications;
 	private JPanel pnlNotifications, pnlSections;
+        private JScrollPane spNotifications;
 	private JButton btnLogout, btnProfiles, btnPurchases, btnSales,
 			btnPayments, systemSettingsBtn;
 	private Font fntHeaderText, fntPlainText, fntMarkerText;
-	private GUIController controller;
+	private GUIController GUIcontroller;
         private LoginController mainController;
 
-	public MainMenuGUI(GUIController temp) {
+	public MainMenuGUI(GUIController temp)
+	{
 
-		controller = temp;
+		GUIcontroller = temp;
 		try {
 			UIManager.setLookAndFeel(UIManager
 					.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
 
+                GUIcontroller.setTitle();
+                
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 		fntMarkerText = new Font("Arial", Font.BOLD, 30);
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
@@ -54,9 +63,14 @@ public class MainMenuGUI extends JPanel {
 
 		pnlNotifications = new JPanel();
 		pnlNotifications.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
+                pnlNotifications.setLayout(new BoxLayout(pnlNotifications, BoxLayout.PAGE_AXIS));
 		pnlNotifications.setBounds(30, 127, 300, 450);
-                pnlNotifications.setBackground(Color.white);
 		add(pnlNotifications);
+                
+                spNotifications = new JScrollPane(pnlNotifications);
+                spNotifications.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+                spNotifications.setBounds(30, 127, 300, 450);
+                add(spNotifications);
 
 		pnlSections = new JPanel();
 		pnlSections.setBorder(new LineBorder(new Color(0, 0, 0), 2, true));
@@ -68,71 +82,79 @@ public class MainMenuGUI extends JPanel {
 		btnLogout.setFont(fntPlainText);
 		btnLogout.setBounds(850, 30, 113, 40);
 		add(btnLogout);
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToLogin();
+		btnLogout.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToLogin();
 			}
 		});
 
 		btnProfiles = new JButton("Profiles");
 		btnProfiles.setFont(fntPlainText);
-		btnProfiles.setForeground(Color.BLACK);
 		btnProfiles.setBounds(370, 97, 110, 82);
 		add(btnProfiles);
-		btnProfiles.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToProfiles();
+		btnProfiles.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToProfiles();
 			}
 		});
 		btnProfiles.setSelected(true);
 
 		btnPurchases = new JButton("Purchases");
 		btnPurchases.setFont(fntPlainText);
-		btnPurchases.setForeground(Color.BLACK);
 		btnPurchases.setBounds(480, 97, 140, 82);
 		add(btnPurchases);
-		btnPurchases.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToPurchases();
+		btnPurchases.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToPurchases();
 			}
 		});
 
 		btnSales = new JButton("Sales");
 		btnSales.setFont(fntPlainText);
-		btnSales.setForeground(Color.BLACK);
 		btnSales.setBounds(620, 97, 100, 82);
 		add(btnSales);
-		btnSales.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToSales();
+		btnSales.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToSales();
 			}
 		});
 
 		btnPayments = new JButton("Payments");
 		btnPayments.setFont(fntPlainText);
-		btnPayments.setForeground(Color.BLACK);
 		btnPayments.setBounds(720, 97, 130, 82);
 		add(btnPayments);
-		btnPayments.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToPayments();
+		btnPayments.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToPayments();
 			}
 		});
 
 		systemSettingsBtn = new JButton("<html>System<br />Settings</html>");
 		systemSettingsBtn.setFont(fntPlainText);
-		systemSettingsBtn.setForeground(Color.BLACK);
 		systemSettingsBtn.setBounds(850, 97, 110, 82);
 		add(systemSettingsBtn);
-		systemSettingsBtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				controller.changePanelToSystemSettings();
+		systemSettingsBtn.addActionListener(new ActionListener() 
+                {
+			public void actionPerformed(ActionEvent e) 
+                        {
+				GUIcontroller.changePanelToSystemSettings();
 			}
 		});
                 
 	}
 
-	public JPanel getSectionsPanel() {
+	public JPanel getSectionsPanel() 
+        {
 		return pnlSections;
 	}
         
@@ -145,12 +167,11 @@ public class MainMenuGUI extends JPanel {
             for (int i = 0; i < notifs.size(); i++)
             {
                 feedPanel = new JPanel();
-		feedPanel.setBackground(Color.WHITE);
-		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		feedPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 10));
 		
-		JLabel lblNews = new JLabel("<html> <b>" + notifs.get(i).getType() + "</b> <br> " + notifs.get(i).getDescription() + "</html>");
-		lblNews.setFont(new Font("Arial", Font.PLAIN, 14));
-                lblNews.setPreferredSize(new Dimension(280, 80));
+		JLabel lblNews = new JLabel("<html><center> <b>" + notifs.get(i).getType() + " Alert:</b> <br> " + notifs.get(i).getDescription() + "<br></center></html>");
+		lblNews.setFont(fntPlainText);
+                lblNews.setPreferredSize(new Dimension(240, 150));
 		feedPanel.add(lblNews);
                 feedPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0, Color.BLACK));
                 
@@ -164,10 +185,11 @@ public class MainMenuGUI extends JPanel {
         public void setMainController(LoginController mainController)
         {
             this.mainController = mainController;
-            getNotifs();
+            this.mainController.update();
         }
 
-	public static void main(String args[]) {
+	public static void main(String args[]) 
+        {
 		GUIController temp = new GUIController();
 		temp.changePanelToMainMenu();
 	}

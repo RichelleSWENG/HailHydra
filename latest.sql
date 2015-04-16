@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 5.6.17, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `hydraforce_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `hydraforce_db`;
+-- MySQL dump 10.13  Distrib 5.6.17, for Win32 (x86)
 --
 -- Host: 127.0.0.1    Database: hydraforce_db
 -- ------------------------------------------------------
--- Server version	5.6.22-log
+-- Server version	5.6.19
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +38,7 @@ CREATE TABLE `account` (
 
 LOCK TABLES `account` WRITE;
 /*!40000 ALTER TABLE `account` DISABLE KEYS */;
-INSERT INTO `account` VALUES ('admin','1234',0),('employee','12345',1);
+INSERT INTO `account` VALUES ('admin','1234',0),('angeline','1234',0),('employee','12345',1),('janine','1234',1);
 /*!40000 ALTER TABLE `account` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,153 +109,6 @@ LOCK TABLES `arlineitem` WRITE;
 /*!40000 ALTER TABLE `arlineitem` DISABLE KEYS */;
 INSERT INTO `arlineitem` VALUES ('1234',2,'123',10.00,20.00),('6',1,'234',70.00,70.00),('6',1,'SHV_E300K',220.00,220.00),('23',1,'345',87.00,87.00);
 /*!40000 ALTER TABLE `arlineitem` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bbcollection`
---
-
-DROP TABLE IF EXISTS `bbcollection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bbcollection` (
-  `bb_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `system_account_num` int(20) DEFAULT NULL,
-  PRIMARY KEY (`bb_collection_id`),
-  KEY `system_account_num_idx` (`system_account_num`),
-  CONSTRAINT `system_account_num` FOREIGN KEY (`system_account_num`) REFERENCES `systemaccount` (`account_num`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bbcollection`
---
-
-LOCK TABLES `bbcollection` WRITE;
-/*!40000 ALTER TABLE `bbcollection` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bbcollection` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `bbpayment`
---
-
-DROP TABLE IF EXISTS `bbpayment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `bbpayment` (
-  `bb_payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_num` int(20) NOT NULL,
-  `bank_name` varchar(45) NOT NULL,
-  `bank_branch` varchar(45) NOT NULL,
-  `system_account_num` int(20) NOT NULL,
-  PRIMARY KEY (`bb_payment_id`),
-  KEY `system_account_num_idx` (`system_account_num`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `bbpayment`
---
-
-LOCK TABLES `bbpayment` WRITE;
-/*!40000 ALTER TABLE `bbpayment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `bbpayment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cashcollection`
---
-
-DROP TABLE IF EXISTS `cashcollection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cashcollection` (
-  `cash_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`cash_collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cashcollection`
---
-
-LOCK TABLES `cashcollection` WRITE;
-/*!40000 ALTER TABLE `cashcollection` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cashcollection` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cashpayment`
---
-
-DROP TABLE IF EXISTS `cashpayment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cashpayment` (
-  `cash_payment_id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`cash_payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cashpayment`
---
-
-LOCK TABLES `cashpayment` WRITE;
-/*!40000 ALTER TABLE `cashpayment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cashpayment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `checkcollection`
---
-
-DROP TABLE IF EXISTS `checkcollection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `checkcollection` (
-  `check_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_name` varchar(45) DEFAULT NULL,
-  `account_number` int(20) NOT NULL,
-  `bank_name` varchar(45) NOT NULL,
-  `branch` varchar(45) NOT NULL,
-  `check_number` int(11) NOT NULL,
-  PRIMARY KEY (`check_collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `checkcollection`
---
-
-LOCK TABLES `checkcollection` WRITE;
-/*!40000 ALTER TABLE `checkcollection` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkcollection` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `checkpayment`
---
-
-DROP TABLE IF EXISTS `checkpayment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `checkpayment` (
-  `check_payment_id` int(11) NOT NULL,
-  `check_number` int(11) NOT NULL,
-  `system_account_num` int(20) NOT NULL,
-  PRIMARY KEY (`check_payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `checkpayment`
---
-
-LOCK TABLES `checkpayment` WRITE;
-/*!40000 ALTER TABLE `checkpayment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `checkpayment` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -359,68 +214,6 @@ INSERT INTO `creditmemo` VALUES ('000001','2015-04-10','000002','345',1,'Replace
 UNLOCK TABLES;
 
 --
--- Table structure for table `creditmemopayment`
---
-
-DROP TABLE IF EXISTS `creditmemopayment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `creditmemopayment` (
-  `credit_memo_payment_id` int(11) NOT NULL,
-  `credit_memo_id` varchar(45) NOT NULL,
-  PRIMARY KEY (`credit_memo_payment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `creditmemopayment`
---
-
-LOCK TABLES `creditmemopayment` WRITE;
-/*!40000 ALTER TABLE `creditmemopayment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `creditmemopayment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `customer`
---
-
-DROP TABLE IF EXISTS `customer`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `customer` (
-  `customer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `address_location` varchar(100) DEFAULT NULL,
-  `address_city` varchar(45) DEFAULT NULL,
-  `address_country` varchar(45) DEFAULT NULL,
-  `address_postal_code` varchar(45) DEFAULT NULL,
-  `phone1` int(11) DEFAULT NULL,
-  `phone2` int(11) DEFAULT NULL,
-  `phone3` int(11) DEFAULT NULL,
-  `fax_num` int(11) DEFAULT NULL,
-  `website` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `conatct_person` varchar(45) DEFAULT NULL,
-  `status` varchar(8) NOT NULL DEFAULT 'Active',
-  `credit_limit` int(11) NOT NULL,
-  `terms` int(11) NOT NULL,
-  `type` varchar(45) NOT NULL,
-  `current_balance` float NOT NULL DEFAULT '0',
-  PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `customer`
---
-
-LOCK TABLES `customer` WRITE;
-/*!40000 ALTER TABLE `customer` DISABLE KEYS */;
-/*!40000 ALTER TABLE `customer` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `debitmemo`
 --
 
@@ -454,29 +247,6 @@ LOCK TABLES `debitmemo` WRITE;
 /*!40000 ALTER TABLE `debitmemo` DISABLE KEYS */;
 INSERT INTO `debitmemo` VALUES ('000001','2015-04-12',4,1000.00,'Sales Invoice Receipt','56s4da56sa','','','',NULL,'',1,'Replacement'),('000002','2015-04-12',2,100.00,'Acknowledgement Receipt','1234','','','',NULL,'',1,'Replacement'),('000003','2015-04-12',2,150.00,'Acknowledgement Receipt','23','','','',NULL,'',0,'Not Replacement'),('000004','2015-04-12',1,45.00,'Acknowledgement Receipt','6','2015-04-15','MArk','2015-04-15','2015-04-20','',0,'Not Replacement');
 /*!40000 ALTER TABLE `debitmemo` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `debitmemocollection`
---
-
-DROP TABLE IF EXISTS `debitmemocollection`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `debitmemocollection` (
-  `debit_memo_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `debit_memo_id` varchar(45) NOT NULL,
-  PRIMARY KEY (`debit_memo_collection_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `debitmemocollection`
---
-
-LOCK TABLES `debitmemocollection` WRITE;
-/*!40000 ALTER TABLE `debitmemocollection` DISABLE KEYS */;
-/*!40000 ALTER TABLE `debitmemocollection` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -775,44 +545,6 @@ INSERT INTO `silineitem` VALUES ('1234',2,'123',10.00,20.00),('56s4da56sa',1,'12
 UNLOCK TABLES;
 
 --
--- Table structure for table `supplier`
---
-
-DROP TABLE IF EXISTS `supplier`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `supplier` (
-  `supplier_id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `address_location` varchar(100) DEFAULT NULL,
-  `address_city` varchar(45) DEFAULT NULL,
-  `address_country` varchar(45) DEFAULT NULL,
-  `addresspostalcode` varchar(45) DEFAULT NULL,
-  `phone1` int(11) DEFAULT NULL,
-  `phone2` int(11) DEFAULT NULL,
-  `phone3` int(11) DEFAULT NULL,
-  `faxnum` int(11) DEFAULT NULL,
-  `website` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `contact_person` varchar(45) DEFAULT NULL,
-  `status` varchar(45) NOT NULL DEFAULT 'Active',
-  `credit_limit` int(11) DEFAULT NULL,
-  `terms` int(11) DEFAULT NULL,
-  `current_balance` float NOT NULL DEFAULT '0',
-  PRIMARY KEY (`supplier_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `supplier`
---
-
-LOCK TABLES `supplier` WRITE;
-/*!40000 ALTER TABLE `supplier` DISABLE KEYS */;
-/*!40000 ALTER TABLE `supplier` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `systemaccount`
 --
 
@@ -847,14 +579,14 @@ DROP TABLE IF EXISTS `systeminfo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systeminfo` (
-  `system_info_id` int(11) NOT NULL AUTO_INCREMENT,
+  `system_info_id` int(11) NOT NULL,
   `company_name` varchar(60) NOT NULL,
-  `company_address` varchar(100) NOT NULL,
+  `company_address` varchar(200) DEFAULT NULL,
   `vat_percentage` int(11) NOT NULL,
   `credit_alert` int(11) NOT NULL,
   `terms_report` int(11) NOT NULL,
   PRIMARY KEY (`system_info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -863,7 +595,7 @@ CREATE TABLE `systeminfo` (
 
 LOCK TABLES `systeminfo` WRITE;
 /*!40000 ALTER TABLE `systeminfo` DISABLE KEYS */;
-INSERT INTO `systeminfo` VALUES (1,'Hydraforce Enterprises','206 Rizal Ave. Ext., 117 Caloocan City, Manila, Philippines',18,70,5);
+INSERT INTO `systeminfo` VALUES (1,'Hydraforce',NULL,12,10,30);
 /*!40000 ALTER TABLE `systeminfo` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -876,4 +608,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-12 22:15:02
+-- Dump completed on 2015-04-14 21:59:21

@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -192,10 +191,11 @@ public class AddItemProfileGUI extends ItemProfileGUI
                     al.add(ftfLastCost.getText().replaceAll(",", ""));
                     al.add(taNotes.getText());
                     if(imageLocation == null) 
-                        al.add(imageLocation);    //set new
+                        al.add(imageLocation);   
                     if(chckbxInactiveItem.isSelected())
                         al.add("0");
                     else al.add("1");
+                    
                     mainController.setItemProfile(al);
                     mainController.ModifyItemProfile(al); 
                     mainController.AddItem(tfPartNumber.getText(), tfDescription.getText(), tfRackLocation.getText(), ftfStockMinimum.getText().replaceAll(",", ""), ftfSisterCompanyPrice.getText().replaceAll(",", ""), ftfRetailPrice.getText().replaceAll(",", ""), ftfWalkinPrice.getText().replaceAll(",", ""), ftfLastCost.getText().replaceAll(",", ""), taNotes.getText(), imageLocation, Boolean.toString(chckbxInactiveItem.isSelected()));
@@ -223,7 +223,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
                     {
                         return false;
                     }
-                    // only got here if we didn't return false
+                    
                     return true;
                 }
 

@@ -68,6 +68,9 @@ public class TermsReportGUI extends JPanel
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
+		
+		tbModel = new DefaultTableModel(strHeader, strHeader.length);
+		tbModel.setRowCount(0);
 
 		lblHeader = new JLabel("Terms Report");
 		lblHeader.setFont(fntHeaderText);

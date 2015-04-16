@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Login;
 
 import Database.DBConnection;
@@ -12,15 +8,11 @@ import java.sql.Statement;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-/**
- *
- * @author Janine
- */
+
 public class LoginModel
 {
-
-    protected Connection db;
-    protected Statement statement;
+    private Connection db;
+    private Statement statement;
     private ArrayList<Notification> notifs;
 
     public LoginModel(DBConnection db)
@@ -54,12 +46,12 @@ public class LoginModel
         {
             //Order Notifications
             statement = db.createStatement();
-            sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE stock_minimum >= quantity_functional";
+            sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE quantity_functional<=stock_minimum";
             rs = statement.executeQuery(sql);
             while (rs.next())
             {
                 //add to list of notifs
-                notifs.add(new Notification("Stock Minimum Reached", "Item Part No. " + rs.getString("part_num") + " (quantity: " + rs.getInt("quantity_functional") + ") has reached stock minimimum (" + rs.getInt("stock_minimum") + ")."));
+                notifs.add(new Notification("Stock Minimum Reached", "Item Part No. " + rs.getString("part_num") +/* " (quantity: " + rs.getInt("quantity_functional") + ")*/ " has reached stock minimimum."/* (" + rs.getInt("stock_minimum") + ")."*/));
             }
 
             //Credit Limit Notifications
@@ -88,7 +80,7 @@ public class LoginModel
                 if (companyLimit != 0 && companyLimit * creditLimitP/100 <= rs.getFloat("total_bal"))
                 {
                     //add to list of notifs
-                    notifs.add(new Notification("Credit Limit", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") is nearing credit limit. <br>Total Balance: " + df.format(rs.getFloat("total_bal")) + " Credit Limit: " + df.format(rs2.getFloat("credit_limit"))));
+                    notifs.add(new Notification("Credit Limit", rs2.getString("name") + /*" (ID: " + rs.getString("company_id") + ")*/ " is nearing credit limit. "/* "<br>Total Balance: " + df.format(rs.getFloat("total_bal")) + " Credit Limit: " + df.format(rs2.getFloat("credit_limit"))*/));
                 }
             }
             
@@ -105,7 +97,7 @@ public class LoginModel
             rs = statement.executeQuery(sql);
             while (rs.next())
             {
-                notifs.add(new Notification("Exceeded Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") has exceeded terms: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))));
+                notifs.add(new Notification("Exceeded Terms", rs2.getString("name") + /*" (ID: " + rs.getString("company_id") + ")*/" has exceeded terms."/*: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))*/));
             }
             
             //Near Terms Notifications
@@ -128,7 +120,7 @@ public class LoginModel
             while (rs.next())
             {
                 //add to list of notifs
-                notifs.add(new Notification("Near Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") is nearing its terms: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))));
+                notifs.add(new Notification("Near Terms", rs2.getString("name") + " (ID: " + rs.getString("company_id") + ") is nearing its terms." /*: <br> SI/AR ID: " + rs.getString("id") + " Dated: " + rs.getString("date") + "<br> Balance to Pay: " + df.format(rs.getFloat("current_balance"))*/));
             }
             
         } catch (Exception e)

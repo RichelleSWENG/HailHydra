@@ -203,10 +203,6 @@ public class AccountProfileListGUI extends JPanel
 		spTable.setBounds(30, 205, 935, 320);
 		add(spTable);
 
-		tbAccountProfile.getTableHeader().setFont(fntPlainText);
-		tbAccountProfile.getTableHeader().setPreferredSize(
-				new Dimension(100, 55));
-		tbAccountProfile.getTableHeader().setResizingAllowed(false);
 		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1) 

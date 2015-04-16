@@ -1,6 +1,8 @@
-package ModifyAlertVAT;
+package ModifyAlert;
 
 import Database.DBConnection;
+import Login.Observer;
+import Login.Subject;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,9 +10,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FactoryModify {
+public class FactoryModify implements Subject{
         protected Connection db;
         protected Statement statement;
+        private Observer observer;
 	public void createProduct(String modify,DBConnection dbc){
                 this.db=dbc.getConnection();
 		if ("VAT"==modify){
@@ -22,6 +25,7 @@ public class FactoryModify {
                                 statement = db.createStatement();
                                 String sql = "UPDATE systeminfo SET vat_percentage='"+vat+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
+                                notifyObserver();
                             } catch (Exception e)
                             {
                                 e.getMessage();
@@ -38,6 +42,7 @@ public class FactoryModify {
                                 System.out.println(terms);
                                 String sql = "UPDATE systeminfo SET terms_report='"+terms+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
+                                notifyObserver();
                             } catch (Exception e)
                             {
                                 e.getMessage();
@@ -55,6 +60,7 @@ public class FactoryModify {
                                 System.out.println(creditlimit);
                                 String sql = "UPDATE systeminfo SET credit_alert='"+creditlimit+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
+                                notifyObserver();
                             } catch (Exception e)
                             {
                                 e.getMessage();
@@ -133,4 +139,14 @@ public class FactoryModify {
                 }
                 return "";
             }
+
+    @Override
+    public void register(Observer o) {
+        this.observer=o;
+    }
+
+    @Override
+    public void notifyObserver() {
+        observer.update();
+    }
 }

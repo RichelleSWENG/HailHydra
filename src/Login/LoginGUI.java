@@ -16,18 +16,21 @@ import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
 
 
-public class LoginGUI extends JPanel {
-    
+public class LoginGUI extends JPanel 
+{
         private JLabel lblHeader, lblUsername, lblPassword;
 	private JTextField tfUsername;
 	private JPasswordField pfPassword;
 	private JButton btnLogin;
         private Font fntPlainText, fntHeaderText;
-        private GUIController controllerGUI;
+        private GUIController GUIcontroller;
         private LoginController mainController;
 
-	public LoginGUI(GUIController temp) {
-                controllerGUI=temp;
+	public LoginGUI(GUIController temp) 
+        {
+                GUIcontroller=temp;
+                GUIcontroller.setTitle();
+                
                 setBounds(0, 0, 1000, 620);
                 setLayout(null);
 		setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -61,23 +64,23 @@ public class LoginGUI extends JPanel {
 		add(pfPassword);
                 pfPassword.addKeyListener(new KeyAdapter() 
                 { 
-                public void keyReleased(KeyEvent e) 
-                {
-
-                }
-
-                public void keyTyped(KeyEvent e) 
-                {
-
-                }
-
-                public void keyPressed(KeyEvent e) 
-                {
-                    if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                    public void keyReleased(KeyEvent e) 
                     {
-                        btnLogin.doClick();
-                     }
-                }
+
+                    }
+
+                    public void keyTyped(KeyEvent e) 
+                    {
+
+                    }
+
+                    public void keyPressed(KeyEvent e) 
+                    {
+                        if (e.getKeyCode() == KeyEvent.VK_ENTER)
+                        {
+                            btnLogin.doClick();
+                         }
+                    }
                 });
                 
 		btnLogin = new JButton("Login");
@@ -94,12 +97,12 @@ public class LoginGUI extends JPanel {
                                     if(mainController.validate(tfUsername.getText(), password)!=null)
                                     {
                                         if(mainController.validate(tfUsername.getText(), password).equals("1"))
-                                            controllerGUI.setToEmployee();
+                                            GUIcontroller.setToEmployee();
                                         else if(mainController.validate(tfUsername.getText(), password).equals("0"))
-                                            controllerGUI.setToAdmin();
+                                            GUIcontroller.setToAdmin();
                                         
-                                            controllerGUI.changePanelToMainMenu();
-                                            controllerGUI.changePanelToProfiles();
+                                            GUIcontroller.changePanelToMainMenu();
+                                            GUIcontroller.changePanelToProfiles();
                                     }
                                     else
                                         JOptionPane.showMessageDialog(null, "Wrong username or password");
@@ -116,9 +119,9 @@ public class LoginGUI extends JPanel {
 		
 	}
         
-        public void setMainController(LoginController cont)
+        public void setMainController(LoginController temp)
         {
-            mainController=cont;
+            mainController=temp;
         }
         
         public static void main(String args[]){

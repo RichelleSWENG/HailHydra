@@ -32,6 +32,7 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                 lblHeader.setText("Modify Item Profile");
                 al = new ArrayList();
                
+                tfPartNumber.setEditable(false);
                 ftfSisterCompanyPrice.setEditable(false);
                 ftfRetailPrice.setEditable(false);
                 ftfWalkinPrice.setEditable(false);
@@ -46,21 +47,26 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                 tfPartNumber.setText(itemProfile.get(0).toString());
                 tfDescription.setText(itemProfile.get(1).toString());
                 tfRackLocation.setText(itemProfile.get(2).toString());
-                ftfStockMinimum.setText(itemProfile.get(3).toString());
-                ftfSisterCompanyPrice.setText(itemProfile.get(4).toString());
-                ftfRetailPrice.setText(itemProfile.get(5).toString());
-                ftfWalkinPrice.setText(itemProfile.get(6).toString());
-                ftfLastCost.setText(itemProfile.get(7).toString());
+                ftfStockMinimum.setValue(Double.parseDouble(itemProfile.get(3).toString()));
+                ftfSisterCompanyPrice.setValue(Double.parseDouble(itemProfile.get(4).toString()));
+                ftfRetailPrice.setValue(Double.parseDouble(itemProfile.get(5).toString()));
+                ftfWalkinPrice.setValue(Double.parseDouble(itemProfile.get(6).toString()));
+                ftfLastCost.setValue(Double.parseDouble(itemProfile.get(7).toString()));
                 taNotes.setText(itemProfile.get(8).toString());
                 ImageIcon icon;
                 if(!"null".equals(itemProfile.get(9)))
                 {
-                    File ImageFile = new File(itemProfile.get(9).toString());
-                    Image image = null;
-                    image = ImageIO.read(ImageFile);
-                    Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
-                    icon = new ImageIcon(resizedImage);
-                    lblImage.setIcon(icon);
+                    try{
+                        File ImageFile = new File(itemProfile.get(9).toString());
+                        Image image = null;
+                        image = ImageIO.read(ImageFile);
+                        Image resizedImage = image.getScaledInstance(lblImage.getWidth(), lblImage.getHeight(), 0);//resize pic to fit JLabel
+                        icon = new ImageIcon(resizedImage);
+                        lblImage.setIcon(icon);
+                    } catch(Exception e)
+                    {
+                        
+                    }
                 }
                 imagePath = itemProfile.get(9).toString();
                         
@@ -287,7 +293,7 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
                         {
                             try
                             {
-                                // if(JOptionPane.showConfirmDialog(null, "All inputted data will be disregarded. Are you sure you want to cancel?", "Cancel", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
+                                 if(JOptionPane.showConfirmDialog(null, "All inputted data will be disregarded. Are you sure you want to cancel?", "Cancel", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
                                 guiController.changePanelToViewItemProfile();
                             } catch (IOException ex)
                             {

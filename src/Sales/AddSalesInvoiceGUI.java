@@ -22,7 +22,7 @@ import javax.swing.table.TableColumn;
 public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnSubmit, btnCancel;
+    private JButton btnSubmit, btnCancel;
     private GUIController guiController;
     private SalesInvoiceController mainController;
     private int numItems;
@@ -67,11 +67,8 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
                 }
                 });
         
-        btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 545, 147, 40);
-        add(btnAddItem);
-        btnAddItem.addActionListener(
+        
+            btnAddItem.addActionListener(
                 new ActionListener()
                 {
                     public void actionPerformed(ActionEvent e)
@@ -172,11 +169,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         VATpercent = mainController.getCurrentVat();
     }
 
-    public static void main(String args[])
-    {
-        GUIController temp = new GUIController();
-        temp.changePanelToAddSalesInvoice();
-    }
+    
 
     public void setDataComponents()
     {
@@ -258,10 +251,18 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
                     }
                 }
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
-                {    
-                    totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
-                    tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-                    calcTotalBalance();
+                {   
+                    if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1))
+                    {
+                        totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
+                        tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+                        calcTotalBalance();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy " + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
+                        tbModel.setValueAt("0", e.getFirstRow(), 0);
+                    }
                 }
             }
         }
@@ -314,6 +315,12 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLis
         {
             super(new JComboBox(str));
         }
+    }
+    
+    public static void main(String args[])
+    {
+        GUIController temp = new GUIController();
+        temp.changePanelToAddSalesInvoice();
     }
     
 }

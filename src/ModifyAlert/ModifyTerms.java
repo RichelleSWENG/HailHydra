@@ -1,4 +1,4 @@
-package ModifyAlertVAT;
+package ModifyAlert;
 
 import javax.swing.JOptionPane;
 

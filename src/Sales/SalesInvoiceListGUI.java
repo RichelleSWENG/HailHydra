@@ -90,17 +90,17 @@ public class SalesInvoiceListGUI extends JPanel
 
         lblSearch = new JLabel("Search: ");
         lblSearch.setFont(fntPlainText);
-        lblSearch.setBounds(30, 120, 84, 30);
+        lblSearch.setBounds(30, 160, 84, 30);
         add(lblSearch);
 
         lblRange = new JLabel("Range:");
         lblRange.setFont(fntPlainText);
-        lblRange.setBounds(30, 160, 84, 30);
+        lblRange.setBounds(30, 120, 84, 30);
         add(lblRange);
 
         lblTo = new JLabel("TO");
         lblTo.setFont(fntPlainText);
-        lblTo.setBounds(415, 160, 36, 30);
+        lblTo.setBounds(415, 120, 36, 30);
         add(lblTo);
 
         lblInvoicesFound = new JLabel("Invoice/s Found:");
@@ -176,27 +176,27 @@ public class SalesInvoiceListGUI extends JPanel
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(140, 120, 590, 30);
+        tfSearch.setBounds(140, 160, 590, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
         cmbFromMonth.setFont(fntPlainText);
-        cmbFromMonth.setBounds(140, 160, 148, 30);
+        cmbFromMonth.setBounds(140, 120, 148, 30);
         add(cmbFromMonth);
 
         cmbFromYear = new JComboBox();
         cmbFromYear.setFont(fntPlainText);
-        cmbFromYear.setBounds(300, 160, 100, 30);
+        cmbFromYear.setBounds(300, 120, 100, 30);
         add(cmbFromYear);
 
         cmbToMonth = new JComboBox();
         cmbToMonth.setFont(fntPlainText);
-        cmbToMonth.setBounds(460, 160, 148, 30);
+        cmbToMonth.setBounds(460, 120, 148, 30);
         add(cmbToMonth);
 
         cmbToYear = new JComboBox();
         cmbToYear.setFont(fntPlainText);
-        cmbToYear.setBounds(620, 160, 100, 30);
+        cmbToYear.setBounds(620, 120, 100, 30);
         add(cmbToYear);
 
         for (int i = 0; i < strMonths.length; i++)

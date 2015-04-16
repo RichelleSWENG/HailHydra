@@ -12,6 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
@@ -20,32 +22,46 @@ import javax.swing.table.TableColumn;
 public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements TableModelListener
 {
 
-    private JButton btnAddItem, btnSubmit, btnCancel;
+    private JButton btnSubmit, btnCancel;
     private GUIController guiController;
     private PurchaseTransactionController mainController;
     private int numItems;
-    private float totalOfEverything;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
-    private float vat;
-    private final float defaultVal = 0;
-    private float VATpercent;
-    private float everythingwithVAT;
     private String partNums[];
     private Company c;
 
     public AddPurchaseTransactionGUI(GUIController temp)
     {
         guiController = temp;
-        //temp.changePanelToAddPurchaseTransaction();
+        
         cmbSupplier.setEditable(true);
         lblHeader.setText("Add Purchase Transaction");
 
-        btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 545, 175, 40);
-        add(btnAddItem);
+        ftfDiscount.getDocument().addDocumentListener(new DocumentListener() 
+        {
+                public void changedUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void insertUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                public void removeUpdate(DocumentEvent documentEvent) 
+                {
+                  update();
+                }
+                private void update()
+                {
+                    try{
+                        Float.parseFloat(ftfDiscount.getText());
+                        calcTotalBalance();
+                    }catch(Exception temp)
+                    {
+                        
+                    }
+                } 
+        } );
+        
         btnAddItem.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -63,7 +79,6 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
         btnSubmit.addActionListener(
                 new ActionListener()
                 {
-                    @Override
                     public void actionPerformed(ActionEvent e)
                     {
                         try
@@ -74,7 +89,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                             {
                                 mainController.addPendingItem(new PTLineItem(tfPurchaseTransactionNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addPT(tfPurchaseTransactionNum.getText(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText()), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfVat.getText()), Float.parseFloat(ftfBalance.getText()), "Open",  mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1));
+                            mainController.addPT(tfPurchaseTransactionNum.getText(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText().replaceAll(",", "")), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float.parseFloat(ftfVat.getText().replaceAll(",", "")), Float.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",  mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1));
                             guiController.changePanelToPurchaseTransactionList();
                         } catch (NullPointerException exception)
                         {
@@ -131,7 +146,6 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
         
         ftfDiscount.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 calcTotalBalance();
@@ -156,29 +170,12 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
         cmbSupplier.setModel(new DefaultComboBoxModel(supplierNames));
     }
 
-    public void calcTotalBalance()
-    {
-        int i;
-        totalOfEverything = 0;
-        for (i = 0; i < tbModel.getRowCount(); i++)
-        {
-            totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
-        }
-        ftfSubtotal.setText(String.valueOf(totalOfEverything - Float.parseFloat(ftfDiscount.getText())));
-        vat = VATpercent/100 * (totalOfEverything - Float.parseFloat(ftfDiscount.getText())) ;
-        ftfVat.setText(String.valueOf(vat));
-        everythingwithVAT = totalOfEverything - Float.parseFloat(ftfDiscount.getText()) + vat;
-        ftfTotal.setText(String.valueOf(everythingwithVAT));
-        ftfBalance.setText(String.valueOf(everythingwithVAT));
-    }
-
     public void setController(PurchaseTransactionController temp)
     {
         mainController = temp;
         VATpercent = mainController.getCurrentVat();
     }
 
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
@@ -246,12 +243,6 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
         }
     }
 
-    public static void main(String args[])
-     {
-     GUIController temp = new GUIController();
-     temp.changePanelToAddPurchaseTransaction();
-     }
-
     public void setViewComponents()
     {
         setDataComponents();
@@ -306,4 +297,10 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
             super(new JComboBox(str));
         }
     }
+    
+     public static void main(String args[])
+     {
+        GUIController temp = new GUIController();
+        temp.changePanelToAddPurchaseTransaction();
+     }
 }

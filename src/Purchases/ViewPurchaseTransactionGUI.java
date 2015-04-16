@@ -1,6 +1,5 @@
 package Purchases;
 
-import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -25,14 +24,6 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
     private GUIController guiController;
     private PurchaseTransactionController mainController;
     private int numItems;
-    private float totalOfEverything;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
-    private float vat;
-    private final float defaultVal = 0;
-    private float VATpercent = 12;
-    private float everythingwithVAT;
     private String partNums[];
     private Company c;
     private PurchaseTransaction pt;
@@ -54,6 +45,8 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         ftfDiscount.setEditable(false);
         taAddress.setEditable(false);
         taReceivingNotes.setEditable(false);
+        ftfTotal.setEditable(false);
+        taAddress.setEditable(false);
 
         btnModify = new JButton("Modify");
         btnModify.setFont(fntPlainText);
@@ -127,19 +120,16 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         tfPurchaseTransactionNum.setText(pt.getPurchase_transaction_id());
         tfPONum.setText(pt.getPo_num());
         tfDRNum.setText(pt.getDelivery_receipt_num());
+        tfSINum.setText(pt.getRef_sales_invoice_num());
         tfOrderedBy.setText(pt.getOrdered_by());
         tfReceivedBy.setText(pt.getReceived_by());
         ftfDate.setText(pt.getDate());
-        ftfDiscount.setText(String.valueOf(pt.getDiscount()));
-        ftfTotal.setEditable(false);
-        ftfBalance.setText(String.valueOf(pt.getCurrent_balance()));
-        taAddress.setEditable(false);
-        tfSINum.setText(pt.getRef_sales_invoice_num());
+        ftfDiscount.setValue(pt.getDiscount());
         taReceivingNotes.setText(pt.getReceiving_notes());
-
+        
+        
         cmbSupplier.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 int i, rowCount;
@@ -152,8 +142,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
                 {
                     c = mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
-                    
-                    
+                   
                     partNums = new String[mainController.getItems().size() + 1];
                     partNums[0] = "";
                     for (i = 1; i < mainController.getItems().size() + 1; i++)
@@ -176,9 +165,12 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         for (int i = 0; i < numItems; i++)
         {
            tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);
-           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);  
+           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);
+           tbModel.setValueAt(pt.getItems().get(i).getUnit_price(), i, 3);  
         }
         tbPurchaseTransaction.setEnabled(false);
+        calcTotalBalance();
+        ftfBalance.setValue(pt.getCurrent_balance());
     }    
         
 
@@ -194,24 +186,6 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         cmbSupplier.setModel(new DefaultComboBoxModel(supplierNames));
     }
 
-    public void calcTotalBalance()
-    {
-        int i;
-        totalOfEverything = 0;
-        for (i = 0; i < tbModel.getRowCount(); i++)
-        {
-            if (tbModel.getValueAt(i, 4) != null)
-            totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
-        }
-        ftfSubtotal.setText(String.valueOf(totalOfEverything - Float.parseFloat(ftfDiscount.getText())));
-        vat = VATpercent / 100 * (totalOfEverything - Float.parseFloat(ftfDiscount.getText()));
-        ftfVat.setText(String.valueOf(vat));
-        everythingwithVAT = totalOfEverything - Float.parseFloat(ftfDiscount.getText()) + vat;
-        ftfTotal.setText(String.valueOf(everythingwithVAT));
-        ftfBalance.setText(String.valueOf(everythingwithVAT));
-    }
-
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
@@ -220,20 +194,11 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
             if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
             {
                 String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
-                //if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1))
-                //{
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {
                     totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
                     tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-                    calcTotalBalance();
                 }
-                //}
-                // else
-                //{
-                // JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy " + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
-                //tbModel.setValueAt("0", e.getFirstRow(), 0);
-                //}
             }
         }
 
@@ -269,7 +234,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
                 {
                     totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
                     tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-                    calcTotalBalance();
+                    
                 }
             }
         }
@@ -283,7 +248,6 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
                 {
                     totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
                     tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-                    calcTotalBalance();
                 }
             }
 

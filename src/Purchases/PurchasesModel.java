@@ -94,7 +94,7 @@ public class PurchasesModel
             } else if (filter.equalsIgnoreCase("transaction number"))
             {
                 sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND purchase_transaction_id LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
-                System.out.println(sql);
+                //System.out.println(sql);
             } else if (filter.equalsIgnoreCase("part number"))
             {
                 sql = "SELECT company.name, date, purchasetransaction.purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction,ptlineitem WHERE company.company_id= purchasetransaction.company_id AND purchasetransaction.purchase_transaction_id=ptlineitem.purchase_transaction_id AND part_num LIKE '%" + field + "%' AND date BETWEEN '" + startDate + "' AND '" + endDate + "'";
@@ -120,7 +120,7 @@ public class PurchasesModel
 
             statement = db.createStatement();
             String sql = "INSERT INTO purchasetransaction(purchase_transaction_id,company_id,date,original_amount,discount,ref_sales_invoice_num, ordered_by, po_num, received_by, receiving_notes, vat, delivery_receipt_num, current_balance, status) VALUES('" + pt.getPurchase_transaction_id() + "','" + pt.getCompany_id() + "','" + pt.getDate() + "','" + pt.getOriginal_amount() + "','" + pt.getDiscount() + "','" + pt.getRef_sales_invoice_num() + "','" + pt.getOrdered_by() + "','" + pt.getPo_num() + "','" + pt.getReceived_by() + "','" + pt.getReceiving_notes() + "','" + pt.getVat() + "','" + pt.getDelivery_receipt_num() + "','" + pt.getCurrent_balance() + "','" + pt.getStatus() + "')";
-            System.out.println(sql);
+            //System.out.println(sql);
             statement.executeUpdate(sql);
             int i;
             for (i = 0; i < pt.getItems().size(); i++)
@@ -228,27 +228,31 @@ public class PurchasesModel
             Company tempSupplier;
             while (rs.next())
             {
+                
                 tempSupplier = new Company();
-                tempSupplier.setId(rs.getInt("company_id"));
-                tempSupplier.setName(rs.getString("name"));
-                tempSupplier.setAddressLoc(rs.getString("address_location"));
-                tempSupplier.setAddressCity(rs.getString("address_city"));
-                tempSupplier.setAddressCountry(rs.getString("address_country"));
-                tempSupplier.setPostalCode(rs.getString("address_postal_code"));
-                tempSupplier.setPhone1(rs.getString("phone1"));
-                tempSupplier.setPhone2(rs.getString("phone2"));
-                tempSupplier.setPhone3(rs.getString("phone3"));
-                tempSupplier.setFaxNum(rs.getString("fax_num"));
-                tempSupplier.setWebsite(rs.getString("website"));
-                tempSupplier.setEmail(rs.getString("email"));
-                tempSupplier.setContactPerson(rs.getString("contact_person"));
                 tempSupplier.setStatus(rs.getString("status"));
-                tempSupplier.setCreditLimit(rs.getFloat("credit_limit"));
-                tempSupplier.setTerms(rs.getInt("terms"));
-                tempSupplier.setType(rs.getString("type"));
-                suppliers.add(tempSupplier);
+                if (tempSupplier.getStatus().equals("Active"))
+                {
+                    tempSupplier.setId(rs.getInt("company_id"));
+                    tempSupplier.setName(rs.getString("name"));
+                    tempSupplier.setAddressLoc(rs.getString("address_location"));
+                    tempSupplier.setAddressCity(rs.getString("address_city"));
+                    tempSupplier.setAddressCountry(rs.getString("address_country"));
+                    tempSupplier.setPostalCode(rs.getString("address_postal_code"));
+                    tempSupplier.setPhone1(rs.getString("phone1"));
+                    tempSupplier.setPhone2(rs.getString("phone2"));
+                    tempSupplier.setPhone3(rs.getString("phone3"));
+                    tempSupplier.setFaxNum(rs.getString("fax_num"));
+                    tempSupplier.setWebsite(rs.getString("website"));
+                    tempSupplier.setEmail(rs.getString("email"));
+                    tempSupplier.setContactPerson(rs.getString("contact_person"));
+                    tempSupplier.setCreditLimit(rs.getFloat("credit_limit"));
+                    tempSupplier.setTerms(rs.getInt("terms"));
+                    tempSupplier.setType(rs.getString("type"));
+                    suppliers.add(tempSupplier);
+                }
+                
             }
-            System.out.println(suppliers.size());
 
         } catch (Exception e)
         {
@@ -270,12 +274,16 @@ public class PurchasesModel
             while (rs.next())
             {
                 tempItem = new PTLineItem();
-                tempItem.setPartNum(rs.getString("part_num"));
-                tempItem.setDescription(rs.getString("description"));
-                tempItem.setPrice(rs.getFloat("last_cost"));
-                items.add(tempItem);
-                tempItem.setMinimum(rs.getInt("stock_minimum"));
-                tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                tempItem.setStatus(rs.getInt("status"));
+                if (tempItem.getStatus() == 1)
+                {
+                    tempItem.setPartNum(rs.getString("part_num"));
+                    tempItem.setDescription(rs.getString("description"));
+                    tempItem.setPrice(rs.getFloat("last_cost"));
+                    items.add(tempItem);
+                    tempItem.setMinimum(rs.getInt("stock_minimum"));
+                    tempItem.setQuantityFunc(rs.getInt("quantity_functional"));
+                }
             }
 
         } catch (Exception e)

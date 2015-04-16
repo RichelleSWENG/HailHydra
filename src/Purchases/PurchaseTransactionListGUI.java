@@ -88,17 +88,17 @@ public class PurchaseTransactionListGUI extends JPanel
 
         lblSearch = new JLabel("Search: ");
         lblSearch.setFont(fntPlainText);
-        lblSearch.setBounds(30, 120, 84, 30);
+        lblSearch.setBounds(30, 160, 84, 30);
         add(lblSearch);
 
         lblRange = new JLabel("Range:");
         lblRange.setFont(fntPlainText);
-        lblRange.setBounds(30, 160, 80, 30);
+        lblRange.setBounds(30, 120, 80, 30);
         add(lblRange);
 
         lblTo = new JLabel("TO");
         lblTo.setFont(fntPlainText);
-        lblTo.setBounds(425, 160, 36, 30);
+        lblTo.setBounds(425, 120, 36, 30);
         add(lblTo);
 
         lblTransactionsFound = new JLabel("Transaction/s Found:");
@@ -113,27 +113,27 @@ public class PurchaseTransactionListGUI extends JPanel
 
         tfSearch = new JTextField();
         tfSearch.setFont(fntPlainText);
-        tfSearch.setBounds(150, 120, 650, 30);
+        tfSearch.setBounds(150, 160, 650, 30);
         add(tfSearch);
 
         cmbFromMonth = new JComboBox();
         cmbFromMonth.setFont(fntPlainText);
-        cmbFromMonth.setBounds(150, 160, 140, 30);
+        cmbFromMonth.setBounds(150, 120, 140, 30);
         add(cmbFromMonth);
 
         cmbFromYear = new JComboBox();
         cmbFromYear.setFont(fntPlainText);
-        cmbFromYear.setBounds(300, 160, 100, 30);
+        cmbFromYear.setBounds(300, 120, 100, 30);
         add(cmbFromYear);
 
         cmbToMonth = new JComboBox();
         cmbToMonth.setFont(fntPlainText);
-        cmbToMonth.setBounds(471, 160, 140, 30);
+        cmbToMonth.setBounds(471, 120, 140, 30);
         add(cmbToMonth);
 
         cmbToYear = new JComboBox();
         cmbToYear.setFont(fntPlainText);
-        cmbToYear.setBounds(621, 160, 100, 30);
+        cmbToYear.setBounds(621, 120, 100, 30);
         add(cmbToYear);
         for (int i = 0; i < months.length; i++)
         {

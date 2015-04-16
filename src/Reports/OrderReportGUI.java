@@ -249,12 +249,6 @@ public class OrderReportGUI extends JPanel
                          controller.changePanelToAddPurchaseTransaction();
                 }
                 });
-
-		tbModel = new DefaultTableModel() {
-			public boolean isCellEditable(int rowIndex, int mColIndex) {
-				return false;
-			}
-		};
                 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);

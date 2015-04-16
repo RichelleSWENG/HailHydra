@@ -54,7 +54,7 @@ import Login.ProfilesGUI;
 import Login.PurchasesGUI;
 import Login.SalesGUI;
 import Login.SystemSettingsGUI;
-import ModifyAlertVAT.FactoryModify;
+import ModifyAlert.FactoryModify;
 import Payables.AddPaymentPayablesGUI;
 import Payables.PayablesController;
 import Payables.PayablesListGUI;
@@ -125,7 +125,7 @@ public class GUIController
         administrator = true;
 
         dbc = new DBConnection();
-        frame = new HailHydraGUI();
+        frame = new HailHydraGUI(dbc);
 
         inventoryModel = new ItemModel(dbc);
         inventoryGUI = new InventoryListGUI(this);
@@ -145,6 +145,10 @@ public class GUIController
 
     }
 
+    public void setTitle()
+    {
+        frame.setTitle();
+    }
     public void setToEmployee()
     {
         administrator = false;
@@ -198,7 +202,7 @@ public class GUIController
     public void changePanelToMainMenu()
     {
         modal.dispose();
-        main.setMainController(new LoginController(new LoginModel(dbc)));
+        main.setMainController(new LoginController(new LoginModel(dbc),main));
         getContentPanel().add(main);
         frameRevalidate();
     }
@@ -501,8 +505,8 @@ public class GUIController
         if (administrator)
         {
             ModifySalesInvoiceGUI tempGUI = new ModifySalesInvoiceGUI(this);
-            //tempGUI.setMainController(SIController);
-            //tempGUI.setViewComponents();
+            tempGUI.setMainController(SIController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
         } else
@@ -843,7 +847,6 @@ public class GUIController
     public static void main(String args[])
     {
         new GUIController();
-
     }
 
 }

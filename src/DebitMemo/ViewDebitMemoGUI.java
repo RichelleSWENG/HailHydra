@@ -53,6 +53,8 @@ public class ViewDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                 cmbCustomer.setEditable(false);
                 chckbxDefective.setEnabled(false);
                 chckbxReplacement.setEnabled(false);
+                btnAddItem.setEnabled(false);
+                btnDeleteItem.setEnabled(false);
                 
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);

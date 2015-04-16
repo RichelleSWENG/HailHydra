@@ -31,6 +31,6 @@ public class SystemController {
     
     public String getInfo()
     {
-        return model.getCreditLimit();
+        return model.getCompanyName();
     }
 }
