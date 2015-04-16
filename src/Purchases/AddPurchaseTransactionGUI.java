@@ -26,8 +26,6 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
     private GUIController guiController;
     private PurchaseTransactionController mainController;
     private int numItems;
-    private double totalOfEverything, totalItemPrice, tentativeTotal, discount, VAT, VATpercent, everythingwithVAT, subtotal;
-    private final float defaultVal = 0;
     private String partNums[];
     private Company c;
 
@@ -91,7 +89,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
                             {
                                 mainController.addPendingItem(new PTLineItem(tfPurchaseTransactionNum.getText(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()), tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString())));
                             }
-                            mainController.addPT(tfPurchaseTransactionNum.getText(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText()), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText()), Float.parseFloat(ftfVat.getText()), Float.parseFloat(ftfBalance.getText()), "Open",  mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1));
+                            mainController.addPT(tfPurchaseTransactionNum.getText(), ftfDate.getText(), Float.parseFloat(ftfSubtotal.getText().replaceAll(",", "")), tfPONum.getText(), tfReceivedBy.getText(), tfOrderedBy.getText(), taReceivingNotes.getText(), tfDRNum.getText(), tfSINum.getText(), Float.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float.parseFloat(ftfVat.getText().replaceAll(",", "")), Float.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",  mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1));
                             guiController.changePanelToPurchaseTransactionList();
                         } catch (NullPointerException exception)
                         {
@@ -170,22 +168,6 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
             supplierNames[i] = mainController.getSuppliers().get(i - 1).getName();
         }
         cmbSupplier.setModel(new DefaultComboBoxModel(supplierNames));
-    }
-
-    public void calcTotalBalance()
-    {
-        int i;
-        totalOfEverything = 0;
-        for (i = 0; i < tbModel.getRowCount(); i++)
-        {
-            totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
-        }
-        subtotal= ((100-VATpercent)/100)* (totalOfEverything - Double.parseDouble(ftfDiscount.getText()));
-        ftfSubtotal.setValue(subtotal);
-        VAT = VATpercent/100 * (totalOfEverything - Double.parseDouble(ftfDiscount.getText())) ;
-        ftfVat.setValue(VAT);
-        ftfTotal.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
-        ftfBalance.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
     }
 
     public void setController(PurchaseTransactionController temp)
