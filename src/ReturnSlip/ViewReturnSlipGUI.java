@@ -57,6 +57,8 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
                 ftfReceivedDate.setEditable(false);
                 taAddress.setEditable(false);
                 taNotes.setEditable(false);
+                btnAddItem.setEnabled(false);
+                btnDeleteItem.setEnabled(false);
 		
                         
 		btnClose = new JButton("Close");

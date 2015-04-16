@@ -23,7 +23,7 @@ import javax.swing.table.TableColumn;
 
 public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListener
 {
-        private JButton btnAddItem, btnSubmit, btnCancel;
+        private JButton btnSubmit, btnCancel;
         private GUIController guiController;
         private ReturnSlipController mainController;
         private int numItems;
@@ -41,21 +41,6 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                 totalBalance = 0;
                 
 		lblHeader.setText("Add Return Slip");
-                
-		btnAddItem = new JButton("Add Item");
-		btnAddItem.setFont(fntPlainText);
-		btnAddItem.setBounds(30, 545, 132, 40);
-		add(btnAddItem);
-                btnAddItem.addActionListener(
-                    new ActionListener()
-                    {
-                        public void actionPerformed(ActionEvent e)
-                        {
-                         numItems++;
-                        tbModel.setRowCount(numItems + 1);
-                        tbModel.setValueAt(defaultVal, numItems, 4);       
-                        }
-                    });
 		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
