@@ -1,6 +1,5 @@
 package Purchases;
 
-import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -139,7 +138,6 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
 
         cmbSupplier.addActionListener(new ActionListener()
         {
-            @Override
             public void actionPerformed(ActionEvent e)
             {
                 int i, rowCount;
@@ -211,7 +209,6 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         ftfBalance.setText(String.valueOf(everythingwithVAT));
     }
 
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
