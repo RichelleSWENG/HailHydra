@@ -1,5 +1,6 @@
 package Purchases;
 
+import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -24,18 +25,18 @@ import javax.swing.table.TableColumnModel;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import TableRenderer.TableRenderer;
+import javax.swing.JButton;
 
 public class PurchaseTransactionGUI extends JPanel
 {
 	protected JLabel lblHeader, lblPurchaseTransactionNum, lblSupplier, lblAddress, lblDate, lblPONum, lblSINum,
-			lblORNum, lblOrderedBy, lblReceivedBy, lblReceivingNotes, lblDiscount, lblSubtotal, lblVat, lblTotal,
-			lblBalance;
+                  lblORNum, lblOrderedBy, lblReceivedBy, lblReceivingNotes, lblDiscount, lblSubtotal, lblVat, lblTotal,
+                  lblBalance;
 	protected JTextField tfPurchaseTransactionNum, tfPONum, tfSINum, tfDRNum, tfOrderedBy, tfReceivedBy;
 	protected JFormattedTextField ftfDate, ftfDiscount, ftfSubtotal, ftfTotal, ftfVat, ftfBalance;
 	protected JTextArea taAddress, taReceivingNotes;
-	protected String strHeader[] =
-	{ "Quantity", "    Part Number    ", "        Description        ",
-			"<html><center>   Unit   <br>   Price   </center></html>", "  Subtotal  " };
+	protected String strHeader[] = { "Quantity", "    Part Number    ", "        Description        ",
+                  "<html><center>   Unit   <br>   Price   </center></html>", "  Subtotal  " };
 	protected DefaultTableModel tbModel;
 	protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	protected TableColumnModel tbColumnRenderer;
@@ -43,6 +44,7 @@ public class PurchaseTransactionGUI extends JPanel
 	protected Component component;
 	protected JTable tbPurchaseTransaction;
 	protected JScrollPane spTable, spAddress, spReceivingNotes;
+        protected JButton btnAddItem, btnDeleteItem;
 	protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
 	protected DateFormat dateFormat;
 	protected JComboBox cmbSupplier;
@@ -81,62 +83,62 @@ public class PurchaseTransactionGUI extends JPanel
 
 		lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(530, 110, 67, 30);
+		lblDate.setBounds(715, 110, 67, 30);
 		add(lblDate);
 
 		lblPONum = new JLabel("P.O. Number:");
 		lblPONum.setFont(fntPlainText);
-		lblPONum.setBounds(530, 140, 141, 30);
+		lblPONum.setBounds(637, 140, 141, 30);
 		add(lblPONum);
 
 		lblSINum = new JLabel("S.I. Number:");
 		lblSINum.setFont(fntPlainText);
-		lblSINum.setBounds(530, 170, 134, 30);
+		lblSINum.setBounds(647, 170, 134, 30);
 		add(lblSINum);
 
 		lblORNum = new JLabel("D.R. Number:");
 		lblORNum.setFont(fntPlainText);
-		lblORNum.setBounds(530, 200, 134, 30);
+		lblORNum.setBounds(637, 200, 134, 30);
 		add(lblORNum);
 
 		lblOrderedBy = new JLabel("Ordered By:");
 		lblOrderedBy.setFont(fntPlainText);
-		lblOrderedBy.setBounds(30, 385, 129, 30);
+		lblOrderedBy.setBounds(30, 435, 129, 30);
 		add(lblOrderedBy);
 
 		lblReceivedBy = new JLabel("Received By:");
 		lblReceivedBy.setFont(fntPlainText);
-		lblReceivedBy.setBounds(30, 425, 141, 30);
+		lblReceivedBy.setBounds(30, 475, 141, 30);
 		add(lblReceivedBy);
 
 		lblReceivingNotes = new JLabel("Receiving Notes:");
 		lblReceivingNotes.setFont(fntPlainText);
-		lblReceivingNotes.setBounds(30, 465, 207, 30);
+		lblReceivingNotes.setBounds(30, 515, 207, 30);
 		add(lblReceivingNotes);
 
 		lblDiscount = new JLabel("Discount:");
 		lblDiscount.setFont(fntPlainText);
-		lblDiscount.setBounds(700, 385, 116, 30);
+		lblDiscount.setBounds(705, 385, 105, 30);
 		add(lblDiscount);
 
-		lblSubtotal = new JLabel("Subtotal:");
+                lblSubtotal = new JLabel("Subtotal:");
 		lblSubtotal.setFont(fntPlainText);
-		lblSubtotal.setBounds(700, 415, 116, 30);
+		lblSubtotal.setBounds(710, 415, 97, 30);
 		add(lblSubtotal);
-
-		lblVat = new JLabel("VAT:");
+                
+                lblVat = new JLabel("VAT:");
 		lblVat.setFont(fntPlainText);
-		lblVat.setBounds(700, 445, 56, 30);
+		lblVat.setBounds(745, 445, 80, 30);
 		add(lblVat);
-
-		lblTotal = new JLabel("Total:");
+                
+                lblTotal = new JLabel("Total:");
 		lblTotal.setFont(fntPlainText);
-		lblTotal.setBounds(700, 475, 67, 30);
+		lblTotal.setBounds(738, 475, 80, 30);
 		add(lblTotal);
-
-		lblBalance = new JLabel("Balance:");
+                
+                lblBalance = new JLabel("Balance:");
 		lblBalance.setFont(fntPlainText);
-		lblBalance.setBounds(700, 505, 100, 30);
+		lblBalance.setBounds(708, 505, 97, 30);
 		add(lblBalance);
 
 		tfPurchaseTransactionNum = new JTextField();
@@ -167,12 +169,12 @@ public class PurchaseTransactionGUI extends JPanel
 
 		tfOrderedBy = new JTextField();
 		tfOrderedBy.setFont(fntPlainText);
-		tfOrderedBy.setBounds(160, 385, 340, 30);
+		tfOrderedBy.setBounds(160, 435, 340, 30);
 		add(tfOrderedBy);
 
 		tfReceivedBy = new JTextField();
 		tfReceivedBy.setFont(fntPlainText);
-		tfReceivedBy.setBounds(160, 425, 340, 30);
+		tfReceivedBy.setBounds(160, 475, 340, 30);
 		add(tfReceivedBy);
 
 		ftfDiscount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
@@ -218,14 +220,13 @@ public class PurchaseTransactionGUI extends JPanel
 		taAddress.setFont(fntPlainText);
 		taAddress.setWrapStyleWord(true);
 		taAddress.setLineWrap(true);
-		taAddress.setBounds(125, 115, 380, 110);
+                taAddress.setEditable(false);
 		add(taAddress);
 
 		taReceivingNotes = new JTextArea();
 		taReceivingNotes.setFont(fntPlainText);
 		taReceivingNotes.setWrapStyleWord(true);
 		taReceivingNotes.setLineWrap(true);
-		taReceivingNotes.setBounds(30, 480, 470, 50);
 		add(taReceivingNotes);
 
 		spAddress = new JScrollPane(taAddress);
@@ -233,7 +234,7 @@ public class PurchaseTransactionGUI extends JPanel
 		add(spAddress);
 
 		spReceivingNotes = new JScrollPane(taReceivingNotes);
-		spReceivingNotes.setBounds(30, 495, 470, 40);
+		spReceivingNotes.setBounds(30, 545, 470, 40);
 		add(spReceivingNotes);
                 
                 cmbSupplier = new JComboBox();
@@ -244,7 +245,6 @@ public class PurchaseTransactionGUI extends JPanel
 
 		tbModel = new DefaultTableModel() 
                 {
-                        @Override
 			public boolean isCellEditable(int rowIndex, int mColIndex) 
                         {
                             if (cmbSupplier.getSelectedItem() == null || cmbSupplier.getSelectedItem().equals(""))
@@ -256,7 +256,6 @@ public class PurchaseTransactionGUI extends JPanel
 			}
 		};
 
-		tbModel.setRowCount(15);
 
 		for (int i = 0; i < strHeader.length; i++)
 		{
@@ -271,7 +270,6 @@ public class PurchaseTransactionGUI extends JPanel
 				return new TableRenderer();
 			}
 		};
-		//setUpComboColumn(tbPurchaseTransaction, tbPurchaseTransaction.getColumnModel().getColumn(1));
 		tbPurchaseTransaction.getTableHeader().setFont(fntHeaderTableText);
 		tbPurchaseTransaction.getTableHeader().setPreferredSize(new Dimension(100, 55));
 		tbPurchaseTransaction.getTableHeader().setResizingAllowed(false);
@@ -300,5 +298,21 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction.setRowSelectionAllowed(true);
 		tbPurchaseTransaction.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPurchaseTransaction.setRowHeight(30);
+                
+                btnAddItem = new JButton("Add Item");
+                btnAddItem.setFont(fntPlainText);
+                btnAddItem.setBounds(30, 385, 147, 40);
+                add(btnAddItem);
+
+                btnDeleteItem= new JButton("Delete Item");
+                btnDeleteItem.setFont(fntPlainText);
+                btnDeleteItem.setBounds(190, 385, 147, 40);
+                add(btnDeleteItem);
 	}
+        
+        public static void main(String args[])
+        {
+            GUIController temp = new GUIController();
+            temp.changePanelToAddPurchaseTransaction();
+        }
 }
