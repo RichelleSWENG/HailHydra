@@ -42,6 +42,17 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
                 
 		lblHeader.setText("Add Return Slip");
 		
+		btnAddItem.addActionListener(
+                new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                     numItems++;
+                    tbModel.setRowCount(numItems + 1);
+                    tbModel.setValueAt(defaultVal, numItems, 4);       
+                    }
+                });
+		
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(655, 545, 110, 40);
