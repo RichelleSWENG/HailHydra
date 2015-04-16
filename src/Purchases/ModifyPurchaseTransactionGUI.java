@@ -135,7 +135,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI impleme
         ftfDate.setText(pt.getDate());
         ftfDiscount.setText(String.valueOf(pt.getDiscount()));
         ftfTotal.setEditable(false);
-        ftfBalance.setText(String.valueOf(pt.getCurrent_balance()));
+        
         taAddress.setEditable(false);
         tfSINum.setText(pt.getRef_sales_invoice_num());
         taReceivingNotes.setText(pt.getReceiving_notes());
@@ -174,13 +174,17 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI impleme
         });
         cmbSupplier.setSelectedItem(pt.getCompany_name());
         numItems = pt.getItems().size();
+        System.out.println(numItems);
         tbModel.setRowCount(numItems);
         tbModel.addTableModelListener(this);
         for (int i = 0; i < numItems; i++)
         {
             tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);;
             tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);
+            tbModel.setValueAt(pt.getItems().get(i).getUnit_price(), i, 3);  
         }
+        
+        ftfBalance.setText(String.valueOf(pt.getCurrent_balance()));
     }
 
     public void setDataComponents()

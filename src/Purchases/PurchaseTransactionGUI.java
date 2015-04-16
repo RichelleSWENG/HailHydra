@@ -316,8 +316,9 @@ public class PurchaseTransactionGUI extends JPanel
         {
             int i;
             totalOfEverything = 0;
-            for (i = 0; i < tbModel.getRowCount(); i++)
+            for (i = 0; i < tbModel.getRowCount() && tbModel.getValueAt(i, 4) != null ; i++)
             {
+                System.out.println(i);
                 totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
             }
             subtotal= ((100-VATpercent)/100)* (totalOfEverything - Double.parseDouble(ftfDiscount.getText()));

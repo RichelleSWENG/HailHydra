@@ -7,10 +7,6 @@ Files are sorted by feature, each has its own controller and model because yolo 
 <br> ayusin ang notifs. di pwede talaga ganun kasi paano malalaman na may new stock na kulang? atleast lahat ng bagong gawa nasa taas. (use stack principles)
 <br> IMAGES of Item profile. copy paste to system.
 <br> ADD DELETE GUI
-<br> NO MODIFY SALES INVOICE
-<br> NO RETRIEVAL OF VAT
-<br> VIEW PURCHASE TRANSACTION: Should get vat from database then compute subtotal from it
-<br> MODIFY PURCHASE TRANSACTION: doesn't get value of line item from database.
 <br> hindi nagchecheck kapag una ung quantity bago part number. hindi nagchecheck kung magnenegative.
 <br> check if there is sales invoice number(can not be missing
 <br> SALES INVOICE, P.T., A.R. - Can not select an inactive account orinactive item
@@ -31,6 +27,10 @@ Files are sorted by feature, each has its own controller and model because yolo 
 <br> and many more
 <br><br>
 **DONE**!!!<br>
+ ~~NO MODIFY SALES INVOICE~~
+<br> ~~NO RETRIEVAL OF VAT~~
+<br> ~~VIEW PURCHASE TRANSACTION: Should get vat from database then compute subtotal from it~~
+<br> ~~MODIFY PURCHASE TRANSACTION: doesn't get value of line item from database.~~<br>
 ~~Add Debit Memo~~ --- KINGSTON <-Test dis <br>
 ~~View Debit Memo~~ --- KINGSTON <-Test dis <br>
 ~~Order Notification --- JOLO <br>

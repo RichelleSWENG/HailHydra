@@ -125,9 +125,9 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         tfReceivedBy.setText(pt.getReceived_by());
         ftfDate.setText(pt.getDate());
         ftfDiscount.setValue(pt.getDiscount());
-        ftfBalance.setValue(pt.getCurrent_balance());
         taReceivingNotes.setText(pt.getReceiving_notes());
-
+        
+        
         cmbSupplier.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent e)
@@ -142,8 +142,7 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
                 {
                     c = mainController.getCustomer(cmbSupplier.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
-                    
-                    
+                   
                     partNums = new String[mainController.getItems().size() + 1];
                     partNums[0] = "";
                     for (i = 1; i < mainController.getItems().size() + 1; i++)
@@ -166,9 +165,12 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
         for (int i = 0; i < numItems; i++)
         {
            tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);
-           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);  
+           tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);
+           tbModel.setValueAt(pt.getItems().get(i).getUnit_price(), i, 3);  
         }
         tbPurchaseTransaction.setEnabled(false);
+        calcTotalBalance();
+        ftfBalance.setValue(pt.getCurrent_balance());
     }    
         
 
@@ -192,19 +194,11 @@ public class ViewPurchaseTransactionGUI extends PurchaseTransactionGUI implement
             if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
             {
                 String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
-                //if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1))
-                //{
                 if (tbModel.getValueAt(e.getFirstRow(), 0) != null && !cmb.equals("") && !tbModel.getValueAt(e.getFirstRow(), 0).toString().equals(""))
                 {
                     totalItemPrice = Integer.parseInt(tbModel.getValueAt(e.getFirstRow(), 0).toString()) * Float.parseFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString());
                     tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
                 }
-                //}
-                // else
-                //{
-                // JOptionPane.showMessageDialog(null, "You can not buy that many items!!!! You can only buy " + mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb)-1) + ". Pls do not test me");
-                //tbModel.setValueAt("0", e.getFirstRow(), 0);
-                //}
             }
         }
 
