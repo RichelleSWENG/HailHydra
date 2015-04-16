@@ -32,6 +32,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements TableModel
 
     public ModifySalesInvoiceGUI(GUIController temp)
     {
+        super();
         guiController = temp;
 
         lblHeader.setText("Modify Sales Invoice");

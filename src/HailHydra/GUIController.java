@@ -505,8 +505,8 @@ public class GUIController
         if (administrator)
         {
             ModifySalesInvoiceGUI tempGUI = new ModifySalesInvoiceGUI(this);
-            //tempGUI.setMainController(SIController);
-            //tempGUI.setViewComponents();
+            tempGUI.setMainController(SIController);
+            tempGUI.setViewComponents();
             getContentPanel().add(tempGUI);
             frameRevalidate();
         } else
