@@ -126,27 +126,27 @@ public class SalesInvoiceGUI extends JPanel
                 
                 lblDiscount = new JLabel("Discount:");
 		lblDiscount.setFont(fntPlainText);
-		lblDiscount.setBounds(700, 385, 105, 30);
+		lblDiscount.setBounds(705, 385, 105, 30);
 		add(lblDiscount);
 
                 lblSubtotal = new JLabel("Subtotal:");
 		lblSubtotal.setFont(fntPlainText);
-		lblSubtotal.setBounds(700, 415, 97, 30);
+		lblSubtotal.setBounds(710, 415, 97, 30);
 		add(lblSubtotal);
                 
                 lblVat = new JLabel("VAT:");
 		lblVat.setFont(fntPlainText);
-		lblVat.setBounds(700, 445, 80, 30);
+		lblVat.setBounds(745, 445, 80, 30);
 		add(lblVat);
                 
                 lblTotal = new JLabel("Total:");
 		lblTotal.setFont(fntPlainText);
-		lblTotal.setBounds(700, 475, 80, 30);
+		lblTotal.setBounds(738, 475, 80, 30);
 		add(lblTotal);
                 
                 lblBalance = new JLabel("Balance:");
 		lblBalance.setFont(fntPlainText);
-		lblBalance.setBounds(700, 505, 97, 30);
+		lblBalance.setBounds(708, 505, 97, 30);
 		add(lblBalance);
 
 		tfPwdNum = new JTextField();
