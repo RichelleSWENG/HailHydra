@@ -1,7 +1,5 @@
 package Sales;
 
-import AcknowledgementReceipt.AcknowledgementReceiptController;
-import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -27,13 +25,8 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
     private SalesInvoiceController mainController;
     private SalesInvoice si;
     private int numItems;
-    private float totalBalance;
-    private float totalItemPrice;
-    private float tentativeTotal;
-    private float discount;
+    private float totalBalance, totalItemPrice, tentativeTotal, discount, VATpercent, dedBalance;
     private final float defaultVal = 0;
-    private float VATpercent;
-    private float dedBalance;
     private String partNums[];
     private Company c;
 
@@ -55,7 +48,9 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
         ftfDiscount.setEditable(false);
         taAddress.setEditable(false);
         taDeliveryNotes.setEditable(false);
-
+        btnAddItem.setEnabled(false);
+        btnDeleteItem.setEnabled(false);
+        
         btnModify = new JButton("Modify");
         btnModify.setFont(fntPlainText);
         btnModify.setBounds(655, 545, 110, 40);
