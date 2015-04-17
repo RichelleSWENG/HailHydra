@@ -7,103 +7,105 @@ package Classes;
 
 public class Item
 {
-    protected String partNum;
-    protected String description;
-    protected float price;
-    protected int minimum;
-    protected int quantityFunc;
-    private int status;
+	protected String partNum;
+	protected String description;
+	protected float price;
+	protected int minimum;
+	protected int quantityFunc;
+	private int status;
 
-    public Item()
-    {
-        partNum = "";
-        description = "";
-        price = 0;
-        minimum = 0;
-        quantityFunc = 0;
-        status = 0;
-    }
-    
-    public Item(String partNum, String description, float price, int minimum, int quantityFunc)
-    {
-        this.partNum = partNum;
-        this.description = description;
-        this.price = price;
-        this.minimum = minimum;
-        this.quantityFunc = quantityFunc;
-    }
-    
-    /**
-     * @return the partNum
-     */
-    public String getPartNum()
-    {
-        return partNum;
-    }
+	public Item()
+	{
+		partNum = "";
+		description = "";
+		price = 0;
+		minimum = 0;
+		quantityFunc = 0;
+		status = 0;
+	}
 
-    /**
-     * @param partNum the partNum to set
-     */
-    public void setPartNum(String partNum)
-    {
-        this.partNum = partNum;
-    }
+	public Item(String partNum, String description, float price, int minimum,
+			int quantityFunc)
+	{
+		this.partNum = partNum;
+		this.description = description;
+		this.price = price;
+		this.minimum = minimum;
+		this.quantityFunc = quantityFunc;
+	}
 
-    /**
-     * @return the description
-     */
-    public String getDescription()
-    {
-        return description;
-    }
+	/**
+	 * @return the partNum
+	 */
+	public String getPartNum()
+	{
+		return partNum;
+	}
 
-    /**
-     * @param description the description to set
-     */
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
+	/**
+	 * @param partNum
+	 *            the partNum to set
+	 */
+	public void setPartNum(String partNum)
+	{
+		this.partNum = partNum;
+	}
 
-    public float getPrice()
-    {
-        return price;
-    }
+	/**
+	 * @return the description
+	 */
+	public String getDescription()
+	{
+		return description;
+	}
 
-    public void setPrice(float price)
-    {
-        this.price = price;
-    }
+	/**
+	 * @param description
+	 *            the description to set
+	 */
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
 
-    public int getMinimum()
-    {
-        return minimum;
-    }
+	public float getPrice()
+	{
+		return price;
+	}
 
-    public void setMinimum(int minimum)
-    {
-        this.minimum = minimum;
-    }
+	public void setPrice(float price)
+	{
+		this.price = price;
+	}
 
-    public int getQuantityFunc()
-    {
-        return quantityFunc;
-    }
+	public int getMinimum()
+	{
+		return minimum;
+	}
 
-    public void setQuantityFunc(int quantityFunc)
-    {
-        this.quantityFunc = quantityFunc;
-    }
+	public void setMinimum(int minimum)
+	{
+		this.minimum = minimum;
+	}
 
-    public int getStatus()
-    {
-        return status;
-    }
+	public int getQuantityFunc()
+	{
+		return quantityFunc;
+	}
 
-    public void setStatus(int status)
-    {
-        this.status = status;
-    }
-    
-    
+	public void setQuantityFunc(int quantityFunc)
+	{
+		this.quantityFunc = quantityFunc;
+	}
+
+	public int getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(int status)
+	{
+		this.status = status;
+	}
+
 }
