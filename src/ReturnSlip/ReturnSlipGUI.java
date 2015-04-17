@@ -164,11 +164,6 @@ public class ReturnSlipGUI extends JPanel
 		ftfDate.setBounds(670, 110, 295, 30);
 		add(ftfDate);
 
-		tfSINum = new JTextField();
-		tfSINum.setFont(fntPlainText);
-		tfSINum.setBounds(660, 140, 305, 30);
-		// add(tfSINum);
-
 		cmbPTNum = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbPTNum);
 		cmbPTNum.setFont(fntPlainText);
@@ -222,14 +217,13 @@ public class ReturnSlipGUI extends JPanel
 		taAddress.setFont(fntPlainText);
 		taAddress.setWrapStyleWord(true);
 		taAddress.setLineWrap(true);
-		taAddress.setBounds(120, 120, 380, 70);
+                taAddress.setEditable(false);
 		add(taAddress);
 
 		taNotes = new JTextArea();
 		taNotes.setFont(fntPlainText);
 		taNotes.setWrapStyleWord(true);
 		taNotes.setLineWrap(true);
-		taNotes.setBounds(30, 495, 490, 40);
 		add(taNotes);
 
 		spAddress = new JScrollPane(taAddress);
@@ -288,6 +282,7 @@ public class ReturnSlipGUI extends JPanel
 		spTable.setBounds(30, 210, 935, 158);
 		add(spTable);
 
+                tbReturnSlip.setFont(fntPlainText);
 		tbReturnSlip.getTableHeader().setFont(fntHeaderTableText);
 		tbReturnSlip.getParent().setBackground(tbReturnSlip.getBackground());
 		tbReturnSlip.getTableHeader().setResizingAllowed(false);
