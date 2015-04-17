@@ -32,9 +32,8 @@ public class ViewDebitMemoGUI extends DebitMemoGUI implements
 	private float totalBalance, totalItemPrice, tentativeTotal, discount,
 			dedBalance;
 	private final float defaultVal = 0;
-	private String partNums[];
+	private String partNums[], receiptType;
 	private Company c;
-	private String receiptType;
 	private DebitMemo DebitMemo;
 
 	public ViewDebitMemoGUI(GUIController temp)

@@ -6,23 +6,13 @@ import java.util.ArrayList;
 
 public class ReturnSlip
 {
-	private String return_slip_id;
-	private String date;
+	private String return_slip_id, date, purchase_order_num, returned_by,
+			returned_date, approved_by, approved_date, received_by,
+			received_date, notes, type, company_name;
 	private float total_amount;
-	private int company_id;
-	private int purchase_transaction_num;
-	private String purchase_order_num;
-	private String returned_by;
-	private String returned_date;
-	private String approved_by;
-	private String approved_date;
-	private String received_by;
-	private String received_date;
-	private String notes;
-	private String type;
+	private int company_id, purchase_transaction_num;
 	private ArrayList<RSLineItem> list;
 	private Company company;
-	private String company_name;
 
 	public ReturnSlip()
 	{

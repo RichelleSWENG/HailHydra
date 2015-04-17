@@ -6,8 +6,7 @@ public class SILineItem extends Item
 {
 	private String sales_invoice_id;
 	private int quantity;
-	private float unit_price;
-	private float line_total;
+	private float unit_price, line_total;
 
 	public SILineItem()
 	{

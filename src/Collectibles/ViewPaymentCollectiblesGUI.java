@@ -63,8 +63,7 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 	protected JScrollPane spNotes;
 	private JLabel lblOrigAmount;
 	private PaymentCollectiblesController mainController;
-	private String type;
-	private String id;
+	private String type, id;
 
 	public ViewPaymentCollectiblesGUI(GUIController temp)
 	{

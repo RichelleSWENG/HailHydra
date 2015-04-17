@@ -17,7 +17,6 @@ public class SalesInvoiceModel
 {
 	protected Connection db;
 	protected Statement statement;
-
 	private int itemCount = 0;
 	private ArrayList<Company> customers;
 	private ArrayList<SILineItem> items;

@@ -7,12 +7,9 @@ package Classes;
 
 public class Item
 {
-	protected String partNum;
-	protected String description;
+	protected String partNum, description;
 	protected float price;
-	protected int minimum;
-	protected int quantityFunc;
-	private int status;
+	protected int minimum, quantityFunc, status;
 
 	public Item()
 	{

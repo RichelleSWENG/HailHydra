@@ -11,19 +11,10 @@ package Payables;
  */
 public class Payment
 {
-	private String purchase_transaction_id;
+	private String purchase_transaction_id, notes, date, approved_by,
+			received_by, prepared_by, payment_type, credit_memo_id,
+			approved_date, received_date, prepared_date, payment_id;
 	private float amount;
-	private String notes;
-	private String date;
-	private String approved_by;
-	private String received_by;
-	private String prepared_by;
-	private String payment_type;
-	private String credit_memo_id;
-	private String approved_date;
-	private String received_date;
-	private String prepared_date;
-	private String payment_id;
 
 	public Payment(String pt, float amount, String received_date,
 			String approved_date, String prepared_date, String received_by,

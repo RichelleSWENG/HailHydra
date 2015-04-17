@@ -27,8 +27,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 	private GUIController guiController;
 	private ReturnSlipController mainController;
 	private int numItems;
-	private float totalItemPrice;
-	private float totalBalance;
+	private float totalItemPrice, totalBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;

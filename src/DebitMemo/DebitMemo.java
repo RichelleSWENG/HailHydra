@@ -15,21 +15,13 @@ import java.util.ArrayList;
 
 class DebitMemo
 {
-	private String debit_memo_id;
-	private String date;
+	private String debit_memo_id, date, receipt_type, receipt_number,
+			approved_by, received_by, approved_date, notes, type,
+			received_date;
 	private float total_amount;
-	private String receipt_type;
-	private String receipt_number;
-	private String approved_by;
-	private String received_by;
-	private String approved_date;
-	private String notes;
-	private int status;
-	private String type;
+	private int status, company_id;
 	private ArrayList<DMLineItem> list;
 	private Company company;
-	private int company_id;
-	private String received_date;
 
 	public DebitMemo()
 	{

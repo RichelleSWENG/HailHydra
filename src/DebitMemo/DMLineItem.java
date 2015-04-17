@@ -15,8 +15,7 @@ public class DMLineItem extends Item
 {
 	private String debit_memo_id;
 	private int quantity;
-	private float unit_price;
-	private float line_total;
+	private float unit_price, line_total;
 
 	public DMLineItem()
 	{

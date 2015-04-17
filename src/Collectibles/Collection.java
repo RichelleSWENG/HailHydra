@@ -12,15 +12,9 @@ package Collectibles;
  */
 public class Collection
 {
-	private String date;
+	private String date, receipt_type, number, notes, received_by,
+			collection_type, debit_memo_id, received_date;
 	private float amount;
-	private String receipt_type;
-	private String number;
-	private String notes;
-	private String received_by;
-	private String collection_type;
-	private String debit_memo_id;
-	private String received_date;
 
 	public Collection(String number, float amount, String received_date,
 			String received_by, String collection_type, String debit_memo_id,

@@ -6,20 +6,10 @@ import java.util.ArrayList;
 public class SalesInvoice
 {
 
-	private String sales_invoice_id;
-	private String date;
-	private float original_amount;
-	private String po_num;
-	private String ordered_by;
-	private String sales_person;
-	private String delivered_by;
-	private String delivery_notes;
-	private String delivery_receipt_num;
-	private float discount;
-	private float current_balance;
-	private String status;
-	private String pwd_id_number_notes;
-	private float vat;
+	private String sales_invoice_id, date, po_num, ordered_by, sales_person,
+			delivered_by, delivery_notes, delivery_receipt_num, status,
+			pwd_id_number_notes;
+	private float original_amount, discount, current_balance, vat;
 	private ArrayList<SILineItem> list;
 	private Company company;
 

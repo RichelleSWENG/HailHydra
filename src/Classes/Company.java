@@ -7,23 +7,11 @@ package Classes;
 
 public class Company
 {
-	private int id;
-	private String name;
-	private String addressLoc;
-	private String addressCity;
-	private String addressCountry;
-	private String postalCode;
-	private String phone1;
-	private String phone2;
-	private String phone3;
-	private String faxNum;
-	private String website;
-	private String email;
-	private String contactPerson;
-	private String status;
+	private int id, terms;
+	private String name, addressLoc, addressCity, addressCountry, postalCode,
+			phone1, phone2, phone3, faxNum, website, email, contactPerson,
+			status, type;
 	private float creditLimit;
-	private int terms;
-	private String type;
 
 	public Company()
 	{

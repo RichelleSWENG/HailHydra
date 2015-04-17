@@ -11,12 +11,8 @@ package CreditMemo;
  */
 public class CreditMemo
 {
-	private String id;
-	private String date;
-	private String rsNum;
+	private String id, date, rsNum, type, partNum;
 	private int status;
-	private String type;
-	private String partNum;
 
 	public CreditMemo()
 	{

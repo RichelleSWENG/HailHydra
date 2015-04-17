@@ -7,8 +7,7 @@ public class PTLineItem extends Item
 
 	private String purchase_transaction_id;
 	private int quantity;
-	private float unit_price;
-	private float line_total;
+	private float unit_price,line_total;
 
 	public PTLineItem()
 	{

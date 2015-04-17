@@ -5,19 +5,10 @@ import java.util.ArrayList;
 
 public class PurchaseTransaction
 {
-	private String purchase_transaction_id;
-	private String date;
-	private float original_amount;
-	private String po_num;
-	private String received_by;
-	private String ordered_by;
-	private String receiving_notes;
-	private String delivery_receipt_num;
-	private String ref_sales_invoice_num;
-	private float discount;
-	private float vat;
-	private float current_balance;
-	private String status;
+	private String purchase_transaction_id, date, po_num, received_by,
+			ordered_by, receiving_notes, delivery_receipt_num,
+			ref_sales_invoice_num, status;
+	private float discount, original_amount, vat, current_balance;
 	private ArrayList<PTLineItem> list;
 	private Company company;
 

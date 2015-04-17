@@ -31,8 +31,7 @@ public class ViewCreditMemoGUI extends CreditMemoGUI implements
 	private CreditMemoController mainController;
 	private ReturnSlip slip;
 	private int numItems;
-	private float totalItemPrice;
-	private float totalBalance;
+	private float totalItemPrice, totalBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;

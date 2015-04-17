@@ -6,8 +6,7 @@ public class RSLineItem extends Item
 {
 	private String return_slip_id;
 	private int quantity;
-	private float unit_price;
-	private float line_total;
+	private float unit_price, line_total;
 
 	public RSLineItem()
 	{
