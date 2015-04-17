@@ -11,6 +11,7 @@ package Login;
  * @author Janine
  */
 public interface Subject {
-    public void register(Observer o);
-    void notifyObserver();
+	public void register(Observer o);
+
+	void notifyObserver();
 }
