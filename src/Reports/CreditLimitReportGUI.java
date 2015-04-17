@@ -26,7 +26,8 @@ import javax.swing.table.TableModel;
 import HailHydra.GUIController;
 import TableRenderer.TableRenderer;
 
-public class CreditLimitReportGUI extends JPanel {
+public class CreditLimitReportGUI extends JPanel
+{
 
 	private JLabel lblHeader, lblCustomer, lblReportsFound,
 			lblNumOfReportsFound;
@@ -46,7 +47,8 @@ public class CreditLimitReportGUI extends JPanel {
 	private GUIController controller;
 	private ReportController mainController;
 
-	public CreditLimitReportGUI(GUIController temp) {
+	public CreditLimitReportGUI(GUIController temp)
+	{
 
 		controller = temp;
 		setBounds(0, 0, 1000, 620);
@@ -80,45 +82,47 @@ public class CreditLimitReportGUI extends JPanel {
 		tfCustomer.setFont(fntPlainText);
 		tfCustomer.setBounds(140, 80, 400, 30);
 		add(tfCustomer);
-		tfCustomer.getDocument().addDocumentListener(new DocumentListener() 
-                {
-			public void insertUpdate(DocumentEvent de) {
-				try 
-                                {
+		tfCustomer.getDocument().addDocumentListener(new DocumentListener()
+		{
+			public void insertUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 
 				}
 			}
 
-			public void removeUpdate(DocumentEvent de) 
-                        {
-				try 
-                                {
+			public void removeUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 
 				}
 			}
 
-			public void changedUpdate(DocumentEvent de) 
-                        {
-				try 
-                                {
+			public void changedUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 
 				}
 			}
 
-			public void done() throws Exception 
-                        {
-				if (tfCustomer.getText().length() > 0) 
-                                {
-					mainController.SearchSomethingfromTerms(tfCustomer.getText());
+			public void done() throws Exception
+			{
+				if (tfCustomer.getText().length() > 0)
+				{
+					mainController.SearchSomethingfromTerms(tfCustomer
+							.getText());
 				} else if (tfCustomer.getText().length() == 0) // if nothing is
 				{
 					ViewAll();
@@ -126,26 +130,28 @@ public class CreditLimitReportGUI extends JPanel {
 			}
 		});
 
-		
-		tbCreditLimit = new JTable() 
-                {
-                        public boolean isCellEditable(int rowIndex, int mColIndex) 
-                        {
+		tbCreditLimit = new JTable()
+		{
+			public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
 				return false;
 			}
+
 			public TableCellRenderer getCellRenderer(int row, int column)
-                        {
+			{
 				return new TableRenderer();
 			}
 
-			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
-                        {
+			public Component prepareRenderer(TableCellRenderer renderer,
+					int row, int column)
+			{
 				component = super.prepareRenderer(renderer, row, column);
 				modelRow = convertRowIndexToModel(row);
-				if (!isRowSelected(modelRow)) 
-                                {
+				if (!isRowSelected(modelRow))
+				{
 					component.setBackground(Color.WHITE);
-				} else {
+				} else
+				{
 					component.setBackground(Color.yellow);
 				}
 				return component;
@@ -157,8 +163,8 @@ public class CreditLimitReportGUI extends JPanel {
 		tbCreditLimit.getTableHeader().setResizingAllowed(false);
 		tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbCreditLimit.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1) 
-                {
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
 			tbColumn = tbColumnRenderer.getColumn(j);
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
@@ -169,12 +175,11 @@ public class CreditLimitReportGUI extends JPanel {
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbCreditLimit.setFont(fntPlainText);
-		
 
 		spTable = new JScrollPane(tbCreditLimit);
 		spTable.setBounds(30, 165, 935, 360);
 		add(spTable);
-		
+
 		tbCreditLimit.getParent().setBackground(tbCreditLimit.getBackground());
 		tbCreditLimit.getTableHeader().setResizingAllowed(false);
 		tbCreditLimit.getTableHeader().setReorderingAllowed(false);
@@ -187,10 +192,10 @@ public class CreditLimitReportGUI extends JPanel {
 		btnViewAllReports.setFont(fntPlainText);
 		btnViewAllReports.setBounds(725, 110, 240, 40);
 		add(btnViewAllReports);
-		btnViewAllReports.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
+		btnViewAllReports.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				ViewAll();
 			}
 		});
@@ -199,11 +204,11 @@ public class CreditLimitReportGUI extends JPanel {
 		btnAddPayment.setFont(fntPlainText);
 		btnAddPayment.setBounds(600, 545, 165, 40);
 		add(btnAddPayment);
-		btnAddPayment.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
-                            controller.changePanelToAddPaymentCollectibles();
+		btnAddPayment.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				controller.changePanelToAddPaymentCollectibles();
 			}
 		});
 
@@ -211,32 +216,32 @@ public class CreditLimitReportGUI extends JPanel {
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
 		add(btnClose);
-		btnClose.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
+		btnClose.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				controller.changePanelToMainMenu();
 			}
 		});
 
 	}
 
-	public void setItemCount(int itemcount) 
-        {
+	public void setItemCount(int itemcount)
+	{
 		lblNumOfReportsFound.setText(Integer.toString(itemcount));
 	}
 
-	public void setTableModel(TableModel tbm) 
-        { // Setting the Headers
+	public void setTableModel(TableModel tbm)
+	{ // Setting the Headers
 		tbCreditLimit.setModel(tbm);
 		JTableHeader th = tbCreditLimit.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
+		for (int i = 0; i < strHeader.length; i++)
+		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-                tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
+		tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbCreditLimit.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
 		{
@@ -244,32 +249,34 @@ public class CreditLimitReportGUI extends JPanel {
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
 				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,j);
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,
+					j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-                
+
 		tbCreditLimit.repaint();
 	}
 
-	public void setMainController(ReportController temp) 
-        {
+	public void setMainController(ReportController temp)
+	{
 		mainController = temp;
 	}
 
-	public void ViewAll() 
-        {
-                tfCustomer.setText("");
+	public void ViewAll()
+	{
+		tfCustomer.setText("");
 		TableModel AllModel = mainController.getAllCreditModel();
 		tbCreditLimit.setModel(AllModel);
-                
-                JTableHeader th = tbCreditLimit.getTableHeader();
+
+		JTableHeader th = tbCreditLimit.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
+		for (int i = 0; i < strHeader.length; i++)
+		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-                tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
+		tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbCreditLimit.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
 		{
@@ -277,15 +284,17 @@ public class CreditLimitReportGUI extends JPanel {
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
 				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,j);
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,
+					j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-                
+
 		tbCreditLimit.repaint();
 	}
 
-	public static void main(String args[]) 
-        {
+	public static void main(String args[])
+	{
 		GUIController temp = new GUIController();
 		temp.changePanelToCreditLimitReport();
 	}
