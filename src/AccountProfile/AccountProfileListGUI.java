@@ -38,7 +38,7 @@ public class AccountProfileListGUI extends JPanel
 	private String strHeader[] = { "               Name               ",
 			"                    Type                    ",
 			"     Credit Limit     ",
-			"<html><center>Terms<br>(Days)</center></html>" };
+			"<html><center>Terms<br>(Days)</center></html>" }, name, AccountType;
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
@@ -50,12 +50,9 @@ public class AccountProfileListGUI extends JPanel
 	private JButton btnViewAllAccounts, btnViewCompanyProfile,
 			btnAddAccountProfile, btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-	private int modelRow;
+	private int modelRow, type;
 	private GUIController GUIController;
 	private AccountProfileController mainController;
-	private int type;
-	private String name;
-	private String AccountType;
 
 	public AccountProfileListGUI(GUIController temp)
 	{
