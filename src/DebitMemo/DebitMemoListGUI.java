@@ -104,7 +104,7 @@ public class DebitMemoListGUI extends JPanel
 
 		lblNumofMemos = new JLabel("0");
 		lblNumofMemos.setFont(fntPlainText);
-		lblNumofMemos.setBounds(180, 200, 250, 30);
+		lblNumofMemos.setBounds(190, 200, 250, 30);
 		add(lblNumofMemos);
 
                 tfSearch = new JTextField();
@@ -148,6 +148,7 @@ public class DebitMemoListGUI extends JPanel
                     }
 
                 });
+                
                 cmbToMonth.addActionListener(new ActionListener() 
                 {
                     public void actionPerformed(ActionEvent ae)
@@ -158,6 +159,7 @@ public class DebitMemoListGUI extends JPanel
                     }
 
                 });
+                
                 cmbFromMonth.addActionListener(new ActionListener() 
                 {
                     public void actionPerformed(ActionEvent ae)
@@ -168,6 +170,7 @@ public class DebitMemoListGUI extends JPanel
                     }
 
                 });
+                
                 cmbFromYear.addActionListener(new ActionListener() 
                 {
 
@@ -291,7 +294,7 @@ public class DebitMemoListGUI extends JPanel
 		rdbtnCustomerName = new JRadioButton("Customer Name");
 		rdbtnCustomerName.setFont(fntPlainText);
 		rdbtnCustomerName.setSelected(true);
-		rdbtnCustomerName.setBounds(140, 85, 183, 25);
+		rdbtnCustomerName.setBounds(140, 82, 183, 25);
 		add(rdbtnCustomerName);
                 rdbtnCustomerName.addActionListener(
                     new ActionListener()
@@ -301,9 +304,10 @@ public class DebitMemoListGUI extends JPanel
                                 tfSearch.setText(null);
                         }
                     });
+                
 		rdbtnDebitMemoNo = new JRadioButton("Debit Memo Number");
 		rdbtnDebitMemoNo.setFont(fntPlainText);
-		rdbtnDebitMemoNo.setBounds(343, 85, 232, 25);
+		rdbtnDebitMemoNo.setBounds(343, 82, 232, 25);
 		add(rdbtnDebitMemoNo);
                 rdbtnDebitMemoNo.addActionListener(
                     new ActionListener()
@@ -313,9 +317,10 @@ public class DebitMemoListGUI extends JPanel
                                 tfSearch.setText(null);
                         }
                     });
+                
 		rdbtnPartNo = new JRadioButton("Part Number");
 		rdbtnPartNo.setFont(fntPlainText);
-		rdbtnPartNo.setBounds(576, 85, 168, 25);
+		rdbtnPartNo.setBounds(576, 82, 168, 25);
 		add(rdbtnPartNo);
                 rdbtnPartNo.addActionListener(
                     new ActionListener()
