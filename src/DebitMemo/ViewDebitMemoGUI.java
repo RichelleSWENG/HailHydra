@@ -42,7 +42,6 @@ public class ViewDebitMemoGUI extends DebitMemoGUI implements TableModelListener
                 lblHeader.setText("View Debit Memo");
                 
                 tfDBNum.setEditable(false);
-                tfSINum.setEditable(false);
                 tfApprovedBy.setEditable(false);
                 tfReceivedBy.setEditable(false);
                 ftfDate.setEditable(false);
