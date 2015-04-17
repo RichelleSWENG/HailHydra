@@ -146,12 +146,6 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
 
     }
 
-    public static void main(String args[])
-    {
-        GUIController temp = new GUIController();
-        temp.changePanelToViewSalesInvoice();
-    }
-    
     public void setDataComponents()
     {
         String[] customerNames = new String[mainController.getCustomers().size() + 1];
@@ -174,8 +168,8 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
                 totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4).toString());
         }
         dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-        ftfTotal.setText(String.valueOf(dedBalance));
-        ftfBalance.setText(String.valueOf(dedBalance));
+        ftfTotal.setValue(dedBalance);
+        ftfBalance.setValue(dedBalance);
     }
 
     class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
@@ -213,7 +207,6 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements TableModelLi
         }
     }
     
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
