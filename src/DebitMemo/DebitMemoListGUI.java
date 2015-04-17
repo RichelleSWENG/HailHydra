@@ -114,7 +114,7 @@ public class DebitMemoListGUI extends JPanel
                 
                 cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(150, 120, 146, 30);
+		cmbFromMonth.setBounds(140, 120, 146, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
@@ -325,6 +325,7 @@ public class DebitMemoListGUI extends JPanel
                                 tfSearch.setText(null);
                         }
                     });
+                
 		searchBy = new ButtonGroup();
 		searchBy.add(rdbtnCustomerName);
 		searchBy.add(rdbtnDebitMemoNo);
