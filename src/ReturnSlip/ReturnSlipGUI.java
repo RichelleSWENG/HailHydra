@@ -47,8 +47,8 @@ public class ReturnSlipGUI extends JPanel
 			ftfReceivedDate, ftfTotal;
 	protected JTextArea taAddress, taNotes;
 	protected JFormattedTextField ftfDate;
-	protected String strHeader[] =
-	{ "Quantity", "    Part Number    ", "        Description        ",
+	protected String strHeader[] = { "Quantity", "    Part Number    ",
+			"        Description        ",
 			"<html><center>   Unit   <br>   Price   </center></html>",
 			"  Total  " };
 	protected DefaultTableModel tbModel;
@@ -217,7 +217,7 @@ public class ReturnSlipGUI extends JPanel
 		taAddress.setFont(fntPlainText);
 		taAddress.setWrapStyleWord(true);
 		taAddress.setLineWrap(true);
-                taAddress.setEditable(false);
+		taAddress.setEditable(false);
 		add(taAddress);
 
 		taNotes = new JTextArea();
@@ -263,26 +263,27 @@ public class ReturnSlipGUI extends JPanel
 			{
 				return new TableRenderer();
 			}
-                        public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
-                        {
-                            component = super.prepareRenderer(renderer, row, column);
-                            int modelRow = convertRowIndexToModel(row);
-                            if (!isRowSelected(modelRow)) 
-                            {
-                                component.setBackground(Color.WHITE);
-                            } 
-                            else 
-                            {
-                                component.setBackground(Color.yellow);
-                            }
-                            return component;
-                        }
+
+			public Component prepareRenderer(TableCellRenderer renderer,
+					int row, int column)
+			{
+				component = super.prepareRenderer(renderer, row, column);
+				int modelRow = convertRowIndexToModel(row);
+				if (!isRowSelected(modelRow))
+				{
+					component.setBackground(Color.WHITE);
+				} else
+				{
+					component.setBackground(Color.yellow);
+				}
+				return component;
+			}
 		};
 		spTable = new JScrollPane(tbReturnSlip);
 		spTable.setBounds(30, 210, 935, 158);
 		add(spTable);
 
-                tbReturnSlip.setFont(fntPlainText);
+		tbReturnSlip.setFont(fntPlainText);
 		tbReturnSlip.getTableHeader().setFont(fntHeaderTableText);
 		tbReturnSlip.getParent().setBackground(tbReturnSlip.getBackground());
 		tbReturnSlip.getTableHeader().setResizingAllowed(false);
@@ -363,16 +364,16 @@ public class ReturnSlipGUI extends JPanel
 		type.add(rdbtnFunctional);
 		type.add(rdbtnDefectiveWithOutDebitMemo);
 		type.add(rdbtnDefectiveWithDebitMemo);
-		
-		btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 375, 147, 40);
-        add(btnAddItem);
 
-        btnDeleteItem= new JButton("Delete Item");
-        btnDeleteItem.setFont(fntPlainText);
-        btnDeleteItem.setBounds(190, 375, 147, 40);
-        add(btnDeleteItem);
+		btnAddItem = new JButton("Add Item");
+		btnAddItem.setFont(fntPlainText);
+		btnAddItem.setBounds(30, 375, 147, 40);
+		add(btnAddItem);
+
+		btnDeleteItem = new JButton("Delete Item");
+		btnDeleteItem.setFont(fntPlainText);
+		btnDeleteItem.setBounds(190, 375, 147, 40);
+		add(btnDeleteItem);
 
 	}
 
