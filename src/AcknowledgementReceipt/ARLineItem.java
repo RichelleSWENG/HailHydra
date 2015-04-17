@@ -6,8 +6,7 @@ public class ARLineItem extends Item
 {
 	private String acknowledgement_receipt_id;
 	private int quantity;
-	private float unit_price;
-	private float line_total;
+	private float unit_price, line_total;
 
 	public ARLineItem()
 	{

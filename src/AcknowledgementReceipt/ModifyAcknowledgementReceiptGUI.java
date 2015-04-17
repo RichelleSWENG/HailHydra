@@ -27,12 +27,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	private AcknowledgementReceiptController mainController;
 	private AcknowledgementReceipt rcpt;
 	private int numItems;
-	private float totalBalance;
-	private float totalItemPrice;
-	private float tentativeTotal;
-	private float discount;
+	private float totalBalance, totalItemPrice, tentativeTotal, discount,dedBalance;
 	private final float defaultVal = 0;
-	private float dedBalance;
 	private String partNums[];
 	private Company c;
 

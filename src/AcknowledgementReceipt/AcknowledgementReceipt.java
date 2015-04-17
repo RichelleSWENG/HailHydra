@@ -6,18 +6,10 @@ import java.util.ArrayList;
 public class AcknowledgementReceipt
 {
 
-	private String acknowledgement_receipt_id;
-	private String date;
-	private float original_amount;
-	private String po_num;
-	private String ordered_by;
-	private String sales_person;
-	private String delivered_by;
-	private String delivery_notes;
-	private String delivery_receipt_num;
-	private float discount;
-	private float current_balance;
-	private String status;
+	private String acknowledgement_receipt_id, date, po_num, ordered_by,
+			sales_person, delivered_by, delivery_notes, delivery_receipt_num,
+			status;
+	private float current_balance, original_amount, discount;
 	private ArrayList<ARLineItem> list;
 	private Company company;
 
