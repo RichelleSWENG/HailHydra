@@ -35,7 +35,7 @@ public class DebitMemoGUI extends JPanel
 {
         private JPanel pnlType;
         protected JLabel lblHeader, lblCustomer, lblAddress, lblDMNum,
-                  lblDate, lblSINum, lblApprovedBy, lblReceivedBy, 
+                  lblDate, lblApprovedBy, lblReceivedBy, 
                   lblApprovedDate, lblReceivedDate, lblTotal, lblNotes;
 	protected JTextField tfDBNum, tfSINum,
 		  tfApprovedBy, tfReceivedBy;
@@ -87,18 +87,13 @@ public class DebitMemoGUI extends JPanel
                 
                 lblDMNum = new JLabel("Debit Memo #:");
 		lblDMNum.setFont(fntPlainText);
-		lblDMNum.setBounds(530, 80, 216, 30);
+		lblDMNum.setBounds(535, 80, 216, 30);
 		add(lblDMNum);
                 
                 lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(530, 120, 60, 30);
+		lblDate.setBounds(620, 120, 60, 30);
 		add(lblDate);
-                
-		lblSINum = new JLabel("S.I. Number:");
-		lblSINum.setFont(fntPlainText);
-		lblSINum.setBounds(530, 160, 120, 30);
-		//add(lblSINum);
                 
                 lblApprovedBy = new JLabel("Approved By:");
 		lblApprovedBy.setFont(fntPlainText);
@@ -122,7 +117,7 @@ public class DebitMemoGUI extends JPanel
                 
                 lblTotal = new JLabel("Total:");
 		lblTotal.setFont(fntPlainText);
-		lblTotal.setBounds(733, 378, 70, 30);
+		lblTotal.setBounds(733, 370, 70, 30);
 		add(lblTotal);
                 
                 lblNotes = new JLabel("Notes:");
@@ -140,11 +135,6 @@ public class DebitMemoGUI extends JPanel
                 ftfDate.setFont(fntPlainText);
                 ftfDate.setBounds(680, 120, 285, 30);
                 add(ftfDate);
-
-		tfSINum = new JTextField();
-		tfSINum.setFont(fntPlainText);
-		tfSINum.setBounds(680, 160, 285, 30);
-		//add(tfSINum);
 
 		tfApprovedBy = new JTextField();
 		tfApprovedBy.setFont(fntPlainText);
@@ -171,13 +161,14 @@ public class DebitMemoGUI extends JPanel
                 ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
                 ftfTotal.setValue(new Float(00.0F));
                 ftfTotal.setEditable(false);
-                ftfTotal.setBounds(800, 375, 165, 30);
+                ftfTotal.setBounds(800, 370, 165, 30);
                 add(ftfTotal);
                 
                 taAddress = new JTextArea();
 		taAddress.setFont(fntPlainText);
                 taAddress.setWrapStyleWord(true);
                 taAddress.setLineWrap(true);
+                taAddress.setEditable(false);
 		taAddress.setBounds(130, 120, 370, 70);
 		add(taAddress);
                 
@@ -205,7 +196,7 @@ public class DebitMemoGUI extends JPanel
                 String[] comboBoxArray = {"A.R.#","S.I.#"};
                 cmbRcptType = new JComboBox(comboBoxArray);
                 cmbRcptType.setFont(fntPlainText);
-                cmbRcptType.setBounds(530, 160, 120, 30);
+                cmbRcptType.setBounds(580, 160, 90, 30);
                 add(cmbRcptType);
                 
                 cmbRcptNumber = new JComboBox();
@@ -224,7 +215,7 @@ public class DebitMemoGUI extends JPanel
 			}
 		};
 
-		tbModel.setRowCount(15);
+		tbModel.setRowCount(0);
 
 		for (int i = 0; i < strHeader.length; i++)
 		{
@@ -238,9 +229,11 @@ public class DebitMemoGUI extends JPanel
 				return new TableRenderer();
 			}
 		};
-                
+                tbDebitMemo.getTableHeader().setFont(fntHeaderTableText);
                 tbDebitMemo.getTableHeader().setPreferredSize(new Dimension(100, 55));
                 tbDebitMemo.getTableHeader().setResizingAllowed(false);
+                tbDebitMemo.setFont(fntPlainText);
+
                 tbCellRenderer= tbDebitMemo.getTableHeader().getDefaultRenderer();
                 tbColumnRenderer= tbDebitMemo.getColumnModel();
                 for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
@@ -286,19 +279,19 @@ public class DebitMemoGUI extends JPanel
 		pnlType.add(chckbxReplacement);
 		
 		btnAddItem = new JButton("Add Item");
-        btnAddItem.setFont(fntPlainText);
-        btnAddItem.setBounds(30, 378, 147, 40);
-        add(btnAddItem);
+                btnAddItem.setFont(fntPlainText);
+                btnAddItem.setBounds(30, 370, 147, 40);
+                add(btnAddItem);
 
-        btnDeleteItem= new JButton("Delete Item");
-        btnDeleteItem.setFont(fntPlainText);
-        btnDeleteItem.setBounds(190, 378, 147, 40);
-        add(btnDeleteItem);
+                btnDeleteItem= new JButton("Delete Item");
+                btnDeleteItem.setFont(fntPlainText);
+                btnDeleteItem.setBounds(190, 370, 147, 40);
+                add(btnDeleteItem);
             
         }
         
         public static void main(String args[]){
-                GUIController temp=new GUIController();
-                temp.changePanelToAddDebitMemo();
+               GUIController temp=new GUIController();
+               temp.changePanelToAddDebitMemo();
         }
 }
