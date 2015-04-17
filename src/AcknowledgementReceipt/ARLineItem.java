@@ -6,27 +6,28 @@ public class ARLineItem extends Item
 {
 	private String acknowledgement_receipt_id;
 	private int quantity;
-        private float unit_price;
+	private float unit_price;
 	private float line_total;
 
-        public ARLineItem()
-        {
-                super();
-                this.acknowledgement_receipt_id="";
-                this.quantity=0;
-                this.partNum = "";
-		this.unit_price=0;
-		this.line_total=0;
-        }
-	
-        public ARLineItem(String acknowledgement_receipt_id,int quantity,String part_num,float unit_price,float line_total)
+	public ARLineItem()
 	{
-                super();
-		this.acknowledgement_receipt_id=acknowledgement_receipt_id;
-		this.quantity=quantity;
+		super();
+		this.acknowledgement_receipt_id = "";
+		this.quantity = 0;
+		this.partNum = "";
+		this.unit_price = 0;
+		this.line_total = 0;
+	}
+
+	public ARLineItem(String acknowledgement_receipt_id, int quantity,
+			String part_num, float unit_price, float line_total)
+	{
+		super();
+		this.acknowledgement_receipt_id = acknowledgement_receipt_id;
+		this.quantity = quantity;
 		this.partNum = part_num;
-		this.unit_price=unit_price;
-		this.line_total=line_total;
+		this.unit_price = unit_price;
+		this.line_total = line_total;
 	}
 
 	public String getAcknowledgement_receipt_id()
@@ -68,6 +69,5 @@ public class ARLineItem extends Item
 	{
 		this.line_total = line_total;
 	}
-	
-	
+
 }
