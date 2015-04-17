@@ -10,142 +10,162 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FactoryModify implements Subject{
-        protected Connection db;
-        protected Statement statement;
-        private Observer observer;
-        
-	public void createProduct(String modify,DBConnection dbc){
-                this.db=dbc.getConnection();
-		if ("VAT"==modify){
-                        String vat=new ModifyVAT(getCurrentVat()).getInput();
-                        if(vat!="")
-                        {
-                            try
-                            {
-                                statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET vat_percentage='"+vat+"' WHERE system_info_id='1'";
-                                statement.executeUpdate(sql);
-                                notifyObserver();
-                            } catch (Exception e)
-                            {
-                                e.getMessage();
-                            }
-                        }
-		}	
-		else if ("Terms"==modify){
-			 String terms=new ModifyTerms(getCurrentTerms()).getInput();
-                         if(terms!="")
-                         {
-                            try
-                            {
-                                statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET terms_report='"+terms+"' WHERE system_info_id='1'";
-                                statement.executeUpdate(sql);
-                                notifyObserver();
-                            } catch (Exception e)
-                            {
-                                e.getMessage();
-                            }
-                         }
+public class FactoryModify implements Subject
+{
+	protected Connection db;
+	protected Statement statement;
+	private Observer observer;
+
+	public void createProduct(String modify, DBConnection dbc)
+	{
+		this.db = dbc.getConnection();
+		if ("VAT" == modify)
+		{
+			String vat = new ModifyVAT(getCurrentVat()).getInput();
+			if (vat != "")
+			{
+				try
+				{
+					statement = db.createStatement();
+					String sql = "UPDATE systeminfo SET vat_percentage='" + vat
+							+ "' WHERE system_info_id='1'";
+					statement.executeUpdate(sql);
+					notifyObserver();
+				} catch (Exception e)
+				{
+					e.getMessage();
+				}
+			}
+		} else if ("Terms" == modify)
+		{
+			String terms = new ModifyTerms(getCurrentTerms()).getInput();
+			if (terms != "")
+			{
+				try
+				{
+					statement = db.createStatement();
+					String sql = "UPDATE systeminfo SET terms_report='" + terms
+							+ "' WHERE system_info_id='1'";
+					statement.executeUpdate(sql);
+					notifyObserver();
+				} catch (Exception e)
+				{
+					e.getMessage();
+				}
+			}
 		}
-			
-		else if ("CreditLimit"==modify){
-			String creditlimit=new ModifyCreditLimit(getCreditLimit()).getInput();
-                        if(creditlimit!="")
-                        {
-                            try
-                            {
-                                statement = db.createStatement();
-                                String sql = "UPDATE systeminfo SET credit_alert='"+creditlimit+"' WHERE system_info_id='1'";
-                                statement.executeUpdate(sql);
-                                notifyObserver();
-                            } catch (Exception e)
-                            {
-                                e.getMessage();
-                            }
-                        }
+
+		else if ("CreditLimit" == modify)
+		{
+			String creditlimit = new ModifyCreditLimit(getCreditLimit())
+					.getInput();
+			if (creditlimit != "")
+			{
+				try
+				{
+					statement = db.createStatement();
+					String sql = "UPDATE systeminfo SET credit_alert='"
+							+ creditlimit + "' WHERE system_info_id='1'";
+					statement.executeUpdate(sql);
+					notifyObserver();
+				} catch (Exception e)
+				{
+					e.getMessage();
+				}
+			}
 		}
-    }
-            public String getCurrentVat()
-            {
-                ResultSet rs = null;
-                try
-                {
-                    statement = db.createStatement();
-                    String sql = "SELECT vat_percentage FROM systeminfo WHERE system_info_id='1'";
-                    rs = statement.executeQuery(sql);
+	}
 
-                } catch (Exception e)
-                {
-                    e.getMessage();
-                }
-                try {
-                    if(!rs.next())
-                        return null;
-                    else
-                        return rs.getString("vat_percentage");
-                } catch (SQLException ex) {
-                    Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return "";
-            }   
-            
-            public String getCurrentTerms()
-            {
-                ResultSet rs = null;
-                try
-                {
-                    statement = db.createStatement();
-                    String sql = "SELECT terms_report FROM systeminfo WHERE system_info_id='1'";
-                    rs = statement.executeQuery(sql);
+	public String getCurrentVat()
+	{
+		ResultSet rs = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT vat_percentage FROM systeminfo WHERE system_info_id='1'";
+			rs = statement.executeQuery(sql);
 
-                } catch (Exception e)
-                {
-                    e.getMessage();
-                }
-                try {
-                    if(!rs.next())
-                        return null;
-                    else
-                        return rs.getString("terms_report");
-                } catch (SQLException ex) {
-                    Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return "";
-            }
-            
-            public String getCreditLimit()
-            {
-                ResultSet rs = null;
-                try
-                {
-                    statement = db.createStatement();
-                    String sql = "SELECT credit_alert FROM systeminfo WHERE system_info_id='1'";
-                    rs = statement.executeQuery(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		try
+		{
+			if (!rs.next())
+				return null;
+			else
+				return rs.getString("vat_percentage");
+		} catch (SQLException ex)
+		{
+			Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+		return "";
+	}
 
-                } catch (Exception e)
-                {
-                    e.getMessage();
-                }
-                try {
-                    if(!rs.next())
-                        return null;
-                    else
-                        return rs.getString("credit_alert");
-                } catch (SQLException ex) {
-                    Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                return "";
-            }
+	public String getCurrentTerms()
+	{
+		ResultSet rs = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT terms_report FROM systeminfo WHERE system_info_id='1'";
+			rs = statement.executeQuery(sql);
 
-    @Override
-    public void register(Observer o) {
-        this.observer=o;
-    }
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		try
+		{
+			if (!rs.next())
+				return null;
+			else
+				return rs.getString("terms_report");
+		} catch (SQLException ex)
+		{
+			Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+		return "";
+	}
 
-    @Override
-    public void notifyObserver() {
-        observer.update();
-    }
+	public String getCreditLimit()
+	{
+		ResultSet rs = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT credit_alert FROM systeminfo WHERE system_info_id='1'";
+			rs = statement.executeQuery(sql);
+
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		try
+		{
+			if (!rs.next())
+				return null;
+			else
+				return rs.getString("credit_alert");
+		} catch (SQLException ex)
+		{
+			Logger.getLogger(FactoryModify.class.getName()).log(Level.SEVERE,
+					null, ex);
+		}
+		return "";
+	}
+
+	@Override
+	public void register(Observer o)
+	{
+		this.observer = o;
+	}
+
+	@Override
+	public void notifyObserver()
+	{
+		observer.update();
+	}
 }
