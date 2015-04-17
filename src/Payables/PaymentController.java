@@ -41,7 +41,7 @@ public class PaymentController {
        gui.setTableModel(tbm);
     }
     
-    public void changeCurrentBalance(int pt,float currentbalance)
+    public void changeCurrentBalance(String pt,float currentbalance)
     {
         paymentModel.updateCurrentBalance(pt, currentbalance);
     }
@@ -62,7 +62,7 @@ public class PaymentController {
         paymentModel.addPayment(obj);
     }
     
-    public void changeStatus(int pt)
+    public void changeStatus(String pt)
     {
         paymentModel.changeStatus(pt);
     }

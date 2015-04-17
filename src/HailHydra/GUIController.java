@@ -202,7 +202,7 @@ public class GUIController
     public void changePanelToMainMenu()
     {
         modal.dispose();
-        main.setMainController(new LoginController(new LoginModel(dbc),main));
+        main.setMainController(new LoginController(new LoginModel(dbc)));
         getContentPanel().add(main);
         frameRevalidate();
     }
@@ -797,6 +797,7 @@ public class GUIController
         if (administrator)
         {
             FactoryModify fm = new FactoryModify();
+            fm.register(new LoginController(new LoginModel(dbc),main,fm));
             fm.createProduct(type, dbc);
         } else
         {

@@ -14,6 +14,7 @@ public class FactoryModify implements Subject{
         protected Connection db;
         protected Statement statement;
         private Observer observer;
+        
 	public void createProduct(String modify,DBConnection dbc){
                 this.db=dbc.getConnection();
 		if ("VAT"==modify){
@@ -39,7 +40,6 @@ public class FactoryModify implements Subject{
                             try
                             {
                                 statement = db.createStatement();
-                                System.out.println(terms);
                                 String sql = "UPDATE systeminfo SET terms_report='"+terms+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                                 notifyObserver();
@@ -57,7 +57,6 @@ public class FactoryModify implements Subject{
                             try
                             {
                                 statement = db.createStatement();
-                                System.out.println(creditlimit);
                                 String sql = "UPDATE systeminfo SET credit_alert='"+creditlimit+"' WHERE system_info_id='1'";
                                 statement.executeUpdate(sql);
                                 notifyObserver();

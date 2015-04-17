@@ -20,16 +20,18 @@ import java.util.logging.Logger;
 public class LoginController implements Observer{
     private LoginModel model;
     private MainMenuGUI gui;
-    
+    private Subject notifgrabber;
     public LoginController(LoginModel model)
     {
         this.model=model;
     }
     
-    public LoginController(LoginModel model,MainMenuGUI gui)
+    public LoginController(LoginModel model,MainMenuGUI gui,Subject grabber)
     {
         this.model=model;
         this.gui=gui;
+        notifgrabber=grabber;
+        grabber.register(this);
     }
     
     public String validate(String username,String password)
@@ -55,6 +57,7 @@ public class LoginController implements Observer{
         return model.getNotifs();
     }
     
+    @Override
     public void update()
     {
         gui.getNotifs();

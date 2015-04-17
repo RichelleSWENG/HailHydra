@@ -351,10 +351,11 @@ public class AddPaymentPayablesGUI extends JPanel{
         {       
             for (int i= 0; i < tbPayment.getRowCount(); i++)
              {   
-                if(tbPayment.getValueAt(i, 5)!="0.00")
+                
+                if(!(tbPayment.getValueAt(i, 5).equals("0.00")))
                 {
                     Payment p;       
-                    p = new Payment((int) tbPayment.getValueAt(i, 1),Float.parseFloat((String)tbPayment.getValueAt(i, 5)),ftfReceivedDate.getText(),ftfApprovedDate.getText(),ftfReturnedDate.getText(),tfReceivedBy.getText(),tfApprovedBy.getText(),tfReturnedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfCreditMemoNo.getText(),ftfDate.getText(),taNotes.getText());
+                    p = new Payment((String) tbPayment.getValueAt(i, 1),Float.parseFloat((String)tbPayment.getValueAt(i, 5)),ftfReceivedDate.getText(),ftfApprovedDate.getText(),ftfReturnedDate.getText(),tfReceivedBy.getText(),tfApprovedBy.getText(),tfReturnedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfCreditMemoNo.getText(),ftfDate.getText(),taNotes.getText());
                      mainController.addPayment(p);
                 }
               }
@@ -389,7 +390,7 @@ public class AddPaymentPayablesGUI extends JPanel{
         {
             for (int i= 0; i < tbPayment.getRowCount(); i++)
             {
-                if(tbPayment.getValueAt(i, 5)!="0.00")
+                if(!(tbPayment.getValueAt(i, 5).equals("0.00")))
                 {
                     BigDecimal big=(BigDecimal) tbPayment.getValueAt(i, 4);
                     if(big.floatValue()< Float.parseFloat((String) tbPayment.getValueAt(i, 5)))
@@ -409,15 +410,15 @@ public class AddPaymentPayablesGUI extends JPanel{
             BigDecimal currentbalance;
             for (int i= 0; i < tbPayment.getRowCount(); i++)
             {
-                    purchase_transaction_id=(int)tbPayment.getValueAt(i, 1);
+                    purchase_transaction_id=Integer.parseInt((String) tbPayment.getValueAt(i, 1));
                     currentbalance=(BigDecimal) tbPayment.getValueAt(i, 4);
-                    if(tbPayment.getValueAt(i, 5)!=null)
+                    if(!(tbPayment.getValueAt(i, 5).equals("0.00")))
                     {
                         newCurrentBalance=currentbalance.floatValue()-Float.parseFloat((String) tbPayment.getValueAt(i, 5));
-                        mainController.changeCurrentBalance(purchase_transaction_id, newCurrentBalance);
+                        mainController.changeCurrentBalance((String) tbPayment.getValueAt(i, 1), newCurrentBalance);
                         if(newCurrentBalance==0.0)
                         {
-                            mainController.changeStatus(purchase_transaction_id);
+                            mainController.changeStatus((String) tbPayment.getValueAt(i, 1));
                         }
                     }
             }
@@ -435,6 +436,18 @@ public class AddPaymentPayablesGUI extends JPanel{
                 public void tableChanged(TableModelEvent e) {
                     if(e.getColumn()==5)
                     {
+                        if(tbPayment.getValueAt(e.getFirstRow(), 5).equals(""))
+                            tbPayment.setValueAt("0.00",e.getFirstRow(), 5);
+                            try  
+                             {  
+                                double d = Double.parseDouble((String)tbPayment.getValueAt(e.getFirstRow(),5));  
+                             }  
+                             catch(NumberFormatException nfe)  
+                             {  
+                                JOptionPane.showMessageDialog(null, "Input a numeric value");
+                                tbPayment.setValueAt("0.00",e.getFirstRow(), 5);
+                                return;
+                             }  
                             ftfAmount.setText(Float.toString(getSum()));
                     }
                  }

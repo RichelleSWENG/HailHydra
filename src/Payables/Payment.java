@@ -10,7 +10,7 @@ package Payables;
  * @author Janine
  */
 public class Payment {
-    private int purchase_transaction_id;
+    private String purchase_transaction_id;
     private float amount;
     private String notes;
     private String date;
@@ -24,7 +24,7 @@ public class Payment {
     private String prepared_date;
     private String payment_id;
     
-    public Payment(int pt,float amount,String received_date,String approved_date,String prepared_date,String received_by,String approved_by,String prepared_by,String payment_type,String credit_memo_id,String date,String notes)
+    public Payment(String pt,float amount,String received_date,String approved_date,String prepared_date,String received_by,String approved_by,String prepared_by,String payment_type,String credit_memo_id,String date,String notes)
     {
         this.amount=amount;
         this.purchase_transaction_id=pt;
@@ -48,14 +48,14 @@ public class Payment {
     /**
      * @return the purchase_transaction_id
      */
-    public int getPurchase_transaction_id() {
+    public String getPurchase_transaction_id() {
         return purchase_transaction_id;
     }
 
     /**
      * @param purchase_transaction_id the purchase_transaction_id to set
      */
-    public void setPurchase_transaction_id(int purchase_transaction_id) {
+    public void setPurchase_transaction_id(String purchase_transaction_id) {
         this.purchase_transaction_id = purchase_transaction_id;
     }
 

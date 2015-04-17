@@ -76,7 +76,7 @@ public class PaymentModel {
         return model;
     }
     
-    public void updateCurrentBalance(int pt,float currentbalance)
+    public void updateCurrentBalance(String pt,float currentbalance)
     {
         try
         {
@@ -90,7 +90,7 @@ public class PaymentModel {
         }
     }
     
-    public void changeStatus(int pt)
+    public void changeStatus(String pt)
     {
         try
         {

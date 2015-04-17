@@ -303,7 +303,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
                     number=Integer.parseInt((String) tbPayment.getValueAt(i, 2));
                     currentbalance=(BigDecimal) tbPayment.getValueAt(i, 5);
                     type=(String)tbPayment.getValueAt(i,1);
-                    if(tbPayment.getValueAt(i, 5)!=null)
+                    if(!(tbPayment.getValueAt(i, 6).equals("0.00")))
                     {
                         newCurrentBalance=currentbalance.floatValue()-Float.parseFloat((String) tbPayment.getValueAt(i, 6));
                         mainController.changeCurrentBalance(number,type,newCurrentBalance);
@@ -331,7 +331,7 @@ public class AddPaymentCollectiblesGUI extends JPanel {
         {       
             for (int i= 0; i < tbPayment.getRowCount(); i++)
              {   
-                if(tbPayment.getValueAt(i, 6)!="0.00")
+                if(!(tbPayment.getValueAt(i, 6).equals("0.00")))
                 {
                     Collection c;       
                     c = new Collection((String)tbPayment.getValueAt(i, 2),Float.parseFloat((String)tbPayment.getValueAt(i, 6)),ftfReceivedDate.getText(),tfReceivedBy.getText(),(String)cmbPaymentType.getSelectedItem(),tfDebitMemoNo.getText(),ftfDate.getText(),taNotes.getText(),(String)tbPayment.getValueAt(i, 1));
@@ -380,6 +380,18 @@ public class AddPaymentCollectiblesGUI extends JPanel {
                 tbm.addTableModelListener(new TableModelListener() {
                 public void tableChanged(TableModelEvent e) {
                     if(e.getColumn()==6)
+                        if(tbPayment.getValueAt(e.getFirstRow(), 6).equals(""))
+                            tbPayment.setValueAt("0.00",e.getFirstRow(), 6);
+                        try  
+                             {  
+                                double d = Double.parseDouble((String)tbPayment.getValueAt(e.getFirstRow(),6));  
+                             }  
+                             catch(NumberFormatException nfe)  
+                             {  
+                                JOptionPane.showMessageDialog(null, "Input a numeric value");
+                                tbPayment.setValueAt("0.00",e.getFirstRow(), 6);
+                                return;
+                             }  
                         ftfAmount.setText(Float.toString(getSum()));
                  }
                 });

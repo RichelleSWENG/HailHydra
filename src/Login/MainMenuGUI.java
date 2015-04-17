@@ -185,7 +185,7 @@ public class MainMenuGUI extends JPanel
         public void setMainController(LoginController mainController)
         {
             this.mainController = mainController;
-            this.mainController.update();
+            getNotifs();
         }
 
 	public static void main(String args[]) 
