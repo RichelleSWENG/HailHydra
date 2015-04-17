@@ -1,12 +1,10 @@
 package ReturnSlip;
 
-import AcknowledgementReceipt.ViewAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Array;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -19,7 +17,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
@@ -75,17 +72,6 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
                     });
     }
     
-   // public void setController(ReturnSlipController temp)
-    //{
-     //       mainController=temp;
-    //}
-    
-    public static void main(String args[])
-    {
-           GUIController temp=new GUIController();
-           temp.changePanelToViewReturnSlip();
-    }
-
     public void setMainController(ReturnSlipController temp)
     {
             mainController=temp;
@@ -258,7 +244,6 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
         }
     }
     
-    @Override
     public void tableChanged(TableModelEvent e)
     {
         if (e.getColumn() == 0)
