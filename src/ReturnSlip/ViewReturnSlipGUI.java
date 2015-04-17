@@ -22,12 +22,11 @@ import javax.swing.table.TableColumn;
 
 public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListener
 {
-    private JButton btnClose;
-    private GUIController guiController;
-    private ReturnSlipController mainController;
-    private ReturnSlip slip;
-
-            private int numItems;
+        private JButton btnClose;
+        private GUIController guiController;
+        private ReturnSlipController mainController;
+        private ReturnSlip slip;
+       	private int numItems;
         private float totalItemPrice;
         private float totalBalance;
         private final float defaultVal = 0;
@@ -43,7 +42,6 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements TableModelListen
                 
                 cmbSupplier.setEditable(false);
                 tfRSNum.setEditable(false);
-                tfSINum.setEditable(false);
                 tfPONum.setEditable(false);
                 ftfDate.setEditable(false);
                 tfReturnedBy.setEditable(false);
