@@ -11,92 +11,91 @@ package CreditMemo;
  */
 public class CreditMemo
 {
-    private String id;
-    private String date;
+	private String id;
+	private String date;
+	private String rsNum;
+	private int status;
+	private String type;
+	private String partNum;
 
+	public CreditMemo()
+	{
+		this.id = "";
+		this.date = "";
+		this.rsNum = "";
+		this.status = -1;
+		this.type = "";
+		this.partNum = "";
+	}
 
-    private String rsNum;
-    private int status;
-    private String type;
-    private String partNum;
-    
-    public CreditMemo()
-    {
-        this.id = "";
-        this.date = "";
-        this.rsNum = "";
-        this.status = -1;
-        this.type = "";
-        this.partNum = "";
-    }
-    
-   public CreditMemo(String id, String date, String rsNum, int status, String type,String partNum)
-    {
-        this.id = id;
-        this.date = date;
-        this.rsNum = rsNum;
-        this.status = status;
-        this.type = type;
-        this.partNum = partNum;
-    }
+	public CreditMemo(String id, String date, String rsNum, int status,
+			String type, String partNum)
+	{
+		this.id = id;
+		this.date = date;
+		this.rsNum = rsNum;
+		this.status = status;
+		this.type = type;
+		this.partNum = partNum;
+	}
 
-    public String getId()
-    {
-        return id;
-    }
+	public String getId()
+	{
+		return id;
+	}
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
+	public void setId(String id)
+	{
+		this.id = id;
+	}
 
-    public String getDate()
-    {
-        return date;
-    }
+	public String getDate()
+	{
+		return date;
+	}
 
-    public void setDate(String date)
-    {
-        this.date = date;
-    }
+	public void setDate(String date)
+	{
+		this.date = date;
+	}
 
-    public String getRsNum()
-    {
-        return rsNum;
-    }
+	public String getRsNum()
+	{
+		return rsNum;
+	}
 
-    public void setRsNum(String rsNum)
-    {
-        this.rsNum = rsNum;
-    }
+	public void setRsNum(String rsNum)
+	{
+		this.rsNum = rsNum;
+	}
 
-    public int getStatus()
-    {
-        return status;
-    }
+	public int getStatus()
+	{
+		return status;
+	}
 
-    public void setStatus(int status)
-    {
-        this.status = status;
-    }
+	public void setStatus(int status)
+	{
+		this.status = status;
+	}
 
-    public String getType()
-    {
-        return type;
-    }
+	public String getType()
+	{
+		return type;
+	}
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+	public void setType(String type)
+	{
+		this.type = type;
+	}
 
-    public void setPartNumber(String partNum)
-    {
-        this.partNum = partNum;
-    }
-    
-    public String getPartNumber()
-    {
-        return this.partNum;
-    }
+	public void setPartNumber(String partNum)
+	{
+		this.partNum = partNum;
+	}
+
+	public String getPartNumber()
+	{
+		return this.partNum;
+	}
 }
