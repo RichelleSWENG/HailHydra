@@ -37,22 +37,9 @@ public class PurchasesGUI extends JPanel
 			}
 		});
 
-		orderReportBtn = new JButton("Order Report");
-		orderReportBtn.setFont(fntPlainText);
-		orderReportBtn.setBounds(165, 150, 260, 40);
-		add(orderReportBtn);
-		orderReportBtn.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				controller.changePanelToOrderReport();
-
-			}
-		});
-
 		returnSlipBtn = new JButton("Return Slip");
 		returnSlipBtn.setFont(fntPlainText);
-		returnSlipBtn.setBounds(165, 210, 260, 40);
+		returnSlipBtn.setBounds(165, 150, 260, 40);
 		add(returnSlipBtn);
 		returnSlipBtn.addActionListener(new ActionListener()
 		{
@@ -64,13 +51,26 @@ public class PurchasesGUI extends JPanel
 
 		creditMemoBtn = new JButton("Credit Memo");
 		creditMemoBtn.setFont(fntPlainText);
-		creditMemoBtn.setBounds(165, 270, 260, 40);
+		creditMemoBtn.setBounds(165, 210, 260, 40);
 		add(creditMemoBtn);
 		creditMemoBtn.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				controller.changePanelToCreditMemo();
+
+			}
+		});
+                
+                orderReportBtn = new JButton("Order Report");
+		orderReportBtn.setFont(fntPlainText);
+		orderReportBtn.setBounds(165, 270, 260, 40);
+		add(orderReportBtn);
+		orderReportBtn.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				controller.changePanelToOrderReport();
 
 			}
 		});
