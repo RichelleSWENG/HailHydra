@@ -90,7 +90,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
 								JOptionPane
 										.showMessageDialog(
 												null,
-												"Stock Minimum can not exceed 11 characters. Please re-input the Stock Minimum.");
+												"Stock Minimum can not exceed 999,999,999. Please re-input the Stock Minimum.");
 								error = true;
 								lblStockMinimum.setForeground(Color.orange);
 							}
