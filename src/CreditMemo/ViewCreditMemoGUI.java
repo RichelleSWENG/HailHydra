@@ -175,7 +175,7 @@ public class ViewCreditMemoGUI extends CreditMemoGUI implements
 						.toString());
 		}
 		// dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(totalBalance));
+		ftfTotal.setValue(totalBalance);
 		// ftfBalance.setText(String.valueOf(dedBalance));
 	}
 
