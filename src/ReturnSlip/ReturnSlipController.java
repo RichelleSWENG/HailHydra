@@ -3,7 +3,6 @@ package ReturnSlip;
 import Classes.Company;
 import Classes.Item;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -26,6 +25,13 @@ public class ReturnSlipController
 		this.returnslipModel = rsModel;
 		pendingItems = new ArrayList<>();
 		this.gui = tempGUI;
+		slip = null;
+	}
+        
+        public ReturnSlipController(ReturnSlipModel rsModel)
+	{
+		this.returnslipModel = rsModel;
+		pendingItems = new ArrayList<>();
 		slip = null;
 	}
 
