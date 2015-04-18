@@ -31,45 +31,44 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 public class CreditMemoGUI extends JPanel
 {
-        private JPanel pnlType;
-        protected JLabel  lblHeader,  lblTotal, lblReplySlipNo,
-                  lblDate, lblCreditMemoNum, lblAddress, lblSupplier;
+	private JPanel pnlType;
+	protected JLabel lblHeader, lblTotal, lblReplySlipNo, lblDate,
+			lblCreditMemoNum, lblAddress, lblSupplier;
 	protected JTextField tfCreditMemoNum, tfReplySlipNum;
-        protected JFormattedTextField ftfTotal, ftfDate;
+	protected JFormattedTextField ftfTotal, ftfDate;
 	protected JTextArea taAddress;
-        protected String strHeader[] = { "Quantity", "        Part Number        ", 
-                  "        Description        ", 
-                  "  Unit Price  ", "  Total  " };
+	protected String strHeader[] = { "Quantity", "        Part Number        ",
+			"        Description        ", "  Unit Price  ", "  Total  " };
 	protected DefaultTableModel tbModel;
-        protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
-        protected TableColumnModel tbColumnRenderer;
-        protected TableColumn tbColumn;
-        protected Component component;
+	protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
+	protected TableColumnModel tbColumnRenderer;
+	protected TableColumn tbColumn;
+	protected Component component;
 	protected JTable tbCreditMemo;
-        protected JComboBox cmbSupplier;
-        protected JCheckBox chckbxDefective, chckbxReplacement;
+	protected JComboBox cmbSupplier;
+	protected JCheckBox chckbxDefective, chckbxReplacement;
 	protected JScrollPane spTable, spAddress;
-        protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
-        protected DateFormat dateFormat;
-        private TitledBorder title;
-        
-        public CreditMemoGUI()
-        {
-                setBounds(0, 0, 1000, 620);
+	protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
+	protected DateFormat dateFormat;
+	private TitledBorder title;
+
+	public CreditMemoGUI()
+	{
+		setBounds(0, 0, 1000, 620);
 		setLayout(null);
-                
-                fntPlainText=new Font("Arial", Font.PLAIN, 21);
-                fntHeaderText = new Font("Arial", Font.BOLD, 40);
-                fntHeaderTableText= new Font("Arial", Font.BOLD, 16);
-		
-                dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                
-                lblHeader = new JLabel("");
+
+		fntPlainText = new Font("Arial", Font.PLAIN, 21);
+		fntHeaderText = new Font("Arial", Font.BOLD, 40);
+		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
+
+		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		lblHeader = new JLabel("");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
-                
-                lblSupplier = new JLabel("Supplier:");
+
+		lblSupplier = new JLabel("Supplier:");
 		lblSupplier.setFont(fntPlainText);
 		lblSupplier.setBounds(30, 80, 98, 30);
 		add(lblSupplier);
@@ -79,22 +78,22 @@ public class CreditMemoGUI extends JPanel
 		lblAddress.setBounds(30, 120, 98, 30);
 		add(lblAddress);
 
-                lblCreditMemoNum = new JLabel("Credit Memo #:");
+		lblCreditMemoNum = new JLabel("Credit Memo #:");
 		lblCreditMemoNum.setFont(fntPlainText);
 		lblCreditMemoNum.setBounds(530, 80, 216, 30);
 		add(lblCreditMemoNum);
-                
-                lblDate = new JLabel("Date:");
+
+		lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
 		lblDate.setBounds(530, 120, 60, 30);
 		add(lblDate);
-                
-                lblReplySlipNo = new JLabel("R.S. Number:");
+
+		lblReplySlipNo = new JLabel("R.S. Number:");
 		lblReplySlipNo.setFont(fntPlainText);
 		lblReplySlipNo.setBounds(530, 160, 171, 30);
 		add(lblReplySlipNo);
-                
-                lblTotal = new JLabel("Total:");
+
+		lblTotal = new JLabel("Total:");
 		lblTotal.setFont(fntPlainText);
 		lblTotal.setBounds(770, 380, 70, 30);
 		add(lblTotal);
@@ -102,48 +101,48 @@ public class CreditMemoGUI extends JPanel
 		tfCreditMemoNum = new JTextField();
 		tfCreditMemoNum.setFont(fntPlainText);
 		tfCreditMemoNum.setBounds(690, 80, 275, 30);
-		add(tfCreditMemoNum);	
-                
-                ftfDate= new JFormattedTextField(dateFormat);
-                ftfDate.setValue(new java.util.Date());
-                ftfDate.setFont(fntPlainText);
-                ftfDate.setEditable(false);
-                ftfDate.setBounds(690, 120, 275, 30);
-                add(ftfDate);
+		add(tfCreditMemoNum);
+
+		ftfDate = new JFormattedTextField(dateFormat);
+		ftfDate.setValue(new java.util.Date());
+		ftfDate.setFont(fntPlainText);
+		ftfDate.setEditable(false);
+		ftfDate.setBounds(690, 120, 275, 30);
+		add(ftfDate);
 
 		tfReplySlipNum = new JTextField();
 		tfReplySlipNum.setFont(fntPlainText);
-                tfReplySlipNum.setEditable(false);
+		tfReplySlipNum.setEditable(false);
 		tfReplySlipNum.setBounds(690, 160, 275, 30);
 		add(tfReplySlipNum);
-                
-                ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-                ftfTotal.setFont(fntPlainText);
-                ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
-                ftfTotal.setValue(new Float(00.0F));
-                ftfTotal.setEditable(false);
-                ftfTotal.setBounds(830, 380, 135, 30);
-                add(ftfTotal);
-                
-                taAddress = new JTextArea();
+
+		ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
+		ftfTotal.setFont(fntPlainText);
+		ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
+		ftfTotal.setValue(new Float(00.0F));
+		ftfTotal.setEditable(false);
+		ftfTotal.setBounds(830, 380, 135, 30);
+		add(ftfTotal);
+
+		taAddress = new JTextArea();
 		taAddress.setFont(fntPlainText);
-                taAddress.setWrapStyleWord(true);
-                taAddress.setLineWrap(true);
-                taAddress.setEditable(false);
+		taAddress.setWrapStyleWord(true);
+		taAddress.setLineWrap(true);
+		taAddress.setEditable(false);
 		taAddress.setBounds(125, 120, 375, 80);
 		add(taAddress);
-                
-                spAddress=new JScrollPane(taAddress);
+
+		spAddress = new JScrollPane(taAddress);
 		spAddress.setBounds(125, 120, 375, 80);
 		add(spAddress);
 
-                cmbSupplier = new JComboBox();
+		cmbSupplier = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbSupplier);
 		cmbSupplier.setFont(fntPlainText);
-                cmbSupplier.setEditable(false);
+		cmbSupplier.setEditable(false);
 		cmbSupplier.setBounds(125, 80, 375, 30);
 		add(cmbSupplier);
-                
+
 		tbModel = new DefaultTableModel()
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
@@ -177,16 +176,17 @@ public class CreditMemoGUI extends JPanel
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
 				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbCreditMemo,
-					tbColumn.getHeaderValue(), false, false, 0, j);
+			component = tbCellRendererColumn
+					.getTableCellRendererComponent(tbCreditMemo,
+							tbColumn.getHeaderValue(), false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbCreditMemo.setFont(fntPlainText);
-		
+
 		spTable = new JScrollPane(tbCreditMemo);
 		spTable.setBounds(30, 225, 935, 150);
 		add(spTable);
-                
+
 		tbCreditMemo.getParent().setBackground(tbCreditMemo.getBackground());
 		tbCreditMemo.getTableHeader().setResizingAllowed(false);
 		tbCreditMemo.getTableHeader().setReorderingAllowed(false);
@@ -194,25 +194,28 @@ public class CreditMemoGUI extends JPanel
 		tbCreditMemo.setRowSelectionAllowed(true);
 		tbCreditMemo.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbCreditMemo.setRowHeight(30);
-                
-                pnlType= new JPanel();
-                pnlType.setBounds(30, 405,415, 130);
-                pnlType.setLayout(null);
-                add(pnlType);
-                title = BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.black), "Transaction Type");
-                title.setTitleJustification(TitledBorder.LEFT);
-                title.setTitleFont(fntPlainText);
-                pnlType.setBorder(title);
-                
-                chckbxDefective = new JCheckBox("Defective");
+
+		pnlType = new JPanel();
+		pnlType.setBounds(30, 405, 415, 130);
+		pnlType.setLayout(null);
+		add(pnlType);
+		title = BorderFactory
+				.createTitledBorder(
+						BorderFactory.createLineBorder(Color.black),
+						"Transaction Type");
+		title.setTitleJustification(TitledBorder.LEFT);
+		title.setTitleFont(fntPlainText);
+		pnlType.setBorder(title);
+
+		chckbxDefective = new JCheckBox("Defective");
 		chckbxDefective.setFont(fntPlainText);
-                chckbxDefective.setEnabled(false);
+		chckbxDefective.setEnabled(false);
 		chckbxDefective.setBounds(30, 40, 200, 30);
 		pnlType.add(chckbxDefective);
-                
-                chckbxReplacement = new JCheckBox("Replacement");
+
+		chckbxReplacement = new JCheckBox("Replacement");
 		chckbxReplacement.setFont(fntPlainText);
 		chckbxReplacement.setBounds(30, 70, 200, 30);
 		pnlType.add(chckbxReplacement);
-        }
+	}
 }

@@ -9,35 +9,34 @@ import java.util.ArrayList;
 public abstract class Model
 {
 
-    protected Statement statement;
-    protected DBConnection db;
-    protected Connection con;
-    protected boolean connectionStatus;
+	protected Statement statement;
+	protected DBConnection db;
+	protected Connection con;
+	protected boolean connectionStatus;
 
-    public Model(DBConnection db)
-    {
-        this.db = db;
-        con = db.getConnection();
-        this.connectionStatus = db.getConnectionStatus();
-        
-    }
-    
-    public boolean getConnectionSatus()
-    {
-        return db.getConnectionStatus();
-    }
-    
-    abstract public ResultSet getDetail(String ID);
+	public Model(DBConnection db)
+	{
+		this.db = db;
+		con = db.getConnection();
+		this.connectionStatus = db.getConnectionStatus();
 
-    abstract public ResultSet getAllDetail();
+	}
 
-    abstract public ResultSet searchDetail(String field, String filter);
+	public boolean getConnectionSatus()
+	{
+		return db.getConnectionStatus();
+	}
 
-    abstract public void addDetail(ArrayList list);
+	abstract public ResultSet getDetail(String ID);
 
-    abstract public void editDetail(ArrayList list);
+	abstract public ResultSet getAllDetail();
 
-    abstract public void deleteDetail(String ID);
+	abstract public ResultSet searchDetail(String field, String filter);
 
+	abstract public void addDetail(ArrayList list);
+
+	abstract public void editDetail(ArrayList list);
+
+	abstract public void deleteDetail(String ID);
 
 }

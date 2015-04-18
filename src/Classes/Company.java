@@ -7,235 +7,226 @@ package Classes;
 
 public class Company
 {
-        private int id;
-	private String name;
-	private String addressLoc;
-        private String addressCity;
-        private String addressCountry;
-        private String postalCode;
-        private String phone1;
-        private String phone2;
-        private String phone3;
-        private String faxNum;
-        private String website;
-        private String email;
-        private String contactPerson;
-        private String status;
-        private float creditLimit;
-        private int terms;
-        private String type;
+	private int id, terms;
+	private String name, addressLoc, addressCity, addressCountry, postalCode,
+			phone1, phone2, phone3, faxNum, website, email, contactPerson,
+			status, type;
+	private float creditLimit;
 
-    public Company()
-    {
-        this.id = 0;
-        this.name = "";
-        this.addressLoc = "";
-        this.addressCity = "";
-        this.addressCountry = "";
-        this.postalCode = "";
-        this.phone1 = "";
-        this.phone2 = "";
-        this.phone3 = "";
-        this.faxNum = "";
-        this.website = "";
-        this.email = "";
-        this.contactPerson = "";
-        this.status = "";
-        this.creditLimit = 0;
-        this.terms = 0;
-        this.type = "";
-    }
-        
-    public Company(int id, String name, String addressLoc, String addressCity, String addressCountry, String postalCode, String phone1, String phone2, String phone3, String faxNum, String website, String email, String contactPerson, String status, float creditLimit, int terms, String type)
-    {
-        this.id = id;
-        this.name = name;
-        this.addressLoc = addressLoc;
-        this.addressCity = addressCity;
-        this.addressCountry = addressCountry;
-        this.postalCode = postalCode;
-        this.phone1 = phone1;
-        this.phone2 = phone2;
-        this.phone3 = phone3;
-        this.faxNum = faxNum;
-        this.website = website;
-        this.email = email;
-        this.contactPerson = contactPerson;
-        this.status = status;
-        this.creditLimit = creditLimit;
-        this.terms = terms;
-        this.type = type;
-    }
+	public Company()
+	{
+		this.id = 0;
+		this.name = "";
+		this.addressLoc = "";
+		this.addressCity = "";
+		this.addressCountry = "";
+		this.postalCode = "";
+		this.phone1 = "";
+		this.phone2 = "";
+		this.phone3 = "";
+		this.faxNum = "";
+		this.website = "";
+		this.email = "";
+		this.contactPerson = "";
+		this.status = "";
+		this.creditLimit = 0;
+		this.terms = 0;
+		this.type = "";
+	}
 
-    public int getId()
-    {
-        return id;
-    }
+	public Company(int id, String name, String addressLoc, String addressCity,
+			String addressCountry, String postalCode, String phone1,
+			String phone2, String phone3, String faxNum, String website,
+			String email, String contactPerson, String status,
+			float creditLimit, int terms, String type)
+	{
+		this.id = id;
+		this.name = name;
+		this.addressLoc = addressLoc;
+		this.addressCity = addressCity;
+		this.addressCountry = addressCountry;
+		this.postalCode = postalCode;
+		this.phone1 = phone1;
+		this.phone2 = phone2;
+		this.phone3 = phone3;
+		this.faxNum = faxNum;
+		this.website = website;
+		this.email = email;
+		this.contactPerson = contactPerson;
+		this.status = status;
+		this.creditLimit = creditLimit;
+		this.terms = terms;
+		this.type = type;
+	}
 
-    public void setId(int id)
-    {
-        this.id = id;
-    }
+	public int getId()
+	{
+		return id;
+	}
 
-    public String getName()
-    {
-        return name;
-    }
+	public void setId(int id)
+	{
+		this.id = id;
+	}
 
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+	public String getName()
+	{
+		return name;
+	}
 
-    public String getAddressLoc()
-    {
-        return addressLoc;
-    }
+	public void setName(String name)
+	{
+		this.name = name;
+	}
 
-    public void setAddressLoc(String addressLoc)
-    {
-        this.addressLoc = addressLoc;
-    }
+	public String getAddressLoc()
+	{
+		return addressLoc;
+	}
 
-    public String getAddressCity()
-    {
-        return addressCity;
-    }
+	public void setAddressLoc(String addressLoc)
+	{
+		this.addressLoc = addressLoc;
+	}
 
-    public void setAddressCity(String addressCity)
-    {
-        this.addressCity = addressCity;
-    }
+	public String getAddressCity()
+	{
+		return addressCity;
+	}
 
-    public String getAddressCountry()
-    {
-        return addressCountry;
-    }
+	public void setAddressCity(String addressCity)
+	{
+		this.addressCity = addressCity;
+	}
 
-    public void setAddressCountry(String addressCountry)
-    {
-        this.addressCountry = addressCountry;
-    }
+	public String getAddressCountry()
+	{
+		return addressCountry;
+	}
 
-    public String getPostalCode()
-    {
-        return postalCode;
-    }
+	public void setAddressCountry(String addressCountry)
+	{
+		this.addressCountry = addressCountry;
+	}
 
-    public void setPostalCode(String postalCode)
-    {
-        this.postalCode = postalCode;
-    }
+	public String getPostalCode()
+	{
+		return postalCode;
+	}
 
-    public String getPhone1()
-    {
-        return phone1;
-    }
+	public void setPostalCode(String postalCode)
+	{
+		this.postalCode = postalCode;
+	}
 
-    public void setPhone1(String phone1)
-    {
-        this.phone1 = phone1;
-    }
+	public String getPhone1()
+	{
+		return phone1;
+	}
 
-    public String getPhone2()
-    {
-        return phone2;
-    }
+	public void setPhone1(String phone1)
+	{
+		this.phone1 = phone1;
+	}
 
-    public void setPhone2(String phone2)
-    {
-        this.phone2 = phone2;
-    }
+	public String getPhone2()
+	{
+		return phone2;
+	}
 
-    public String getPhone3()
-    {
-        return phone3;
-    }
+	public void setPhone2(String phone2)
+	{
+		this.phone2 = phone2;
+	}
 
-    public void setPhone3(String phone3)
-    {
-        this.phone3 = phone3;
-    }
+	public String getPhone3()
+	{
+		return phone3;
+	}
 
-    public String getFaxNum()
-    {
-        return faxNum;
-    }
+	public void setPhone3(String phone3)
+	{
+		this.phone3 = phone3;
+	}
 
-    public void setFaxNum(String faxNum)
-    {
-        this.faxNum = faxNum;
-    }
+	public String getFaxNum()
+	{
+		return faxNum;
+	}
 
-    public String getWebsite()
-    {
-        return website;
-    }
+	public void setFaxNum(String faxNum)
+	{
+		this.faxNum = faxNum;
+	}
 
-    public void setWebsite(String website)
-    {
-        this.website = website;
-    }
+	public String getWebsite()
+	{
+		return website;
+	}
 
-    public String getEmail()
-    {
-        return email;
-    }
+	public void setWebsite(String website)
+	{
+		this.website = website;
+	}
 
-    public void setEmail(String email)
-    {
-        this.email = email;
-    }
+	public String getEmail()
+	{
+		return email;
+	}
 
-    public String getContactPerson()
-    {
-        return contactPerson;
-    }
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
 
-    public void setContactPerson(String contactPerson)
-    {
-        this.contactPerson = contactPerson;
-    }
+	public String getContactPerson()
+	{
+		return contactPerson;
+	}
 
-    public String getStatus()
-    {
-        return status;
-    }
+	public void setContactPerson(String contactPerson)
+	{
+		this.contactPerson = contactPerson;
+	}
 
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
+	public String getStatus()
+	{
+		return status;
+	}
 
-    public float getCreditLimit()
-    {
-        return creditLimit;
-    }
+	public void setStatus(String status)
+	{
+		this.status = status;
+	}
 
-    public void setCreditLimit(float creditLimit)
-    {
-        this.creditLimit = creditLimit;
-    }
+	public float getCreditLimit()
+	{
+		return creditLimit;
+	}
 
-    public int getTerms()
-    {
-        return terms;
-    }
+	public void setCreditLimit(float creditLimit)
+	{
+		this.creditLimit = creditLimit;
+	}
 
-    public void setTerms(int terms)
-    {
-        this.terms = terms;
-    }
+	public int getTerms()
+	{
+		return terms;
+	}
 
-    public String getType()
-    {
-        return type;
-    }
+	public void setTerms(int terms)
+	{
+		this.terms = terms;
+	}
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+	public String getType()
+	{
+		return type;
+	}
 
-    
+	public void setType(String type)
+	{
+		this.type = type;
+	}
+
 }

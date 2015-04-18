@@ -7,35 +7,33 @@ package Login;
 
 public class Notification
 {
-    String type;
-    String description;
+	String type;
+	String description;
 
-    public Notification(String type, String description)
-    {
-        this.type = type;
-        this.description = description;
-    }
+	public Notification(String type, String description)
+	{
+		this.type = type;
+		this.description = description;
+	}
 
-    public String getType()
-    {
-        return type;
-    }
+	public String getType()
+	{
+		return type;
+	}
 
-    public void setType(String type)
-    {
-        this.type = type;
-    }
+	public void setType(String type)
+	{
+		this.type = type;
+	}
 
-    public String getDescription()
-    {
-        return description;
-    }
+	public String getDescription()
+	{
+		return description;
+	}
 
-    public void setDescription(String description)
-    {
-        this.description = description;
-    }
-    
-    
+	public void setDescription(String description)
+	{
+		this.description = description;
+	}
+
 }
-

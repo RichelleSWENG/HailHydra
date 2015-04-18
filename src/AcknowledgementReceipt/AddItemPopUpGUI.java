@@ -32,16 +32,17 @@ public class AddItemPopUpGUI extends JFrame
 	{
 		instantiate();
 	}
-	
+
 	public AddItemPopUpGUI(String qty, String partNumber, String unitPrice)
 	{
 		instantiate();
 		tfQuantity.setText(qty);
 		tfUnitPrice.setText(unitPrice);
-		cmbPartNumber.setSelectedItem((Object)partNumber);
+		cmbPartNumber.setSelectedItem((Object) partNumber);
 	}
-	
-	public void instantiate(){
+
+	public void instantiate()
+	{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 458, 463);
 		contentPane = new JPanel();
@@ -49,66 +50,68 @@ public class AddItemPopUpGUI extends JFrame
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setVisible(true);
-		
+
 		lblItem = new JLabel("Item Profile");
 		lblItem.setFont(new Font("Arial", Font.BOLD, 45));
 		lblItem.setBounds(30, 0, 600, 86);
 		contentPane.add(lblItem);
-		
+
 		lblQuantity = new JLabel("Quantity: ");
 		lblQuantity.setFont(new Font("Arial", Font.PLAIN, 21));
 		lblQuantity.setBounds(30, 100, 99, 30);
 		contentPane.add(lblQuantity);
-		
+
 		lblPartNumber = new JLabel("Part Number:");
 		lblPartNumber.setFont(new Font("Arial", Font.PLAIN, 21));
 		lblPartNumber.setBounds(30, 150, 139, 30);
 		contentPane.add(lblPartNumber);
-		
+
 		lblUnitPrice = new JLabel("Unit Price:");
 		lblUnitPrice.setFont(new Font("Arial", Font.PLAIN, 21));
 		lblUnitPrice.setBounds(30, 204, 119, 30);
 		contentPane.add(lblUnitPrice);
-		
+
 		lblTotal = new JLabel("Total:");
 		lblTotal.setFont(new Font("Arial", Font.PLAIN, 21));
 		lblTotal.setBounds(30, 254, 66, 30);
 		contentPane.add(lblTotal);
-		
+
 		btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+		btnCancel.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent arg0)
+			{
 				dispose();
 			}
 		});
 		btnCancel.setFont(new Font("Arial", Font.PLAIN, 21));
 		btnCancel.setBounds(260, 361, 119, 40);
 		contentPane.add(btnCancel);
-		
+
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
 		btnSubmit.setBounds(30, 361, 119, 40);
 		contentPane.add(btnSubmit);
-		
+
 		tfQuantity = new JTextField();
 		tfQuantity.setBounds(167, 100, 212, 30);
 		contentPane.add(tfQuantity);
 		tfQuantity.setColumns(10);
-		
+
 		tfUnitPrice = new JTextField();
 		tfUnitPrice.setBounds(167, 204, 212, 30);
 		contentPane.add(tfUnitPrice);
 		tfUnitPrice.setColumns(10);
-		
+
 		tfTotal = new JTextField();
 		tfTotal.setEditable(false);
 		tfTotal.setBounds(167, 254, 212, 30);
 		contentPane.add(tfTotal);
 		tfTotal.setColumns(10);
-		
+
 		cmbPartNumber = new JComboBox();
-                AutoCompleteDecorator.decorate(cmbPartNumber);
-                cmbPartNumber.setEditable(true);
+		AutoCompleteDecorator.decorate(cmbPartNumber);
+		cmbPartNumber.setEditable(true);
 		cmbPartNumber.setBounds(167, 150, 212, 30);
 		contentPane.add(cmbPartNumber);
 	}

@@ -30,15 +30,15 @@ import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
 
-public class AccountProfileListGUI extends JPanel 
+public class AccountProfileListGUI extends JPanel
 {
 	private JLabel lblHeader, lblDisplay, lblName, lblAccountsFound,
 			lblNumOfAccountsFound;
 	private JTextField tfSearch;
-	private String strHeader[] = {
-			"               Name               ",
+	private String strHeader[] = { "               Name               ",
 			"                    Type                    ",
-			"     Credit Limit     ", "<html><center>Terms<br>(Days)</center></html>" };
+			"     Credit Limit     ",
+			"<html><center>Terms<br>(Days)</center></html>" }, name, AccountType;
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
@@ -50,15 +50,12 @@ public class AccountProfileListGUI extends JPanel
 	private JButton btnViewAllAccounts, btnViewCompanyProfile,
 			btnAddAccountProfile, btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
-	private int modelRow;
+	private int modelRow, type;
 	private GUIController GUIController;
 	private AccountProfileController mainController;
-	private int type;
-	private String name;
-	private String AccountType;
 
 	public AccountProfileListGUI(GUIController temp)
-        {
+	{
 
 		GUIController = temp;
 		setBounds(0, 0, 1000, 620);
@@ -98,49 +95,51 @@ public class AccountProfileListGUI extends JPanel
 		tfSearch.setBounds(120, 120, 450, 30);
 		add(tfSearch);
 
-		tfSearch.getDocument().addDocumentListener(new DocumentListener() 
-                {
-			public void insertUpdate(DocumentEvent de) 
-                        {
-				try 
-                                {
+		tfSearch.getDocument().addDocumentListener(new DocumentListener()
+		{
+			public void insertUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 					Logger.getLogger(AccountProfileListGUI.class.getName())
 							.log(Level.SEVERE, null, ex);
 				}
 			}
 
-			public void removeUpdate(DocumentEvent de) 
-                        {
-				try 
-                                {
+			public void removeUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 					Logger.getLogger(AccountProfileListGUI.class.getName())
 							.log(Level.SEVERE, null, ex);
 				}
 			}
 
-			public void changedUpdate(DocumentEvent de) 
-                        {
-				try 
-                                {
+			public void changedUpdate(DocumentEvent de)
+			{
+				try
+				{
 					done();
-				} catch (Exception ex) 
-                                {
-					Logger.getLogger(AccountProfileListGUI.class.getName()).log(Level.SEVERE, null, ex);
+				} catch (Exception ex)
+				{
+					Logger.getLogger(AccountProfileListGUI.class.getName())
+							.log(Level.SEVERE, null, ex);
 				}
 			}
 
-			public void done() throws Exception 
-                        {
-				
-                                if (tfSearch.getText().length() > 0) 
-                                {
-					if (chckbxCustomer.isSelected()&& chckbxSupplier.isSelected()) // both
+			public void done() throws Exception
+			{
+
+				if (tfSearch.getText().length() > 0)
+				{
+					if (chckbxCustomer.isSelected()
+							&& chckbxSupplier.isSelected()) // both
 						type = 0;
 					else if (chckbxCustomer.isSelected()
 							&& !chckbxSupplier.isSelected()) // customer
@@ -149,7 +148,6 @@ public class AccountProfileListGUI extends JPanel
 							&& chckbxSupplier.isSelected()) // supplier
 						type = 2;
 					mainController.SearchSomething(tfSearch.getText(), type); // if
-				
 
 				} else if (tfSearch.getText().length() == 0) // if nothing is
 				{
@@ -166,47 +164,64 @@ public class AccountProfileListGUI extends JPanel
 				}
 			}
 		});
-             
-		tbAccountProfile = new JTable() 
-                {
-                        public boolean isCellEditable(int row, int column) 
-                        {
-                                return false;
-                        }
-			
-			public TableCellRenderer getCellRenderer(int row, int column) 
-                        {
+
+		tbModel = new DefaultTableModel()
+		{
+			public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				return false;
+			}
+		};
+
+		tbModel.setRowCount(0);
+
+		for (int i = 0; i < strHeader.length; i++)
+		{
+			tbModel.addColumn(strHeader[i]);
+		}
+
+		tbAccountProfile = new JTable(tbModel)
+		{
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+
+			public TableCellRenderer getCellRenderer(int row, int column)
+			{
 				return new TableRenderer();
 			}
-			
-			public Component prepareRenderer(TableCellRenderer renderer,int row, int column) 
-                        {
+
+			public Component prepareRenderer(TableCellRenderer renderer,
+					int row, int column)
+			{
 				component = super.prepareRenderer(renderer, row, column);
 				modelRow = convertRowIndexToModel(row);
-				if (!isRowSelected(modelRow)) 
-                                {
+				if (!isRowSelected(modelRow))
+				{
 					component.setBackground(Color.WHITE);
-				} else 
-                                {
+				} else
+				{
 					component.setBackground(Color.yellow);
 				}
 				return component;
 			}
 		};
 
-                tbAccountProfile.getTableHeader().setFont(fntHeaderTableText);
-		tbAccountProfile.getTableHeader().setPreferredSize(new Dimension(100, 55));
+		tbAccountProfile.getTableHeader().setFont(fntHeaderTableText);
+		tbAccountProfile.getTableHeader().setPreferredSize(
+				new Dimension(100, 55));
 		tbAccountProfile.getTableHeader().setResizingAllowed(false);
 		tbAccountProfile.setFont(fntPlainText);
-                
+
 		spTable = new JScrollPane(tbAccountProfile);
 		spTable.setBounds(30, 205, 935, 320);
 		add(spTable);
 
 		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1) 
-                {
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
 			tbColumn = tbColumnRenderer.getColumn(j);
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
@@ -239,24 +254,25 @@ public class AccountProfileListGUI extends JPanel
 		chckbxSupplier.setBounds(280, 80, 167, 30);
 		add(chckbxSupplier);
 
-		chckbxCustomer.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent ae) 
-                        {
+		chckbxCustomer.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
 				tfSearch.setText("");
-				if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) {
+				if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected())
+				{
 					mainController.ViewAll();
 				} else if (chckbxCustomer.isSelected()
-						&& !chckbxSupplier.isSelected()) 
-                                {
+						&& !chckbxSupplier.isSelected())
+				{
 					mainController.ViewCustomer();
 				} else if (!chckbxCustomer.isSelected()
 						&& chckbxSupplier.isSelected())
-                                {
+				{
 					mainController.ViewSupplier();
 				} else if (!chckbxCustomer.isSelected()
-						&& !chckbxSupplier.isSelected()) 
-                                {
+						&& !chckbxSupplier.isSelected())
+				{
 
 					tbAccountProfile.setModel(tbModel);
 					lblNumOfAccountsFound.setText("0");
@@ -266,22 +282,25 @@ public class AccountProfileListGUI extends JPanel
 
 		});
 
-		chckbxSupplier.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent ae) 
-                        {
+		chckbxSupplier.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
 				tfSearch.setText("");
-				if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected()) 
-                                {
+				if (chckbxCustomer.isSelected() && chckbxSupplier.isSelected())
+				{
 					mainController.ViewAll();
-				} else if (chckbxCustomer.isSelected()&& !chckbxSupplier.isSelected()) 
-                                {
+				} else if (chckbxCustomer.isSelected()
+						&& !chckbxSupplier.isSelected())
+				{
 					mainController.ViewCustomer();
-				} else if (!chckbxCustomer.isSelected()&& chckbxSupplier.isSelected())
-                                {
+				} else if (!chckbxCustomer.isSelected()
+						&& chckbxSupplier.isSelected())
+				{
 					mainController.ViewSupplier();
-				} else if (!chckbxCustomer.isSelected()&& !chckbxSupplier.isSelected())
-                                {
+				} else if (!chckbxCustomer.isSelected()
+						&& !chckbxSupplier.isSelected())
+				{
 					tbAccountProfile.setModel(tbModel);
 					lblNumOfAccountsFound.setText("0");
 				}
@@ -294,18 +313,18 @@ public class AccountProfileListGUI extends JPanel
 		btnViewAllAccounts.setFont(fntPlainText);
 		btnViewAllAccounts.setBounds(725, 150, 240, 40);
 		add(btnViewAllAccounts);
-		btnViewAllAccounts.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
-				try 
-                                {
+		btnViewAllAccounts.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
 					chckbxCustomer.setSelected(true);
 					chckbxSupplier.setSelected(true);
 					mainController.ViewAll();
 					tfSearch.setText("");
-				} catch (Exception ex) 
-                                {
+				} catch (Exception ex)
+				{
 				}
 			}
 		});
@@ -314,26 +333,28 @@ public class AccountProfileListGUI extends JPanel
 		btnViewCompanyProfile.setFont(fntPlainText);
 		btnViewCompanyProfile.setBounds(30, 545, 250, 40);
 		add(btnViewCompanyProfile);
-		btnViewCompanyProfile.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
+		btnViewCompanyProfile.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				int row;
 				row = tbAccountProfile.getSelectedRow();
 
 				if (row == -1)
-					JOptionPane.showMessageDialog(null,"Please select an item.");
-				else 
-                                {
+					JOptionPane.showMessageDialog(null,
+							"Please select an item.");
+				else
+				{
 					name = tbAccountProfile.getValueAt(row, 0).toString();
-					AccountType = tbAccountProfile.getValueAt(row, 1).toString();
+					AccountType = tbAccountProfile.getValueAt(row, 1)
+							.toString();
 
-					try 
-                                        {
+					try
+					{
 
 						mainController.ViewAccountProfile(name, AccountType);
-					} catch (SQLException ex) 
-                                        {
+					} catch (SQLException ex)
+					{
 						Logger.getLogger(AccountProfileListGUI.class.getName())
 								.log(Level.SEVERE, null, ex);
 					}
@@ -348,10 +369,10 @@ public class AccountProfileListGUI extends JPanel
 		btnAddAccountProfile.setFont(fntPlainText);
 		btnAddAccountProfile.setBounds(430, 545, 230, 40);
 		add(btnAddAccountProfile);
-		btnAddAccountProfile.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
+		btnAddAccountProfile.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				GUIController.changePanelToAddAccountProfile();
 			}
 		});
@@ -360,37 +381,37 @@ public class AccountProfileListGUI extends JPanel
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
 		add(btnClose);
-		btnClose.addActionListener(new ActionListener() 
-                {
-			public void actionPerformed(ActionEvent e) 
-                        {
+		btnClose.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
 				GUIController.changePanelToMainMenu();
 			}
 		});
 
 	}
 
-	public void setMainController(AccountProfileController temp) 
-        {
+	public void setMainController(AccountProfileController temp)
+	{
 		mainController = temp;
 	}
 
 	public void setItemCount(int itemcount)
-        {
+	{
 		lblNumOfAccountsFound.setText(Integer.toString(itemcount));
 	}
 
-	public void setTableModel(TableModel tbm) 
-        { 
+	public void setTableModel(TableModel tbm)
+	{
 		tbAccountProfile.setModel(tbm);
 		JTableHeader th = tbAccountProfile.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
+		for (int i = 0; i < strHeader.length; i++)
+		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-                tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
+		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
 		{
@@ -398,33 +419,35 @@ public class AccountProfileListGUI extends JPanel
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
 				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbAccountProfile, tbColumn.getHeaderValue(), false, false, 0,j);
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbAccountProfile, tbColumn.getHeaderValue(), false, false,
+					0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-                
+
 		tbAccountProfile.repaint();
 	}
 
-	public static void main(String args[]) 
-        {
+	public static void main(String args[])
+	{
 		GUIController temp = new GUIController();
 		temp.changePanelToAccountProfile();
 	}
 
-	public void ViewAll() 
-        {
+	public void ViewAll()
+	{
 		// chckbxCustomer.setSelected(true);
 		// chckbxSupplier.setSelected(true);
 		TableModel AllModel = mainController.getAllModel();
 		tbAccountProfile.setModel(AllModel);
 		JTableHeader th = tbAccountProfile.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++) 
-                {
+		for (int i = 0; i < strHeader.length; i++)
+		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-                tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
+		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
 		{
@@ -432,10 +455,12 @@ public class AccountProfileListGUI extends JPanel
 			tbCellRendererColumn = tbColumn.getHeaderRenderer();
 			if (tbCellRendererColumn == null)
 				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(tbAccountProfile, tbColumn.getHeaderValue(), false, false, 0,j);
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbAccountProfile, tbColumn.getHeaderValue(), false, false,
+					0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-                
+
 		tbAccountProfile.repaint();
 	}
 

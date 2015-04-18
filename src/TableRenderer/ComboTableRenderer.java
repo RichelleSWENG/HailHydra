@@ -15,7 +15,8 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 
-public class ComboTableRenderer extends AbstractCellEditor implements TableCellRenderer, TableCellEditor, ListCellRenderer
+public class ComboTableRenderer extends AbstractCellEditor implements
+		TableCellRenderer, TableCellEditor, ListCellRenderer
 {
 
 	private JPanel panel = new JPanel();
@@ -24,8 +25,8 @@ public class ComboTableRenderer extends AbstractCellEditor implements TableCellR
 	private DefaultListCellRenderer listRenderer = new DefaultListCellRenderer();
 	private DefaultTableCellRenderer tableRenderer = new DefaultTableCellRenderer();
 
-	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean focused,
-			int row, int column)
+	public Component getTableCellRendererComponent(JTable table, Object value,
+			boolean isSelected, boolean focused, int row, int column)
 	{
 		cmbPartNumber.addItem("1");
 		cmbPartNumber.addItem("2");
@@ -56,19 +57,21 @@ public class ComboTableRenderer extends AbstractCellEditor implements TableCellR
 		// TODO Auto-generated method stub
 		return val;
 	}
-        
-        public boolean cellEditable()
-                {
-                    return false;
-                }
+
+	public boolean cellEditable()
+	{
+		return false;
+	}
 
 	@Override
-	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column)
+	public Component getTableCellEditorComponent(JTable table, Object value,
+			boolean isSelected, int row, int column)
 	{
 		// TODO Auto-generated method stub
 		try
 		{
-			return this.getTableCellRendererComponent(table, value, isSelected, true, row, column);
+			return this.getTableCellRendererComponent(table, value, isSelected,
+					true, row, column);
 		} catch (Exception e)
 		{
 			return null;
@@ -76,12 +79,13 @@ public class ComboTableRenderer extends AbstractCellEditor implements TableCellR
 	}
 
 	@Override
-	public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected,
-			boolean cellHasFocus)
+	public Component getListCellRendererComponent(JList list, Object value,
+			int index, boolean isSelected, boolean cellHasFocus)
 	{
 		// TODO Auto-generated method stub
-		listRenderer = (DefaultListCellRenderer) listRenderer.getListCellRendererComponent(list, value, index,
-				isSelected, cellHasFocus);
+		listRenderer = (DefaultListCellRenderer) listRenderer
+				.getListCellRendererComponent(list, value, index, isSelected,
+						cellHasFocus);
 		configureRenderer(listRenderer, value);
 		return listRenderer;
 	}

@@ -49,8 +49,9 @@ public class ViewPaymentPayablesGUI extends JPanel
 			lblReturnedDate, lblReceivedBy, lblApprovedBy, lblReturnedBy,
 			lblCurrentBalance, lblNotes;
 	private JFormattedTextField ftfAmount, ftfCurrBalance;
-	private String strHeader[] =
-	{ "<html><center>Payment<br>Number</center></html>","Date", "<html><center>Applied<br>Amount</center></html>",
+	private String strHeader[] = {
+			"<html><center>Payment<br>Number</center></html>", "Date",
+			"<html><center>Applied<br>Amount</center></html>",
 			"<html><center>Payment<br>Type</center></html>",
 			"<html><center>Credit<br>Memo No.</center></html>" };
 	private JComboBox cmbSupplier;
@@ -70,7 +71,7 @@ public class ViewPaymentPayablesGUI extends JPanel
 			ftfReturnedDate, tfReceivedBy, tfApprovedBy, tfReturnedBy;
 	protected JScrollPane spNotes;
 	private JTextArea taNotes;
-        private String id;
+	private String id;
 
 	public ViewPaymentPayablesGUI(GUIController temp)
 	{
@@ -295,55 +296,60 @@ public class ViewPaymentPayablesGUI extends JPanel
 	{
 		mainController = temp;
 	}
-        
-        public void ViewAll()
-        {
-            TableModel AllModel = mainController.getAllModel(id);
-            tbPayment.setModel(AllModel);
-            
-            tfCreditMemoNo.setText(id);
-            PurchaseTransaction pt=mainController.getPTDetails(id);
-            if(pt!=null)
-            {
-                ftfAmount.setText(Float.toString(pt.getOriginal_amount()));
-                ftfCurrBalance.setText(Float.toString(pt.getCurrent_balance()));
-                cmbSupplier.addItem(pt.getPo_num());
-            }
-            
-            JTableHeader th = tbPayment.getTableHeader();      // Setting the Headers
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < strHeader.length; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
-            }
-            th.repaint();
-            tbPayment.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    Payment p=mainController.getOtherDetails(Integer.toString((int) tbPayment.getValueAt(tbPayment.getSelectedRow(), 0)));
-                    if(p!=null)
-                    {
-                        tfReturnedBy.setText(p.getPrepared_by());
-                        taNotes.setText(p.getNotes());
-                        ftfReceivedDate.setText(p.getRDate());
-                        ftfApprovedDate.setText(p.getADate());
-                        ftfReturnedDate.setText(p.getRDate());
-                        tfApprovedBy.setText(p.getApproved_by());
-                        tfReceivedBy.setText(p.getReceived_by());
-                    }
-                }  
-                });
-        }
-       
-        public void setId(String id)
-        {
-            this.id=id;
-        }
-        
+
+	public void ViewAll()
+	{
+		TableModel AllModel = mainController.getAllModel(id);
+		tbPayment.setModel(AllModel);
+
+		tfCreditMemoNo.setText(id);
+		PurchaseTransaction pt = mainController.getPTDetails(id);
+		if (pt != null)
+		{
+			ftfAmount.setText(Float.toString(pt.getOriginal_amount()));
+			ftfCurrBalance.setText(Float.toString(pt.getCurrent_balance()));
+			cmbSupplier.addItem(pt.getPo_num());
+		}
+
+		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++)
+		{
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+		th.repaint();
+		tbPayment.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener()
+				{
+					@Override
+					public void valueChanged(ListSelectionEvent e)
+					{
+						Payment p = mainController.getOtherDetails(Integer
+								.toString((int) tbPayment.getValueAt(
+										tbPayment.getSelectedRow(), 0)));
+						if (p != null)
+						{
+							tfReturnedBy.setText(p.getPrepared_by());
+							taNotes.setText(p.getNotes());
+							ftfReceivedDate.setText(p.getRDate());
+							ftfApprovedDate.setText(p.getADate());
+							ftfReturnedDate.setText(p.getRDate());
+							tfApprovedBy.setText(p.getApproved_by());
+							tfReceivedBy.setText(p.getReceived_by());
+						}
+					}
+				});
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
+
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
-//		temp.changePanelToViewPaymentPayables();
+		// temp.changePanelToViewPaymentPayables();
 	}
 }

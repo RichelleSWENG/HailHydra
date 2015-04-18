@@ -1,9 +1,11 @@
 package ModifyAlert;
 
-public class PopUp {
+public class PopUp
+{
 	protected String input;
-	
-	public String getInput() {
+
+	public String getInput()
+	{
 		return input;
 	}
 }

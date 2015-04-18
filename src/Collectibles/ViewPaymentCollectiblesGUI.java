@@ -41,8 +41,9 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 	private JLabel lblHeader, lblSalesAckNumber, lblReceivedBy,
 			lblReceivedDate, lblCustomer, lblNotes, lblCurrBal;
 	private JFormattedTextField ftfCurrBal, ftfOriginalAmount;
-	private String strHeader[] =
-	{ "<html><center>Payment<br>Id</center></html>","Date", "<html><center>Applied<br>Amount</center></html>",
+	private String strHeader[] = {
+			"<html><center>Payment<br>Id</center></html>", "Date",
+			"<html><center>Applied<br>Amount</center></html>",
 			"<html><center>Payment<br>Type</center></html>",
 			"<html><center>Debit<br>Memo No.</center></html>" };
 	private JComboBox cmbCustomer;
@@ -61,9 +62,8 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 	private JTextField tfDebitMemoNo, ftfReceivedDate, tfReceivedBy;
 	protected JScrollPane spNotes;
 	private JLabel lblOrigAmount;
-        private PaymentCollectiblesController mainController;
-        private String type;
-        private String id;
+	private PaymentCollectiblesController mainController;
+	private String type, id;
 
 	public ViewPaymentCollectiblesGUI(GUIController temp)
 	{
@@ -233,69 +233,76 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 		});
 	}
 
-        public void setMainController(PaymentCollectiblesController temp) {
+	public void setMainController(PaymentCollectiblesController temp)
+	{
 		mainController = temp;
 	}
-        
-        public void ViewAll()
-        {
-            TableModel AllModel = mainController.getAllModel(id,type);
-            tbPayment.setModel(AllModel);
-            
-            tfDebitMemoNo.setText(id);
-            
-            if(type.equalsIgnoreCase("Sales Invoice"))
-            {
-                SalesInvoice si=mainController.getSIDetails(id);
-                if(si!=null)
-                {
-                    ftfOriginalAmount.setText(Float.toString(si.getOriginal_amount()));
-                    ftfCurrBal.setText(Float.toString(si.getCurrent_balance()));
-                    cmbCustomer.addItem(si.getDelivered_by());
-                }
-            }
-            else
-            {
-                AcknowledgementReceipt ar=mainController.getARDetails(id);
-                if(ar!=null)
-                {
-                    ftfOriginalAmount.setText(Float.toString(ar.getOriginal_amount()));
-                    ftfCurrBal.setText(Float.toString(ar.getCurrent_balance()));
-                    cmbCustomer.addItem(ar.getDelivered_by());
-                }
-            }   
-            
-            JTableHeader th = tbPayment.getTableHeader();      // Setting the Headers
-            TableColumnModel tcm = th.getColumnModel();
-            for (int i = 0; i < strHeader.length; i++)
-            {
-                TableColumn tc = tcm.getColumn(i);
-                tc.setHeaderValue(strHeader[i]);
-            }
-            th.repaint();
-            tbPayment.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-                @Override
-                public void valueChanged(ListSelectionEvent e) {
-                    Collection p=mainController.getOtherDetails(Integer.toString((int) tbPayment.getValueAt(tbPayment.getSelectedRow(), 0)));
-                    if(p!=null)
-                    {
-                        taNotes.setText(p.getNotes());
-                        ftfReceivedDate.setText(p.getRDate());
-                        tfReceivedBy.setText(p.getReceived_by());
-                    }
-                }  
-                });
-        }
-        
-        public void setId(String id,String type)
-        {
-            this.id=id;
-            this.type=type;
-        }
-        
+
+	public void ViewAll()
+	{
+		TableModel AllModel = mainController.getAllModel(id, type);
+		tbPayment.setModel(AllModel);
+
+		tfDebitMemoNo.setText(id);
+
+		if (type.equalsIgnoreCase("Sales Invoice"))
+		{
+			SalesInvoice si = mainController.getSIDetails(id);
+			if (si != null)
+			{
+				ftfOriginalAmount.setText(Float.toString(si
+						.getOriginal_amount()));
+				ftfCurrBal.setText(Float.toString(si.getCurrent_balance()));
+				cmbCustomer.addItem(si.getDelivered_by());
+			}
+		} else
+		{
+			AcknowledgementReceipt ar = mainController.getARDetails(id);
+			if (ar != null)
+			{
+				ftfOriginalAmount.setText(Float.toString(ar
+						.getOriginal_amount()));
+				ftfCurrBal.setText(Float.toString(ar.getCurrent_balance()));
+				cmbCustomer.addItem(ar.getDelivered_by());
+			}
+		}
+
+		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++)
+		{
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+		th.repaint();
+		tbPayment.getSelectionModel().addListSelectionListener(
+				new ListSelectionListener()
+				{
+					@Override
+					public void valueChanged(ListSelectionEvent e)
+					{
+						Collection p = mainController.getOtherDetails(Integer
+								.toString((int) tbPayment.getValueAt(
+										tbPayment.getSelectedRow(), 0)));
+						if (p != null)
+						{
+							taNotes.setText(p.getNotes());
+							ftfReceivedDate.setText(p.getRDate());
+							tfReceivedBy.setText(p.getReceived_by());
+						}
+					}
+				});
+	}
+
+	public void setId(String id, String type)
+	{
+		this.id = id;
+		this.type = type;
+	}
+
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
-		//temp.changePanelToViewPaymentCollectibles();
+		// temp.changePanelToViewPaymentCollectibles();
 	}
 }
