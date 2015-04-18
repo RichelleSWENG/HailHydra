@@ -281,6 +281,19 @@ public class OrderReportGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbOrderReport.setModel(tbm);
+                if(tbOrderReport.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbOrderReport.getModel();
+                    JTableHeader th = tbOrderReport.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbOrderReport.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -301,7 +314,7 @@ public class OrderReportGUI extends JPanel
 					j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbOrderReport.repaint();
 	}
 

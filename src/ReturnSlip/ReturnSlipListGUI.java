@@ -497,6 +497,19 @@ public class ReturnSlipListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbReturnSlip.setModel(tbm);
+                if(tbReturnSlip.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbReturnSlip.getModel();
+                    JTableHeader th = tbReturnSlip.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbReturnSlip.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < 6; i++)
@@ -504,7 +517,22 @@ public class ReturnSlipListGUI extends JPanel
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                 
+		tbCellRenderer = tbReturnSlip.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbReturnSlip.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbReturnSlip, tbColumn.getHeaderValue(), false, false,
+					0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                }
+                tbReturnSlip.repaint();
 	}
 
 	public void setMainController(ReturnSlipController temp)

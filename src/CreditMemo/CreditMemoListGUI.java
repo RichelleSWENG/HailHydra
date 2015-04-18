@@ -463,6 +463,19 @@ public class CreditMemoListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbCreditMemo.setModel(tbm);
+                if(tbCreditMemo.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbCreditMemo.getModel();
+                    JTableHeader th = tbCreditMemo.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbCreditMemo.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -483,7 +496,7 @@ public class CreditMemoListGUI extends JPanel
 							tbColumn.getHeaderValue(), false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbCreditMemo.repaint();
 	}
 

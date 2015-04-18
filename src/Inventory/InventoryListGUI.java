@@ -468,6 +468,19 @@ public class InventoryListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbInventory.setModel(tbm);
+                if(tbInventory.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbInventory.getModel();
+                    JTableHeader th = tbInventory.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbInventory.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 
@@ -488,7 +501,7 @@ public class InventoryListGUI extends JPanel
 					tbInventory, tbColumn.getHeaderValue(), false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbInventory.repaint();
 	}
 

@@ -472,6 +472,19 @@ public class PurchaseTransactionListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbPurchaseTransaction.setModel(tbm);
+                if(tbPurchaseTransaction.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbPurchaseTransaction.getModel();
+                    JTableHeader th = tbPurchaseTransaction.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbPurchaseTransaction.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < 5; i++)
@@ -479,7 +492,21 @@ public class PurchaseTransactionListGUI extends JPanel
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+                tbCellRenderer = tbPurchaseTransaction.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbPurchaseTransaction.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPurchaseTransaction, tbColumn.getHeaderValue(), false, false,
+					0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                }
+		tbPurchaseTransaction.repaint();
 	}
 
 	public void setMainController(PurchaseTransactionController temp)

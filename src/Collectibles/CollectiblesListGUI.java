@@ -675,6 +675,19 @@ public class CollectiblesListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbCollectibles.setModel(tbm);
+                if(tbCollectibles.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbCollectibles.getModel();
+                    JTableHeader th = tbCollectibles.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbCollectibles.getTableHeader();
 
 		TableColumnModel tcm = th.getColumnModel();
@@ -696,7 +709,7 @@ public class CollectiblesListGUI extends JPanel
 					j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbCollectibles.repaint();
 
 	}

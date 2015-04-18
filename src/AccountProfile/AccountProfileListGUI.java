@@ -274,8 +274,9 @@ public class AccountProfileListGUI extends JPanel
 						&& !chckbxSupplier.isSelected())
 				{
 
-					tbAccountProfile.setModel(tbModel);
+					//tbAccountProfile.setModel(tbModel);
 					lblNumOfAccountsFound.setText("0");
+                                        setTableModel(tbModel);
 				}
 
 			}
@@ -301,8 +302,9 @@ public class AccountProfileListGUI extends JPanel
 				} else if (!chckbxCustomer.isSelected()
 						&& !chckbxSupplier.isSelected())
 				{
-					tbAccountProfile.setModel(tbModel);
+					//tbAccountProfile.setModel(tbModel);
 					lblNumOfAccountsFound.setText("0");
+                                        setTableModel(tbModel);
 				}
 
 			}
@@ -404,13 +406,27 @@ public class AccountProfileListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbAccountProfile.setModel(tbm);
+                if(tbAccountProfile.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbAccountProfile.getModel();
+                    JTableHeader th = tbAccountProfile.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbAccountProfile.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
 		{
-			TableColumn tc = tcm.getColumn(i);
+			TableColumn tc = tcm.getColumn(i); 
 			tc.setHeaderValue(strHeader[i]);
 		}
+                
 		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
@@ -424,7 +440,7 @@ public class AccountProfileListGUI extends JPanel
 					0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbAccountProfile.repaint();
 	}
 

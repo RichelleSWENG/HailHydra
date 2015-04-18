@@ -410,6 +410,19 @@ public class TermsReportGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbTermsReport.setModel(tbm);
+                if(tbTermsReport.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbTermsReport.getModel();
+                    JTableHeader th = tbTermsReport.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbTermsReport.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -430,7 +443,7 @@ public class TermsReportGUI extends JPanel
 					j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbTermsReport.repaint();
 	}
 

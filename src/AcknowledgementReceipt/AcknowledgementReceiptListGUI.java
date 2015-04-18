@@ -467,6 +467,19 @@ public class AcknowledgementReceiptListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbAckReceipt.setModel(tbm);
+                if(tbAckReceipt.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbAckReceipt.getModel();
+                    JTableHeader th = tbAckReceipt.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
 		JTableHeader th = tbAckReceipt.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -487,7 +500,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
 							tbColumn.getHeaderValue(), false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbAckReceipt.repaint();
 	}
 
