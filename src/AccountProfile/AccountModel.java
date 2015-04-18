@@ -23,7 +23,7 @@ public class AccountModel extends Model
 		{
 			statement = con.createStatement();
 			String sql = "SELECT name,address_location,address_city,address_postal_code,address_country,credit_limit,terms,phone1,phone2,phone3,fax_num,email,website,contact_person,type,status FROM company WHERE name='"
-					+ name + "' AND type= '" + AccountType + "'";
+					+ name + "' AND type= '" + AccountType + "' ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 		} catch (Exception e)
 		{
@@ -39,7 +39,7 @@ public class AccountModel extends Model
 		try
 		{
 			statement = con.createStatement();
-			String sql = "SELECT name,type, credit_limit, terms FROM company";
+			String sql = "SELECT name,type, credit_limit, terms FROM company ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -62,15 +62,15 @@ public class AccountModel extends Model
 			if (filter.equalsIgnoreCase("name"))
 			{
 				sql = "SELECT name, type, credit_limit, terms FROM company WHERE name LIKE '%"
-						+ field + "%'";
+						+ field + "%' ORDER BY name ASC";
 			} else if (filter.equalsIgnoreCase("customer"))
 			{
 				sql = "SELECT name,type, credit_limit, terms FROM company WHERE type != 'Supplier' AND name LIKE '%"
-						+ field + "%'";
+						+ field + "%' ORDER BY name ASC";
 			} else if (filter.equalsIgnoreCase("supplier"))
 			{
 				sql = "SELECT name,type, credit_limit, terms FROM company WHERE type ='Supplier' AND name LIKE '%"
-						+ field + "%'";
+						+ field + "%' ORDER BY name ASC";
 			}
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
@@ -186,7 +186,7 @@ public class AccountModel extends Model
 		try
 		{
 			statement = con.createStatement();
-			String sql = "SELECT name,type, credit_limit, terms FROM company WHERE type = 'Supplier'";
+			String sql = "SELECT name,type, credit_limit, terms FROM company WHERE type = 'Supplier' ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -204,7 +204,7 @@ public class AccountModel extends Model
 		try
 		{
 			statement = con.createStatement();
-			String sql = "SELECT name,type, credit_limit, terms FROM company WHERE type != 'Supplier'";
+			String sql = "SELECT name,type, credit_limit, terms FROM company WHERE type != 'Supplier' ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
