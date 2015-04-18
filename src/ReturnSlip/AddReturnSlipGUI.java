@@ -104,15 +104,28 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
         {
             public void actionPerformed(ActionEvent e)
             {
+                tfPONum.setText("");
                 int i, rowCount;
                 rowCount = tbModel.getRowCount();
                 for (i = 0; i < rowCount; i++)
                     tbModel.removeRow(0);
                 tbModel.setRowCount(1);
                 mainController.removePending();
+                cmbPTNum.removeAllItems();
                 if (cmbSupplier.getSelectedIndex() != 0)
                 {
                     c = mainController.getSupplier(cmbSupplier.getSelectedIndex() - 1);
+                    String[] PTNumbers = new String[mainController.getPurchaseTransactionNumbersbySupplier(c).size()+1];
+                    int j;
+                    PTNumbers[0] = "";
+                     for (j = 1; j < mainController.getPurchaseTransactionNumbersbySupplier(c).size()+1; j++)
+                     {
+                        PTNumbers[j] = mainController.getPurchaseTransactionNumbersbySupplier(c).get(j - 1);
+                    }
+                    cmbPTNum.setModel(new DefaultComboBoxModel(PTNumbers));
+                    //end of population
+                    
+                    //c = mainController.getSupplier(cmbSupplier.getSelectedIndex() - 1);
                     taAddress.setText(c.getAddressLoc());
                     
                     
@@ -137,7 +150,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
             public void actionPerformed(ActionEvent e)
             {
                 String PO;
-               if(cmbPTNum.getSelectedIndex()!=0)
+               if(cmbPTNum.getSelectedIndex()!=0 && cmbPTNum.getSelectedIndex()!=-1)
                {
                PO = mainController.getPurchaseOrderNumber(cmbPTNum.getSelectedItem().toString());
                tfPONum.setText(PO);
@@ -183,14 +196,14 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements TableModelListene
         }
         cmbSupplier.setModel(new DefaultComboBoxModel(supplierNames));
         // PurchaseTransaction cmbobox
-        String[] purchaseTransactionNumbers = new String[mainController.getPurchaseTransactionNumbers().size()+1];
+      /*  String[] purchaseTransactionNumbers = new String[mainController.getPurchaseTransactionNumbers().size()+1];
         int j;
         purchaseTransactionNumbers[0] = "";
         for (j = 1; j < mainController.getPurchaseTransactionNumbers().size() + 1; j++)
         {
             purchaseTransactionNumbers[j] = mainController.getPurchaseTransactionNumbers().get(j - 1);
         }
-        cmbPTNum.setModel(new DefaultComboBoxModel(purchaseTransactionNumbers));
+        cmbPTNum.setModel(new DefaultComboBoxModel(purchaseTransactionNumbers));*/
     
     }
         public static void main(String args[])

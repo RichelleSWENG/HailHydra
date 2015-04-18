@@ -157,7 +157,7 @@ public class ReturnSlipController {
 
     public String getPurchaseOrderNumber(String PTNum)
     {
-        return returnslipModel.getPurchaseTransactionNumbers(PTNum);
+        return returnslipModel.getPurchaseOrderNumbers(PTNum);
     }
 
     public void ViewReturnSlip(String returnslipID) throws SQLException
@@ -199,5 +199,11 @@ public class ReturnSlipController {
         return returnslipModel.getLastRSID();
     }
     
+    public ArrayList<String> getPurchaseTransactionNumbersbySupplier(Company c)
+    {
+        return returnslipModel.getPurchaseTransactionNumbersbySupplier(String.valueOf(c.getId()));
+
+    }
+        
    
 }

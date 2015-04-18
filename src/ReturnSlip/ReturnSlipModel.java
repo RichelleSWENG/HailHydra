@@ -350,7 +350,7 @@ public class ReturnSlipModel {
         }
     }
 
-    public String getPurchaseTransactionNumbers(String PTNum)
+    public String getPurchaseOrderNumbers(String PTNum)
     {
         String PO = null;
         ResultSet rs;
@@ -518,4 +518,27 @@ public class ReturnSlipModel {
        
 
     }
+
+    public ArrayList<String> getPurchaseTransactionNumbersbySupplier(String ID)
+    {
+        
+        ResultSet rs = null;
+        ArrayList<String> PTNumbers = new ArrayList<String>();
+        try
+        {
+            statement = db.createStatement();
+            String sql = "SELECT purchase_transaction_id FROM purchasetransaction WHERE company_id = '" + ID + "'";
+            rs = statement.executeQuery(sql);
+
+            while (rs.next())
+            {
+                PTNumbers.add(rs.getString("purchase_transaction_id"));
+            }
+    
+        } catch (Exception e)
+        {
+            e.getMessage();
+        }
+        return PTNumbers;
+}
 }
