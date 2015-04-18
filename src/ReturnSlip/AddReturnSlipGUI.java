@@ -1,7 +1,5 @@
 package ReturnSlip;
 
-import AcknowledgementReceipt.ARLineItem;
-import AcknowledgementReceipt.AddAcknowledgementReceiptGUI;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -27,7 +25,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 	private GUIController guiController;
 	private ReturnSlipController mainController;
 	private int numItems;
-	private float totalItemPrice, totalBalance;
+	private Double totalItemPrice, totalBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;
@@ -37,8 +35,8 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 		super();
 		guiController = temp;
 		numItems = 0;
-		totalItemPrice = 0;
-		totalBalance = 0;
+		totalItemPrice = 0.00;
+		totalBalance = 0.00;
 
 		lblHeader.setText("Add Return Slip");
 
@@ -72,7 +70,6 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				try
@@ -92,7 +89,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 					mainController.addRS(tfRSNum.getText(), mainController
 							.getSupplier(cmbSupplier.getSelectedIndex() - 1)
 							.getId(), ftfDate.getText(), Float
-							.parseFloat(ftfTotal.getText()), Integer
+							.parseFloat(ftfTotal.getText().replaceAll(",", "")), Integer
 							.parseInt(cmbPTNum.getSelectedItem().toString()),
 							tfPONum.getText(), tfReturnedBy.getText(),
 							ftfReturnedDate.getText(), tfApprovedBy.getText(),
@@ -108,7 +105,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 							.showMessageDialog(
 									null,
 									"Please fill in the required fields before adding.",
-									"Fill in Required Fiels",
+									"Fill in Required Fields.",
 									JOptionPane.ERROR_MESSAGE);
 				}
 				guiController.changePanelToReturnSlip();
@@ -182,8 +179,8 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
                 String PO;
                if(cmbPTNum.getSelectedIndex()!=0 && cmbPTNum.getSelectedIndex()!=-1)
                {
-               PO = mainController.getPurchaseOrderNumber(cmbPTNum.getSelectedItem().toString());
-               tfPONum.setText(PO);
+                    PO = mainController.getPurchaseOrderNumber(cmbPTNum.getSelectedItem().toString());
+                    tfPONum.setText(PO);
                }
             }
         });
@@ -245,7 +242,6 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 		temp.changePanelToAddReturnSlip();
 	}
 
-	@Override
 	public void tableChanged(TableModelEvent e)
 	{
 		if (e.getColumn() == 0)
@@ -263,9 +259,9 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 							&& !tbModel.getValueAt(e.getFirstRow(), 0)
 									.toString().equals(""))
 					{
-						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+						totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 								e.getFirstRow(), 0).toString())
-								* Float.parseFloat(tbModel.getValueAt(
+								* Double.parseDouble(tbModel.getValueAt(
 										e.getFirstRow(), 3).toString());
 						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
 						calcTotalBalance();
@@ -323,9 +319,9 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+					totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 							e.getFirstRow(), 0).toString())
-							* Float.parseFloat(tbModel.getValueAt(
+							* Double.parseDouble(tbModel.getValueAt(
 									e.getFirstRow(), 3).toString());
 					tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
 					calcTotalBalance();
@@ -343,9 +339,9 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+					totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 							e.getFirstRow(), 0).toString())
-							* Float.parseFloat(tbModel.getValueAt(
+							* Double.parseDouble(tbModel.getValueAt(
 									e.getFirstRow(), 3).toString());
 					tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
 					calcTotalBalance();
@@ -358,14 +354,14 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 	public void calcTotalBalance()
 	{
 		int i;
-		totalBalance = 0;
+		totalBalance = 0.00;
 		for (i = 0; i < tbModel.getRowCount(); i++)
 		{
-			totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
+			totalBalance += Double.parseDouble(tbModel.getValueAt(i, 4)
 					.toString());
 		}
 		// dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(totalBalance));
+		ftfTotal.setValue(totalBalance);
 		// ftfBalance.setText(String.valueOf(dedBalance));
 	}
 
