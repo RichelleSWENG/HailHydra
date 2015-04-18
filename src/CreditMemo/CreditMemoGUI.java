@@ -80,17 +80,17 @@ public class CreditMemoGUI extends JPanel
 
 		lblCreditMemoNum = new JLabel("Credit Memo #:");
 		lblCreditMemoNum.setFont(fntPlainText);
-		lblCreditMemoNum.setBounds(530, 80, 216, 30);
+		lblCreditMemoNum.setBounds(535, 80, 216, 30);
 		add(lblCreditMemoNum);
 
 		lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(530, 120, 60, 30);
+		lblDate.setBounds(630, 120, 60, 30);
 		add(lblDate);
 
 		lblReplySlipNo = new JLabel("R.S. Number:");
 		lblReplySlipNo.setFont(fntPlainText);
-		lblReplySlipNo.setBounds(530, 160, 171, 30);
+		lblReplySlipNo.setBounds(553, 160, 171, 30);
 		add(lblReplySlipNo);
 
 		lblTotal = new JLabel("Total:");
@@ -218,4 +218,5 @@ public class CreditMemoGUI extends JPanel
 		chckbxReplacement.setBounds(30, 70, 200, 30);
 		pnlType.add(chckbxReplacement);
 	}
+        
 }
