@@ -95,22 +95,22 @@ public class ReturnSlipGUI extends JPanel
 
 		lblRSNum = new JLabel("Return Slip #:");
 		lblRSNum.setFont(fntPlainText);
-		lblRSNum.setBounds(530, 80, 132, 30);
+		lblRSNum.setBounds(532, 80, 132, 30);
 		add(lblRSNum);
 
 		lblDate = new JLabel("Date:");
 		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(530, 110, 51, 30);
+		lblDate.setBounds(610, 110, 51, 30);
 		add(lblDate);
 
 		lblPTNum = new JLabel("P.T. Number:");
 		lblPTNum.setFont(fntPlainText);
-		lblPTNum.setBounds(530, 140, 132, 30);
+		lblPTNum.setBounds(534, 140, 132, 30);
 		add(lblPTNum);
 
 		lblPONum = new JLabel("P.O. Number:");
 		lblPONum.setFont(fntPlainText);
-		lblPONum.setBounds(530, 170, 174, 30);
+		lblPONum.setBounds(532, 170, 174, 30);
 		add(lblPONum);
 
 		lblReturnedBy = new JLabel("Returned By:");
@@ -167,7 +167,7 @@ public class ReturnSlipGUI extends JPanel
 		cmbPTNum = new JComboBox();
 		AutoCompleteDecorator.decorate(cmbPTNum);
 		cmbPTNum.setFont(fntPlainText);
-		cmbPTNum.setBounds(672, 140, 293, 30);
+		cmbPTNum.setBounds(670, 140, 295, 30);
 		add(cmbPTNum);
 
 		tfPONum = new JTextField();
