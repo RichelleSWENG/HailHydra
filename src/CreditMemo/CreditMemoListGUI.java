@@ -23,7 +23,6 @@ import HailHydra.GUIController;
 import ReturnSlip.ReturnSlipController;
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
@@ -461,7 +460,8 @@ public class CreditMemoListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewCreditMemo.setEnabled(true);
 		tbCreditMemo.setModel(tbm);
                 if(tbCreditMemo.getRowCount() == 0)
                 {
@@ -473,6 +473,7 @@ public class CreditMemoListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewCreditMemo.setEnabled(false);
                 }
                 else
                 {

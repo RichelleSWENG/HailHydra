@@ -495,7 +495,8 @@ public class ReturnSlipListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewReturnSlip.setEnabled(true);
 		tbReturnSlip.setModel(tbm);
                 if(tbReturnSlip.getRowCount() == 0)
                 {
@@ -507,6 +508,7 @@ public class ReturnSlipListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewReturnSlip.setEnabled(false);
                 }
                 else
                 {

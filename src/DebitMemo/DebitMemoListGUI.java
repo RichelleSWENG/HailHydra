@@ -475,6 +475,7 @@ public class DebitMemoListGUI extends JPanel
 
 	public void setTableModel(TableModel tbm)
 	{
+                btnViewDebitMemo.setEnabled(true);
 		tbDebitMemo.setModel(tbm);
                 if(tbDebitMemo.getRowCount() == 0)
                 {
@@ -486,6 +487,7 @@ public class DebitMemoListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewDebitMemo.setEnabled(false);
                 }
                 else
                 {

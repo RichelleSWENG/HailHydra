@@ -470,7 +470,8 @@ public class PurchaseTransactionListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewPurchaseTransaction.setEnabled(true);
 		tbPurchaseTransaction.setModel(tbm);
                 if(tbPurchaseTransaction.getRowCount() == 0)
                 {
@@ -482,6 +483,7 @@ public class PurchaseTransactionListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewPurchaseTransaction.setEnabled(false);
                 }
                 else
                 {

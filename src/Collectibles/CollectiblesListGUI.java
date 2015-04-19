@@ -674,6 +674,7 @@ public class CollectiblesListGUI extends JPanel
 
 	public void setTableModel(TableModel tbm)
 	{
+                btnViewCollectible.setEnabled(true);
 		tbCollectibles.setModel(tbm);
                 if(tbCollectibles.getRowCount() == 0)
                 {
@@ -685,6 +686,7 @@ public class CollectiblesListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewCollectible.setEnabled(false);
                 }
                 else
                 {

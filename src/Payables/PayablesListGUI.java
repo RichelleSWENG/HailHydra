@@ -36,10 +36,10 @@ public class PayablesListGUI extends JPanel
 	private JLabel lblHeader, lblDisplay, lblSupplier, lblRrange,
 			lblPayablesFound, lblNumOfPayablesFound, lblTo;
 	private JTextField tfSupplier;
-	private String strHeader[] = { "Supplier Name", "Date",
+	private String strHeader[] = { "            Supplier Name            ", "      Date    ",
 			"<html><center>Purchase<br>Transaction<br>Number</center></html>",
-			"<html><center>Original<br>Amount</center></html>",
-			"<html><center>Current<br>Balance</center></html>", "Status" },
+			"<html><center> Original <br> Amount </center></html>",
+			"<html><center> Current <br> Balance </center></html>", "Status" },
 			strMonths[] = { "January", "February", "March", "April", "May",
 					"June", "July", "August", "September", "October",
 					"November", "December" };
@@ -92,7 +92,7 @@ public class PayablesListGUI extends JPanel
 
 		lblTo = new JLabel("TO");
 		lblTo.setFont(fntPlainText);
-		lblTo.setBounds(405, 120, 36, 30);
+		lblTo.setBounds(402, 120, 36, 30);
 		add(lblTo);
 
 		lblPayablesFound = new JLabel("Payable/s Found: ");
@@ -112,7 +112,7 @@ public class PayablesListGUI extends JPanel
 
 		cmbFromMonth = new JComboBox();
 		cmbFromMonth.setFont(fntPlainText);
-		cmbFromMonth.setBounds(135, 120, 155, 30);
+		cmbFromMonth.setBounds(125, 120, 155, 30);
 		add(cmbFromMonth);
 
 		cmbFromYear = new JComboBox();
@@ -138,7 +138,6 @@ public class PayablesListGUI extends JPanel
 
 		cmbFromMonth.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -179,7 +178,6 @@ public class PayablesListGUI extends JPanel
 		});
 		cmbFromYear.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -221,7 +219,6 @@ public class PayablesListGUI extends JPanel
 
 		cmbToMonth.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -262,7 +259,6 @@ public class PayablesListGUI extends JPanel
 		});
 		cmbToYear.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -304,7 +300,6 @@ public class PayablesListGUI extends JPanel
 
 		tfSupplier.getDocument().addDocumentListener(new DocumentListener()
 		{
-			@Override
 			public void insertUpdate(DocumentEvent de)
 			{
 				try
@@ -317,7 +312,6 @@ public class PayablesListGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void removeUpdate(DocumentEvent de)
 			{
 				try
@@ -330,7 +324,6 @@ public class PayablesListGUI extends JPanel
 				}
 			}
 
-			@Override
 			public void changedUpdate(DocumentEvent de)
 			{
 				try
@@ -473,7 +466,6 @@ public class PayablesListGUI extends JPanel
 		add(chckbxActivePayables);
 		chckbxActivePayables.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -517,7 +509,6 @@ public class PayablesListGUI extends JPanel
 		add(chckbxClosedPayables);
 		chckbxClosedPayables.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
 				tfSupplier.setText("");
@@ -675,7 +666,8 @@ public class PayablesListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewPayment.setEnabled(true);
 		tbPayables.setModel(tbm);
                  if(tbPayables.getRowCount() == 0)
                 {
@@ -687,6 +679,7 @@ public class PayablesListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewPayment.setEnabled(false);
                 }
                 else
                 {
