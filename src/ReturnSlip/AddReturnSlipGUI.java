@@ -85,12 +85,14 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
-
+                                        String tempPTNum = cmbPTNum.getSelectedItem().toString(); // if there is no existing PT
+                                        if(tempPTNum.equals(""))
+                                            tempPTNum = "0";
 					mainController.addRS(tfRSNum.getText(), mainController
 							.getSupplier(cmbSupplier.getSelectedIndex() - 1)
 							.getId(), ftfDate.getText(), Float
 							.parseFloat(ftfTotal.getText().replaceAll(",", "")), Integer
-							.parseInt(cmbPTNum.getSelectedItem().toString()),
+							.parseInt(tempPTNum),
 							tfPONum.getText(), tfReturnedBy.getText(),
 							ftfReturnedDate.getText(), tfApprovedBy.getText(),
 							ftfApprovedDate.getText(), tfReceivedBy.getText(),

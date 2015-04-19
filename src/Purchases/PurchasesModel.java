@@ -165,7 +165,8 @@ public class PurchasesModel
 				ptLineItemModel.addDetail(pt.getItems().get(i));
 				ptLineItemModel.updateQuantity(pt.getItems().get(i)
 						.getPartNum(), pt.getItems().get(i).getQuantity()
-						+ getAvailQuantity(i));
+						+ getQuantityFunc(pt.getItems().get(i)
+						.getPartNum()));
 			}
 		} catch (Exception e)
 		{
@@ -511,6 +512,32 @@ public class PurchasesModel
 
 		}
 		return 12;
+	}
+        
+        public int getQuantityFunc(String partNum)
+	{
+
+		ResultSet rs = null;
+		String quantity = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT quantity_functional FROM item WHERE part_num='"
+					+ partNum + "'";
+			rs = statement.executeQuery(sql);
+			String temp;
+
+			while (rs.next())
+			{
+				temp = rs.getString("quantity_functional");
+				quantity = temp;
+			}
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return Integer.parseInt(quantity);
+
 	}
 
 }
