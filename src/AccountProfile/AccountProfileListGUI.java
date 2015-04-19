@@ -47,7 +47,7 @@ public class AccountProfileListGUI extends JPanel
 	private JTable tbAccountProfile;
 	private JScrollPane spTable;
 	private JCheckBox chckbxCustomer, chckbxSupplier;
-	private JButton btnViewAllAccounts, btnViewCompanyProfile,
+	private JButton btnViewAllAccounts, btnViewAccountProfile,
 			btnAddAccountProfile, btnClose;
 	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
 	private int modelRow, type;
@@ -331,11 +331,11 @@ public class AccountProfileListGUI extends JPanel
 			}
 		});
 
-		btnViewCompanyProfile = new JButton("View Account Profile");
-		btnViewCompanyProfile.setFont(fntPlainText);
-		btnViewCompanyProfile.setBounds(30, 545, 250, 40);
-		add(btnViewCompanyProfile);
-		btnViewCompanyProfile.addActionListener(new ActionListener()
+		btnViewAccountProfile = new JButton("View Account Profile");
+		btnViewAccountProfile.setFont(fntPlainText);
+		btnViewAccountProfile.setBounds(30, 545, 250, 40);
+		add(btnViewAccountProfile);
+		btnViewAccountProfile.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
@@ -405,6 +405,7 @@ public class AccountProfileListGUI extends JPanel
 
 	public void setTableModel(TableModel tbm)
 	{
+                btnViewAccountProfile.setEnabled(true);
 		tbAccountProfile.setModel(tbm);
                 if(tbAccountProfile.getRowCount() == 0)
                 {
@@ -416,6 +417,7 @@ public class AccountProfileListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "}); // do not change
+                    btnViewAccountProfile.setEnabled(false);
                 }
                 else 
                 {
