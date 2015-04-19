@@ -281,6 +281,19 @@ public class SetInventorySellingPriceGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbSetInventorySellingPrice.setModel(tbm);
+                 if(tbSetInventorySellingPrice.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbSetInventorySellingPrice.getModel();
+                    JTableHeader th = tbSetInventorySellingPrice.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "}); // do not change
+                }
+                else
+                {
 		JTableHeader th = tbSetInventorySellingPrice.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -302,7 +315,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 					false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbSetInventorySellingPrice.repaint();
 	}
 

@@ -324,6 +324,19 @@ public class SetInventoryQuantityGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbSetInventoryQuantity.setModel(tbm);
+                 if(tbSetInventoryQuantity.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbSetInventoryQuantity.getModel();
+                    JTableHeader th = tbSetInventoryQuantity.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "}); // do not change
+                }
+                else
+                {
 		JTableHeader th = tbSetInventoryQuantity.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -345,7 +358,7 @@ public class SetInventoryQuantityGUI extends JPanel
 					false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
-
+                }
 		tbSetInventoryQuantity.repaint();
 	}
 
