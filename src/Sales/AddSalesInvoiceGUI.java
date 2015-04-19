@@ -125,10 +125,10 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 									.getText(), tfOrderedBy.getText(),
 							tfSalesperson.getText(), tfDeliveredBy.getText(),
 							taDeliveryNotes.getText(), tfDRNum.getText(), Float
-									.parseFloat(ftfDiscount.getText()), Float
-									.parseFloat(ftfBalance.getText()), "Open",
+									.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float
+									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
 							tfPwdNum.getText(), Float.parseFloat(ftfVat
-									.getText()),
+									.getText().replaceAll(",", "")),
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToSalesInvoice();
