@@ -5,6 +5,7 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -28,6 +29,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 	private String partNums[];
 	private Company c;
 	private PurchaseTransaction pt;
+        private ArrayList<PTLineItem> tempPTLine = new ArrayList<>();
 
 	public ModifyPurchaseTransactionGUI(GUIController temp)
 	{
@@ -68,6 +70,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 			{
 				try
 				{
+                                    mainController.DeductQuantity(tempPTLine);
 					int i;
 					mainController.removePending();
 					for (i = 0; i < tbModel.getRowCount(); i++)
@@ -226,14 +229,16 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 		System.out.println(numItems);
 		tbModel.setRowCount(numItems);
 		tbModel.addTableModelListener(this);
+                PTLineItem tempPT;
 		for (int i = 0; i < numItems; i++)
 		{
 			tbModel.setValueAt(pt.getItems().get(i).getQuantity(), i, 0);
-			;
 			tbModel.setValueAt(pt.getItems().get(i).getPartNum(), i, 1);
 			tbModel.setValueAt(pt.getItems().get(i).getUnit_price(), i, 3);
+                        tempPT = new PTLineItem(pt.getPurchase_transaction_id(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()),tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString()));
+                        tempPTLine.add(tempPT);
 		}
-
+                
 		ftfBalance.setText(String.valueOf(pt.getCurrent_balance()));
 	}
 

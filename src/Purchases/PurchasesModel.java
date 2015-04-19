@@ -210,7 +210,8 @@ public class PurchasesModel
 				ptLineItemModel.addDetail(pt.getItems().get(i));
 				ptLineItemModel.updateQuantity(pt.getItems().get(i)
 						.getPartNum(), pt.getItems().get(i).getQuantity()
-						+ getAvailQuantity(i));
+						+ getQuantityFunc(pt.getItems().get(i)
+						.getPartNum()));
 			}
 		} catch (Exception e)
 		{
@@ -539,5 +540,12 @@ public class PurchasesModel
 		return Integer.parseInt(quantity);
 
 	}
+
+    public void deductQuantity(ArrayList<PTLineItem> tempPTLine)
+    {
+        for(int i = 0; i<tempPTLine.size(); i++)
+        ptLineItemModel.updateQuantity(tempPTLine.get(i).getPartNum(), getQuantityFunc(tempPTLine.get(i).getPartNum()) - tempPTLine.get(i).getQuantity());
+        
+    }
 
 }

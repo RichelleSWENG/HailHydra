@@ -191,4 +191,9 @@ public class PurchaseTransactionController
 		return purchasesModel.getCurrentVat();
 	}
 
+        public void DeductQuantity(ArrayList<PTLineItem> tempPTLine)
+        {
+            purchasesModel.deductQuantity(tempPTLine);
+        }
+
 }
