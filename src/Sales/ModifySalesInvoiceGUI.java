@@ -1,120 +1,45 @@
-package AcknowledgementReceipt;
+package Sales;
 
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import java.awt.Font;
 import java.util.Arrays;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
-public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
-		implements TableModelListener
+public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
+		TableModelListener
 {
 
 	private JButton btnSubmit, btnCancel;
 	private GUIController guiController;
-	private AcknowledgementReceiptController mainController;
-	private AcknowledgementReceipt rcpt;
+	private SalesInvoiceController mainController;
+	private SalesInvoice si;
 	private int numItems;
-	private float totalBalance, totalItemPrice, discount,dedBalance;
+	private float totalBalance, totalItemPrice, tentativeTotal, discount,
+			VATpercent, dedBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;
 
-	public ModifyAcknowledgementReceiptGUI(GUIController temp)
+	public ModifySalesInvoiceGUI(GUIController temp)
 	{
 		super();
 		guiController = temp;
 
+		lblHeader.setText("Modify Sales Invoice");
+
 		cmbCustomer.setEditable(true);
-
-		lblHeader.setText("Modify Acknowledgement Receipt");
-
-                ftfDiscount.getDocument().addDocumentListener(new DocumentListener()
-		{
-			public void changedUpdate(DocumentEvent documentEvent)
-			{
-				update();
-			}
-
-			public void insertUpdate(DocumentEvent documentEvent)
-			{
-				update();
-			}
-
-			public void removeUpdate(DocumentEvent documentEvent)
-			{
-				update();
-			}
-
-			private void update()
-			{
-				try
-				{
-					Float.parseFloat(ftfDiscount.getText());
-					calcTotalBalance();
-				} catch (Exception temp)
-				{
-
-				}
-			}
-
-		});
-		btnSubmit = new JButton("Submit");
-		btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
-		btnSubmit.setBounds(655, 545, 110, 40);
-		add(btnSubmit);
-		btnSubmit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				try
-				{
-					int i;
-					for (i = 0; i < tbModel.getRowCount(); i++)
-					{
-						mainController.addPendingItem(new ARLineItem(tfARNum
-								.getText(), Integer.parseInt(tbModel
-								.getValueAt(i, 0).toString()), tbModel
-								.getValueAt(i, 1).toString(),
-								Float.parseFloat(tbModel.getValueAt(i, 3)
-										.toString()), Float.parseFloat(tbModel
-										.getValueAt(i, 4).toString())));
-					}
-					mainController.editAR(tfARNum.getText(), ftfDate.getText(),
-							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
-									.getText(), tfOrderedBy.getText(),
-							tfSalesperson.getText(), tfDeliveredBy.getText(),
-							taDeliveryNotes.getText(), tfDRNum.getText(), Float
-									.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float
-									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
-							mainController.getCustomer(cmbCustomer
-									.getSelectedIndex() - 1));
-					guiController.changePanelToViewAcknowledgementReceipt();
-				} catch (NullPointerException exception)
-				{
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Please fill in the required fields before adding. I do not like you po",
-									"Fill in Required Fiels",
-									JOptionPane.ERROR_MESSAGE);
-				}
-			}
-		});
 
 		btnAddItem.addActionListener(new ActionListener()
 		{
@@ -129,55 +54,95 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (tbARReceipt.getSelectedRow() != -1
+				if (tbSalesInvoice.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
-					tbModel.removeRow(tbARReceipt.getSelectedRow());
+					tbModel.removeRow(tbSalesInvoice.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
 				}
 			}
 		});
 
+		btnSubmit = new JButton("Submit");
+		btnSubmit.setFont(fntPlainText);
+		btnSubmit.setBounds(655, 545, 110, 40);
+		add(btnSubmit);
+		btnSubmit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				try
+				{
+					int i;
+					for (i = 0; i < tbModel.getRowCount(); i++)
+					{
+						mainController.addPendingItem(new SILineItem(tfSINum
+								.getText(), Integer.parseInt(tbModel
+								.getValueAt(i, 0).toString()), tbModel
+								.getValueAt(i, 1).toString(),
+								Float.parseFloat(tbModel.getValueAt(i, 3)
+										.toString()), Float.parseFloat(tbModel
+										.getValueAt(i, 4).toString())));
+					}
+					mainController.editSI(tfSINum.getText(), ftfDate.getText(),
+							Float.parseFloat(ftfSubtotal.getText()), tfPONum
+									.getText(), tfOrderedBy.getText(),
+							tfSalesperson.getText(), tfDeliveredBy.getText(),
+							taDeliveryNotes.getText(), tfDRNum.getText(), Float
+									.parseFloat(ftfDiscount.getText()), Float
+									.parseFloat(ftfBalance.getText()), "Open",
+							tfPwdNum.getText(), Float.parseFloat(ftfVat
+									.getText()),
+							mainController.getCustomer(cmbCustomer
+									.getSelectedIndex() - 1));
+					guiController.changePanelToViewSalesInvoice();
+				} catch (NullPointerException exception)
+				{
+					JOptionPane
+							.showMessageDialog(
+									null,
+									"Please fill in the required fields before adding. I do not like you po",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
 		btnCancel = new JButton("Cancel");
-		btnCancel.setFont(new Font("Arial", Font.PLAIN, 21));
+		btnCancel.setFont(fntPlainText);
 		btnCancel.setBounds(855, 545, 110, 40);
 		add(btnCancel);
 		btnCancel.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				guiController.changePanelToViewAcknowledgementReceipt();
+				guiController.changePanelToViewSalesInvoice();
 			}
 		});
 	}
 
-	public void setMainController(AcknowledgementReceiptController temp)
+	public void setMainController(SalesInvoiceController temp)
 	{
 		mainController = temp;
-		rcpt = mainController.getReceiptTarget();
-	}
-
-	public static void main(String args[])
-	{
-		GUIController temp = new GUIController();
-		temp.changePanelToModifyAcknowledgementReceipt();
+		VATpercent = mainController.getCurrentVat();
+		si = mainController.getTarget();
 	}
 
 	public void setViewComponents()
 	{
 		setDataComponents();
-		tfARNum.setText(rcpt.getAcknowledgement_receipt_id());
-		tfPONum.setText(rcpt.getPo_num());
-		tfDRNum.setText(rcpt.getDelivery_receipt_num());
-		tfSalesperson.setText(rcpt.getSales_person());
-		tfOrderedBy.setText(rcpt.getOrdered_by());
-		tfDeliveredBy.setText(rcpt.getDelivered_by());
-		ftfDate.setText(rcpt.getDate());
-		ftfDiscount.setValue(rcpt.getDiscount());
+		tfSINum.setText(si.getSales_invoice_id());
+		tfPONum.setText(si.getPo_num());
+		tfDRNum.setText(si.getDelivery_receipt_num());
+		tfSalesperson.setText(si.getSales_person());
+		tfOrderedBy.setText(si.getOrdered_by());
+		tfDeliveredBy.setText(si.getDelivered_by());
+		ftfDate.setText(si.getDate());
+		ftfDiscount.setText(String.valueOf(si.getDiscount()));
 		ftfTotal.setEditable(false);
-		ftfBalance.setValue(rcpt.getCurrent_balance());
-		taDeliveryNotes.setText(rcpt.getDelivery_notes());
+		ftfBalance.setText(String.valueOf(si.getCurrent_balance()));
+		taDeliveryNotes.setText(si.getDelivery_notes());
 
 		cmbCustomer.addActionListener(new ActionListener()
 		{
@@ -186,7 +151,9 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				int i, rowCount;
 				rowCount = tbModel.getRowCount();
 				for (i = 0; i < rowCount; i++)
+				{
 					tbModel.removeRow(0);
+				}
 				tbModel.setRowCount(1);
 				mainController.removePending();
 				if (cmbCustomer.getSelectedIndex() != 0)
@@ -204,22 +171,25 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 								.get(i - 1).getPartNum();
 					}
 
-					TableColumn col = tbARReceipt.getColumnModel().getColumn(1);
-					col.setCellEditor(new MyComboBoxEditor(partNums));
-					col.setCellRenderer(new MyComboBoxRenderer(partNums));
+					TableColumn col = tbSalesInvoice.getColumnModel()
+							.getColumn(1);
+					col.setCellEditor(new ModifySalesInvoiceGUI.MyComboBoxEditor(
+							partNums));
+					col.setCellRenderer(new ModifySalesInvoiceGUI.MyComboBoxRenderer(
+							partNums));
 				}
 				numItems = 0;
 				tbModel.setValueAt(defaultVal, numItems, 4);
 			}
 		});
-		cmbCustomer.setSelectedItem(rcpt.getCompany_name());
-		numItems = rcpt.getList().size();
+		cmbCustomer.setSelectedItem(si.getCompany_name());
+		numItems = si.getItems().size();
 		tbModel.setRowCount(numItems);
 		tbModel.addTableModelListener(this);
 		for (int i = 0; i < numItems; i++)
 		{
-			tbModel.setValueAt(rcpt.getList().get(i).getQuantity(), i, 0);
-			tbModel.setValueAt(rcpt.getList().get(i).getPartNum(), i, 1);
+			tbModel.setValueAt(si.getItems().get(i).getQuantity(), i, 0);
+			tbModel.setValueAt(si.getItems().get(i).getPartNum(), i, 1);
 		}
 
 	}
@@ -245,12 +215,14 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		for (i = 0; i < tbModel.getRowCount(); i++)
 		{
 			if (tbModel.getValueAt(i, 4) != null)
+			{
 				totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
 						.toString());
+			}
 		}
-		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText().replaceAll(",",""));
-		ftfTotal.setValue(dedBalance);
-		ftfBalance.setValue(dedBalance);
+		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
+		ftfTotal.setText(String.valueOf(dedBalance));
+		ftfBalance.setText(String.valueOf(dedBalance));
 	}
 
 	class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
@@ -288,7 +260,6 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		}
 	}
 
-	@Override
 	public void tableChanged(TableModelEvent e)
 	{
 		if (e.getColumn() == 0)
@@ -336,10 +307,14 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 					int i;
 					boolean unique = true;
 					for (i = 0; i < tbModel.getRowCount(); i++)
+					{
 						if (tbModel.getValueAt(i, 1) != null
 								&& tbModel.getValueAt(i, 1).toString()
 										.equals(cmb) && i != e.getFirstRow())
+						{
 							unique = false;
+						}
+					}
 					if (unique)
 					{
 						tbModel.setValueAt(mainController.getItems(c.getType())
@@ -366,35 +341,28 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					if (tbModel.getValueAt(e.getFirstRow(), 0) != null
-							&& !cmb.equals("")
-							&& !tbModel.getValueAt(e.getFirstRow(), 0)
-									.toString().equals(""))
+					if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
+							.toString()) <= mainController
+							.getAvailQuantity(Arrays.asList(partNums).indexOf(
+									cmb) - 1))
 					{
-						if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(),
-								0).toString()) <= mainController
-								.getAvailQuantity(Arrays.asList(partNums)
-										.indexOf(cmb) - 1))
-						{
-							totalItemPrice = Integer.parseInt(tbModel
-									.getValueAt(e.getFirstRow(), 0).toString())
-									* Float.parseFloat(tbModel.getValueAt(
-											e.getFirstRow(), 3).toString());
-							tbModel.setValueAt(totalItemPrice, e.getFirstRow(),
-									4);
-							calcTotalBalance();
-						} else
-						{
-							JOptionPane.showMessageDialog(
-									null,
-									"You can not buy that many items!!!! You can only buy "
-											+ mainController
-													.getAvailQuantity(Arrays
-															.asList(partNums)
-															.indexOf(cmb) - 1)
-											+ ". Pls do not test me");
-							tbModel.setValueAt("0", e.getFirstRow(), 0);
-						}
+						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+								e.getFirstRow(), 0).toString())
+								* Float.parseFloat(tbModel.getValueAt(
+										e.getFirstRow(), 3).toString());
+						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+						calcTotalBalance();
+					} else
+					{
+						JOptionPane.showMessageDialog(
+								null,
+								"You can not buy that many items!!!! You can only buy "
+										+ mainController
+												.getAvailQuantity(Arrays
+														.asList(partNums)
+														.indexOf(cmb) - 1)
+										+ ". Pls do not test me");
+						tbModel.setValueAt("0", e.getFirstRow(), 0);
 					}
 				}
 			}
