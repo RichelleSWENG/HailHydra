@@ -161,7 +161,7 @@ public class SalesInvoiceModel
 			{
 				siLineItemModel.addDetail(si.getItems().get(i));
 				siLineItemModel.updateQuantity(si.getItems().get(i)
-						.getPartNum(), si.getItems().get(i).getQuantityFunc()
+						.getPartNum(), getQuantityFunc(si.getItems().get(i).getPartNum())
 						- si.getItems().get(i).getQuantity());
 			}
 		} catch (Exception e)
@@ -486,5 +486,31 @@ public class SalesInvoiceModel
 
 		}
 		return 12;
+	}
+        
+        public int getQuantityFunc(String partNum)
+	{
+
+		ResultSet rs = null;
+		String quantity = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT quantity_functional FROM item WHERE part_num='"
+					+ partNum + "'";
+			rs = statement.executeQuery(sql);
+			String temp;
+
+			while (rs.next())
+			{
+				temp = rs.getString("quantity_functional");
+				quantity = temp;
+			}
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return Integer.parseInt(quantity);
+
 	}
 }
