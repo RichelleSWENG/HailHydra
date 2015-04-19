@@ -13,6 +13,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
@@ -27,7 +29,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	private AcknowledgementReceiptController mainController;
 	private AcknowledgementReceipt rcpt;
 	private int numItems;
-	private float totalBalance, totalItemPrice, tentativeTotal, discount,dedBalance;
+	private float totalBalance, totalItemPrice, discount,dedBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;
@@ -41,13 +43,42 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 
 		lblHeader.setText("Modify Acknowledgement Receipt");
 
+                ftfDiscount.getDocument().addDocumentListener(new DocumentListener()
+		{
+			public void changedUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			public void insertUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			public void removeUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			private void update()
+			{
+				try
+				{
+					Float.parseFloat(ftfDiscount.getText());
+					calcTotalBalance();
+				} catch (Exception temp)
+				{
+
+				}
+			}
+
+		});
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(new Font("Arial", Font.PLAIN, 21));
 		btnSubmit.setBounds(655, 545, 110, 40);
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent e)
 			{
 				try
@@ -64,12 +95,12 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 										.getValueAt(i, 4).toString())));
 					}
 					mainController.editAR(tfARNum.getText(), ftfDate.getText(),
-							Float.parseFloat(ftfTotal.getText()), tfPONum
+							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
 							tfSalesperson.getText(), tfDeliveredBy.getText(),
 							taDeliveryNotes.getText(), tfDRNum.getText(), Float
-									.parseFloat(ftfDiscount.getText()), Float
-									.parseFloat(ftfBalance.getText()), "Open",
+									.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float
+									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToViewAcknowledgementReceipt();
@@ -143,9 +174,9 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		tfOrderedBy.setText(rcpt.getOrdered_by());
 		tfDeliveredBy.setText(rcpt.getDelivered_by());
 		ftfDate.setText(rcpt.getDate());
-		ftfDiscount.setText(String.valueOf(rcpt.getDiscount()));
+		ftfDiscount.setValue(rcpt.getDiscount());
 		ftfTotal.setEditable(false);
-		ftfBalance.setText(String.valueOf(rcpt.getCurrent_balance()));
+		ftfBalance.setValue(rcpt.getCurrent_balance());
 		taDeliveryNotes.setText(rcpt.getDelivery_notes());
 
 		cmbCustomer.addActionListener(new ActionListener()
@@ -217,9 +248,9 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
 						.toString());
 		}
-		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(dedBalance));
-		ftfBalance.setText(String.valueOf(dedBalance));
+		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText().replaceAll(",",""));
+		ftfTotal.setValue(dedBalance);
+		ftfBalance.setValue(dedBalance);
 	}
 
 	class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
