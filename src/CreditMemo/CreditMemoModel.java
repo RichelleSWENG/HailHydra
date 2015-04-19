@@ -48,7 +48,7 @@ public class CreditMemoModel
 		{
 			statement = db.createStatement();
 			String sql = "SELECT creditmemo.date, creditmemo.credit_memo_id, company.name, creditmemo.return_slip_id,creditmemo.total_amount FROM company,returnslip,creditmemo WHERE returnslip.company_id=company.company_id AND creditmemo.return_slip_id=returnslip.return_slip_id AND creditmemo.date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+					+ startDate + "' AND '" + endDate + "' ORDER BY creditmemo.credit_memo_id ASC";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
