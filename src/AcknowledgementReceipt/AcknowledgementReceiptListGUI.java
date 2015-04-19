@@ -43,8 +43,8 @@ public class AcknowledgementReceiptListGUI extends JPanel
 			"November", "December" }, strHeader[] = { "Customer Name",
 			"     Date     ",
 			"<html><center>Acknowledgement<br>Receipt Number</center></html>",
-			"<html><center>Original Amount<br>Number</center></html>",
-			"<html><center>Current Balance<br>Number</center></html>" };
+			"<html><center>Original<br>Amount</center></html>",
+			"<html><center>Current<br>Balance</center></html>" };
 	private JComboBox cmbFromMonth, cmbFromYear, cmbToMonth, cmbToYear;
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
