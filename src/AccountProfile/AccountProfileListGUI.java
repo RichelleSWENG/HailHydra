@@ -35,7 +35,7 @@ public class AccountProfileListGUI extends JPanel
 	private JLabel lblHeader, lblDisplay, lblName, lblAccountsFound,
 			lblNumOfAccountsFound;
 	private JTextField tfSearch;
-	private String strHeader[] = { "               Name               ",
+	private String strHeader[] = { "                         Name                         ",
 			"                    Type                    ",
 			"     Credit Limit     ",
 			"<html><center>Terms<br>(Days)</center></html>" }, name, AccountType;
