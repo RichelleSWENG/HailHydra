@@ -466,7 +466,8 @@ public class InventoryListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewItemProfile.setEnabled(true);
 		tbInventory.setModel(tbm);
                 if(tbInventory.getRowCount() == 0)
                 {
@@ -478,6 +479,7 @@ public class InventoryListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewItemProfile.setEnabled(false);
                 }
                 else
                 {
