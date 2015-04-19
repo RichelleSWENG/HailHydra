@@ -415,10 +415,12 @@ public class AccountProfileListGUI extends JPanel
                     TableColumn tc = tcm.getColumn(0); 
                     tc.setHeaderValue("");
                     
-                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                    model.addRow(new Object[]{"                                                             No Results Found            "}); // do not change
                 }
-                else
+                else 
                 {
+                DefaultTableModel model = (DefaultTableModel) tbAccountProfile.getModel();
+                model.setColumnCount(4);
 		JTableHeader th = tbAccountProfile.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -426,7 +428,13 @@ public class AccountProfileListGUI extends JPanel
 			TableColumn tc = tcm.getColumn(i); 
 			tc.setHeaderValue(strHeader[i]);
 		}
-                
+                if(tbAccountProfile.getValueAt(0, 0).equals("                                                             No Results Found            ")) // do not change
+                {
+                    model.setColumnCount(1); 
+                    tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                }
 		tbCellRenderer = tbAccountProfile.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbAccountProfile.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)

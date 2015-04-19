@@ -396,8 +396,7 @@ public class PayablesListGUI extends JPanel
 			}
 
 		});
-
-		tbModel = new DefaultTableModel()
+                tbModel = new DefaultTableModel()
 		{
 			public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
@@ -405,7 +404,7 @@ public class PayablesListGUI extends JPanel
 			}
 		};
 
-		tbModel.setRowCount(15);
+		tbModel.setRowCount(0);
 
 		for (int i = 0; i < strHeader.length; i++)
 		{
@@ -414,15 +413,14 @@ public class PayablesListGUI extends JPanel
 
 		tbPayables = new JTable(tbModel)
 		{
-			public TableCellRenderer getCellRenderer(int row, int column)
-			{
-				return new TableRenderer();
-			}
-
-			@Override
 			public boolean isCellEditable(int row, int column)
 			{
 				return false;
+			}
+
+			public TableCellRenderer getCellRenderer(int row, int column)
+			{
+				return new TableRenderer();
 			}
 
 			public Component prepareRenderer(TableCellRenderer renderer,
@@ -504,8 +502,8 @@ public class PayablesListGUI extends JPanel
 				} else if (!chckbxActivePayables.isSelected()
 						&& !chckbxClosedPayables.isSelected())
 				{
-					tbPayables.setModel(tbModel);
-					lblNumOfPayablesFound.setText("0");
+                                        lblNumOfPayablesFound.setText("0");
+					setTableModel(tbModel);
 				}
 
 			}
@@ -548,8 +546,8 @@ public class PayablesListGUI extends JPanel
 				} else if (!chckbxActivePayables.isSelected()
 						&& !chckbxClosedPayables.isSelected())
 				{
-					tbPayables.setModel(tbModel);
-					lblNumOfPayablesFound.setText("0");
+                                        lblNumOfPayablesFound.setText("0");
+					setTableModel(tbModel);
 				}
 
 			}
@@ -692,6 +690,8 @@ public class PayablesListGUI extends JPanel
                 }
                 else
                 {
+                DefaultTableModel model = (DefaultTableModel) tbPayables.getModel();
+                model.setColumnCount(6);
 		JTableHeader th = tbPayables.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < 6; i++)
@@ -699,6 +699,13 @@ public class PayablesListGUI extends JPanel
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
+                if(tbPayables.getValueAt(0, 0).equals("                                                             No Results Found            ")) // do not change
+                {
+                    model.setColumnCount(1); 
+                    tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                }
                 tbCellRenderer = tbPayables.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbPayables.getColumnModel();
 		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
