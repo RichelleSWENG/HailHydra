@@ -408,7 +408,9 @@ public class TermsReportGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewAckReceipt.setEnabled(true);
+                btnViewSalesInvoice.setEnabled(true);
 		tbTermsReport.setModel(tbm);
                 if(tbTermsReport.getRowCount() == 0)
                 {
@@ -420,6 +422,8 @@ public class TermsReportGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewAckReceipt.setEnabled(false);
+                    btnViewSalesInvoice.setEnabled(false);
                 }
                 else
                 {
@@ -454,6 +458,8 @@ public class TermsReportGUI extends JPanel
 
 	public void ViewAll()
 	{
+                btnViewAckReceipt.setEnabled(true);
+                btnViewSalesInvoice.setEnabled(true);
 		tfSearch.setText("");
 		TableModel AllModel = mainController.getAllTermsModel();
 		tbTermsReport.setModel(AllModel);
