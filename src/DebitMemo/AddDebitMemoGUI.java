@@ -95,7 +95,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 							ftfApprovedDate.getText(), ftfReceivedDate
 									.getText(), taNotes.getText(), status, type);
 					updateInventory(status, type);
-					guiController.changePanelToReturnSlip();
+					guiController.changePanelToDebitMemo();
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -104,8 +104,9 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 									"Please fill in the required fields before adding.",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
+                                        guiController.changePanelToAddDebitMemo();
 				}
-				guiController.changePanelToDebitMemo();
+				
 			}
 		});
 
