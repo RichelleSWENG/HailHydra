@@ -51,6 +51,8 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		ftfBalance.setEditable(false);
 		taAddress.setEditable(false);
 		taDeliveryNotes.setEditable(false);
+                btnAddItem.setEnabled(false);
+                btnDeleteItem.setEnabled(false);
 
 		btnModify = new JButton("Modify");
 		btnModify.setFont(new Font("Arial", Font.PLAIN, 21));
