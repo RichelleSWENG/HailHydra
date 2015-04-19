@@ -171,7 +171,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 				{
 					c = mainController.getCustomer(cmbSupplier
 							.getSelectedIndex() - 1);
-					taAddress.setText(c.getAddressLoc());
+					taAddress.setText(c.getAddressLoc()+" "+c.getAddressCity()+" "+c.getAddressCountry()+" "+c.getPostalCode());
 
 					partNums = new String[mainController.getItems().size() + 1];
 					partNums[0] = "";

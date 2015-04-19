@@ -143,7 +143,7 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements
 				if (cmbSupplier.getSelectedIndex() != 0)
 				{
 					c = RSController.getSupplier(cmbSupplier.getSelectedIndex() - 1);
-					taAddress.setText(c.getAddressLoc());
+					taAddress.setText(c.getAddressLoc()+" "+c.getAddressCity()+" "+c.getAddressCountry()+" "+c.getPostalCode());
 
 					partNums = new String[RSController.getItems(c.getType())
 							.size() + 1];

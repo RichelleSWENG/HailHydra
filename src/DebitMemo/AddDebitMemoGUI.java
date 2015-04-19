@@ -144,7 +144,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 				{
 					c = mainController.getCustomer(cmbCustomer
 							.getSelectedIndex() - 1);
-					taAddress.setText(c.getAddressLoc());
+					taAddress.setText(c.getAddressLoc()+" "+c.getAddressCity()+" "+c.getAddressCountry()+" "+c.getPostalCode());
 
 					// populate receipt numbers
 

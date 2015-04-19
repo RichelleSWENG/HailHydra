@@ -177,7 +177,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 				{
 					c = mainController.getCustomer(cmbCustomer
 							.getSelectedIndex() - 1);
-					taAddress.setText(c.getAddressLoc());
+					taAddress.setText(c.getAddressLoc()+" "+c.getAddressCity()+" "+c.getAddressCountry()+" "+c.getPostalCode());
 
 					partNums = new String[mainController.getItems(c.getType())
 							.size() + 1];

@@ -78,11 +78,12 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements
 	{
 		setDataComponents();
 		cmbSupplier.setEnabled(false);
-		cmbPTNum.setEnabled(false);
+		//cmbPTNum.setEnabled(false);
 		tfRSNum.setText(slip.getReturn_slip_id());
 		// tfPONum.setText(slip.getPurchase_order_num());
-		cmbPTNum.setSelectedItem(Integer.toString(slip
-				.getPurchase_transaction_num()));
+                System.out.println(slip.getPurchase_transaction_num());
+		cmbPTNum.setSelectedItem(String.format("%06d", slip.getPurchase_transaction_num()));
+                cmbPTNum.setEnabled(false);
 		String PO;
 		if (cmbPTNum.getSelectedIndex() != 0)
 		{
@@ -137,7 +138,7 @@ public class ViewReturnSlipGUI extends ReturnSlipGUI implements
 				{
 					c = mainController.getSupplier(cmbSupplier
 							.getSelectedIndex() - 1);
-					taAddress.setText(c.getAddressLoc());
+					taAddress.setText(c.getAddressLoc()+" "+c.getAddressCity()+" "+c.getAddressCountry()+" "+c.getPostalCode());
 
 					partNums = new String[mainController.getItems(c.getType())
 							.size() + 1];
