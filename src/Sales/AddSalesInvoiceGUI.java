@@ -105,6 +105,8 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if(!tfSINum.getText().isEmpty())
+                            {
 				try
 				{
 					int i;
@@ -135,11 +137,15 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"Please fill in the required fields before adding. I do not like you po",
+									"Please fill in all required fields.",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
 				}
-			}
+                            }else
+                                JOptionPane.showMessageDialog(null, "<html><center>Sales invoice number is empty.<br>Please input a sales invoice number.</center></html>");
+                        }
+                        
+                            
 		});
 
 		btnCancel = new JButton("Cancel");
@@ -314,7 +320,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 						JOptionPane
 								.showMessageDialog(
 										null,
-										"You've already chosen that item. Edit the quantity previously or select another pls",
+										"You've already chosen that item. Please edit the previous quantity.",
 										"Duplicate Items",
 										JOptionPane.ERROR_MESSAGE);
 						tbModel.removeRow(e.getFirstRow());
@@ -342,12 +348,12 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 					{
 						JOptionPane.showMessageDialog(
 								null,
-								"You can not buy that many items!!!! You can only buy "
+								"Selected item is not enough. There is only"
 										+ mainController
 												.getAvailQuantity(Arrays
 														.asList(partNums)
 														.indexOf(cmb) - 1)
-										+ ". Pls do not test me");
+										+ " left.");
 						tbModel.setValueAt("0", e.getFirstRow(), 0);
 					}
 				}
