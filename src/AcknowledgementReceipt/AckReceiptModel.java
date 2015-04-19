@@ -249,7 +249,7 @@ public class AckReceiptModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT * FROM company WHERE type LIKE '%customer%'";
+			String sql = "SELECT * FROM company WHERE type LIKE '%customer%' ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 			Company tempCustomer;
 			while (rs.next())

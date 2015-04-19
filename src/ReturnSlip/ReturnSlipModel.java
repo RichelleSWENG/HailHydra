@@ -164,7 +164,7 @@ public class ReturnSlipModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT * FROM company WHERE type LIKE '%supplier%'";
+			String sql = "SELECT * FROM company WHERE type LIKE '%supplier%' ORDER BY name ASC";
 			rs = statement.executeQuery(sql);
 			Company tempSupplier;
 			while (rs.next())
