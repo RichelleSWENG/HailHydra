@@ -195,14 +195,13 @@ public class AcknowledgementReceiptGUI extends JPanel
 		taAddress.setFont(fntPlainText);
 		taAddress.setWrapStyleWord(true);
 		taAddress.setLineWrap(true);
-		taAddress.setBounds(125, 120, 376, 80);
+                taAddress.setEditable(false);
 		add(taAddress);
 
 		taDeliveryNotes = new JTextArea();
 		taDeliveryNotes.setFont(fntPlainText);
 		taDeliveryNotes.setWrapStyleWord(true);
 		taDeliveryNotes.setLineWrap(true);
-		taDeliveryNotes.setBounds(30, 504, 472, 30);
 		add(taDeliveryNotes);
 
 		spAddress = new JScrollPane(taAddress);
