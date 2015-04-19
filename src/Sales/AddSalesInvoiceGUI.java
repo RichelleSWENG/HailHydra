@@ -119,7 +119,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 										.getValueAt(i, 4).toString())));
 					}
 					mainController.addSI(tfSINum.getText(), ftfDate.getText(),
-							Float.parseFloat(ftfSubtotal.getText()), tfPONum
+							Float.parseFloat(ftfSubtotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
 							tfSalesperson.getText(), tfDeliveredBy.getText(),
 							taDeliveryNotes.getText(), tfDRNum.getText(), Float
