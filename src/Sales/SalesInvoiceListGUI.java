@@ -506,7 +506,8 @@ public class SalesInvoiceListGUI extends JPanel
 	}
 
 	public void setTableModel(TableModel tbm)
-	{ // Setting the Headers
+	{ 
+                btnViewSalesInvoice.setEnabled(true);
 		tbSalesInvoice.setModel(tbm);
                 if(tbSalesInvoice.getRowCount() == 0)
                 {
@@ -518,6 +519,7 @@ public class SalesInvoiceListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewSalesInvoice.setEnabled(false);
                 }
                 else
                 {
