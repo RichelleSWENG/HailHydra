@@ -97,9 +97,9 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		tfOrderedBy.setText(rcpt.getOrdered_by());
 		tfDeliveredBy.setText(rcpt.getDelivered_by());
 		ftfDate.setText(rcpt.getDate());
-		ftfDiscount.setText(String.valueOf(rcpt.getDiscount()));
+		ftfDiscount.setValue(rcpt.getDiscount());
 		ftfTotal.setEditable(false);
-		ftfBalance.setText(String.valueOf(rcpt.getCurrent_balance()));
+		ftfBalance.setValue(rcpt.getCurrent_balance());
 		taAddress.setEditable(false);
 		taDeliveryNotes.setText(rcpt.getDelivery_notes());
 
@@ -179,9 +179,9 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
 						.toString());
 		}
-		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(dedBalance));
-		ftfBalance.setText(String.valueOf(dedBalance));
+		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText().replaceAll(",", ""));
+		ftfTotal.setValue(dedBalance);
+		ftfBalance.setValue(dedBalance);
 	}
 
 	class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
