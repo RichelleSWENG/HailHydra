@@ -2,7 +2,6 @@ package AcknowledgementReceipt;
 
 import Classes.Company;
 import HailHydra.GUIController;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +28,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	private GUIController guiController;
 	private AcknowledgementReceiptController mainController;
 	private int numItems;
-	private float totalBalance, totalItemPrice, tentativeTotal, discount,
+	private Double totalBalance, totalItemPrice, tentativeTotal, discount,
 			dedBalance;
 	private final float defaultVal = 0;
 	private String partNums[];
@@ -40,15 +39,17 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		super();
 
 		numItems = 0;
-		totalItemPrice = 0;
-		tentativeTotal = 0;
-		discount = 0;
-		dedBalance = 0;
+		totalItemPrice = 0.0;
+		tentativeTotal = 0.0;
+		discount = 0.0;
+		dedBalance = 0.0;
 		guiController = temp;
-		totalBalance = 0;
+		totalBalance = 0.0;
 		c = null;
 		cmbCustomer.setEditable(true);
 
+                lblHeader.setText("Add Acknowledgement Receipt");
+                
 		ftfDiscount.getDocument().addDocumentListener(new DocumentListener()
 		{
 			public void changedUpdate(DocumentEvent documentEvent)
@@ -80,7 +81,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 
 		});
 
-		lblHeader.setText("Add Acknowledgement Receipt");
+		
 
 		btnAddItem.addActionListener(new ActionListener()
 		{
@@ -112,9 +113,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener()
 		{
-			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+                            if(!tfARNum.getText().isEmpty())
+                            {
 				try
 				{
 					int i;
@@ -129,12 +131,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 										.getValueAt(i, 4).toString())));
 					}
 					mainController.addAR(tfARNum.getText(), ftfDate.getText(),
-							Float.parseFloat(ftfTotal.getText()), tfPONum
+							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
 							tfSalesperson.getText(), tfDeliveredBy.getText(),
 							taDeliveryNotes.getText(), tfDRNum.getText(), Float
-									.parseFloat(ftfDiscount.getText()), Float
-									.parseFloat(ftfBalance.getText()), "Open",
+									.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float
+									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToAcknowledgementReceipt();
@@ -147,7 +149,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
 				}
-			}
+			}else
+                                JOptionPane.showMessageDialog(null, "<html><center>Acknowledgement receipt number is empty."
+                                        + "<br>Please input a acknowledgement receipt number.</center></html>");
+                        }
 		});
 
 		btnCancel = new JButton("Cancel");
@@ -203,7 +208,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
 				dedBalance = totalBalance
 						- Float.parseFloat(ftfDiscount.getText()) / 100;
-				ftfBalance.setText(String.valueOf(dedBalance));
+				ftfBalance.setValue(dedBalance);
 			}
 		});
 
@@ -241,7 +246,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 							&& !tbModel.getValueAt(e.getFirstRow(), 0)
 									.toString().equals(""))
 					{
-						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+						totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 								e.getFirstRow(), 0).toString())
 								* Float.parseFloat(tbModel.getValueAt(
 										e.getFirstRow(), 3).toString());
@@ -306,7 +311,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 							.getAvailQuantity(Arrays.asList(partNums).indexOf(
 									cmb) - 1))
 					{
-						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+						totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 								e.getFirstRow(), 0).toString())
 								* Float.parseFloat(tbModel.getValueAt(
 										e.getFirstRow(), 3).toString());
@@ -338,7 +343,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+					totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 							e.getFirstRow(), 0).toString())
 							* Float.parseFloat(tbModel.getValueAt(
 									e.getFirstRow(), 3).toString());
@@ -373,15 +378,15 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	{
 		int i;
 
-		totalBalance = 0;
+		totalBalance = 0.0;
 		for (i = 0; i < tbModel.getRowCount(); i++)
 		{
 			totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
 					.toString());
 		}
 		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(dedBalance));
-		ftfBalance.setText(String.valueOf(dedBalance));
+		ftfTotal.setValue(dedBalance);
+		ftfBalance.setValue(dedBalance);
 	}
 
 	class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
