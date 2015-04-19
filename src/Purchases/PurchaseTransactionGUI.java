@@ -4,63 +4,65 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.text.DateFormat;
-import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-
-import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
-
 import TableRenderer.TableRenderer;
 import java.awt.Color;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
 
-public class PurchaseTransactionGUI extends JPanel
+public class PurchaseTransactionListGUI extends JPanel
 {
 
-	protected JLabel lblHeader, lblPurchaseTransactionNum, lblSupplier,
-			lblAddress, lblDate, lblPONum, lblSINum, lblORNum, lblOrderedBy,
-			lblReceivedBy, lblReceivingNotes, lblDiscount, lblSubtotal, lblVat,
-			lblTotal, lblBalance;
-	protected JTextField tfPurchaseTransactionNum, tfPONum, tfSINum, tfDRNum,
-			tfOrderedBy, tfReceivedBy;
-	protected JFormattedTextField ftfDate, ftfDiscount, ftfSubtotal, ftfTotal,
-			ftfVat, ftfBalance;
-	protected JTextArea taAddress, taReceivingNotes;
-	protected String strHeader[] = { "Quantity", "    Part Number    ",
-			"        Description        ",
-			"<html><center>   Unit   <br>   Price   </center></html>",
-			"  Subtotal  " };
-	protected DefaultTableModel tbModel;
-	protected TableCellRenderer tbCellRenderer, tbCellRendererColumn;
-	protected TableColumnModel tbColumnRenderer;
-	protected TableColumn tbColumn;
-	protected Component component;
-	protected JTable tbPurchaseTransaction;
-	protected JScrollPane spTable, spAddress, spReceivingNotes;
-	protected JButton btnAddItem, btnDeleteItem;
-	protected Font fntPlainText, fntHeaderText, fntHeaderTableText;
-	protected DateFormat dateFormat;
-	protected JComboBox cmbSupplier;
-	protected double totalOfEverything, totalItemPrice, tentativeTotal,
-			discount, VAT, VATpercent, everythingwithVAT, subtotal;
-	protected final float defaultVal = 0;
+	private JLabel lblHeader, lblSearchBy, lblSearch, lblRange, lblTo,
+			lblTransactionsFound, lblNumofTransactions;
+	private JTextField tfSearch;
+	JComboBox cmbToMonth, cmbToYear, cmbFromMonth, cmbFromYear;
+	private String strHeader[] = { "        Supplier Name        ", "Date",
+			"<html><center>Purchase<br>Transaction<br>Number</center></html>",
+			"<html><center>Original<br>Amount</center></html>",
+			"<html><center>Current<br>Balance</center></html>" }, months[] = {
+			"January", "February", "March", "April", "May", "June", "July",
+			"August", "September", "October", "November", "December" };
+	private DefaultTableModel tbModel;
+	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
+	private TableColumnModel tbColumnRenderer;
+	private TableColumn tbColumn;
+	private Component component;
+	private JTable tbPurchaseTransaction;
+	private JScrollPane spTable;
+	private JRadioButton rdbtnSupplierName, rdbtnPurchaseTransactionNum,
+			rdbtnPartNumber;
+	private ButtonGroup searchBy;
+	private JButton btnViewAllTransactions, btnAddPurchaseTransaction,
+			btnViewPurchaseTransaction, btnClose;
+	private Font fntPlainText, fntHeaderText, fntHeaderTableText;
+	private int modelRow;
+	private GUIController controller;
+	public PurchaseTransactionController mainController;
 
-	public PurchaseTransactionGUI()
+	public PurchaseTransactionListGUI(GUIController temp)
 	{
+		controller = temp;
 		setBounds(0, 0, 1000, 620);
 		setLayout(null);
 
@@ -68,217 +70,212 @@ public class PurchaseTransactionGUI extends JPanel
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
 
-		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-		lblHeader = new JLabel("");
+		lblHeader = new JLabel("Purchase Transaction");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
 
-		lblSupplier = new JLabel("Supplier:");
-		lblSupplier.setFont(fntPlainText);
-		lblSupplier.setBounds(30, 80, 96, 30);
-		add(lblSupplier);
+		lblSearchBy = new JLabel("Search By: ");
+		lblSearchBy.setFont(fntPlainText);
+		lblSearchBy.setBounds(30, 80, 121, 30);
+		add(lblSearchBy);
 
-		lblAddress = new JLabel("Address:");
-		lblAddress.setFont(fntPlainText);
-		lblAddress.setBounds(30, 120, 96, 30);
-		add(lblAddress);
+		lblSearch = new JLabel("Search: ");
+		lblSearch.setFont(fntPlainText);
+		lblSearch.setBounds(30, 160, 84, 30);
+		add(lblSearch);
 
-		lblPurchaseTransactionNum = new JLabel("Purchase Transaction #:");
-		lblPurchaseTransactionNum.setFont(fntPlainText);
-		lblPurchaseTransactionNum.setBounds(530, 80, 262, 30);
-		add(lblPurchaseTransactionNum);
+		lblRange = new JLabel("Range:");
+		lblRange.setFont(fntPlainText);
+		lblRange.setBounds(30, 120, 80, 30);
+		add(lblRange);
 
-		lblDate = new JLabel("Date:");
-		lblDate.setFont(fntPlainText);
-		lblDate.setBounds(715, 110, 67, 30);
-		add(lblDate);
+		lblTo = new JLabel("TO");
+		lblTo.setFont(fntPlainText);
+		lblTo.setBounds(425, 120, 36, 30);
+		add(lblTo);
 
-		lblPONum = new JLabel("P.O. Number:");
-		lblPONum.setFont(fntPlainText);
-		lblPONum.setBounds(637, 140, 141, 30);
-		add(lblPONum);
+		lblTransactionsFound = new JLabel("Transaction/s Found:");
+		lblTransactionsFound.setFont(fntPlainText);
+		lblTransactionsFound.setBounds(30, 200, 219, 30);
+		add(lblTransactionsFound);
 
-		lblSINum = new JLabel("S.I. Number:");
-		lblSINum.setFont(fntPlainText);
-		lblSINum.setBounds(647, 170, 134, 30);
-		add(lblSINum);
+		lblNumofTransactions = new JLabel("0");
+		lblNumofTransactions.setFont(fntPlainText);
+		lblNumofTransactions.setBounds(250, 200, 250, 30);
+		add(lblNumofTransactions);
 
-		lblORNum = new JLabel("D.R. Number:");
-		lblORNum.setFont(fntPlainText);
-		lblORNum.setBounds(637, 200, 134, 30);
-		add(lblORNum);
+		tfSearch = new JTextField();
+		tfSearch.setFont(fntPlainText);
+		tfSearch.setBounds(150, 160, 650, 30);
+		add(tfSearch);
 
-		lblOrderedBy = new JLabel("Ordered By:");
-		lblOrderedBy.setFont(fntPlainText);
-		lblOrderedBy.setBounds(30, 435, 129, 30);
-		add(lblOrderedBy);
+		cmbFromMonth = new JComboBox();
+		cmbFromMonth.setFont(fntPlainText);
+		cmbFromMonth.setBounds(150, 120, 140, 30);
+		add(cmbFromMonth);
 
-		lblReceivedBy = new JLabel("Received By:");
-		lblReceivedBy.setFont(fntPlainText);
-		lblReceivedBy.setBounds(30, 475, 141, 30);
-		add(lblReceivedBy);
+		cmbFromYear = new JComboBox();
+		cmbFromYear.setFont(fntPlainText);
+		cmbFromYear.setBounds(300, 120, 100, 30);
+		add(cmbFromYear);
 
-		lblReceivingNotes = new JLabel("Receiving Notes:");
-		lblReceivingNotes.setFont(fntPlainText);
-		lblReceivingNotes.setBounds(30, 515, 207, 30);
-		add(lblReceivingNotes);
+		cmbToMonth = new JComboBox();
+		cmbToMonth.setFont(fntPlainText);
+		cmbToMonth.setBounds(471, 120, 140, 30);
+		add(cmbToMonth);
 
-		lblDiscount = new JLabel("Discount:");
-		lblDiscount.setFont(fntPlainText);
-		lblDiscount.setBounds(705, 385, 105, 30);
-		add(lblDiscount);
-
-		lblSubtotal = new JLabel("Subtotal:");
-		lblSubtotal.setFont(fntPlainText);
-		lblSubtotal.setBounds(710, 415, 97, 30);
-		add(lblSubtotal);
-
-		lblVat = new JLabel("VAT:");
-		lblVat.setFont(fntPlainText);
-		lblVat.setBounds(745, 445, 80, 30);
-		add(lblVat);
-
-		lblTotal = new JLabel("Total:");
-		lblTotal.setFont(fntPlainText);
-		lblTotal.setBounds(738, 475, 80, 30);
-		add(lblTotal);
-
-		lblBalance = new JLabel("Balance:");
-		lblBalance.setFont(fntPlainText);
-		lblBalance.setBounds(708, 505, 97, 30);
-		add(lblBalance);
-
-		tfPurchaseTransactionNum = new JTextField();
-		tfPurchaseTransactionNum.setFont(fntPlainText);
-		tfPurchaseTransactionNum.setBounds(770, 80, 195, 30);
-		add(tfPurchaseTransactionNum);
-
-		ftfDate = new JFormattedTextField(dateFormat);
-		ftfDate.setValue(new java.util.Date());
-		ftfDate.setFont(fntPlainText);
-		ftfDate.setBounds(770, 110, 195, 30);
-		add(ftfDate);
-
-		tfPONum = new JTextField();
-		tfPONum.setFont(fntPlainText);
-		tfPONum.setBounds(770, 140, 195, 30);
-		add(tfPONum);
-
-		tfSINum = new JTextField();
-		tfSINum.setFont(fntPlainText);
-		tfSINum.setBounds(770, 170, 195, 30);
-		add(tfSINum);
-
-		tfDRNum = new JTextField();
-		tfDRNum.setFont(fntPlainText);
-		tfDRNum.setBounds(770, 200, 195, 30);
-		add(tfDRNum);
-
-		tfOrderedBy = new JTextField();
-		tfOrderedBy.setFont(fntPlainText);
-		tfOrderedBy.setBounds(160, 435, 340, 30);
-		add(tfOrderedBy);
-
-		tfReceivedBy = new JTextField();
-		tfReceivedBy.setFont(fntPlainText);
-		tfReceivedBy.setBounds(160, 475, 340, 30);
-		add(tfReceivedBy);
-
-		ftfDiscount = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfDiscount.setFont(fntPlainText);
-		ftfDiscount.setHorizontalAlignment(JTextField.RIGHT);
-		ftfDiscount.setValue(new Float(00.0F));
-		ftfDiscount.setBounds(800, 385, 165, 30);
-		add(ftfDiscount);
-
-		ftfSubtotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfSubtotal.setFont(fntPlainText);
-		ftfSubtotal.setHorizontalAlignment(JTextField.RIGHT);
-		ftfSubtotal.setValue(new Float(00.0F));
-		ftfSubtotal.setEditable(false);
-		ftfSubtotal.setBounds(800, 415, 165, 30);
-		add(ftfSubtotal);
-
-		ftfVat = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfVat.setFont(fntPlainText);
-		ftfVat.setHorizontalAlignment(JTextField.RIGHT);
-		ftfVat.setValue(new Float(00.0F));
-		ftfVat.setEditable(false);
-		ftfVat.setBounds(800, 445, 165, 30);
-		add(ftfVat);
-
-		ftfTotal = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfTotal.setFont(fntPlainText);
-		ftfTotal.setHorizontalAlignment(JTextField.RIGHT);
-		ftfTotal.setValue(new Float(00.0F));
-		ftfTotal.setEditable(false);
-		ftfTotal.setBounds(800, 475, 165, 30);
-		add(ftfTotal);
-
-		ftfBalance = new JFormattedTextField(new DecimalFormat("#,##0.00"));
-		ftfBalance.setFont(fntPlainText);
-		ftfBalance.setHorizontalAlignment(JTextField.RIGHT);
-		ftfBalance.setValue(new Float(00.0F));
-		ftfBalance.setEditable(false);
-		ftfBalance.setBounds(800, 505, 165, 30);
-		add(ftfBalance);
-
-		taAddress = new JTextArea();
-		taAddress.setFont(fntPlainText);
-		taAddress.setWrapStyleWord(true);
-		taAddress.setLineWrap(true);
-		taAddress.setEditable(false);
-		add(taAddress);
-
-		taReceivingNotes = new JTextArea();
-		taReceivingNotes.setFont(fntPlainText);
-		taReceivingNotes.setWrapStyleWord(true);
-		taReceivingNotes.setLineWrap(true);
-		add(taReceivingNotes);
-
-		spAddress = new JScrollPane(taAddress);
-		spAddress.setBounds(125, 115, 375, 110);
-		add(spAddress);
-
-		spReceivingNotes = new JScrollPane(taReceivingNotes);
-		spReceivingNotes.setBounds(30, 545, 470, 40);
-		add(spReceivingNotes);
-
-		cmbSupplier = new JComboBox();
-		AutoCompleteDecorator.decorate(cmbSupplier);
-		cmbSupplier.setFont(new Font("Arial", Font.PLAIN, 21));
-		cmbSupplier.setBounds(125, 80, 375, 30);
-		add(cmbSupplier);
-
-		tbModel = new DefaultTableModel()
+		cmbToYear = new JComboBox();
+		cmbToYear.setFont(fntPlainText);
+		cmbToYear.setBounds(621, 120, 100, 30);
+		add(cmbToYear);
+		for (int i = 0; i < months.length; i++)
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
+			cmbFromMonth.addItem(months[i]);
+			cmbToMonth.addItem(months[i]);
+		}
+		cmbToYear.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
 			{
-				if (cmbSupplier.getSelectedItem() == null
-						|| cmbSupplier.getSelectedItem().equals(""))
+				tfSearch.setText("");
+				mainController.searchbyDate(
+						cmbFromYear.getSelectedItem() + "-"
+								+ (cmbFromMonth.getSelectedIndex() + 1) + "-01",
+						cmbToYear.getSelectedItem() + "-"
+								+ (cmbToMonth.getSelectedIndex() + 1) + "-31");
+
+			}
+
+		});
+		cmbToMonth.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				tfSearch.setText("");
+				mainController.searchbyDate(
+						cmbFromYear.getSelectedItem() + "-"
+								+ (cmbFromMonth.getSelectedIndex() + 1) + "-01",
+						cmbToYear.getSelectedItem() + "-"
+								+ (cmbToMonth.getSelectedIndex() + 1) + "-31");
+
+			}
+
+		});
+		cmbFromMonth.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				tfSearch.setText("");
+				mainController.searchbyDate(
+						cmbFromYear.getSelectedItem() + "-"
+								+ (cmbFromMonth.getSelectedIndex() + 1) + "-01",
+						cmbToYear.getSelectedItem() + "-"
+								+ (cmbToMonth.getSelectedIndex() + 1) + "-31");
+
+			}
+
+		});
+		cmbFromYear.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent ae)
+			{
+				tfSearch.setText(null);
+				mainController.searchbyDate(
+						cmbFromYear.getSelectedItem() + "-"
+								+ (cmbFromMonth.getSelectedIndex() + 1) + "-01",
+						cmbToYear.getSelectedItem() + "-"
+								+ (cmbToMonth.getSelectedIndex() + 1) + "-31");
+
+			}
+
+		});
+		tfSearch.getDocument().addDocumentListener(new DocumentListener()
+		{
+			public void insertUpdate(DocumentEvent de)
+			{
+				try
 				{
-					return false;
-				}
-				if (mColIndex == 2 || mColIndex == 4)
+					done();
+				} catch (Exception ex)
 				{
-					return false;
-				} else
-				{
-					return true;
+
 				}
 			}
-		};
 
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			tbModel.addColumn(strHeader[i]);
-		}
-		setLayout(null);
+			public void removeUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
 
-		tbPurchaseTransaction = new JTable(tbModel)
+				}
+			}
+
+			public void changedUpdate(DocumentEvent de)
+			{
+				try
+				{
+					done();
+				} catch (Exception ex)
+				{
+
+				}
+			}
+
+			public void done() throws Exception
+			{
+				if (tfSearch.getText().length() > 0)
+				{
+					if (rdbtnSupplierName.isSelected())
+					{
+						mainController.SearchSomething(tfSearch.getText(), 0,
+								cmbFromYear.getSelectedItem() + "-"
+										+ (cmbFromMonth.getSelectedIndex() + 1)
+										+ "-01", cmbToYear.getSelectedItem()
+										+ "-"
+										+ (cmbToMonth.getSelectedIndex() + 1)
+										+ "-31");
+					} else if (rdbtnPurchaseTransactionNum.isSelected())
+					{
+						mainController.SearchSomething(tfSearch.getText(), 1,
+								cmbFromYear.getSelectedItem() + "-"
+										+ (cmbFromMonth.getSelectedIndex() + 1)
+										+ "-01", cmbToYear.getSelectedItem()
+										+ "-"
+										+ (cmbToMonth.getSelectedIndex() + 1)
+										+ "-31");
+					} else if (rdbtnPartNumber.isSelected())
+					{
+						mainController.SearchSomething(tfSearch.getText(), 2,
+								cmbFromYear.getSelectedItem() + "-"
+										+ (cmbFromMonth.getSelectedIndex() + 1)
+										+ "-01", cmbToYear.getSelectedItem()
+										+ "-"
+										+ (cmbToMonth.getSelectedIndex() + 1)
+										+ "-31");
+					}
+				} else if (tfSearch.getText().length() == 0) // if nothing is
+																// typed display
+																// all
+				{
+					mainController.searchbyDate(cmbFromYear.getSelectedItem()
+							+ "-" + (cmbFromMonth.getSelectedIndex() + 1)
+							+ "-01", cmbToYear.getSelectedItem() + "-"
+							+ (cmbToMonth.getSelectedIndex() + 1) + "-31");
+				}
+			}
+		});
+
+		tbPurchaseTransaction = new JTable()
 		{
+			public boolean isCellEditable(int row, int column)
+			{
+				return false;
+			}
+
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
@@ -288,7 +285,7 @@ public class PurchaseTransactionGUI extends JPanel
 					int row, int column)
 			{
 				component = super.prepareRenderer(renderer, row, column);
-				int modelRow = convertRowIndexToModel(row);
+				modelRow = convertRowIndexToModel(row);
 				if (!isRowSelected(modelRow))
 				{
 					component.setBackground(Color.WHITE);
@@ -299,6 +296,7 @@ public class PurchaseTransactionGUI extends JPanel
 				return component;
 			}
 		};
+
 		tbPurchaseTransaction.getTableHeader().setFont(fntHeaderTableText);
 		tbPurchaseTransaction.getTableHeader().setPreferredSize(
 				new Dimension(100, 55));
@@ -322,7 +320,7 @@ public class PurchaseTransactionGUI extends JPanel
 		tbPurchaseTransaction.setFont(fntPlainText);
 
 		spTable = new JScrollPane(tbPurchaseTransaction);
-		spTable.setBounds(30, 235, 935, 145);
+		spTable.setBounds(30, 245, 935, 285);
 		add(spTable);
 
 		tbPurchaseTransaction.getParent().setBackground(
@@ -335,46 +333,222 @@ public class PurchaseTransactionGUI extends JPanel
 				.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbPurchaseTransaction.setRowHeight(30);
 
-		btnAddItem = new JButton("Add Item");
-		btnAddItem.setFont(fntPlainText);
-		btnAddItem.setBounds(30, 385, 147, 40);
-		add(btnAddItem);
+		rdbtnSupplierName = new JRadioButton("Supplier Name");
+		rdbtnSupplierName.setFont(fntPlainText);
+		rdbtnSupplierName.setSelected(true);
+		rdbtnSupplierName.setBounds(150, 80, 180, 30);
+		add(rdbtnSupplierName);
+		rdbtnSupplierName.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				tfSearch.setText(null);
+			}
+		});
 
-		btnDeleteItem = new JButton("Delete Item");
-		btnDeleteItem.setFont(fntPlainText);
-		btnDeleteItem.setBounds(190, 385, 147, 40);
-		add(btnDeleteItem);
+		rdbtnPurchaseTransactionNum = new JRadioButton(
+				"Purchase Transaction Number");
+		rdbtnPurchaseTransactionNum.setFont(fntPlainText);
+		rdbtnPurchaseTransactionNum.setBounds(330, 80, 320, 30);
+		add(rdbtnPurchaseTransactionNum);
+		rdbtnPurchaseTransactionNum.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				tfSearch.setText(null);
+			}
+		});
+
+		rdbtnPartNumber = new JRadioButton("Part Number");
+		rdbtnPartNumber.setFont(fntPlainText);
+		rdbtnPartNumber.setBounds(655, 80, 352, 30);
+		add(rdbtnPartNumber);
+		rdbtnPartNumber.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				tfSearch.setText(null);
+			}
+		});
+
+		searchBy = new ButtonGroup();
+		searchBy.add(rdbtnSupplierName);
+		searchBy.add(rdbtnPurchaseTransactionNum);
+		searchBy.add(rdbtnPartNumber);
+
+		btnViewAllTransactions = new JButton("View All Transactions");
+		btnViewAllTransactions.setFont(fntPlainText);
+		btnViewAllTransactions.setBounds(725, 195, 240, 40);
+		add(btnViewAllTransactions);
+		btnViewAllTransactions.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				ViewAll();
+			}
+		});
+
+		btnViewPurchaseTransaction = new JButton("View Purchase Transaction");
+		btnViewPurchaseTransaction.setFont(fntPlainText);
+		btnViewPurchaseTransaction.setBounds(30, 545, 300, 40);
+		add(btnViewPurchaseTransaction);
+		btnViewPurchaseTransaction.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				int row;
+				row = tbPurchaseTransaction.getSelectedRow();
+				if (row == -1)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Please select an item.");
+				} else
+				{
+					mainController.setPurchaseTransaction(mainController
+							.getPT(tbPurchaseTransaction.getValueAt(row, 2)
+									.toString()));
+					controller.changePanelToViewPurchaseTransaction();
+				}
+
+			}
+		});
+
+		btnAddPurchaseTransaction = new JButton("Add Purchase Transaction");
+		btnAddPurchaseTransaction.setFont(fntPlainText);
+		btnAddPurchaseTransaction.setBounds(420, 545, 290, 40);
+		add(btnAddPurchaseTransaction);
+		btnAddPurchaseTransaction.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				controller.changePanelToAddPurchaseTransaction();
+			}
+		});
+
+		btnClose = new JButton("Close");
+		btnClose.setFont(fntPlainText);
+		btnClose.setBounds(855, 545, 110, 40);
+		add(btnClose);
+		btnClose.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				controller.changePanelToMainMenu();
+			}
+		});
 	}
 
-	public void calcTotalBalance()
+	public void setItemCount(int itemcount)
 	{
-		int i;
-		totalOfEverything = 0;
-		for (i = 0; i < tbModel.getRowCount()
-				&& tbModel.getValueAt(i, 4) != null; i++)
+		lblNumofTransactions.setText(Integer.toString(itemcount));
+	}
+
+	public void setComboBox()
+	{
+		cmbToYear.removeAllItems();
+		cmbFromYear.removeAllItems();
+		int cnt = 0;
+		if (mainController.getMaxYear() != null
+				&& mainController.getMinYear() != null)
 		{
-			System.out.println(i);
-			totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4)
-					.toString());
+			for (int i = Integer.parseInt(mainController.getMinYear()); i <= Integer
+					.parseInt(mainController.getMaxYear()); i++)
+			{
+				cmbToYear.addItem(i);
+				cmbFromYear.addItem(i);
+				cnt++;
+			}
+			cmbToYear.setSelectedIndex(cnt - 1);
+			cmbFromYear.setSelectedIndex(0);
+			cmbFromMonth.setSelectedIndex(0);
+			cmbToMonth.setSelectedIndex(11);
+		} else
+		{
+			cmbToYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
+			cmbFromYear.addItem(Calendar.getInstance().get(Calendar.YEAR));
 		}
-		subtotal = ((100 - VATpercent) / 100)
-				* (totalOfEverything - Double
-						.parseDouble(ftfDiscount.getText()));
-		ftfSubtotal.setValue(subtotal);
-		VAT = VATpercent
-				/ 100
-				* (totalOfEverything - Double
-						.parseDouble(ftfDiscount.getText()));
-		ftfVat.setValue(VAT);
-		ftfTotal.setValue(totalOfEverything
-				- Double.parseDouble(ftfDiscount.getText()));
-		ftfBalance.setValue(totalOfEverything
-				- Double.parseDouble(ftfDiscount.getText()));
+	}
+
+	public void setTableModel(TableModel tbm)
+	{ // Setting the Headers
+		tbPurchaseTransaction.setModel(tbm);
+                if(tbPurchaseTransaction.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbPurchaseTransaction.getModel();
+                    JTableHeader th = tbPurchaseTransaction.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else
+                {
+		JTableHeader th = tbPurchaseTransaction.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < 5; i++)
+		{
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+                tbCellRenderer = tbPurchaseTransaction.getTableHeader().getDefaultRenderer();
+		tbColumnRenderer = tbPurchaseTransaction.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPurchaseTransaction, tbColumn.getHeaderValue(), false, false,
+					0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+                }
+		tbPurchaseTransaction.repaint();
+	}
+
+	public void setMainController(PurchaseTransactionController temp)
+	{
+		mainController = temp;
+	}
+
+	public void ViewAll()
+	{
+		TableModel AllModel = mainController.getAllModel();
+		tbPurchaseTransaction.setModel(AllModel);
+
+		JTableHeader th = tbPurchaseTransaction.getTableHeader();
+		TableColumnModel tcm = th.getColumnModel();
+		for (int i = 0; i < strHeader.length; i++)
+		{
+			TableColumn tc = tcm.getColumn(i);
+			tc.setHeaderValue(strHeader[i]);
+		}
+		tbCellRenderer = tbPurchaseTransaction.getTableHeader()
+				.getDefaultRenderer();
+		tbColumnRenderer = tbPurchaseTransaction.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPurchaseTransaction, tbColumn.getHeaderValue(), false,
+					false, 0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		}
+
+		tbPurchaseTransaction.repaint();
+		setComboBox();
 	}
 
 	public static void main(String args[])
 	{
 		GUIController temp = new GUIController();
-		temp.changePanelToAddPurchaseTransaction();
+		temp.changePanelToPurchaseTransactionList();
 	}
+
 }
