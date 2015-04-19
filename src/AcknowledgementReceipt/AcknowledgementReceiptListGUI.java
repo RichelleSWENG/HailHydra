@@ -466,6 +466,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
 
 	public void setTableModel(TableModel tbm)
 	{
+                btnViewAckReceipt.setEnabled(true);
 		tbAckReceipt.setModel(tbm);
                 if(tbAckReceipt.getRowCount() == 0)
                 {
@@ -477,6 +478,7 @@ public class AcknowledgementReceiptListGUI extends JPanel
                     tc.setHeaderValue("");
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
+                    btnViewAckReceipt.setEnabled(false);
                 }
                 else
                 {
