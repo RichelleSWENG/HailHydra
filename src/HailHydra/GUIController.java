@@ -641,6 +641,7 @@ public class GUIController
 	{
 		if (administrator)
 		{
+                        RSController = new ReturnSlipController(new ReturnSlipModel(dbc));
 			AddReturnSlipGUI tempGUI = new AddReturnSlipGUI(this);
 			tempGUI.setMainController(RSController);
 			tempGUI.setDataComponents();
