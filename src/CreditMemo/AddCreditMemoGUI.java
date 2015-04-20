@@ -81,7 +81,7 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				controller.changePanelToCreditMemo();
+				controller.changePanelToReturnSlip();
 			}
 		});
 	}
