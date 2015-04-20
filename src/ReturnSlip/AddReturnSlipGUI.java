@@ -109,7 +109,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 									"Please fill in the required fields before adding.",
 									"Fill in Required Fields.",
 									JOptionPane.ERROR_MESSAGE);
-                                        guiController.changePanelToAddReturnSlip();
+                                        //guiController.changePanelToAddReturnSlip();
 				}
 				//guiController.changePanelToReturnSlip();
 			}
