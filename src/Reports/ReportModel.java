@@ -143,7 +143,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0";
+			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -161,7 +161,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0";
+			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -181,14 +181,14 @@ public class ReportModel
 		{
 			statement = db.createStatement();
 			if (filter.equalsIgnoreCase("customer"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND company.name LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND company.name LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND company.name LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND company.name LIKE '%"
 						+ field + "%' AND terms>0";
 			else if (filter.equalsIgnoreCase("receipt number"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND sales_invoice_id LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND sales_invoice_id LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND acknowledgement_receipt_id LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND acknowledgement_receipt_id LIKE '%"
 						+ field + "%' AND terms>0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
@@ -209,14 +209,14 @@ public class ReportModel
 		{
 			statement = db.createStatement();
 			if (filter.equalsIgnoreCase("customer"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.name LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.name LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.name LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.name LIKE '%"
 						+ field + "%' AND terms>0";
 			else if (filter.equalsIgnoreCase("receipt number"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND sales_invoice_id LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND sales_invoice_id LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND acknowledgement_receipt_id LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND acknowledgement_receipt_id LIKE '%"
 						+ field + "%' AND terms>0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
@@ -237,14 +237,14 @@ public class ReportModel
 		{
 			statement = db.createStatement();
 			if (filter.equalsIgnoreCase("customer"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND company.name LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND company.name LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND company.name LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND company.name LIKE '%"
 						+ field + "%' AND terms>0";
 			else if (filter.equalsIgnoreCase("receipt number"))
-				sql = "SELECT company.name,sales_invoice_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND sales_invoice_id LIKE '%"
+				sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND sales_invoice_id LIKE '%"
 						+ field
-						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND acknowledgement_receipt_id LIKE '%"
+						+ "%' AND terms>0 UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND acknowledgement_receipt_id LIKE '%"
 						+ field + "%' AND terms>0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
