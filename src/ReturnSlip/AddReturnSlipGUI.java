@@ -270,10 +270,10 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"Selected item is not enough. There is "
+							"The quantity entered is greater than inventory stock. There is only "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ " left");
+									+ " items left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 			}
@@ -308,10 +308,10 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"Selected item is not enough. There is "
+							"The quantity entered is greater than inventory stock. There is only "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ " left");
+									+ " items left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 					int i;
