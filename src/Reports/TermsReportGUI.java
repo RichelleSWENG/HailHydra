@@ -38,7 +38,7 @@ public class TermsReportGUI extends JPanel
 			"<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>","<html><center>Type</html></center>",
 			"<html><center>Terms<br>(Days)</html></center>",
 			"<html><center>Due<br>Date</center><html>",
-			"<html><center>Current<br>Balance</center></html>" };
+			"<html><center>Current<br>Balance</center></html>" },blank[]={""};
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
 	private TableColumnModel tbColumnRenderer;
@@ -66,9 +66,6 @@ public class TermsReportGUI extends JPanel
 		fntPlainText = new Font("Arial", Font.PLAIN, 21);
 		fntHeaderText = new Font("Arial", Font.BOLD, 40);
 		fntHeaderTableText = new Font("Arial", Font.BOLD, 16);
-
-		tbModel = new DefaultTableModel(strHeader, strHeader.length);
-		tbModel.setRowCount(0);
 
 		lblHeader = new JLabel("Terms Report");
 		lblHeader.setFont(fntHeaderText);
@@ -232,6 +229,13 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.getTableHeader().setFont(fntHeaderTableText);
 		tbTermsReport.getTableHeader().setPreferredSize(new Dimension(100, 55));
 		tbTermsReport.getTableHeader().setResizingAllowed(false);
+                
+                tbModel = new DefaultTableModel(blank,blank.length);
+                tbModel.setColumnCount(1);
+                tbModel.setRowCount(0);
+                tbModel.addRow(new Object[]{"                                                             No Results Found            "});
+                
+                
 
 		tbCellRenderer = tbTermsReport.getTableHeader().getDefaultRenderer();
 		tbColumnRenderer = tbTermsReport.getColumnModel();
@@ -259,6 +263,9 @@ public class TermsReportGUI extends JPanel
 		tbTermsReport.setRowSelectionAllowed(true);
 		tbTermsReport.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		tbTermsReport.setRowHeight(30);
+                
+                tbTermsReport.setModel(tbModel);
+                
 
 		chckbxNearTerms = new JCheckBox("Near Terms");
 		chckbxNearTerms.setFont(fntPlainText);
@@ -285,18 +292,9 @@ public class TermsReportGUI extends JPanel
 				} else if (!chckbxNearTerms.isSelected()
 						&& !chckbxExceededTerms.isSelected())
 				{
-					tbTermsReport.setModel(tbModel);
 					lblNumofReportsFound.setText("0");
-                                        DefaultTableModel model = (DefaultTableModel) tbTermsReport.getModel();
-                                        JTableHeader th = tbTermsReport.getTableHeader();
-                                        model.setColumnCount(1);    // set columnCount to 1
-                                        TableColumnModel tcm = th.getColumnModel();
-                                        TableColumn tc = tcm.getColumn(0); 
-                                        tc.setHeaderValue("");
-                                       
-                                        model.addRow(new Object[]{"                                                             No Results Found            "});
-                                        btnViewAckReceipt.setEnabled(false);
-                                        btnViewSalesInvoice.setEnabled(false);
+                                        tbTermsReport.setModel(tbModel);
+                                        
 				}
 			}
 		});
@@ -328,16 +326,6 @@ public class TermsReportGUI extends JPanel
 				{
 					tbTermsReport.setModel(tbModel);
 					lblNumofReportsFound.setText("0");
-                                        DefaultTableModel model = (DefaultTableModel) tbTermsReport.getModel();
-                                        JTableHeader th = tbTermsReport.getTableHeader();
-                                        model.setColumnCount(1);    // set columnCount to 1
-                                        TableColumnModel tcm = th.getColumnModel();
-                                        TableColumn tc = tcm.getColumn(0); 
-                                        tc.setHeaderValue("");
-                                       
-                                        model.addRow(new Object[]{"                                                             No Results Found            "});
-                                        btnViewAckReceipt.setEnabled(false);
-                                        btnViewSalesInvoice.setEnabled(false);
 				}
 			}
 		});

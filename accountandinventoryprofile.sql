@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `hydraforce_db` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `hydraforce_db`;
 -- MySQL dump 10.13  Distrib 5.6.19, for osx10.7 (i386)
 --
 -- Host: 127.0.0.1    Database: hydraforce_db
@@ -118,10 +116,9 @@ DROP TABLE IF EXISTS `bbcollection`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bbcollection` (
   `bb_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `system_account_num` int(20) DEFAULT NULL,
+  `system_account_num` varchar(250) DEFAULT NULL,
   PRIMARY KEY (`bb_collection_id`),
-  KEY `system_account_num_idx` (`system_account_num`),
-  CONSTRAINT `system_account_num` FOREIGN KEY (`system_account_num`) REFERENCES `systemaccount` (`account_num`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `system_account_num_idx` (`system_account_num`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -758,7 +755,7 @@ CREATE TABLE `salesinvoice` (
 
 LOCK TABLES `salesinvoice` WRITE;
 /*!40000 ALTER TABLE `salesinvoice` DISABLE KEYS */;
-INSERT INTO `salesinvoice` VALUES ('5805',17,'2014-08-14',0.00,0.00,0.00,'','','','','','','',0.00,'Open',NULL,0.00,'Sales Invoice'),('5806',35,'2015-08-01',668.80,91.20,0.00,'','','','','','','',760.00,'Open',NULL,0.00,'Sales Invoice');
+INSERT INTO `salesinvoice` VALUES ('5805',17,'2014-08-14',0.00,0.00,0.00,'','','','','','','',0.00,'Closed',NULL,0.00,'Sales Invoice'),('5806',35,'2015-08-01',668.80,91.20,0.00,'','','','','','','',760.00,'Open',NULL,0.00,'Sales Invoice');
 /*!40000 ALTER TABLE `salesinvoice` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -836,7 +833,7 @@ DROP TABLE IF EXISTS `systemaccount`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systemaccount` (
-  `account_num` int(20) NOT NULL,
+  `account_num` varchar(250) NOT NULL,
   `account_name` varchar(45) NOT NULL,
   `bank_name` varchar(45) NOT NULL,
   `bank_branch` varchar(45) NOT NULL,
@@ -891,4 +888,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-19 18:08:58
+-- Dump completed on 2015-04-20 23:23:03
