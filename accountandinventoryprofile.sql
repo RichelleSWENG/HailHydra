@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `checkcollection`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `checkcollection` (
   `check_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_name` varchar(45) DEFAULT NULL,
+  `account_name` varchar(100) DEFAULT NULL,
   `account_number` int(20) NOT NULL,
   `bank_name` varchar(45) NOT NULL,
   `branch` varchar(45) NOT NULL,
@@ -834,7 +834,7 @@ DROP TABLE IF EXISTS `systemaccount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systemaccount` (
   `account_num` varchar(250) NOT NULL,
-  `account_name` varchar(45) NOT NULL,
+  `account_name` varchar(100) DEFAULT NULL,
   `bank_name` varchar(45) NOT NULL,
   `bank_branch` varchar(45) NOT NULL,
   `type` int(1) NOT NULL,
@@ -888,4 +888,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-20 23:23:03
+-- Dump completed on 2015-04-20 23:36:10
