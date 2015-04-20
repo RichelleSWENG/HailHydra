@@ -91,7 +91,12 @@ public class CollectiblesController
 		ResultSet resultset = collectiblesModel.getMinYear();
 		try
 		{
-			resultset.next();
+			if(resultset.next())
+                            if(resultset.getString(1)==null)
+                            {
+                                resultset.next();
+                                return resultset.getString(1);
+                            }
 			return resultset.getString(1);
 		} catch (SQLException ex)
 		{
