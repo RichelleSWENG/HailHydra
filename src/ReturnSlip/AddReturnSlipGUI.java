@@ -252,9 +252,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
-				if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
-						.toString()) <= mainController.getAvailQuantity(Arrays
-						.asList(partNums).indexOf(cmb) - 1))
+				if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb) - 1))
 				{
 					if (tbModel.getValueAt(e.getFirstRow(), 0) != null
 							&& !cmb.equals("")
@@ -272,10 +270,10 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"You can not buy that many items!!!! You can only buy "
+							"Selected item is not enough. There is "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ ". Pls do not test me");
+									+ " left");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 			}
@@ -288,6 +286,34 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
 				if (!cmb.equals(""))
 				{
+                                    if (tbModel.getValueAt(e.getFirstRow(), 0) != null
+						&& !cmb.equals("")
+						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
+								.equals(""))
+                                    if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <= mainController.getAvailQuantity(Arrays.asList(partNums).indexOf(cmb) - 1))
+				{
+					if (tbModel.getValueAt(e.getFirstRow(), 0) != null
+							&& !cmb.equals("")
+							&& !tbModel.getValueAt(e.getFirstRow(), 0)
+									.toString().equals(""))         ///FUCK DIS Standard!
+					{
+						totalItemPrice = Double.parseDouble(tbModel.getValueAt(
+								e.getFirstRow(), 0).toString())
+								* Double.parseDouble(tbModel.getValueAt(
+										e.getFirstRow(), 3).toString());
+						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+						calcTotalBalance();
+					}
+				} else
+				{
+					JOptionPane.showMessageDialog(
+							null,
+							"Selected item is not enough. There is "
+									+ mainController.getAvailQuantity(Arrays
+											.asList(partNums).indexOf(cmb) - 1)
+									+ " left");
+					tbModel.setValueAt("0", e.getFirstRow(), 0);
+				}
 					int i;
 					boolean unique = true;
 					for (i = 0; i < tbModel.getRowCount(); i++)
