@@ -41,7 +41,7 @@ public class CollectiblesListGUI extends JPanel
 					"<html><center>Sales Invoice/<br> Acknowledgement<br>Receipt<br> Number</center></html>",
 					"<html><center>Original<br>Amount</center></html>",
 					"<html><center>Current<br>Balance</center></html>",
-					"Status" };
+					"Status" },blank[]={""};
 	private JComboBox cmbToYear, cmbToMonth, cmbFromMonth, cmbFromYear;
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
@@ -128,8 +128,11 @@ public class CollectiblesListGUI extends JPanel
 		cmbToYear.setBounds(640, 120, 100, 30);
 		add(cmbToYear);
 
-		tbModel = new DefaultTableModel(strHeader, strHeader.length);
-		tbModel.setRowCount(0);
+		tbModel = new DefaultTableModel(blank,blank.length);
+                tbModel.setColumnCount(1);
+                tbModel.setRowCount(0);
+                tbModel.addRow(new Object[]{"                                                             No Results Found            "});
+                
 
 		chckbxActiveCollectibles = new JCheckBox("Active Collectibles");
 		chckbxActiveCollectibles.setFont(fntPlainText);

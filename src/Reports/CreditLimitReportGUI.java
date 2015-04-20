@@ -281,28 +281,40 @@ public class CreditLimitReportGUI extends JPanel
 		tfCustomer.setText("");
 		TableModel AllModel = mainController.getAllCreditModel();
 		tbCreditLimit.setModel(AllModel);
-
-		JTableHeader th = tbCreditLimit.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
-		tbColumnRenderer = tbCreditLimit.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
-		{
-			tbColumn = tbColumnRenderer.getColumn(j);
-			tbCellRendererColumn = tbColumn.getHeaderRenderer();
-			if (tbCellRendererColumn == null)
-				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(
-					tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,
-					j);
-			tbColumn.setPreferredWidth(component.getPreferredSize().width);
-		}
-
+                
+                if(tbCreditLimit.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbCreditLimit.getModel();
+                    JTableHeader th = tbCreditLimit.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                }
+                else{
+                    JTableHeader th = tbCreditLimit.getTableHeader();
+                    TableColumnModel tcm = th.getColumnModel();
+                    for (int i = 0; i < strHeader.length; i++)
+                    {
+                            TableColumn tc = tcm.getColumn(i);
+                            tc.setHeaderValue(strHeader[i]);
+                    }
+                    tbCellRenderer = tbCreditLimit.getTableHeader().getDefaultRenderer();
+                    tbColumnRenderer = tbCreditLimit.getColumnModel();
+                    for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+                    {
+                            tbColumn = tbColumnRenderer.getColumn(j);
+                            tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                            if (tbCellRendererColumn == null)
+                                    tbCellRendererColumn = tbCellRenderer;
+                            component = tbCellRendererColumn.getTableCellRendererComponent(
+                                            tbCreditLimit, tbColumn.getHeaderValue(), false, false, 0,
+                                            j);
+                            tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                    }
+                }
 		tbCreditLimit.repaint();
 	}
 

@@ -211,7 +211,7 @@ DROP TABLE IF EXISTS `checkcollection`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `checkcollection` (
   `check_collection_id` int(11) NOT NULL AUTO_INCREMENT,
-  `account_name` varchar(45) DEFAULT NULL,
+  `account_name` varchar(100) DEFAULT NULL,
   `account_number` int(20) NOT NULL,
   `bank_name` varchar(45) NOT NULL,
   `branch` varchar(45) NOT NULL,
@@ -834,7 +834,7 @@ DROP TABLE IF EXISTS `systemaccount`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `systemaccount` (
   `account_num` varchar(250) NOT NULL,
-  `account_name` varchar(45) NOT NULL,
+  `account_name` varchar(100) DEFAULT NULL,
   `bank_name` varchar(45) NOT NULL,
   `bank_branch` varchar(45) NOT NULL,
   `type` int(1) NOT NULL,
@@ -848,6 +848,7 @@ CREATE TABLE `systemaccount` (
 
 LOCK TABLES `systemaccount` WRITE;
 /*!40000 ALTER TABLE `systemaccount` DISABLE KEYS */;
+INSERT INTO `systemaccount` VALUES ('0-1467-23342-567','','Eastwest Bank','D. Tuazon St. Quezon City',0),('16-2394-2320022-422','','Chinabank','Reigna Regente St., Manila',0),('389-000-111234-132242','Hydraforce','BDO','5th Ave. Caloocan City',0),('4-563-435-2000-244','Trackstar Enterprises','Metrobank','5th floor Mansions Tower, Taguig',0),('45-35-2424-244209-23','Hydraforce','PNB','R. Papa, Manila',1),('5-678-345-244444-2','','Unionbank','Quirino St. Manila',0),('555-424-24-40-0','','Asia United Bank','Blumentritt St. Manila',1),('556-35-454-325-99435','','RCBC','Juan Luna St. Manila\n',1),('564-893-000-1342-3','Hydraforce','Citibank','Bonifacio Global Heights',1),('749-294-444124-45','','Bank of the Philippines Island','Monumento St. Manila',0),('7823-23924-249-1299','','Security Bank','Recto St. Manila',1),('95-9304-134-13445-1','95-9304-134-13445-1','HSBC','Katipunan Avenue, Quezon City',1);
 /*!40000 ALTER TABLE `systemaccount` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -888,4 +889,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-04-20 23:23:03
+-- Dump completed on 2015-04-21  0:04:59

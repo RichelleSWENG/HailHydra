@@ -13,7 +13,7 @@ public class DBConnection
 	public DBConnection()
 	{
 		this.username = "root";
-		this.password = "";
+		this.password = "1861096";
 		this.url = "jdbc:mysql://localhost:3306/hydraforce_db";
 
 		try
