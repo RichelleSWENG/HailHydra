@@ -240,10 +240,10 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
-				if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
+				/*if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
 						.toString()) <= mainController.getAvailQuantity(Arrays
 						.asList(partNums).indexOf(cmb) - 1))
-				{
+				{*/
 					if (tbModel.getValueAt(e.getFirstRow(), 0) != null
 							&& !cmb.equals("")
 							&& !tbModel.getValueAt(e.getFirstRow(), 0)
@@ -256,7 +256,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
 						calcTotalBalance();
 					}
-				} else
+				/*} else
 				{
 					JOptionPane.showMessageDialog(
 							null,
@@ -265,7 +265,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 											.asList(partNums).indexOf(cmb) - 1)
 									+ " left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
-				}
+				}*/
 			}
 		}
 
@@ -309,10 +309,14 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
-							.toString()) <= mainController
-							.getAvailQuantity(Arrays.asList(partNums).indexOf(
-									cmb) - 1))
+					/*if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
+						.toString()) <= mainController.getAvailQuantity(Arrays
+						.asList(partNums).indexOf(cmb) - 1))
+				{*/
+					if (tbModel.getValueAt(e.getFirstRow(), 0) != null
+							&& !cmb.equals("")
+							&& !tbModel.getValueAt(e.getFirstRow(), 0)
+									.toString().equals(""))
 					{
 						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
 								e.getFirstRow(), 0).toString())
@@ -320,18 +324,17 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 										e.getFirstRow(), 3).toString());
 						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
 						calcTotalBalance();
-					} else
-					{
-						JOptionPane.showMessageDialog(
-								null,
-								"Selected item is not enough. There is only "
-										+ mainController
-												.getAvailQuantity(Arrays
-														.asList(partNums)
-														.indexOf(cmb) - 1)
-										+ " left.");
-						tbModel.setValueAt("0", e.getFirstRow(), 0);
 					}
+				/*} else
+				{
+					JOptionPane.showMessageDialog(
+							null,
+							"Selected item is not enough. There is only "
+									+ mainController.getAvailQuantity(Arrays
+											.asList(partNums).indexOf(cmb) - 1)
+									+ " left.");
+					tbModel.setValueAt("0", e.getFirstRow(), 0);
+				}*/
 				}
 			}
 		}
