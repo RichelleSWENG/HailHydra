@@ -116,7 +116,7 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 												.toString())));
 					}
 					mainController.addPT(tfPurchaseTransactionNum.getText(),
-							ftfDate.getText(), Float.parseFloat(ftfSubtotal
+							ftfDate.getText(), Float.parseFloat(ftfTotal
 									.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfReceivedBy.getText(),
 							tfOrderedBy.getText(), taReceivingNotes.getText(),
