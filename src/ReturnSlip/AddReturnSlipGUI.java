@@ -422,7 +422,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 
 	public void UpdateInventory(String type)
 	{
-		if (type.equals("Defective w/Debit Memo"))
+		if (type.equals("Defective w/out Debit Memo"))
 		{
 			ArrayList<RSLineItem> pending = mainController.getPending();
 			for (int i = 0; i < pending.size(); i++)

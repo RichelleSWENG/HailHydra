@@ -197,7 +197,7 @@ public class ViewDebitMemoGUI extends DebitMemoGUI implements
 		numItems = DebitMemo.getList().size();
 		tbModel.setRowCount(numItems);
 		tbModel.addTableModelListener(this);
-		for (int i = 0; i < numItems; i++)
+		/*for (int i = 0; i < numItems; i++)
 		{
 			if (mainController.getPartNumTarget().equals(
 					DebitMemo.getList().get(i).getPartNum()))
@@ -210,6 +210,12 @@ public class ViewDebitMemoGUI extends DebitMemoGUI implements
 				tbModel.setValueAt(DebitMemo.getList().get(i).getUnit_price(),
 						0, 3);
 			}
+		}*/
+                		for (int i = 0; i < numItems; i++)
+		{
+			tbModel.setValueAt(DebitMemo.getList().get(i).getQuantity(), i, 0);
+			tbModel.setValueAt(DebitMemo.getList().get(i).getPartNum(), i, 1);
+			tbModel.setValueAt(DebitMemo.getList().get(i).getUnit_price(), i, 3);
 		}
 		tbDebitMemo.setEnabled(false);
 
