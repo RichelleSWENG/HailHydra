@@ -252,21 +252,24 @@ public class AddCheckAccountGUI extends JPanel
 						{
 							if (checkDataLimit())
 							{
-
-								checkAccount = new ArrayList<>();
-								checkAccount.add(tfAccountNumber.getText());
-								checkAccount.add(tfAccountName.getText());
-								checkAccount.add(tfBankName.getText());
-								checkAccount.add(taBankBranch.getText()
-										.toString());
-								checkAccount.add("0");
-								sysController.AddSystemAccount(checkAccount);
-								setTableModel(sysController
-										.getSystemAccounts("0"));
-								tfAccountNumber.setText("");
-								tfAccountName.setText("");
-								tfBankName.setText("");
-								taBankBranch.setText("");
+                                                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                                                if(dialogResult == JOptionPane.YES_OPTION){
+                                                                    checkAccount = new ArrayList<>();
+                                                                    checkAccount.add(tfAccountNumber.getText());
+                                                                    checkAccount.add(tfAccountName.getText());
+                                                                    checkAccount.add(tfBankName.getText());
+                                                                    checkAccount.add(taBankBranch.getText()
+                                                                                    .toString());
+                                                                    checkAccount.add("0");
+                                                                    sysController.AddSystemAccount(checkAccount);
+                                                                    setTableModel(sysController
+                                                                                    .getSystemAccounts("0"));
+                                                                    tfAccountNumber.setText("");
+                                                                    tfAccountName.setText("");
+                                                                    tfBankName.setText("");
+                                                                    taBankBranch.setText("");
+                                                                }
 							}
 						}
 					} else
