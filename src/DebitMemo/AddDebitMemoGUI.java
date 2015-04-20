@@ -232,7 +232,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 	}
 
 	@Override
-	public void tableChanged(TableModelEvent e)
+		public void tableChanged(TableModelEvent e)
 	{
 		if (e.getColumn() == 0)
 		{
@@ -260,10 +260,10 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"You can not buy that many items!!!! You can only buy "
+							"Selected item is not enough. There is only "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ ". Pls do not test me");
+									+ " left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 			}
@@ -285,9 +285,6 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 							unique = false;
 					if (unique)
 					{
-						System.out.println(mainController.getItems(c.getType())
-								.get(Arrays.asList(partNums).indexOf(cmb) - 1)
-								.getDescription());
 						tbModel.setValueAt(mainController.getItems(c.getType())
 								.get(Arrays.asList(partNums).indexOf(cmb) - 1)
 								.getDescription(), e.getFirstRow(), 2);
@@ -299,7 +296,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 						JOptionPane
 								.showMessageDialog(
 										null,
-										"You've already chosen that item. Edit the quantity previously or select another pls",
+										"You've already chosen that item. Please edit the previous quantity.",
 										"Duplicate Items",
 										JOptionPane.ERROR_MESSAGE);
 						tbModel.removeRow(e.getFirstRow());
@@ -312,12 +309,29 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-					totalItemPrice = Integer.parseInt(tbModel.getValueAt(
-							e.getFirstRow(), 0).toString())
-							* Float.parseFloat(tbModel.getValueAt(
-									e.getFirstRow(), 3).toString());
-					tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
-					calcTotalBalance();
+					if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
+							.toString()) <= mainController
+							.getAvailQuantity(Arrays.asList(partNums).indexOf(
+									cmb) - 1))
+					{
+						totalItemPrice = Integer.parseInt(tbModel.getValueAt(
+								e.getFirstRow(), 0).toString())
+								* Float.parseFloat(tbModel.getValueAt(
+										e.getFirstRow(), 3).toString());
+						tbModel.setValueAt(totalItemPrice, e.getFirstRow(), 4);
+						calcTotalBalance();
+					} else
+					{
+						JOptionPane.showMessageDialog(
+								null,
+								"Selected item is not enough. There is only "
+										+ mainController
+												.getAvailQuantity(Arrays
+														.asList(partNums)
+														.indexOf(cmb) - 1)
+										+ " left.");
+						tbModel.setValueAt("0", e.getFirstRow(), 0);
+					}
 				}
 			}
 		}
@@ -343,6 +357,7 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 
 		}
 	}
+
 
 	public void calcTotalBalance()
 	{
