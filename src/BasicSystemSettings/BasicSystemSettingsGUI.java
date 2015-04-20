@@ -536,20 +536,24 @@ public class BasicSystemSettingsGUI extends JPanel
 									"<html><center> Employee username can not exceed 45 characters.<br>Please re-enter the employee username.</center></html>");
 				else
 				{
-					String AdminPassword = new String(pfAdministratorPassword
-							.getPassword());
-					String EmployeePassword = new String(pfEmployeePassword
-							.getPassword());
-					mainController.addAccount(tfAdminUsername.getText(),
-							AdminPassword, "0");
-					mainController.addAccount(tfEmployeeUsername.getText(),
-							EmployeePassword, "1");
-					mainController.addSystemInfo(tfSystemName.getText(),
-							ftfVAT.getText(), ftfCreditLimitAlert.getText(),
-							ftfTermsAlert.getText());
-					JOptionPane.showMessageDialog(null,
-							"System installation successful.");
-					GUIcontroller.changePanelToLogin();
+                                        int dialogButton = JOptionPane.YES_NO_OPTION;
+                                        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                        if(dialogResult == JOptionPane.YES_OPTION){
+                                            String AdminPassword = new String(pfAdministratorPassword
+                                                            .getPassword());
+                                            String EmployeePassword = new String(pfEmployeePassword
+                                                            .getPassword());
+                                            mainController.addAccount(tfAdminUsername.getText(),
+                                                            AdminPassword, "0");
+                                            mainController.addAccount(tfEmployeeUsername.getText(),
+                                                            EmployeePassword, "1");
+                                            mainController.addSystemInfo(tfSystemName.getText(),
+                                                            ftfVAT.getText(), ftfCreditLimitAlert.getText(),
+                                                            ftfTermsAlert.getText());
+                                            JOptionPane.showMessageDialog(null,
+                                                            "System installation successful.");
+                                            GUIcontroller.changePanelToLogin();
+                                        }
 					// GUIcontroller.setTitle();
 				}
 			}

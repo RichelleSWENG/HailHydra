@@ -2,120 +2,31 @@ package Collectibles;
 
 import Database.DBConnection;
 import HailHydra.Model;
+import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
-public class CollectiblesModel extends Model
+public class CollectiblesModel
 {
 	private int itemCount = 0;
+	protected Connection db;
+	protected Statement statement;
 
 	public CollectiblesModel(DBConnection db)
 	{
-		super(db);
+		this.db = db.getConnection();
 	}
-
-	@Override
-	public ResultSet getDetail(String ID)
-	{
-		ResultSet rs = null;
-		try
-		{
-			statement = con.createStatement();
-			String sql = "";
-			rs = statement.executeQuery(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-		return rs;
-	}
-
-	@Override
-	public ResultSet getAllDetail()
-	{
-		ResultSet rs = null;
-		try
-		{
-			statement = con.createStatement();
-			String sql = "";
-			rs = statement.executeQuery(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-		return rs;
-	}
-
-	@Override
-	public ResultSet searchDetail(String field, String filter)
-	{
-		ResultSet rs = null;
-		try
-		{
-			statement = con.createStatement();
-			String sql = "";
-			rs = statement.executeQuery(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-		return rs;
-	}
-
-	@Override
-	public void addDetail(ArrayList list)
-	{
-		try
-		{
-			statement = con.createStatement();
-			String sql = "";
-			statement.executeUpdate(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-	}
-
-	@Override
-	public void editDetail(ArrayList list)
-	{
-		try
-		{
-			statement = con.createStatement();
-			String sql = "";
-			statement.executeUpdate(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-
-	}
-
-	@Override
-	public void deleteDetail(String ID)
-	{
-		try
-		{
-			statement = con.createStatement();
-			String sql = "DELETE FROM collection WHERE collection_id='" + ID
-					+ "'";
-			statement.executeUpdate(sql);
-		} catch (Exception e)
-		{
-			e.getMessage();
-		}
-
-	}
-
+        
 	public ResultSet getMaxYear()
 	{
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
-			String sql = "SELECT MAX(YEAR(date)) FROM salesinvoice UNION ALL SELECT MAX(YEAR(date)) FROM purchasetransaction";
+			statement = db.createStatement();
+			String sql = "SELECT MAX(YEAR(date)) FROM salesinvoice UNION ALL SELECT MAX(YEAR(date)) FROM acknowledgementreceipt order by 1 desc";
 			rs = statement.executeQuery(sql);
 		} catch (Exception e)
 		{
@@ -129,7 +40,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "SELECT MIN(YEAR(date)) FROM salesinvoice UNION ALL SELECT MIN(YEAR(date)) FROM acknowledgementreceipt order by 1";
 			rs = statement.executeQuery(sql);
 		} catch (Exception e)
@@ -144,7 +55,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id UNION ALL SELECT name,date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.original_amount,current_balance,acknowledgementreceipt.status FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
@@ -162,7 +73,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND date BETWEEN '"
 					+ startDate
 					+ "' AND '"
@@ -197,7 +108,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "";
 			if (filter.equalsIgnoreCase("active"))
 			{
@@ -256,7 +167,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND salesinvoice.date BETWEEN '"
 					+ startDate
 					+ "' AND '"
@@ -279,7 +190,7 @@ public class CollectiblesModel extends Model
 		ResultSet rs = null;
 		try
 		{
-			statement = con.createStatement();
+			statement = db.createStatement();
 			String sql = "SELECT name, date,salesinvoice.type,sales_invoice_id,original_amount,current_balance,salesinvoice.status FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Closed' AND salesinvoice.date BETWEEN '"
 					+ startDate
 					+ "' AND '"

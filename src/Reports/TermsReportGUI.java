@@ -35,7 +35,7 @@ public class TermsReportGUI extends JPanel
 	private JTextField tfSearch;
 	private String strHeader[] = {
 			"     Customer Name     ",
-			"<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>",
+			"<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>","<html><center>Type</html></center>",
 			"<html><center>Terms<br>(Days)</html></center>",
 			"<html><center>Due<br>Date</center><html>",
 			"<html><center>Current<br>Balance</center></html>" };
@@ -287,6 +287,16 @@ public class TermsReportGUI extends JPanel
 				{
 					tbTermsReport.setModel(tbModel);
 					lblNumofReportsFound.setText("0");
+                                        DefaultTableModel model = (DefaultTableModel) tbTermsReport.getModel();
+                                        JTableHeader th = tbTermsReport.getTableHeader();
+                                        model.setColumnCount(1);    // set columnCount to 1
+                                        TableColumnModel tcm = th.getColumnModel();
+                                        TableColumn tc = tcm.getColumn(0); 
+                                        tc.setHeaderValue("");
+                                       
+                                        model.addRow(new Object[]{"                                                             No Results Found            "});
+                                        btnViewAckReceipt.setEnabled(false);
+                                        btnViewSalesInvoice.setEnabled(false);
 				}
 			}
 		});
@@ -318,6 +328,16 @@ public class TermsReportGUI extends JPanel
 				{
 					tbTermsReport.setModel(tbModel);
 					lblNumofReportsFound.setText("0");
+                                        DefaultTableModel model = (DefaultTableModel) tbTermsReport.getModel();
+                                        JTableHeader th = tbTermsReport.getTableHeader();
+                                        model.setColumnCount(1);    // set columnCount to 1
+                                        TableColumnModel tcm = th.getColumnModel();
+                                        TableColumn tc = tcm.getColumn(0); 
+                                        tc.setHeaderValue("");
+                                       
+                                        model.addRow(new Object[]{"                                                             No Results Found            "});
+                                        btnViewAckReceipt.setEnabled(false);
+                                        btnViewSalesInvoice.setEnabled(false);
 				}
 			}
 		});
