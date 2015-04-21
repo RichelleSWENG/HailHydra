@@ -327,7 +327,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	{
 		if (e.getColumn() == 0)
 		{
-
+                     if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();

@@ -276,6 +276,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
+                             if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
 				if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0)
 						.toString()) <= mainController.getAvailQuantity(Arrays
