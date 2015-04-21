@@ -1,5 +1,6 @@
 package Purchases;
 
+import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isFloat;
 import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isInteger;
 import Classes.Company;
 import HailHydra.GUIController;
@@ -363,12 +364,12 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 
 		if (e.getColumn() == 3)
 		{
-                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                                             if(isFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
                             {
                             JOptionPane.showMessageDialog(
 							null,
 							"Unit Price");
-                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            tbModel.setValueAt("0.00", e.getFirstRow(), 3);
                             }
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{

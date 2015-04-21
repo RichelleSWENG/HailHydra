@@ -391,21 +391,30 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 
 		if (e.getColumn() == 3)
 		{
-                    if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                          if(isFloat(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
                             {
                             JOptionPane.showMessageDialog(
 							null,
 							"Unit Price");
-                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            tbModel.setValueAt("0.00", e.getFirstRow(), 3);
                             }
+
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
+                            
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
 				if (tbModel.getValueAt(e.getFirstRow(), 0) != null
 						&& !cmb.equals("")
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
+                                      if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Unit Price");
+                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            }
 					totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 							e.getFirstRow(), 0).toString())
 							* Float.parseFloat(tbModel.getValueAt(
@@ -500,6 +509,15 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
         public static boolean isInteger(String str) {
     try {
         Integer.parseInt(str);
+        return true;
+    } catch (NumberFormatException nfe) {
+        return false;
+    }
+
+}
+             public static boolean isFloat(String str) {
+    try {
+        Float.parseFloat(str);
         return true;
     } catch (NumberFormatException nfe) {
         return false;
