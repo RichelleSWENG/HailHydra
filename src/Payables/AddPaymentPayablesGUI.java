@@ -230,9 +230,13 @@ public class AddPaymentPayablesGUI extends JPanel
 				{
 					if (checkCurrentBalance())
 					{
-						addAllPayment();
-						deductCurrentBalance();
-						controller.changePanelToPayablesList();
+                                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                                if(dialogResult == JOptionPane.YES_OPTION){
+                                                    addAllPayment();
+                                                    deductCurrentBalance();
+                                                    controller.changePanelToPayablesList();
+                                                }
 					}
 				} else
 					JOptionPane.showMessageDialog(null, "No Amount Applied");
