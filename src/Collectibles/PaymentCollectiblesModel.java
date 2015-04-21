@@ -39,7 +39,7 @@ public class PaymentCollectiblesModel
 			String sql = "SELECT date,salesinvoice.type,sales_invoice_id,salesinvoice.status,original_amount,current_balance,'0.00' as applied FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND salesinvoice.status LIKE 'Open' AND name LIKE '"
 					+ name
 					+ "' UNION ALL SELECT date,acknowledgementreceipt.type,acknowledgement_receipt_id,acknowledgementreceipt.status,acknowledgementreceipt.original_amount,current_balance,'0.00' as applied FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND acknowledgementreceipt.status LIKE 'Open' AND name LIKE '"
-					+ name + "'";
+					+ name + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 		} catch (Exception e)
 		{
@@ -84,7 +84,7 @@ public class PaymentCollectiblesModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT name from company WHERE type LIKE '%Customer'";
+			String sql = "SELECT name from company WHERE type LIKE '%Customer' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 		} catch (Exception e)
 		{

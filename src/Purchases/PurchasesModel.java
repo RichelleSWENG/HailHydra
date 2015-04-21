@@ -50,7 +50,7 @@ public class PurchasesModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id=purchasetransaction.company_id";
+			String sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id=purchasetransaction.company_id ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -69,7 +69,7 @@ public class PurchasesModel
 		{
 			statement = db.createStatement();
 			String sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id=purchasetransaction.company_id AND date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+					+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -94,14 +94,14 @@ public class PurchasesModel
 				sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND company.name LIKE '%"
 						+ field
 						+ "%' AND purchasetransaction.date BETWEEN '"
-						+ startDate + "' AND '" + endDate + "'";
+						+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			} else if (filter.equalsIgnoreCase("transaction number"))
 			{
 				sql = "SELECT company.name, date, purchase_transaction_id, original_amount, current_balance FROM company, purchasetransaction WHERE company.company_id= purchasetransaction.company_id AND purchase_transaction_id LIKE '%"
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 				// System.out.println(sql);
 			} else if (filter.equalsIgnoreCase("part number"))
 			{
@@ -109,7 +109,7 @@ public class PurchasesModel
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			}
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
