@@ -189,6 +189,8 @@ public class SalesInvoiceModel
 					+ si.getCurrent_balance()
                                         + "',subtotal='"
 					+ si.getSubtotal()
+                                        + "',vat='"
+					+ si.getVat()
 					+ "' WHERE sales_invoice_id LIKE '"
 					+ si.getSales_invoice_id() + "'";
 			statement.executeUpdate(sql);
