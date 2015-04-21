@@ -489,6 +489,13 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 
 		if (e.getColumn() == 3)
 		{
+                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Unit Price");
+                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            }
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();

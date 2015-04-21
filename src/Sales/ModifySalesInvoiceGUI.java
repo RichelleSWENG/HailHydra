@@ -496,12 +496,12 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 					{
 						JOptionPane.showMessageDialog(
 								null,
-								"You can not buy that many items!!!! You can only buy "
+								"Selected item is not enough. There is only "
 										+ mainController
 												.getAvailQuantity(Arrays
 														.asList(partNums)
 														.indexOf(cmb) - 1)
-										+ ". Pls do not test me");
+										+ " left.");
 						tbModel.setValueAt("0", e.getFirstRow(), 0);
 					}
 				}
@@ -510,6 +510,13 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 
 		if (e.getColumn() == 3)
 		{
+                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Unit Price");
+                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            }
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();

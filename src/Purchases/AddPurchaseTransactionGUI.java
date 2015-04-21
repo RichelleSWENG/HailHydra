@@ -271,6 +271,13 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 		if (e.getColumn() == 0)
 		{
 
+                           if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
                             if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
@@ -356,6 +363,13 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 
 		if (e.getColumn() == 3)
 		{
+                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Unit Price");
+                            tbModel.setValueAt("0", e.getFirstRow(), 3);
+                            }
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
