@@ -119,6 +119,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
                             {
 				try
 				{
+                                    boolean error = false;
 					int i;
 					for (i = 0; i < tbModel.getRowCount(); i++)
 					{
@@ -143,8 +144,68 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 									"Please do not enter a future date",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
+                                        error = true;
                                         }
-                                        else{
+                                        
+                                        if (tfPwdNum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"PWD ID Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfPONum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"PO Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfDRNum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"DR Number can not exceed 45");
+					error = true;
+                                        }
+                                        if (tfSINum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"SI Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfSalesperson.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Salesperson can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfOrderedBy.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Ordered By can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfDeliveredBy.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Delivered By can not exceed 45");
+					error = true;
+                                        }
+
+                                        if (taDeliveryNotes.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Delivery Notes can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        
+                                        
+                                        if(error == false)
+                                        {
 					mainController.addSI(tfSINum.getText(), ftfDate.getText(),
 							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
