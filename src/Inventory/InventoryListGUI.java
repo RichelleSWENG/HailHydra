@@ -468,6 +468,7 @@ public class InventoryListGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ 
                 btnViewItemProfile.setEnabled(true);
+                btnDelete.setEnabled(true);
 		tbInventory.setModel(tbm);
                 if(tbInventory.getRowCount() == 0)
                 {
@@ -480,6 +481,7 @@ public class InventoryListGUI extends JPanel
                     
                     model.addRow(new Object[]{"                                                             No Results Found            "});
                     btnViewItemProfile.setEnabled(false);
+                    btnDelete.setEnabled(false);
                 }
                 else
                 {
