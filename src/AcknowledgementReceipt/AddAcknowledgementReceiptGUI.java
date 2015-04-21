@@ -306,10 +306,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"You can not buy that many items!!!! You can only buy "
+							"Selected item is not enough. There is only "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ ". Pls do not test me");
+									+ " left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 			}
