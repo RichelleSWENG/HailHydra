@@ -37,6 +37,14 @@ public class AddAccountProfileGUI extends AccountProfileGUI
 			public void actionPerformed(ActionEvent e)
 			{
 				boolean error = false;
+                                
+                                if (mainController.checkDuplicate(tfName.getText(), type.getSelection().getActionCommand()
+								.toString()))
+                                {
+                                    JOptionPane.showMessageDialog(null,
+							"There is already an account with the same name and type. Please change either its name or type.");
+                                    error = true;
+                                }
 
 				if (tfName.getText().equals("")
 						|| ftfCreditLimit.getText().equals("")
