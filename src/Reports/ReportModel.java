@@ -87,7 +87,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT name,credit_limit, (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) AS c FROM company,systeminfo WHERE type LIKE '%customer' AND credit_limit>0 AND (credit_limit-(SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id))<=credit_limit*(credit_alert/100) AND company.status='Active'";
+			String sql = "SELECT name,credit_limit,(SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) AS c FROM company,systeminfo WHERE type LIKE '%customer' AND credit_limit>0 AND (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id)>=credit_limit*(credit_alert/100) AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -107,7 +107,7 @@ public class ReportModel
 			statement = db.createStatement();
 			String sql = "SELECT name,credit_limit, (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) FROM company,systeminfo WHERE type LIKE '%customer' AND name LIKE '%"
 					+ name
-					+ "%' AND credit_limit>0 AND (credit_limit-(SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id))<=credit_limit*(credit_alert/100) AND company.status='Active'";
+					+ "%' AND credit_limit>0 AND (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id)>=credit_limit*(credit_alert/100) AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();

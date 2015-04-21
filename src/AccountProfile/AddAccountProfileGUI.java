@@ -211,38 +211,43 @@ public class AddAccountProfileGUI extends AccountProfileGUI
 
 				if (error == false)
 				{
-					try
-					{
-						al.removeAll(al);
+                                            int dialogButton = JOptionPane.YES_NO_OPTION;
+                                            int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                            if(dialogResult == JOptionPane.YES_OPTION){
+                                            try
+                                            {
+                                                    
+                                                    al.removeAll(al);
 
-						al.add(tfName.getText().toString());
-						al.add(taAddress.getText().toString());
-						al.add(tfCity.getText().toString());
-						al.add(tfPostCode.getText().toString());
-						al.add(tfCountry.getText().toString());
-						al.add(ftfCreditLimit.getText().replaceAll(",", ""));
-						al.add(ftfTerms.getText().replaceAll(",", ""));
-						al.add(tfPhone1.getText().toString());
-						al.add(tfPhone2.getText().toString());
-						al.add(tfPhone3.getText().toString());
-						al.add(tfFaxNumber.getText().toString());
-						al.add(tfEmailAddress.getText().toString());
-						al.add(tfWebsite.getText().toString());
-						al.add(tfContactPerson.getText().toString());
-						al.add(type.getSelection().getActionCommand()
-								.toString());
+                                                    al.add(tfName.getText().toString());
+                                                    al.add(taAddress.getText().toString());
+                                                    al.add(tfCity.getText().toString());
+                                                    al.add(tfPostCode.getText().toString());
+                                                    al.add(tfCountry.getText().toString());
+                                                    al.add(ftfCreditLimit.getText().replaceAll(",", ""));
+                                                    al.add(ftfTerms.getText().replaceAll(",", ""));
+                                                    al.add(tfPhone1.getText().toString());
+                                                    al.add(tfPhone2.getText().toString());
+                                                    al.add(tfPhone3.getText().toString());
+                                                    al.add(tfFaxNumber.getText().toString());
+                                                    al.add(tfEmailAddress.getText().toString());
+                                                    al.add(tfWebsite.getText().toString());
+                                                    al.add(tfContactPerson.getText().toString());
+                                                    al.add(type.getSelection().getActionCommand()
+                                                                    .toString());
 
-						if (chckbxInactiveAccount.isSelected())
-							al.add("Inactive");
-						else
-							al.add("Active");
+                                                    if (chckbxInactiveAccount.isSelected())
+                                                            al.add("Inactive");
+                                                    else
+                                                            al.add("Active");
 
-						mainController.AddAccountProfile(al); // add the account
-					} catch (Exception exception)
-					{
-						exception.getStackTrace();
-					}
-					guiController.changePanelToAccountProfile();
+                                                    mainController.AddAccountProfile(al); // add the account
+                                            } catch (Exception exception)
+                                            {
+                                                    exception.getStackTrace();
+                                            }
+                                            guiController.changePanelToAccountProfile();
+                                        }
 				}
 
 			}
