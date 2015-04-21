@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -19,6 +20,8 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellRenderer;
@@ -264,8 +267,12 @@ public class SetInventoryLastCostGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				mainController.changeAllLastCost();
-				controller.changePanelToMainMenu();
+                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                if(dialogResult == JOptionPane.YES_OPTION){
+                                    mainController.changeAllLastCost();
+                                    controller.changePanelToMainMenu();
+                                }
 			}
 		});
 	}
@@ -295,6 +302,28 @@ public class SetInventoryLastCostGUI extends JPanel
 		tfSearch.setText("");
 		TableModel AllModel = mainController.getAllModel();
 		tbSetInventoryQuantity.setModel(AllModel);
+                AllModel.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 3)
+				{
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventoryQuantity
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
 		JTableHeader th = tbSetInventoryQuantity.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -323,6 +352,28 @@ public class SetInventoryLastCostGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbSetInventoryQuantity.setModel(tbm);
+                tbm.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 3)
+				{
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventoryQuantity
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
                 if(tbSetInventoryQuantity.getRowCount() == 0)
                 {
                     DefaultTableModel model = (DefaultTableModel) tbSetInventoryQuantity.getModel();

@@ -23,8 +23,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
@@ -272,8 +275,12 @@ public class SetInventorySellingPriceGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				mainController.changeAllPrices();
-				controller.changePanelToMainMenu();
+                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                if(dialogResult == JOptionPane.YES_OPTION){
+                                    mainController.changeAllPrices();
+                                    controller.changePanelToMainMenu();
+                                }
 			}
 		});
 	}
@@ -281,6 +288,28 @@ public class SetInventorySellingPriceGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbSetInventorySellingPrice.setModel(tbm);
+                tbm.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 2 || e.getColumn() == 4 || e.getColumn() == 6)
+				{
+					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventorySellingPrice
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
                  if(tbSetInventorySellingPrice.getRowCount() == 0)
                 {
                     DefaultTableModel model = (DefaultTableModel) tbSetInventorySellingPrice.getModel();
@@ -294,27 +323,27 @@ public class SetInventorySellingPriceGUI extends JPanel
                 }
                 else
                 {
-		JTableHeader th = tbSetInventorySellingPrice.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		tbCellRenderer = tbSetInventorySellingPrice.getTableHeader()
-				.getDefaultRenderer();
-		tbColumnRenderer = tbSetInventorySellingPrice.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
-		{
-			tbColumn = tbColumnRenderer.getColumn(j);
-			tbCellRendererColumn = tbColumn.getHeaderRenderer();
-			if (tbCellRendererColumn == null)
-				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(
-					tbSetInventorySellingPrice, tbColumn.getHeaderValue(),
-					false, false, 0, j);
-			tbColumn.setPreferredWidth(component.getPreferredSize().width);
-		}
+                    JTableHeader th = tbSetInventorySellingPrice.getTableHeader();
+                    TableColumnModel tcm = th.getColumnModel();
+                    for (int i = 0; i < strHeader.length; i++)
+                    {
+                            TableColumn tc = tcm.getColumn(i);
+                            tc.setHeaderValue(strHeader[i]);
+                    }
+                    tbCellRenderer = tbSetInventorySellingPrice.getTableHeader()
+                                    .getDefaultRenderer();
+                    tbColumnRenderer = tbSetInventorySellingPrice.getColumnModel();
+                    for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+                    {
+                            tbColumn = tbColumnRenderer.getColumn(j);
+                            tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                            if (tbCellRendererColumn == null)
+                                    tbCellRendererColumn = tbCellRenderer;
+                            component = tbCellRendererColumn.getTableCellRendererComponent(
+                                            tbSetInventorySellingPrice, tbColumn.getHeaderValue(),
+                                            false, false, 0, j);
+                            tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                    }
                 }
 		tbSetInventorySellingPrice.repaint();
 	}
@@ -340,6 +369,28 @@ public class SetInventorySellingPriceGUI extends JPanel
 		tfSearch.setText("");
 		TableModel AllModel = mainController.getAllModel();
 		tbSetInventorySellingPrice.setModel(AllModel);
+                AllModel.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 2 || e.getColumn() == 4 || e.getColumn() == 6)
+				{
+					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventorySellingPrice
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
 
 		JTableHeader th = tbSetInventorySellingPrice.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();

@@ -24,8 +24,11 @@ import TableRenderer.TableRenderer;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
@@ -264,8 +267,12 @@ public class SetInventoryQuantityGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				mainController.changeAllQuantity();
-				controller.changePanelToMainMenu();
+                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                if(dialogResult == JOptionPane.YES_OPTION){
+                                    mainController.changeAllQuantity();
+                                    controller.changePanelToMainMenu();
+                                }
 			}
 		});
 	}
@@ -296,6 +303,28 @@ public class SetInventoryQuantityGUI extends JPanel
 		tfSearch.setText("");
 		TableModel AllModel = mainController.getAllModel();
 		tbSetInventoryQuantity.setModel(AllModel);
+                AllModel.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 3 || e.getColumn() == 5)
+				{
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventoryQuantity
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
 		JTableHeader th = tbSetInventoryQuantity.getTableHeader();
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < strHeader.length; i++)
@@ -324,6 +353,28 @@ public class SetInventoryQuantityGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{
 		tbSetInventoryQuantity.setModel(tbm);
+                tbm.addTableModelListener(new TableModelListener()
+		{
+			public void tableChanged(TableModelEvent e)
+			{
+				if (e.getColumn() == 3 || e.getColumn() == 5)
+				{
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+					try
+					{
+						double d = Double.parseDouble(tbSetInventoryQuantity
+								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
+					} catch (NumberFormatException nfe)
+					{
+						JOptionPane.showMessageDialog(null,
+								"Input a numeric value");
+						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+						return;
+					}
+				}
+			}
+		});
                  if(tbSetInventoryQuantity.getRowCount() == 0)
                 {
                     DefaultTableModel model = (DefaultTableModel) tbSetInventoryQuantity.getModel();
@@ -337,27 +388,27 @@ public class SetInventoryQuantityGUI extends JPanel
                 }
                 else
                 {
-		JTableHeader th = tbSetInventoryQuantity.getTableHeader();
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		tbCellRenderer = tbSetInventoryQuantity.getTableHeader()
-				.getDefaultRenderer();
-		tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
-		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
-		{
-			tbColumn = tbColumnRenderer.getColumn(j);
-			tbCellRendererColumn = tbColumn.getHeaderRenderer();
-			if (tbCellRendererColumn == null)
-				tbCellRendererColumn = tbCellRenderer;
-			component = tbCellRendererColumn.getTableCellRendererComponent(
-					tbSetInventoryQuantity, tbColumn.getHeaderValue(), false,
-					false, 0, j);
-			tbColumn.setPreferredWidth(component.getPreferredSize().width);
-		}
+                    JTableHeader th = tbSetInventoryQuantity.getTableHeader();
+                    TableColumnModel tcm = th.getColumnModel();
+                    for (int i = 0; i < strHeader.length; i++)
+                    {
+                            TableColumn tc = tcm.getColumn(i);
+                            tc.setHeaderValue(strHeader[i]);
+                    }
+                    tbCellRenderer = tbSetInventoryQuantity.getTableHeader()
+                                    .getDefaultRenderer();
+                    tbColumnRenderer = tbSetInventoryQuantity.getColumnModel();
+                    for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+                    {
+                            tbColumn = tbColumnRenderer.getColumn(j);
+                            tbCellRendererColumn = tbColumn.getHeaderRenderer();
+                            if (tbCellRendererColumn == null)
+                                    tbCellRendererColumn = tbCellRenderer;
+                            component = tbCellRendererColumn.getTableCellRendererComponent(
+                                            tbSetInventoryQuantity, tbColumn.getHeaderValue(), false,
+                                            false, 0, j);
+                            tbColumn.setPreferredWidth(component.getPreferredSize().width);
+                    }
                 }
 		tbSetInventoryQuantity.repaint();
 	}
