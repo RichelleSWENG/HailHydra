@@ -135,7 +135,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				if (tbARReceipt.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
-                                        
+                                        if (tbARReceipt.isEditing())
+                                        tbARReceipt.getCellEditor().stopCellEditing();
                                         tbModel.setValueAt("", tbARReceipt.getSelectedRow(), 1);
 					tbModel.removeRow(tbARReceipt.getSelectedRow());
 					numItems--;
