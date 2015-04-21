@@ -203,9 +203,10 @@ public class AckReceiptModel
 
 			// Delete all items in PTLineItem
 			statement = db.createStatement();
-			sql = "DELETE FROM arlineitem WHERE acknowledgemnetreceipt_id = '"
+			sql = "DELETE FROM arlineitem WHERE acknowledgement_receipt_id = '"
 					+ ar.getAcknowledgement_receipt_id() + "'";
 			statement.executeUpdate(sql);
+                        //System.out
 
 			// Add new items
 			int i;
@@ -217,7 +218,7 @@ public class AckReceiptModel
 			}
 		} catch (Exception e)
 		{
-			e.getMessage();
+			e.printStackTrace();
 		}
 
 	}

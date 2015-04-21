@@ -178,6 +178,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		ftfTotal.setEditable(false);
 		ftfBalance.setValue(rcpt.getCurrent_balance());
 		taDeliveryNotes.setText(rcpt.getDelivery_notes());
+                tfARNum.setEditable(false);
 
 		cmbCustomer.addActionListener(new ActionListener()
 		{
