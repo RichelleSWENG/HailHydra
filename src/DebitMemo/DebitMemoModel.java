@@ -524,6 +524,8 @@ public class DebitMemoModel
 		int Qdef = getQuantityDef(partNum);
 		if (type.equals("Replacement"))
 			Qfunc = Qfunc - Integer.parseInt(quantity);
+                            if(Qfunc<0)
+                            Qfunc =0;
 		try
 		{
 

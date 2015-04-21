@@ -234,8 +234,12 @@ public class CreditMemoModel
 		int Qdef = getQuantityDef(partNum);
 		if (status == 1)
 			Qdef = Qdef - Integer.parseInt(quantity);
+                        if(Qdef<0)
+                            Qdef=0;
 		else if (status == 0)
 			Qfunc = Qfunc - Integer.parseInt(quantity);
+                        if(Qfunc<0)
+                            Qfunc=0;
 
 		try
 		{

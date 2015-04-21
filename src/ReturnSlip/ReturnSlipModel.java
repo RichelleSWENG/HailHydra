@@ -483,6 +483,8 @@ public class ReturnSlipModel
 	{
 		int Qfunc = getQuantityFunc(partNum) - Integer.parseInt(quantity);
 		int Qdef = getQuantityDef(partNum) + Integer.parseInt(quantity);
+                if (Qfunc<0)
+                    Qfunc=0;
 		try
 		{
 

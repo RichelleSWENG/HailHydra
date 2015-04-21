@@ -359,7 +359,7 @@ public class PurchaseTransactionGUI extends JPanel
 		}
 		subtotal = ((100 - VATpercent) / 100)
 				* (totalOfEverything - Double
-						.parseDouble(ftfDiscount.getText()));
+						.parseDouble(ftfDiscount.getText().replaceAll(",[^ ]", "")));
 		ftfSubtotal.setValue(subtotal);
 		VAT = VATpercent
 				/ 100
