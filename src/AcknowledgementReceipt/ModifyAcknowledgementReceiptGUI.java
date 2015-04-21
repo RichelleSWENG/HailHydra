@@ -122,6 +122,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
+                                numItems++;
 			}
 		});
 
@@ -129,9 +130,13 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                                //tbARReceipt.setEnabled(false);
+                                
 				if (tbARReceipt.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
+                                        
+                                        tbModel.setValueAt("", tbARReceipt.getSelectedRow(), 1);
 					tbModel.removeRow(tbARReceipt.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
