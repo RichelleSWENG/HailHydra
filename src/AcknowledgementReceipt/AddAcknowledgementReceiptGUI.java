@@ -80,8 +80,19 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
 				try
 				{
+                                    if(Float.parseFloat(ftfDiscount.getText())<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    //ftfDiscount.setText("0.00");
+                                    }else{
 					Float.parseFloat(ftfDiscount.getText());
 					calcTotalBalance();
+                                    }
 				} catch (Exception temp)
 				{
 
@@ -128,6 +139,17 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if(Float.parseFloat(ftfDiscount.getText())<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                            else{
                             if(!tfARNum.getText().isEmpty())
                             {
                                 if (mainController.getAR(tfARNum.getText()) == null)
@@ -173,6 +195,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                                         updateInventory();
 					guiController.changePanelToAcknowledgementReceipt();
                                         }
+                                
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -194,7 +217,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			}else
                                 JOptionPane.showMessageDialog(null, "<html><center>Acknowledgement receipt number is empty."
                                         + "<br>Please input a acknowledgement receipt number.</center></html>", "Fill in Required Fields", JOptionPane.ERROR_MESSAGE);
-                            
+                            }
                         }
 
                    
@@ -408,13 +431,6 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 						&& !tbModel.getValueAt(e.getFirstRow(), 0).toString()
 								.equals(""))
 				{
-                                      if(isInteger(tbModel.getValueAt(e.getFirstRow(), 3).toString())==false)
-                            {
-                            JOptionPane.showMessageDialog(
-							null,
-							"Unit Price");
-                            tbModel.setValueAt("0", e.getFirstRow(), 3);
-                            }
 					totalItemPrice = Double.parseDouble(tbModel.getValueAt(
 							e.getFirstRow(), 0).toString())
 							* Float.parseFloat(tbModel.getValueAt(

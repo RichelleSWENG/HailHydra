@@ -91,6 +91,17 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                                                        if(Float.parseFloat(ftfDiscount.getText())<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                            else{
 				try
 				{
                                     mainController.DeductQuantity(tempARLine);
@@ -144,6 +155,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                                 Logger.getLogger(ModifyAcknowledgementReceiptGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
 			}
+                        }
 		});
 
 		btnAddItem.addActionListener(new ActionListener()
