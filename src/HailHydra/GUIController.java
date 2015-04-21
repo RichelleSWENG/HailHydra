@@ -143,6 +143,11 @@ public class GUIController
 	{
 		frame.setTitle();
 	}
+        
+        public boolean getAdim()
+        {
+            return administrator;
+        }
 
 	public void setToEmployee()
 	{

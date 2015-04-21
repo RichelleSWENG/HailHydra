@@ -317,6 +317,13 @@ public class InventoryListGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if(guiController.getAdim() == false)
+                            {
+                            JOptionPane.showMessageDialog(null,
+							"You cannot delete an Item, Please contact Administrator.");
+                            }
+                            else
+                            {
 				pkey = null;
 				int row;
 				row = tbInventory.getSelectedRow();
@@ -342,6 +349,7 @@ public class InventoryListGUI extends JPanel
 								Level.SEVERE, null, ex);
 					}
 				}
+                            }
 			}
 		});
 
