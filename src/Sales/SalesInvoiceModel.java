@@ -38,6 +38,7 @@ public class SalesInvoiceModel
 			statement = db.createStatement();
 			String sql = "";
 			rs = statement.executeQuery(sql);
+                        
 		} catch (Exception e)
 		{
 			e.getMessage();

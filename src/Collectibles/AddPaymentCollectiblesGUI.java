@@ -275,7 +275,12 @@ public class AddPaymentCollectiblesGUI extends JPanel
                                                 if(dialogResult == JOptionPane.YES_OPTION){
                                                     addAllPayment();
                                                     deductCurrentBalance();
-                                                    controller.changePanelToCollectibles();
+                                                    String caller = controller.getCallingFunction();
+                                                    controller.setCallingFunction("");
+                                                    if (caller.equals("Credit Limit Report"))
+                                                        controller.changePanelToCreditLimitReport();
+                                                    else
+                                                        controller.changePanelToCollectibles();
                                                 }
 					}
 				} else
@@ -291,7 +296,12 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				controller.changePanelToCollectibles();
+                                String caller = controller.getCallingFunction();
+                                controller.setCallingFunction("");
+                                if (caller.equals("Credit Limit Report"))
+                                    controller.changePanelToCreditLimitReport();
+                                else
+                                    controller.changePanelToCollectibles();
 			}
 		});
 	}

@@ -255,6 +255,7 @@ public class OrderReportGUI extends JPanel
 		{// Everytime All is selected
 					public void actionPerformed(ActionEvent e)
 					{
+                                                controller.setCallingFunction("Order Report");
 						controller.changePanelToAddPurchaseTransaction();
 					}
 				});

@@ -154,7 +154,13 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 											.replaceAll(",", "")), "Open",
 							mainController.getCustomer(cmbSupplier
 									.getSelectedIndex() - 1));
-					guiController.changePanelToPurchaseTransactionList();
+					
+                                        String caller = guiController.getCallingFunction();
+                                        guiController.setCallingFunction("");
+                                        if (caller.equals("Order Report"))
+                                            guiController.changePanelToOrderReport();
+                                        else
+                                            guiController.changePanelToPurchaseTransactionList();
                                         }
 				} catch (NullPointerException exception)
 				{
@@ -180,7 +186,12 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 			public void actionPerformed(ActionEvent e)
 			{
 				mainController.removePending();
-				guiController.changePanelToPurchaseTransactionList();
+                                String caller = guiController.getCallingFunction();
+                                guiController.setCallingFunction("");
+                                if (caller.equals("Order Report"))
+                                    guiController.changePanelToOrderReport();
+                                else
+                                    guiController.changePanelToPurchaseTransactionList();
 			}
 		});
 
