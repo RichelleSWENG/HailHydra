@@ -173,6 +173,8 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 		ftfTotal.setEditable(false);
 		ftfBalance.setText(String.valueOf(si.getCurrent_balance()));
 		taDeliveryNotes.setText(si.getDelivery_notes());
+                ftfSubtotal.setText(Float.toString(si.getSubtotal()));
+                ftfVat.setText(Float.toString(si.getVat()));
 
 		cmbCustomer.addActionListener(new ActionListener()
 		{
