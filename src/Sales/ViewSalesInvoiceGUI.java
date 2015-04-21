@@ -101,6 +101,9 @@ public class ViewSalesInvoiceGUI extends SalesInvoiceGUI implements
 		ftfBalance.setText(String.valueOf(si.getCurrent_balance()));
 		taAddress.setEditable(false);
 		taDeliveryNotes.setText(si.getDelivery_notes());
+                System.out.println(si.getVat());
+                ftfSubtotal.setText(Float.toString(si.getCurrent_balance()-si.getVat()).toString());
+                ftfVat.setText(Float.toString(si.getVat()));
 
 		cmbCustomer.addActionListener(new ActionListener()
 		{

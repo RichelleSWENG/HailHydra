@@ -126,7 +126,7 @@ public class SalesInvoiceModel
 		{
 
 			statement = db.createStatement();
-			String sql = "INSERT INTO salesinvoice(sales_invoice_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status,pwd_id_number_notes, vat) VALUES('"
+			String sql = "INSERT INTO salesinvoice(sales_invoice_id,company_id,date,po_num,delivery_receipt_num,sales_person,ordered_by,delivered_by,delivery_notes,discount,original_amount,current_balance,status,pwd_id_number_notes, vat,subtotal) VALUES('"
 					+ si.getSales_invoice_id()
 					+ "','"
 					+ si.getCompany_id()
@@ -153,7 +153,7 @@ public class SalesInvoiceModel
 					+ "','"
 					+ si.getStatus()
 					+ "','"
-					+ si.getPwd_id_number_notes() + "','" + si.getVat() + "')";
+					+ si.getPwd_id_number_notes() + "','" + si.getVat() + "','" + si.getSubtotal()+ "')";
 			System.out.println(sql);
 			statement.executeUpdate(sql);
 			int i;
@@ -187,6 +187,8 @@ public class SalesInvoiceModel
 					+ "',discount='" + si.getDiscount() + "',original_amount='"
 					+ si.getOriginal_amount() + "',current_balance='"
 					+ si.getCurrent_balance()
+                                        + "',subtotal='"
+					+ si.getSubtotal()
 					+ "' WHERE sales_invoice_id LIKE '"
 					+ si.getSales_invoice_id() + "'";
 			statement.executeUpdate(sql);
@@ -403,6 +405,8 @@ public class SalesInvoiceModel
 				si.setDelivery_notes(rs.getString("delivery_notes"));
 				si.setDelivery_receipt_num(rs.getString("delivery_receipt_num"));
 				si.setDiscount(rs.getFloat("discount"));
+                                si.setVat(rs.getFloat("vat"));
+                                si.setSubtotal(rs.getFloat("subtotal"));
 				si.setCurrent_balance(rs.getFloat("current_balance"));
 				si.setStatus(rs.getString("status"));
 				company_id = rs.getInt("company_id");

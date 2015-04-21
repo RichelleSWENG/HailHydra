@@ -153,6 +153,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 									.parseFloat(ftfDiscount.getText().replaceAll(",", "")), Float
 									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
 							tfPwdNum.getText(), Float.parseFloat(ftfVat
+									.getText().replaceAll(",", "")),Float.parseFloat(ftfSubtotal
 									.getText().replaceAll(",", "")),
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
