@@ -16,6 +16,8 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import java.text.DecimalFormat;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -249,8 +251,11 @@ public class ItemProfileGUI extends JPanel
 					BufferedImage img = null;
 					try
 					{
-						img = ImageIO.read(new File(fileOpen.getSelectedFile()
-								.getAbsolutePath()));
+                                           File source = new File(fileOpen.getSelectedFile().getAbsolutePath());
+                                           File dest = new File("src/resources/"+source.getName()); 
+                                           copyFileUsingJava7Files(source,dest);    // move file to resource folder
+                                           imageLocation = dest.getPath().replace('\\', '/');
+						img = ImageIO.read(dest);
 						Image dimg = img.getScaledInstance(lblImage.getWidth(),
 								lblImage.getHeight(), Image.SCALE_DEFAULT);
 						ImageIcon imageIcon = new ImageIcon(dimg);
@@ -268,7 +273,9 @@ public class ItemProfileGUI extends JPanel
 				}
 
 			}
+                        
 		});
+                
 	}
 
 	public static void main(String args[]) throws IOException
@@ -276,4 +283,7 @@ public class ItemProfileGUI extends JPanel
 		GUIController temp = new GUIController();
 		temp.changePanelToAddItemProfile();
 	}
+        public static void copyFileUsingJava7Files(File source, File dest) throws IOException { // move file to resource folder
+        Files.copy(source.toPath(), dest.toPath());
+    }
 }
