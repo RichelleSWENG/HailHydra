@@ -208,6 +208,7 @@ public class CreditLimitReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                                controller.setCallingFunction("Credit Limit Report");
 				controller.changePanelToAddPaymentCollectibles();
 			}
 		});
