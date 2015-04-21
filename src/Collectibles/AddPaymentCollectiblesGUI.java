@@ -84,7 +84,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-		lblHeader = new JLabel("Add Payment - Collectibles");
+		lblHeader = new JLabel("Add Payment");
 		lblHeader.setFont(fntHeaderText);
 		lblHeader.setBounds(30, 0, 600, 86);
 		add(lblHeader);
@@ -275,7 +275,12 @@ public class AddPaymentCollectiblesGUI extends JPanel
                                                 if(dialogResult == JOptionPane.YES_OPTION){
                                                     addAllPayment();
                                                     deductCurrentBalance();
-                                                    controller.changePanelToCollectibles();
+                                                    String caller = controller.getCallingFunction();
+                                                    controller.setCallingFunction("");
+                                                    if (caller.equals("Credit Limit Report"))
+                                                        controller.changePanelToCreditLimitReport();
+                                                    else
+                                                        controller.changePanelToCollectibles();
                                                 }
 					}
 				} else
@@ -291,7 +296,12 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				controller.changePanelToCollectibles();
+                                String caller = controller.getCallingFunction();
+                                controller.setCallingFunction("");
+                                if (caller.equals("Credit Limit Report"))
+                                    controller.changePanelToCreditLimitReport();
+                                else
+                                    controller.changePanelToCollectibles();
 			}
 		});
 	}

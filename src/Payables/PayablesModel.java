@@ -45,7 +45,7 @@ public class PayablesModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT payment_id,payment_type_id,amount,purchase_transaction_id,notes FROM payments";
+			String sql = "SELECT payment_id,payment_type_id,amount,purchase_transaction_id,notes FROM payments ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -108,7 +108,7 @@ public class PayablesModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id";
+			String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -127,7 +127,7 @@ public class PayablesModel
 		{
 			statement = db.createStatement();
 			String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+					+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -153,21 +153,21 @@ public class PayablesModel
 						+ startDate
 						+ "' AND '"
 						+ endDate
-						+ "' AND name LIKE '%" + field + "%'";
+						+ "' AND name LIKE '%" + field + "%' ORDER BY 1";
 			} else if (filter.equalsIgnoreCase("active"))
 			{
 				sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Open' AND name LIKE '%"
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			} else if (filter.equalsIgnoreCase("closed"))
 			{
 				sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status LIKE 'Closed' AND name LIKE '%"
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			}
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
@@ -199,7 +199,7 @@ public class PayablesModel
 		{
 			statement = db.createStatement();
 			String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Open' AND date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+					+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -218,7 +218,7 @@ public class PayablesModel
 		{
 			statement = db.createStatement();
 			String sql = "SELECT name,date,purchase_transaction_id,original_amount,current_balance,purchasetransaction.status FROM purchasetransaction,company WHERE purchasetransaction.company_id=company.company_id AND purchasetransaction.status = 'Closed' AND date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+					+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();

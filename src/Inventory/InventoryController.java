@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.table.TableModel;
 
 /**
@@ -125,4 +127,20 @@ public class InventoryController
 	{
 		inventoryModel.editDetail(al);
 	}
+        
+        public boolean checkPartNum(String ID)
+        {
+            try
+            {
+                ResultSet rs;
+                rs = inventoryModel.getDetail(ID);
+                if (!rs.isBeforeFirst())
+                    return false;
+               
+            } catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+            return true;
+        }
 }

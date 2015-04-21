@@ -226,7 +226,7 @@ public class AddCheckAccountGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-
+                                if (!sysController.duplicateAccNum(tfAccountNumber.getText()))
 				{
 					if (checkAccountNumber())
 					{
@@ -280,6 +280,12 @@ public class AddCheckAccountGUI extends JPanel
 										"<html><center>Account number is invalid.<br>Account number only accepts numeric values and dash.<br> Also, account number can not start with a dash </center></html>");
 					}
 
+				} else
+				{
+					JOptionPane
+						.showMessageDialog(
+								null,
+								"<html><center>Account Number has already been used.<br>Please input another Account Number.</center></html>");
 				}
 			}
 		});

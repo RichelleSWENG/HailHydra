@@ -52,7 +52,7 @@ public class AckReceiptModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name,date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id";
+			String sql = "SELECT company.name,date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -70,8 +70,8 @@ public class AckReceiptModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND date BETWEEN '"
-					+ startDate + "' AND '" + endDate + "'";
+			String sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND date BETWEEN ' ORDER BY 1"
+					+ startDate + "' AND '" + endDate + "' ORDER BY 1";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -97,21 +97,21 @@ public class AckReceiptModel
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			} else if (filter.equalsIgnoreCase("acknowledgement number"))
 			{
 				sql = "SELECT company.name, date,acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id AND acknowledgement_receipt_id LIKE '%"
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			} else if (filter.equalsIgnoreCase("part number"))
 			{
 				sql = "SELECT company.name, date,acknowledgementreceipt.acknowledgement_receipt_id,original_amount,current_balance FROM company,acknowledgementreceipt,arlineitem WHERE acknowledgementreceipt.company_id=company.company_id AND arlineitem.acknowledgement_receipt_id=acknowledgementreceipt.acknowledgement_receipt_id AND arlineitem.part_num LIKE '%"
 						+ field
 						+ "%' AND date BETWEEN '"
 						+ startDate
-						+ "' AND '" + endDate + "'";
+						+ "' AND '" + endDate + "' ORDER BY 1";
 			}
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count

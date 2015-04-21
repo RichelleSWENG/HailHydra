@@ -114,5 +114,21 @@ public class AccountProfileController
 	{
 		accountModel.editDetail(al, name, type);
 	}
+        
+        public boolean checkDuplicate(String name, String type)
+        {
+            try
+            {
+                ResultSet rs;
+                rs = accountModel.getDetail(name, type);
+                if (!rs.isBeforeFirst())
+                    return false;
+               
+            } catch (SQLException ex)
+            {
+                ex.printStackTrace();
+            }
+            return true;
+        }
 
 }

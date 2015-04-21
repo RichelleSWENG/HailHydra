@@ -136,6 +136,17 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
                                         String yourDate = dateFormat.format(currdate);
                                         Date ARDate = df.parse(ftfDate.getText());
                                         currdate = df.parse(yourDate);
+                                        if (mainController.getSI(tfSINum.getText()) != null)
+                                        {
+                                            JOptionPane
+							.showMessageDialog(
+									null,
+									"SI Num has already been used. Please input another SI Num.",
+									"Duplicate SI Num",
+									JOptionPane.ERROR_MESSAGE);
+                                            error = true;
+                                        }
+                                        
                                         if(ARDate.after(currdate))
                                         {
                                         JOptionPane
@@ -201,6 +212,8 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 							"Delivery Notes can not exceed 45");
 					error = true;
                                         }
+                                        
+                                        
                                         
                                         
                                         

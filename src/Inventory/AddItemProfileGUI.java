@@ -49,6 +49,13 @@ public class AddItemProfileGUI extends ItemProfileGUI
 							al.removeAll(al);
 
 							boolean error = false;
+                                                        if (mainController.checkPartNum(tfPartNumber.getText()))
+                                                        {
+                                                            JOptionPane.showMessageDialog(null,
+										"Part Num has already been used. Please input another Part Num.");
+                                                            error = true;
+                                                        }
+                                                        
 							if (tfPartNumber.getText().equals("")
 									|| tfDescription.getText().equals("")
 									|| ftfStockMinimum.getText().equals(""))

@@ -128,6 +128,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
                             if(!tfARNum.getText().isEmpty())
                             {
+                                if (mainController.getAR(tfARNum.getText()) == null)
+                                {
 				try
 				{
 					int i;
@@ -146,6 +148,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                                         String yourDate = dateFormat.format(currdate);
                                         Date ARDate = df.parse(ftfDate.getText());
                                         currdate = df.parse(yourDate);
+                                        
                                         if(ARDate.after(currdate))
                                         {
                                         JOptionPane
@@ -172,16 +175,22 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 					JOptionPane
 							.showMessageDialog(
 									null,
-									"Please fill in the required fields before adding. I do not like you po",
+									"Please fill in the required fields before adding.",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
 				} catch (ParseException ex)
                                 {
                                     Logger.getLogger(AddAcknowledgementReceiptGUI.class.getName()).log(Level.SEVERE, null, ex);
                                 }
+                                }
+                                else
+                                {
+                                    JOptionPane.showMessageDialog(null, "AR Num has already been used."
+                                        + "Please input another ARNum.", "Duplicate AR Num", JOptionPane.ERROR_MESSAGE);
+                                }
 			}else
                                 JOptionPane.showMessageDialog(null, "<html><center>Acknowledgement receipt number is empty."
-                                        + "<br>Please input a acknowledgement receipt number.</center></html>");
+                                        + "<br>Please input a acknowledgement receipt number.</center></html>", "Fill in Required Fields", JOptionPane.ERROR_MESSAGE);
                             
                         }
 		});
