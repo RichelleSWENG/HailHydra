@@ -125,7 +125,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND terms>0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND terms>0 AND company.status='Active'";
+			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND terms>0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <terms_report AND terms>0 AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -143,7 +143,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0 AND company.status='Active'";
+			String sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0 AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
