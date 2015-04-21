@@ -163,6 +163,12 @@ public class AddPaymentPayablesGUI extends JPanel
 			{
 				return new TableRenderer();
 			}
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				if (mColIndex == 6)
+					return true;
+				return false;
+			}
 		};
 		tbPayment.getTableHeader().setFont(fntHeaderTableText);
 		tbPayment.getTableHeader().setPreferredSize(new Dimension(100, 55));
@@ -460,12 +466,24 @@ public class AddPaymentPayablesGUI extends JPanel
 	public void setTableModel(TableModel tbm)
 	{ // Setting the Headers
 		tbPayment.setModel(tbm);
+                
 		JTableHeader th = tbPayment.getTableHeader();
+                
 		TableColumnModel tcm = th.getColumnModel();
 		for (int i = 0; i < 6; i++)
 		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
+		}
+                for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPayment, tbColumn.getHeaderValue(), false, false, 0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbm.addTableModelListener(new TableModelListener()
 		{

@@ -121,7 +121,7 @@ public class CreditLimitReportGUI extends JPanel
 			{
 				if (tfCustomer.getText().length() > 0)
 				{
-					mainController.SearchSomethingfromTerms(tfCustomer
+					mainController.SearchSomethingfromCredit(tfCustomer
 							.getText());
 				} else if (tfCustomer.getText().length() == 0) // if nothing is
 				{

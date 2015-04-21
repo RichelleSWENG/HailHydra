@@ -76,7 +76,7 @@ public class ReportController
 		ordergui.setTableModel(tbm);
 	}
 
-	public void SearchSomethingfromTerms(String name)
+	public void SearchSomethingfromCredit(String name)
 	{
 		TableModel tbm;
 		tbm = reportModel.myModel(reportModel.searchCreditReport(name));

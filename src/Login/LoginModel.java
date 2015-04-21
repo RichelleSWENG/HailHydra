@@ -45,7 +45,7 @@ public class LoginModel
 		{
 			// Order Notifications
 			statement = db.createStatement();
-			sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE quantity_functional<=stock_minimum";
+			sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE quantity_functional<=stock_minimum AND status!=0";
 			rs = statement.executeQuery(sql);
 			while (rs.next())
 			{
@@ -63,130 +63,35 @@ public class LoginModel
 			}
 
 			// Credit Limit Notifications
-			sql = "SELECT credit_alert FROM systeminfo WHERE system_info_id='1'";
-			rs = statement.executeQuery(sql);
-			rs.next();
-			float creditLimitP = rs.getFloat("credit_alert");
-
-			sql = "SELECT company_id, SUM(current_balance) AS total_bal\n"
-					+ "FROM (\n" + "SELECT s.company_id, s.current_balance \n"
-					+ "FROM company c, salesinvoice s \n"
-					+ "WHERE c.company_id=s.company_id \n"
-					+ "UNION ALL SELECT a.company_id, a.current_balance \n"
-					+ "FROM company c ,acknowledgementreceipt a \n"
-					+ "WHERE c.company_id=a.company_id) AS table1\n"
-					+ "GROUP BY company_id";
+                        statement = db.createStatement();
+			sql = "SELECT name,credit_limit, (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id) AS c FROM company,systeminfo WHERE type LIKE '%customer' AND credit_limit>0 AND (credit_limit-(SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM acknowledgementreceipt WHERE acknowledgementreceipt.company_id=company.company_id) + (SELECT CASE WHEN SUM(current_balance) IS NULL THEN '0' ELSE SUM(current_balance) END FROM salesinvoice WHERE salesinvoice.company_id=company.company_id))<=credit_limit*(credit_alert/100) AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			while (rs.next())
 			{
-				stm = db.createStatement();
-				sql2 = "SELECT name, credit_limit FROM company WHERE company_id = '"
-						+ rs.getString("company_id") + "'";
-				rs2 = stm.executeQuery(sql2);
-				rs2.next();
-				float companyLimit = rs2.getFloat("credit_limit");
-				if (companyLimit != 0
-						&& companyLimit * creditLimitP / 100 <= rs
-								.getFloat("total_bal"))
-				{
 					// add to list of notifs
-					notifs.add(new Notification("Credit Limit", rs2
-							.getString("name") + /*
-												 * " (ID: " +
-												 * rs.getString("company_id") +
-												 * ")
-												 */" is nearing credit limit. "/*
-																				 * "<br>Total Balance: "
-																				 * +
-																				 * df
-																				 * .
-																				 * format
-																				 * (
-																				 * rs
-																				 * .
-																				 * getFloat
-																				 * (
-																				 * "total_bal"
-																				 * )
-																				 * )
-																				 * +
-																				 * " Credit Limit: "
-																				 * +
-																				 * df
-																				 * .
-																				 * format
-																				 * (
-																				 * rs2
-																				 * .
-																				 * getFloat
-																				 * (
-																				 * "credit_limit"
-																				 * )
-																				 * )
-																				 */));
-				}
+					notifs.add(new Notification("Credit Limit", rs
+							.getString("name") +" is nearing credit limit."));
+																				
 			}
 
 			// Exceeded Terms Notifications
-			sql = "SELECT company_id, name, id, date, terms, current_balance\n"
-					+ "FROM\n"
-					+ "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms, s.current_balance\n"
-					+ "	FROM company c, salesinvoice s\n"
-					+ "	WHERE c.company_id=s.company_id AND s.status = 'Open'\n"
-					+ "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms, a.current_balance\n"
-					+ "	FROM company c ,acknowledgementreceipt a \n"
-					+ "	WHERE c.company_id=a.company_id AND a.status = 'Open') AS t1\n"
-					+ "WHERE DATE_ADD(date, INTERVAL terms day) <= NOW() AND terms > 0";
+			sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <0 AND terms>0 AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			while (rs.next())
 			{
-				notifs.add(new Notification("Exceeded Terms", rs2
-						.getString("name") + /*
-											 * " (ID: " +
-											 * rs.getString("company_id") + ")
-											 */" has exceeded terms."/*
-																	 * : <br>
-																	 * SI/AR ID:
-																	 * " + rs.getString("
-																	 * id") + "
-																	 * Dated:
-																	 * " + rs.getString("
-																	 * date
-																	 * ") + "
-																	 * <br>
-																	 * Balance
-																	 * to Pay:
-																	 * " + df.format(rs.getFloat("
-																	 * current_balance
-																	 * "))
-																	 */));
+				notifs.add(new Notification("Exceeded Terms", rs
+						.getString("name") + " has exceeded terms."));
 			}
 
 			// Near Terms Notifications
 
-			sql = "SELECT terms_report FROM systeminfo WHERE system_info_id='1'";
-			rs = statement.executeQuery(sql);
-			rs.next();
-			int daysLimit = rs.getInt("terms_report");
-
-			sql = "SELECT company_id, name, id, date, terms, current_balance\n"
-					+ "FROM\n"
-					+ "	(SELECT s.company_id, c.name, s.sales_invoice_id AS id, s.date , c.terms, s.current_balance\n"
-					+ "	FROM company c, salesinvoice s\n"
-					+ "	WHERE c.company_id=s.company_id AND s.status = 'Open'\n"
-					+ "	UNION ALL SELECT a.company_id, c.name, a.acknowledgement_receipt_id AS id, a.date, c.terms, a.current_balance\n"
-					+ "	FROM company c ,acknowledgementreceipt a \n"
-					+ "	WHERE c.company_id=a.company_id AND a.status = 'Open') AS t1\n"
-					+ "WHERE DATE_ADD(date, INTERVAL terms +"
-					+ daysLimit
-					+ " day) <= NOW() AND terms > 0 AND NOT DATE_ADD(date, INTERVAL terms day) <= NOW()";
+			sql = "SELECT company.name,sales_invoice_id,salesinvoice.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,salesinvoice,systeminfo WHERE company.company_id=salesinvoice.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND company.status='Active' UNION ALL SELECT company.name,acknowledgement_receipt_id,acknowledgementreceipt.type,terms,DATE_ADD(date, INTERVAL terms DAY),current_balance FROM company,acknowledgementreceipt,systeminfo WHERE company.company_id=acknowledgementreceipt.company_id AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) <=terms_report AND DATEDIFF(DATE_ADD(date, INTERVAL terms DAY),now()) >=0 AND terms>0 AND company.status='Active'";
 			rs = statement.executeQuery(sql);
 			while (rs.next())
 			{
 				// add to list of notifs
-				notifs.add(new Notification("Near Terms", rs2.getString("name")
-						+ " (ID: " + rs.getString("company_id")
-						+ ") is nearing its terms." /*
+				notifs.add(new Notification("Near Terms", rs.getString("name")
+						+ "is nearing its terms." /*
 													 * : <br> SI/AR ID:
 													 * " + rs.getString("
 													 * id") + " Dated:

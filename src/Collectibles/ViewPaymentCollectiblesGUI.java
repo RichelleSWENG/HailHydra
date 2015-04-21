@@ -113,10 +113,7 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 
 		tbModel = new DefaultTableModel()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
-			{
-				return false;
-			}
+			
 		};
 
 		tbModel.setRowCount(15);
@@ -131,6 +128,10 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
+			}
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				return false;
 			}
 		};
 		tbPayment.getTableHeader().setFont(fntHeaderTableText);
@@ -266,32 +267,46 @@ public class ViewPaymentCollectiblesGUI extends JPanel
 				cmbCustomer.addItem(ar.getDelivered_by());
 			}
 		}
-
-		JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
-		TableColumnModel tcm = th.getColumnModel();
-		for (int i = 0; i < strHeader.length; i++)
-		{
-			TableColumn tc = tcm.getColumn(i);
-			tc.setHeaderValue(strHeader[i]);
-		}
-		th.repaint();
-		tbPayment.getSelectionModel().addListSelectionListener(
-				new ListSelectionListener()
-				{
-					@Override
-					public void valueChanged(ListSelectionEvent e)
-					{
-						Collection p = mainController.getOtherDetails(Integer
-								.toString((int) tbPayment.getValueAt(
-										tbPayment.getSelectedRow(), 0)));
-						if (p != null)
-						{
-							taNotes.setText(p.getNotes());
-							ftfReceivedDate.setText(p.getRDate());
-							tfReceivedBy.setText(p.getReceived_by());
-						}
-					}
-				});
+                if(tbPayment.getRowCount() == 0)
+                {
+                    DefaultTableModel model = (DefaultTableModel) tbPayment.getModel();
+                    JTableHeader th = tbPayment.getTableHeader();
+                    model.setColumnCount(1);    // set columnCount to 1
+                    TableColumnModel tcm = th.getColumnModel();
+                    TableColumn tc = tcm.getColumn(0); 
+                    tc.setHeaderValue("");
+                    
+                    model.addRow(new Object[]{"                                                             No Results Found            "});
+                    tbPayment.setEnabled(false);
+                }
+                else
+                {
+                    JTableHeader th = tbPayment.getTableHeader(); // Setting the Headers
+                    TableColumnModel tcm = th.getColumnModel();
+                    for (int i = 0; i < strHeader.length; i++)
+                    {
+                            TableColumn tc = tcm.getColumn(i);
+                            tc.setHeaderValue(strHeader[i]);
+                    }
+                    th.repaint();
+                    tbPayment.getSelectionModel().addListSelectionListener(
+                                    new ListSelectionListener()
+                                    {
+                                            @Override
+                                            public void valueChanged(ListSelectionEvent e)
+                                            {
+                                                    Collection p = mainController.getOtherDetails(Integer
+                                                                    .toString((int) tbPayment.getValueAt(
+                                                                                    tbPayment.getSelectedRow(), 0)));
+                                                    if (p != null)
+                                                    {
+                                                            taNotes.setText(p.getNotes());
+                                                            ftfReceivedDate.setText(p.getRDate());
+                                                            tfReceivedBy.setText(p.getReceived_by());
+                                                    }
+                                            }
+                                    });
+                }
 	}
 
 	public void setId(String id, String type)

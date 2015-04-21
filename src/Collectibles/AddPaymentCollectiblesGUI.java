@@ -166,12 +166,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 
 		tbModel = new DefaultTableModel()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
-			{
-				if (mColIndex == 6)
-					return true;
-				return false;
-			}
+			
 		};
 
 		tbModel.setRowCount(15);
@@ -186,6 +181,12 @@ public class AddPaymentCollectiblesGUI extends JPanel
 			public TableCellRenderer getCellRenderer(int row, int column)
 			{
 				return new TableRenderer();
+			}
+                        public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				if (mColIndex == 6)
+					return true;
+				return false;
 			}
 		};
 		tbPayment.getTableHeader().setFont(fntHeaderTableText);
@@ -413,6 +414,16 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		{
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
+		}
+                for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPayment, tbColumn.getHeaderValue(), false, false, 0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbm.addTableModelListener(new TableModelListener()
 		{
