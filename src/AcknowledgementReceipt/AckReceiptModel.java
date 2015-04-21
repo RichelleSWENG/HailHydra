@@ -163,9 +163,13 @@ public class AckReceiptModel
 			{
 				arLineItemModel.addDetail(ar.getItems().get(i));
 			}
-		} catch (Exception e)
-		{
-			e.printStackTrace();
+		} catch(SQLException e)
+                {
+                    //MYSQL_DUPLICATE_PK
+                    if(e.getErrorCode() == 1062)
+                    {
+                        //duplicate primary key 
+                    }
 		}
 	}
 
