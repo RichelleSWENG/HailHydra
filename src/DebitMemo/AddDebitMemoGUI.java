@@ -57,7 +57,21 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 				tbModel.setValueAt(defaultVal, numItems, 4);
 			}
 		});
-
+                btnDeleteItem.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (tbDebitMemo.getSelectedRow() != -1
+						&& tbModel.getRowCount() > 1)
+				{
+                                     if (tbDebitMemo.isEditing())
+                                        tbDebitMemo.getCellEditor().stopCellEditing();
+					tbModel.removeRow(tbDebitMemo.getSelectedRow());
+					numItems--;
+					calcTotalBalance();
+				}
+			}
+		});
 		btnSubmit = new JButton("Submit");
 		btnSubmit.setFont(fntPlainText);
 		btnSubmit.setBounds(655, 545, 110, 40);
