@@ -117,6 +117,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 			{
 				try
 				{
+                                    boolean error = false;
 					int i;
 					for (i = 0; i < tbModel.getRowCount(); i++)
 					{
@@ -128,7 +129,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
-                                        Date currdate = new Date(); 
+                                         Date currdate = new Date(); 
                                         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
                                         String yourDate = dateFormat.format(currdate);
                                         Date ARDate = df.parse(ftfDate.getText());
@@ -141,8 +142,66 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 									"Please do not enter a future date",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
+                                        error = true;
                                         }
-                                        else{
+                                        
+                                         if (tfPwdNum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"PWD ID Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfPONum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"PO Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfDRNum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"DR Number can not exceed 45");
+					error = true;
+                                        }
+                                        if (tfSINum.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"SI Number can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfSalesperson.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Salesperson can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfOrderedBy.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Ordered By can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if (tfDeliveredBy.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Delivered By can not exceed 45");
+					error = true;
+                                        }
+
+                                        if (taDeliveryNotes.getText().length() > 45)
+                                        {
+					JOptionPane.showMessageDialog(null,
+							"Delivery Notes can not exceed 45");
+					error = true;
+                                        }
+                                        
+                                        if(error == false)
+                                        {
 					mainController.editSI(tfSINum.getText(), ftfDate.getText(),
 							Float.parseFloat(ftfSubtotal.getText()), tfPONum
 									.getText(), tfOrderedBy.getText(),

@@ -309,9 +309,15 @@ public class SetInventoryQuantityGUI extends JPanel
 			{
 				if (e.getColumn() == 3 || e.getColumn() == 5)
                                 {
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
-					try
+                                        if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
+                                        {
+                                            tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+                                            JOptionPane.showMessageDialog(null,
+								"Couted can not exceed 11 digits. Please re-input Counted");
+                                        }
+                                        try
 					{
 						double d = Double.parseDouble(tbSetInventoryQuantity
 								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
@@ -322,6 +328,8 @@ public class SetInventoryQuantityGUI extends JPanel
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 						return;
 					}
+                                        
+                                            
 				}
 			}
 		});
@@ -360,8 +368,14 @@ public class SetInventoryQuantityGUI extends JPanel
 				if (e.getColumn() == 3 || e.getColumn() == 5)
 				{
                                         
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-") )
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+                                        if(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
+                                        {
+                                            tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
+                                            JOptionPane.showMessageDialog(null,
+								"Counted can not exceed 11 digits. Please re-input Counted");
+                                        }
 					try
 					{
 						double d = Double.parseDouble(tbSetInventoryQuantity
