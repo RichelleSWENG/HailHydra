@@ -17,6 +17,13 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -87,6 +94,8 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                             if (tbARReceipt.isEditing())
+                                tbARReceipt.getCellEditor().stopCellEditing();
 				numItems++;
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
@@ -99,7 +108,9 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
 				if (tbARReceipt.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
-				{
+				{ 
+                                    if (tbARReceipt.isEditing())
+                                        tbARReceipt.getCellEditor().stopCellEditing();
 					tbModel.removeRow(tbARReceipt.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
@@ -130,6 +141,21 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
+                                        Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
 					mainController.addAR(tfARNum.getText(), ftfDate.getText(),
 							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
@@ -140,6 +166,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToAcknowledgementReceipt();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -148,10 +175,14 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 									"Please fill in the required fields before adding. I do not like you po",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
-				}
+				} catch (ParseException ex)
+                                {
+                                    Logger.getLogger(AddAcknowledgementReceiptGUI.class.getName()).log(Level.SEVERE, null, ex);
+                                }
 			}else
                                 JOptionPane.showMessageDialog(null, "<html><center>Acknowledgement receipt number is empty."
                                         + "<br>Please input a acknowledgement receipt number.</center></html>");
+                            
                         }
 		});
 

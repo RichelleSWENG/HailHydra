@@ -8,7 +8,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -44,6 +50,8 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if (tbDebitMemo.isEditing())
+                                tbDebitMemo.getCellEditor().stopCellEditing();
 				numItems++;
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
@@ -85,6 +93,21 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 						type = "Replacement";
 					else
 						type = "Not Replacement";
+                                         Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
 
 					mainController.addDM(tfDBNum.getText(), mainController
 							.getCustomer(cmbCustomer.getSelectedIndex() - 1)
@@ -95,7 +118,8 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 							ftfApprovedDate.getText(), ftfReceivedDate
 									.getText(), taNotes.getText(), status, type);
 					updateInventory(status, type);
-					guiController.changePanelToDebitMemo();
+                                        guiController.changePanelToDebitMemo();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -105,7 +129,10 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
                                         guiController.changePanelToAddDebitMemo();
-				}
+				} catch (ParseException ex)
+                            {
+                                Logger.getLogger(AddDebitMemoGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				
 			}
 		});

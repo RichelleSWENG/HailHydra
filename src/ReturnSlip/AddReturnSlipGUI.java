@@ -5,8 +5,14 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -44,6 +50,8 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if (tbReturnSlip.isEditing())
+                                tbReturnSlip.getCellEditor().stopCellEditing();
 				numItems++;
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
@@ -57,6 +65,8 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 				if (tbReturnSlip.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
+                                    if (tbReturnSlip.isEditing())
+                                        tbReturnSlip.getCellEditor().stopCellEditing();
 					tbModel.removeRow(tbReturnSlip.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
@@ -85,6 +95,21 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
+                                        Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
                                         String tempPTNum = cmbPTNum.getSelectedItem().toString(); // if there is no existing PT
                                         if(tempPTNum.equals(""))
                                             tempPTNum = "0";
@@ -101,6 +126,7 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 
 					UpdateInventory(type.getSelection().getActionCommand());
 					guiController.changePanelToReturnSlip();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -110,7 +136,10 @@ public class AddReturnSlipGUI extends ReturnSlipGUI implements
 									"Fill in Required Fields.",
 									JOptionPane.ERROR_MESSAGE);
                                         //guiController.changePanelToAddReturnSlip();
-				}
+				} catch (ParseException ex)
+                            {
+                                Logger.getLogger(AddReturnSlipGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 				//guiController.changePanelToReturnSlip();
 			}
 

@@ -7,7 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import java.awt.Font;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
@@ -94,6 +100,21 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
+                                         Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
 					mainController.editAR(tfARNum.getText(), ftfDate.getText(),
 							Float.parseFloat(ftfTotal.getText().replaceAll(",", "")), tfPONum
 									.getText(), tfOrderedBy.getText(),
@@ -104,6 +125,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToViewAcknowledgementReceipt();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -112,7 +134,10 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 									"Please fill in the required fields before adding. I do not like you po",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
-				}
+				} catch (ParseException ex)
+                            {
+                                Logger.getLogger(ModifyAcknowledgementReceiptGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 		});
 
@@ -120,6 +145,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                             if (tbARReceipt.isEditing())
+                                tbARReceipt.getCellEditor().stopCellEditing();
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
                                 numItems++;

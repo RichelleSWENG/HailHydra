@@ -9,7 +9,11 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
@@ -51,24 +55,46 @@ public class AddCreditMemoGUI extends CreditMemoGUI implements
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				int status;
-				String type;
-				if (chckbxDefective.isSelected())
-					status = 1;
-				else
-					status = 0;
-				if (chckbxReplacement.isSelected())
-					type = "Replacement";
-				else
-					type = "Not Replacement";
-
-				mainController.addCreditMemo(tfCreditMemoNum.getText(),
-						ftfDate.getText(), tfReplySlipNum.getText(), status,
-						type, (tbModel.getValueAt(0, 1)).toString(),
-						(tbModel.getValueAt(0, 4)).toString());
-
-				updateInventory(status, type);
-				controller.changePanelToCreditMemo();
+                            try
+                            {
+                                int status;
+                                String type;
+                                if (chckbxDefective.isSelected())
+                                    status = 1;
+                                else
+                                    status = 0;
+                                if (chckbxReplacement.isSelected())
+                                    type = "Replacement";
+                                else
+                                    type = "Not Replacement";
+                                Date currdate = new Date();
+                                DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                String yourDate = dateFormat.format(currdate);
+                                Date ARDate = df.parse(ftfDate.getText());
+                                currdate = df.parse(yourDate);
+                                if(ARDate.after(currdate))
+                                {
+                                    JOptionPane
+                                            .showMessageDialog(
+                                                    null,
+                                                    "Please do not enter a future date",
+                                                    "Fill in Required Fiels",
+                                                    JOptionPane.ERROR_MESSAGE);
+                                }
+                                else{
+                                    
+                                    mainController.addCreditMemo(tfCreditMemoNum.getText(),
+                                            ftfDate.getText(), tfReplySlipNum.getText(), status,
+                                            type, (tbModel.getValueAt(0, 1)).toString(),
+                                            (tbModel.getValueAt(0, 4)).toString());
+                                    
+                                    updateInventory(status, type);
+                                    controller.changePanelToCreditMemo();
+                                }
+                            } catch (ParseException ex)
+                            {
+                                Logger.getLogger(AddCreditMemoGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 
 		});

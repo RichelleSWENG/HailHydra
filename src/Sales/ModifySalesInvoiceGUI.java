@@ -5,7 +5,13 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -45,6 +51,8 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if (tbSalesInvoice.isEditing())
+                                tbSalesInvoice.getCellEditor().stopCellEditing();
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
 			}
@@ -57,6 +65,8 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 				if (tbSalesInvoice.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
+                                    if (tbSalesInvoice.isEditing())
+                                        tbSalesInvoice.getCellEditor().stopCellEditing();
 					tbModel.removeRow(tbSalesInvoice.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
@@ -85,6 +95,21 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 										.toString()), Float.parseFloat(tbModel
 										.getValueAt(i, 4).toString())));
 					}
+                                        Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
 					mainController.editSI(tfSINum.getText(), ftfDate.getText(),
 							Float.parseFloat(ftfSubtotal.getText()), tfPONum
 									.getText(), tfOrderedBy.getText(),
@@ -97,6 +122,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
 					guiController.changePanelToViewSalesInvoice();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -105,7 +131,10 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 									"Please fill in the required fields before adding. I do not like you po",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
-				}
+				} catch (ParseException ex)
+                            {
+                                Logger.getLogger(ModifySalesInvoiceGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 		});
 

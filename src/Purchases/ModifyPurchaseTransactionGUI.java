@@ -5,8 +5,14 @@ import HailHydra.GUIController;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -41,6 +47,8 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            if (tbPurchaseTransaction.isEditing())
+                                tbPurchaseTransaction.getCellEditor().stopCellEditing();
 				tbModel.setRowCount(numItems + 1);
 				tbModel.setValueAt(defaultVal, numItems, 4);
 			}
@@ -53,6 +61,8 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 				if (tbPurchaseTransaction.getSelectedRow() != -1
 						&& tbModel.getRowCount() > 1)
 				{
+                                    if (tbPurchaseTransaction.isEditing())
+                                        tbPurchaseTransaction.getCellEditor().stopCellEditing();
 					tbModel.removeRow(tbPurchaseTransaction.getSelectedRow());
 					numItems--;
 					calcTotalBalance();
@@ -85,6 +95,21 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 										.parseFloat(tbModel.getValueAt(i, 4)
 												.toString())));
 					}
+                                        Date currdate = new Date(); 
+                                        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                                        String yourDate = dateFormat.format(currdate);
+                                        Date ARDate = df.parse(ftfDate.getText());
+                                        currdate = df.parse(yourDate);
+                                        if(ARDate.after(currdate))
+                                        {
+                                        JOptionPane
+							.showMessageDialog(
+									null,
+									"Please do not enter a future date",
+									"Fill in Required Fiels",
+									JOptionPane.ERROR_MESSAGE);
+                                        }
+                                        else{
 
 					mainController.editPT(tfPurchaseTransactionNum.getText(),
 							ftfDate.getText(), Float.parseFloat(ftfSubtotal
@@ -101,6 +126,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 							mainController.getCustomer(cmbSupplier
 									.getSelectedIndex() - 1));
 					guiController.changePanelToViewPurchaseTransaction();
+                                        }
 				} catch (NullPointerException exception)
 				{
 					JOptionPane
@@ -109,7 +135,10 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 									"Please fill in the required fields before adding. I do not like you po",
 									"Fill in Required Fiels",
 									JOptionPane.ERROR_MESSAGE);
-				}
+				} catch (ParseException ex)
+                            {
+                                Logger.getLogger(ModifyPurchaseTransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
+                            }
 			}
 		});
 
