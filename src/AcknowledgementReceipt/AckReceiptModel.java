@@ -474,4 +474,77 @@ public class AckReceiptModel
 		return rcpt;
 	}
 
+    public void DeductFunc(String quantity, String partNum)
+    {
+        int Qfunc = getQuantityFunc(partNum) - Integer.parseInt(quantity);
+		//int Qdef = getQuantityDef(partNum) + Integer.parseInt(quantity);
+                if (Qfunc<0)
+                    Qfunc=0;
+		try
+		{
+
+			statement = db.createStatement();
+			String sql = "UPDATE item SET quantity_functional = '" + Qfunc+ "' WHERE part_num ='" + partNum + "'";
+			statement.executeUpdate(sql);
+
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+    }
+    public int getQuantityFunc(String partNum)
+	{
+
+		ResultSet rs = null;
+		String quantity = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT quantity_functional FROM item WHERE part_num='"
+					+ partNum + "'";
+			rs = statement.executeQuery(sql);
+			String temp;
+
+			while (rs.next())
+			{
+				temp = rs.getString("quantity_functional");
+				quantity = temp;
+			}
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return Integer.parseInt(quantity);
+
+	}
+
+	public int getQuantityDef(String partNum)
+	{
+		ResultSet rs = null;
+		String quantity = null;
+		try
+		{
+			statement = db.createStatement();
+			String sql = "SELECT quantity_defective FROM item WHERE part_num='"
+					+ partNum + "'";
+			rs = statement.executeQuery(sql);
+			String temp;
+			while (rs.next())
+			{
+				temp = rs.getString("quantity_defective");
+				quantity = temp;
+			}
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+		return Integer.parseInt(quantity);
+	}
+
+    public void deductQuantity(ArrayList<ARLineItem> tempARLine)
+    {
+        for(int i = 0; i<tempARLine.size(); i++)
+        arLineItemModel.updateQuantity(tempARLine.get(i).getPartNum(), getQuantityFunc(tempARLine.get(i).getPartNum()) - tempARLine.get(i).getQuantity());
+    }
+
 }

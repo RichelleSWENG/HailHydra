@@ -10,6 +10,7 @@ import java.awt.Font;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
@@ -39,6 +40,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;
+        private ArrayList<ARLineItem> tempARLine = new ArrayList<>();
 
 	public ModifyAcknowledgementReceiptGUI(GUIController temp)
 	{
@@ -89,6 +91,7 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			{
 				try
 				{
+                                    mainController.DeductQuantity(tempARLine);
 					int i;
 					for (i = 0; i < tbModel.getRowCount(); i++)
 					{
@@ -254,6 +257,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			tbModel.setValueAt(rcpt.getList().get(i).getQuantity(), i, 0);
 			tbModel.setValueAt(rcpt.getList().get(i).getPartNum(), i, 1);
+                    ARLineItem tempAR = new ARLineItem(rcpt.getAcknowledgement_receipt_id(), Integer.parseInt(tbModel.getValueAt(i, 0).toString()),tbModel.getValueAt(i, 1).toString(), Float.parseFloat(tbModel.getValueAt(i, 3).toString()), Float.parseFloat(tbModel.getValueAt(i, 4).toString()));
+                        tempARLine.add(tempAR);
 		}
 
 	}

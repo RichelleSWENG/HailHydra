@@ -211,6 +211,8 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 		ftfDate.setText(pt.getDate());
 		ftfDiscount.setText(String.valueOf(pt.getDiscount()));
 		ftfTotal.setEditable(false);
+                tfPurchaseTransactionNum.setEditable(false);
+                cmbSupplier.setEnabled(false);
 
 		taAddress.setEditable(false);
 		tfSINum.setText(pt.getRef_sales_invoice_num());

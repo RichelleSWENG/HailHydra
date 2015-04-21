@@ -183,4 +183,19 @@ public class AcknowledgementReceiptController
 		return ackReceiptModel.getAR(ID);
 	}
 
+    	public ArrayList<ARLineItem> getPending()
+	{
+		return this.pendingItems;
+	}
+
+        public void DeductFunc(String quantity, String partNum)
+        {
+        ackReceiptModel.DeductFunc(quantity, partNum);
+        }
+
+        public void DeductQuantity(ArrayList<ARLineItem> tempARLine)
+    {
+        ackReceiptModel.deductQuantity(tempARLine);
+    }
+
 }

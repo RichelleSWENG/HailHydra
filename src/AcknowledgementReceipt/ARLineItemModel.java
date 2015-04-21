@@ -120,4 +120,18 @@ public class ARLineItemModel
 			e.getMessage();
 		}
 	}
+
+    public void updateQuantity(String partNum, int quantity)
+	{
+		try
+		{
+			statement = db.createStatement();
+			String sql = "UPDATE item SET quantity_functional ='" + quantity
+					+ "' WHERE part_num = '" + partNum + "'";
+			statement.executeUpdate(sql);
+		} catch (Exception e)
+		{
+			e.getMessage();
+		}
+	}
 }

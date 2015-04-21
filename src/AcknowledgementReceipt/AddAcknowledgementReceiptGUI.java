@@ -2,6 +2,7 @@ package AcknowledgementReceipt;
 
 import Classes.Company;
 import HailHydra.GUIController;
+import ReturnSlip.RSLineItem;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,6 +21,7 @@ import java.awt.Font;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Level;
@@ -168,6 +170,7 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 									.parseFloat(ftfBalance.getText().replaceAll(",", "")), "Open",
 							mainController.getCustomer(cmbCustomer
 									.getSelectedIndex() - 1));
+                                        updateInventory();
 					guiController.changePanelToAcknowledgementReceipt();
                                         }
 				} catch (NullPointerException exception)
@@ -193,6 +196,10 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
                                         + "<br>Please input a acknowledgement receipt number.</center></html>", "Fill in Required Fields", JOptionPane.ERROR_MESSAGE);
                             
                         }
+
+                   
+
+
 		});
 
 		btnCancel = new JButton("Cancel");
@@ -465,5 +472,15 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 			super(new JComboBox(str));
 		}
 	}
-
+        
+        public void updateInventory()
+        {
+                        ArrayList<ARLineItem> pending = mainController.getPending();
+			for (int i = 0; i < pending.size(); i++)
+			{
+				String quantity = String.valueOf(pending.get(i).getQuantity());
+				String partNum = pending.get(i).getPartNum();
+				mainController.DeductFunc(quantity, partNum);
+			}
+        }
 }
