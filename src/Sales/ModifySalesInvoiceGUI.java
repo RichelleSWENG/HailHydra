@@ -18,6 +18,8 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.TableCellRenderer;
@@ -34,6 +36,7 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 	private int numItems;
 	private float totalBalance, totalItemPrice, tentativeTotal, discount,
 			VATpercent, dedBalance;
+       private double totalOfEverything, vat, subtotal, everythingwithVAT;
 	private final float defaultVal = 0;
 	private String partNums[];
 	private Company c;
@@ -46,6 +49,36 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 		lblHeader.setText("Modify Sales Invoice");
 
 		cmbCustomer.setEditable(true);
+                
+                		ftfDiscount.getDocument().addDocumentListener(new DocumentListener()
+		{
+			public void changedUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			public void insertUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			public void removeUpdate(DocumentEvent documentEvent)
+			{
+				update();
+			}
+
+			private void update()
+			{
+				try
+				{
+					Float.parseFloat(ftfDiscount.getText());
+					calcTotalBalance();
+				} catch (Exception temp)
+				{
+
+				}
+			}
+		});
 
 		btnAddItem.addActionListener(new ActionListener()
 		{
@@ -173,6 +206,8 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 		ftfTotal.setEditable(false);
 		ftfBalance.setText(String.valueOf(si.getCurrent_balance()));
 		taDeliveryNotes.setText(si.getDelivery_notes());
+                //ftfSubtotal.setText(Float.toString(si.getSubtotal()));
+                //ftfVat.setText(Float.toString(si.getVat()));
 
 		cmbCustomer.addActionListener(new ActionListener()
 		{
@@ -241,18 +276,26 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 	public void calcTotalBalance()
 	{
 		int i;
-		totalBalance = 0;
+		totalOfEverything = 0;
 		for (i = 0; i < tbModel.getRowCount(); i++)
 		{
-			if (tbModel.getValueAt(i, 4) != null)
-			{
-				totalBalance += Float.parseFloat(tbModel.getValueAt(i, 4)
-						.toString());
-			}
+			totalOfEverything += Float.parseFloat(tbModel.getValueAt(i, 4)
+					.toString());
 		}
-		dedBalance = totalBalance - Float.parseFloat(ftfDiscount.getText());
-		ftfTotal.setText(String.valueOf(dedBalance));
-		ftfBalance.setText(String.valueOf(dedBalance));
+		subtotal = ((100 - VATpercent) / 100)
+				* (totalOfEverything - Double
+						.parseDouble(ftfDiscount.getText()));
+		ftfSubtotal.setValue(subtotal);
+		vat = VATpercent
+				/ 100
+				* (totalOfEverything - Double
+						.parseDouble(ftfDiscount.getText()));
+		ftfVat.setValue(vat);
+		ftfTotal.setValue(totalOfEverything
+				- Double.parseDouble(ftfDiscount.getText()));
+		ftfBalance.setValue(totalOfEverything
+				- Double.parseDouble(ftfDiscount.getText()));
+
 	}
 
 	class MyComboBoxRenderer extends JComboBox implements TableCellRenderer
