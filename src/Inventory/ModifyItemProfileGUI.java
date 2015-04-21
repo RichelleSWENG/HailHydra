@@ -270,30 +270,33 @@ public class ModifyItemProfileGUI extends ItemProfileGUI
 					{
 						try
 						{
-
-							al.add(tfPartNumber.getText());
-							al.add(tfDescription.getText());
-							al.add(tfRackLocation.getText());
-							al.add(ftfStockMinimum.getText()
-									.replaceAll(",", ""));
-							al.add(ftfSisterCompanyPrice.getText().replaceAll(
-									",", ""));
-							al.add(ftfRetailPrice.getText().replaceAll(",", ""));
-							al.add(ftfWalkinPrice.getText().replaceAll(",", ""));
-							al.add(ftfLastCost.getText().replaceAll(",", ""));
-							al.add(taNotes.getText());
-							if (imageLocation == null) // if image is not
-														// changed
-								al.add(imagePath); // set previous
-							else
-								al.add(imageLocation); // set new
-							if (chckbxInactiveItem.isSelected())
-								al.add("0");
-							else
-								al.add("1");
-							mainController.setItemProfile(al);
-							mainController.ModifyItemProfile(al);
-							guiController.changePanelToViewItemProfile();
+                                                        int dialogButton = JOptionPane.YES_NO_OPTION;
+                                                        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                                        if(dialogResult == JOptionPane.YES_OPTION){
+                                                            al.add(tfPartNumber.getText());
+                                                            al.add(tfDescription.getText());
+                                                            al.add(tfRackLocation.getText());
+                                                            al.add(ftfStockMinimum.getText()
+                                                                            .replaceAll(",", ""));
+                                                            al.add(ftfSisterCompanyPrice.getText().replaceAll(
+                                                                            ",", ""));
+                                                            al.add(ftfRetailPrice.getText().replaceAll(",", ""));
+                                                            al.add(ftfWalkinPrice.getText().replaceAll(",", ""));
+                                                            al.add(ftfLastCost.getText().replaceAll(",", ""));
+                                                            al.add(taNotes.getText());
+                                                            if (imageLocation == null) // if image is not
+                                                                                                                    // changed
+                                                                    al.add(imagePath); // set previous
+                                                            else
+                                                                    al.add(imageLocation); // set new
+                                                            if (chckbxInactiveItem.isSelected())
+                                                                    al.add("0");
+                                                            else
+                                                                    al.add("1");
+                                                            mainController.setItemProfile(al);
+                                                            mainController.ModifyItemProfile(al);
+                                                            guiController.changePanelToViewItemProfile();
+                                                        }
 
 						} catch (Exception ex)
 						{

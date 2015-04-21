@@ -44,7 +44,7 @@ public class ReportModel
 		try
 		{
 			statement = db.createStatement();
-			String sql = "SELECT part_num, stock_minimum, quantity_functional FROM item WHERE quantity_functional<=stock_minimum AND status!=0";
+			String sql = "SELECT part_num, description,stock_minimum, quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND status!=0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
@@ -64,11 +64,11 @@ public class ReportModel
 		{
 			statement = db.createStatement();
 			if (filter.equalsIgnoreCase("part number"))
-				sql = "SELECT part_num, description,stock_minimum,quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND part_num LIKE '%"
-						+ field + "%' status!=0";
+				sql = "SELECT part_num, description,stock_minimum, quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND part_num LIKE '%"
+						+ field + "%' AND status!=0";
 			else if (filter.equalsIgnoreCase("description"))
-				sql = "SELECT part_num, description,stock_minimum,quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND description LIKE '%"
-						+ field + "%' status!=0";
+				sql = "SELECT part_num, description,stock_minimum, quantity_functional,last_cost,rack_location FROM item WHERE quantity_functional<=stock_minimum AND description LIKE '%"
+						+ field + "%' AND status!=0";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
 			itemCount = rs.getRow();
