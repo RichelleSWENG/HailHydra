@@ -270,9 +270,13 @@ public class AddPaymentCollectiblesGUI extends JPanel
 				{
 					if (checkCurrentBalance())
 					{
-						addAllPayment();
-						deductCurrentBalance();
-						controller.changePanelToCollectibles();
+                                                int dialogButton = JOptionPane.YES_NO_OPTION;
+                                                int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                                if(dialogResult == JOptionPane.YES_OPTION){
+                                                    addAllPayment();
+                                                    deductCurrentBalance();
+                                                    controller.changePanelToCollectibles();
+                                                }
 					}
 				} else
 					JOptionPane.showMessageDialog(null, "No Amount Applied");
