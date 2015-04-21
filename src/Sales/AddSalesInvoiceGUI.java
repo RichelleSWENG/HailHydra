@@ -332,8 +332,7 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 					.toString());
 		}
 		subtotal = ((100 - VATpercent) / 100)
-				* (totalOfEverything - Double
-						.parseDouble(ftfDiscount.getText()));
+				* (totalOfEverything - Double.parseDouble(ftfDiscount.getText()));
 		ftfSubtotal.setValue(subtotal);
 		vat = VATpercent
 				/ 100
@@ -342,8 +341,22 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 		ftfVat.setValue(vat);
 		ftfTotal.setValue(totalOfEverything
 				- Double.parseDouble(ftfDiscount.getText()));
-		ftfBalance.setValue(totalOfEverything
-				- Double.parseDouble(ftfDiscount.getText()));
+
+		ftfBalance.setValue(totalOfEverything- Double.parseDouble(ftfDiscount.getText()));
+                
+                 if((Double.parseDouble(ftfBalance.getText().replaceAll(",[^ ]", "")))<0.00)
+                {
+                JOptionPane
+								.showMessageDialog(
+										null,
+										"Discount is less than Total",
+										"Invalid Discount",
+			 							JOptionPane.ERROR_MESSAGE);
+
+
+		ftfDiscount.setText("0.00");
+                }
+
 
 	}
 
