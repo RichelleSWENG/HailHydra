@@ -221,45 +221,48 @@ public class AddItemProfileGUI extends ItemProfileGUI
 							{
 								try
 								{
-
-									al.add(tfPartNumber.getText());
-									al.add(tfDescription.getText());
-									al.add(tfRackLocation.getText());
-									al.add(ftfStockMinimum.getText()
-											.replaceAll(",", ""));
-									al.add(ftfSisterCompanyPrice.getText()
-											.replaceAll(",", ""));
-									al.add(ftfRetailPrice.getText().replaceAll(
-											",", ""));
-									al.add(ftfWalkinPrice.getText().replaceAll(
-											",", ""));
-									al.add(ftfLastCost.getText().replaceAll(
-											",", ""));
-									al.add(taNotes.getText());
-									if (imageLocation == null)
-										al.add(imageLocation);
-									if (chckbxInactiveItem.isSelected())
-										al.add("0");
-									else
-										al.add("1");
-									mainController.AddItem(
-											tfPartNumber.getText(),
-											tfDescription.getText(),
-											tfRackLocation.getText(),
-											ftfStockMinimum.getText()
-													.replaceAll(",", ""),
-											ftfSisterCompanyPrice.getText()
-													.replaceAll(",", ""),
-											ftfRetailPrice.getText()
-													.replaceAll(",", ""),
-											ftfWalkinPrice.getText()
-													.replaceAll(",", ""),
-											ftfLastCost.getText().replaceAll(
-													",", ""),
-											taNotes.getText(), imageLocation,
-											Boolean.toString(chckbxInactiveItem
-													.isSelected()));
-									controller.changePanelToInventory();
+                                                                        int dialogButton = JOptionPane.YES_NO_OPTION;
+                                                                        int dialogResult = JOptionPane.showConfirmDialog (null, "Are you sure you want to save the following information?","Confirmation Message",dialogButton);
+                                                                        if(dialogResult == JOptionPane.YES_OPTION){
+                                                                            al.add(tfPartNumber.getText());
+                                                                            al.add(tfDescription.getText());
+                                                                            al.add(tfRackLocation.getText());
+                                                                            al.add(ftfStockMinimum.getText()
+                                                                                            .replaceAll(",", ""));
+                                                                            al.add(ftfSisterCompanyPrice.getText()
+                                                                                            .replaceAll(",", ""));
+                                                                            al.add(ftfRetailPrice.getText().replaceAll(
+                                                                                            ",", ""));
+                                                                            al.add(ftfWalkinPrice.getText().replaceAll(
+                                                                                            ",", ""));
+                                                                            al.add(ftfLastCost.getText().replaceAll(
+                                                                                            ",", ""));
+                                                                            al.add(taNotes.getText());
+                                                                            if (imageLocation == null)
+                                                                                    al.add(imageLocation);
+                                                                            if (chckbxInactiveItem.isSelected())
+                                                                                    al.add("0");
+                                                                            else
+                                                                                    al.add("1");
+                                                                            mainController.AddItem(
+                                                                                            tfPartNumber.getText(),
+                                                                                            tfDescription.getText(),
+                                                                                            tfRackLocation.getText(),
+                                                                                            ftfStockMinimum.getText()
+                                                                                                            .replaceAll(",", ""),
+                                                                                            ftfSisterCompanyPrice.getText()
+                                                                                                            .replaceAll(",", ""),
+                                                                                            ftfRetailPrice.getText()
+                                                                                                            .replaceAll(",", ""),
+                                                                                            ftfWalkinPrice.getText()
+                                                                                                            .replaceAll(",", ""),
+                                                                                            ftfLastCost.getText().replaceAll(
+                                                                                                            ",", ""),
+                                                                                            taNotes.getText(), imageLocation,
+                                                                                            Boolean.toString(chckbxInactiveItem
+                                                                                                            .isSelected()));
+                                                                            controller.changePanelToInventory();
+                                                                        }
 
 								} catch (Exception ex)
 								{
