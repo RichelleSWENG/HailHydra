@@ -114,6 +114,7 @@ public class GUIController
 	private CreditMemoController CMController;
 	private DebitMemoController DMController;
 	private boolean administrator;
+        private String callingFunction;
 
 	public GUIController()
 	{
@@ -128,6 +129,7 @@ public class GUIController
 				inventoryGUI);
 
 		modal = new JDialog(frame);
+                callingFunction = "";
 
 		if (new SystemController(new SystemModel(dbc)).getInfo() == null)
 		{
@@ -894,6 +896,33 @@ public class GUIController
 		}
 
 	}
+        
+        public AcknowledgementReceiptController getARController()
+        {
+            if (ARController == null)
+               ARController = new AcknowledgementReceiptController(
+					new AckReceiptModel(dbc)); 
+            return ARController;
+        }
+        
+        public SalesInvoiceController getSIController()
+        {
+            if (SIController == null)
+                SIController = new SalesInvoiceController(
+					new SalesInvoiceModel(dbc));
+            return SIController;
+        }
+        
+        public String getCallingFunction() 
+        {
+            return callingFunction;
+        }
+        
+        public void setCallingFunction(String callingFunction) 
+        {
+            this.callingFunction = callingFunction;
+        }
+                
 
 	public static void main(String args[])
 	{

@@ -12,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -382,6 +383,21 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				int row;
+				row = tbTermsReport.getSelectedRow();
+				if (row == -1)
+					JOptionPane.showMessageDialog(null,
+							"Please select an item.");
+                                else if (tbTermsReport.getValueAt(row, 2).toString().equals("Acknowledgement Receipt"))
+				{
+					controller.getARController().setReceiptTarget(controller.getARController()
+							.getAR(tbTermsReport.getValueAt(row, 1).toString()));
+					controller.setCallingFunction("Terms Report");
+                                        controller.changePanelToViewAcknowledgementReceipt();
+				}
+                                else
+                                    JOptionPane.showMessageDialog(null,
+							"Please select an Acknowledgement Receipt.");
 			}
 		});
 
@@ -393,6 +409,23 @@ public class TermsReportGUI extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+				int row;
+				row = tbTermsReport.getSelectedRow();
+				if (row == -1)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Please select an item.");
+				} else if (tbTermsReport.getValueAt(row, 2).toString().equals("Sales Invoice"))
+				{
+					controller.getSIController().setTarget(controller.getSIController()
+							.getSI(tbTermsReport.getValueAt(row, 1).toString()));
+					controller.setCallingFunction("Terms Report");
+                                        controller.changePanelToViewSalesInvoice();
+				}
+                                else
+                                    JOptionPane.showMessageDialog(null,
+							"Please select a Sales Invoice.");
+
 			}
 		});
 

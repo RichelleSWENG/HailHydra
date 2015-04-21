@@ -74,6 +74,11 @@ public class ViewAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                            String caller = guiController.getCallingFunction();
+                            guiController.setCallingFunction("");
+                            if (caller.equals("Terms Report"))
+                                guiController.changePanelToTermsReport();
+                            else
 				guiController.changePanelToAcknowledgementReceipt();
 			}
 		});
