@@ -320,7 +320,7 @@ public class InventoryListGUI extends JPanel
                             if(guiController.getAdim() == false)
                             {
                             JOptionPane.showMessageDialog(null,
-							"You cannot delete an Item, Please contact Administrator.");
+							"You do not have access to this feature, Please contact Administrator.");
                             }
                             else
                             {
