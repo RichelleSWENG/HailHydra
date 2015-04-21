@@ -1,5 +1,6 @@
 package DebitMemo;
 
+import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isInteger;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -280,6 +281,13 @@ public class AddDebitMemoGUI extends DebitMemoGUI implements TableModelListener
 
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
+                             if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
                              if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
                             tbModel.setValueAt("0", e.getFirstRow(), 0);
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();

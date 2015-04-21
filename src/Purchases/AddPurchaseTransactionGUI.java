@@ -1,5 +1,6 @@
 package Purchases;
 
+import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isInteger;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -294,6 +295,13 @@ public class AddPurchaseTransactionGUI extends PurchaseTransactionGUI implements
 		{
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
+                             if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
 				if (!cmb.equals(""))
 				{

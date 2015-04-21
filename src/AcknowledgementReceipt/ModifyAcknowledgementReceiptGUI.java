@@ -1,5 +1,6 @@
 package AcknowledgementReceipt;
 
+import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isInteger;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -332,6 +333,13 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 	{
 		if (e.getColumn() == 0)
 		{
+                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
                      if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
                             tbModel.setValueAt("0", e.getFirstRow(), 0);
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
@@ -357,10 +365,10 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				{
 					JOptionPane.showMessageDialog(
 							null,
-							"You can not buy that many items!!!! You can only buy "
+							"Selected item is not enough. There is only "
 									+ mainController.getAvailQuantity(Arrays
 											.asList(partNums).indexOf(cmb) - 1)
-									+ ". Pls do not test me");
+									+ " left.");
 					tbModel.setValueAt("0", e.getFirstRow(), 0);
 				}
 			}

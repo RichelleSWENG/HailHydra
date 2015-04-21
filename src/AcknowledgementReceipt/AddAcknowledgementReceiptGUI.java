@@ -283,6 +283,13 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
+                            if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
                              if (Integer.valueOf(tbModel.getValueAt(e.getFirstRow(), 0).toString()) <0)
                             tbModel.setValueAt("0", e.getFirstRow(), 0);
 				String cmb = tbModel.getValueAt(e.getFirstRow(), 1).toString();
@@ -483,4 +490,12 @@ public class AddAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 				mainController.DeductFunc(quantity, partNum);
 			}
         }
+        public static boolean isInteger(String str) {
+    try {
+        Integer.parseInt(str);
+        return true;
+    } catch (NumberFormatException nfe) {
+        return false;
+    }
+}
 }

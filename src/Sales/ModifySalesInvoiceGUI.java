@@ -1,5 +1,6 @@
 package Sales;
 
+import static AcknowledgementReceipt.AddAcknowledgementReceiptGUI.isInteger;
 import Classes.Company;
 import HailHydra.GUIController;
 import java.awt.Component;
@@ -396,6 +397,13 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 	{
 		if (e.getColumn() == 0)
 		{
+                     if(isInteger(tbModel.getValueAt(e.getFirstRow(), 0).toString())==false)
+                            {
+                            JOptionPane.showMessageDialog(
+							null,
+							"Invalid Quantity");
+                            tbModel.setValueAt("0", e.getFirstRow(), 0);
+                            }
 
 			if (tbModel.getValueAt(e.getFirstRow(), 1) != null)
 			{
