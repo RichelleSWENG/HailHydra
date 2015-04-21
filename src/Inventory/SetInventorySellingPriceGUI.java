@@ -294,7 +294,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 			{
 				if (e.getColumn() == 2 || e.getColumn() == 4 || e.getColumn() == 6)
 				{
-					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
 						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
@@ -302,8 +302,8 @@ public class SetInventorySellingPriceGUI extends JPanel
 								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
 					} catch (NumberFormatException nfe)
 					{
-						JOptionPane.showMessageDialog(null,
-								"Input a numeric value");
+						/*JOptionPane.showMessageDialog(null,
+								"Input a numeric value");*/
 						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 						return;
 					}
@@ -375,7 +375,7 @@ public class SetInventorySellingPriceGUI extends JPanel
 			{
 				if (e.getColumn() == 2 || e.getColumn() == 4 || e.getColumn() == 6)
 				{
-					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+					if (tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
 						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
@@ -383,8 +383,8 @@ public class SetInventorySellingPriceGUI extends JPanel
 								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
 					} catch (NumberFormatException nfe)
 					{
-						JOptionPane.showMessageDialog(null,
-								"Input a numeric value");
+						/*JOptionPane.showMessageDialog(null,
+								"Input a numeric value");*/
 						tbSetInventorySellingPrice.setValueAt(tbSetInventorySellingPrice.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 						return;
 					}

@@ -142,12 +142,6 @@ public class AddPaymentPayablesGUI extends JPanel
 
 		tbModel = new DefaultTableModel()
 		{
-			public boolean isCellEditable(int rowIndex, int mColIndex)
-			{
-				if (mColIndex == 5)
-					return true;
-				return false;
-			}
 		};
 
 		tbModel.setRowCount(15);
@@ -165,7 +159,7 @@ public class AddPaymentPayablesGUI extends JPanel
 			}
                         public boolean isCellEditable(int rowIndex, int mColIndex)
 			{
-				if (mColIndex == 6)
+				if (mColIndex == 5)
 					return true;
 				return false;
 			}
@@ -491,7 +485,7 @@ public class AddPaymentPayablesGUI extends JPanel
 			{
 				if (e.getColumn() == 5)
 				{
-					if (tbPayment.getValueAt(e.getFirstRow(), 5).equals(""))
+					if (tbPayment.getValueAt(e.getFirstRow(), 5).equals("") || tbPayment.getValueAt(e.getFirstRow(), 5).toString().contains("-"))
 						tbPayment.setValueAt("0.00", e.getFirstRow(), 5);
 					try
 					{

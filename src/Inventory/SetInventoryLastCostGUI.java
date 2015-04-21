@@ -308,7 +308,7 @@ public class SetInventoryLastCostGUI extends JPanel
 			{
 				if (e.getColumn() == 3)
 				{
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
@@ -316,8 +316,8 @@ public class SetInventoryLastCostGUI extends JPanel
 								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
 					} catch (NumberFormatException nfe)
 					{
-						JOptionPane.showMessageDialog(null,
-								"Input a numeric value");
+						/*JOptionPane.showMessageDialog(null,
+								"Input a numeric value");*/
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 						return;
 					}
@@ -358,7 +358,7 @@ public class SetInventoryLastCostGUI extends JPanel
 			{
 				if (e.getColumn() == 3)
 				{
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals(""))
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
@@ -366,8 +366,8 @@ public class SetInventoryLastCostGUI extends JPanel
 								.getValueAt(e.getFirstRow(), e.getColumn()).toString());
 					} catch (NumberFormatException nfe)
 					{
-						JOptionPane.showMessageDialog(null,
-								"Input a numeric value");
+						/*JOptionPane.showMessageDialog(null,
+								"Input a numeric value");*/
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 						return;
 					}

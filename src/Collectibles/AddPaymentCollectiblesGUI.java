@@ -430,7 +430,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 			public void tableChanged(TableModelEvent e)
 			{
 				if (e.getColumn() == 6)
-					if (tbPayment.getValueAt(e.getFirstRow(), 6).equals(""))
+					if (tbPayment.getValueAt(e.getFirstRow(), 6).equals("") ||  tbPayment.getValueAt(e.getFirstRow(), 6).toString().contains("-"))
 						tbPayment.setValueAt("0.00", e.getFirstRow(), 6);
 				try
 				{
