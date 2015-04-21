@@ -45,6 +45,11 @@ public class SystemAccountController
 				.searchDetail(type, "type"));
 		return tbm;
 	}
+        
+        public boolean duplicateAccNum (String accNum)
+        {
+            return systemAccountModel.duplicateAccNum(accNum);
+        }
 
 	public String getCompanyName()
 	{

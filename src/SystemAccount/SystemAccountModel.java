@@ -54,6 +54,23 @@ public class SystemAccountModel
 			e.getMessage();
 		}
 	}
+        
+        public boolean duplicateAccNum(String accNum)
+        {
+            ResultSet rs = null;
+            try
+            {
+                    statement = con.createStatement();
+                    String sql = "SELECT * FROM systemaccount WHERE account_num = '" + accNum + "'";
+                    rs = statement.executeQuery(sql);
+                    if (!rs.isBeforeFirst())
+                        return false;
+            } catch (Exception e)
+            {
+                    e.printStackTrace();
+            }
+            return true;
+        }
 
 	public ResultSet getCompanyName()
 	{
