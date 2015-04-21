@@ -464,76 +464,42 @@ public class BasicSystemSettingsGUI extends JPanel
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener()
 		{
+            String msg = "";
 			public void actionPerformed(ActionEvent e)
 			{
 				if (tfSystemName.getText().length() == 0)
-					JOptionPane
-							.showMessageDialog(null,
-									"System Name is empty. Please fill-up the system name.");
-				else if (tfAdminUsername.getText().length() == 0)
-					JOptionPane
-							.showMessageDialog(null,
-									"Administrator username is empty. Please fill-up the administrator username.");
-				else if (tfEmployeeUsername.getText().length() == 0)
-					JOptionPane
-							.showMessageDialog(null,
-									"Employee username is empty. Please fill-up the employee username.");
-				else if (pfAdministratorPassword.getPassword().length == 0)
-					JOptionPane
-							.showMessageDialog(null,
-									"Administrator password is empty. Please fill-up the administrator password.");
-				else if (pfEmployeePassword.getPassword().length == 0)
-					JOptionPane
-							.showMessageDialog(null,
-									"Employee password is empty. Please fill-up the employee password.");
-				else if (tfAdminUsername.getText().toString()
+                                    msg+="System Name is empty.\nPlease fill-up the system name.\n";
+				if (tfAdminUsername.getText().length() == 0)
+                                    msg+="Administrator username is empty.\nPlease fill-up the administrator username.\n";
+				if (tfEmployeeUsername.getText().length() == 0)
+                                    msg+="Employee username is empty.\nPlease fill-up the employee username.\n";
+				if (pfAdministratorPassword.getPassword().length == 0)
+                                    msg+="Administrator password is empty.\nPlease fill-up the administrator password.\n";
+				if (pfEmployeePassword.getPassword().length == 0)
+                                    msg+="Employee password is empty.\nPlease fill-up the employee password.\n";
+				if (tfAdminUsername.getText().toString()
 						.equals(tfEmployeeUsername.getText().toString()) == true)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"Administrator username and employee username can not be the same. Please change one username.");
-				else if (!checkPassword(pfAdministratorPassword,
+                                    msg+="Administrator username and employee username can not be the same.\nPlease change one username.\n";
+				if (!checkPassword(pfAdministratorPassword,
 						pfAdministratorVerifyPassword))
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>Password and verify password of administrator account does not match.<br>Please re-enter the verify password in administrator account.</center></html>");
-				else if (!checkPassword(pfEmployeePassword,
+					msg +="Password and verify password of administrator account does not match.\nPlease re-enter the verify password in administrator account.\n";
+				if (!checkPassword(pfEmployeePassword,
 						pfEmployeeVerifyPassword))
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>Password and verify password of employee account does not match.<br>Please re-enter the verify password in employee account.</center></html>");
-				else if (changeVATStatus() == false)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>VAT percentage can not exceed 100% and can not be negative.<br>Please re-enter the VAT percentage.</center></html>");
-				else if (changeCreditLimitStatus() == false)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>Credit limit percentage can not exceed 100% and can not be negative.<br>Please re-enter the credit limit percentage.</center></html>");
-				else if (changeTermsStatus() == false)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>Terms can not exceed 2000 days and can not be negative.<br>Please re-enter the terms.</center></html>");
-				else if (tfSystemName.getText().length() > 60)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>System name can not exceed 60 characters.<br>Please re-enter the system name.</center></html>");
-				else if (tfAdminUsername.getText().length() > 45)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center>Administrator username can not exceed 45 characters.<br>Please re-enter the administrator username.</center></html>");
-				else if (tfEmployeeUsername.getText().length() > 45)
-					JOptionPane
-							.showMessageDialog(
-									null,
-									"<html><center> Employee username can not exceed 45 characters.<br>Please re-enter the employee username.</center></html>");
+					msg+="Password and verify password of employee account does not match.\nPlease re-enter the verify password in employee account.\n";
+				if (changeVATStatus() == false)
+					msg+="VAT percentage can not exceed 100% and can not be negative.\nPlease re-enter the VAT percentage.\n";
+				if (changeCreditLimitStatus() == false)
+					msg+="Credit limit percentage can not exceed 100% and can not be negative.\nPlease re-enter the credit limit percentage.\n";
+				if (changeTermsStatus() == false)
+					msg+="Terms can not exceed 2000 days and can not be negative.\nPlease re-enter the terms.\n";
+				if (tfSystemName.getText().length() > 60)
+					msg+="System name can not exceed 60 characters.\nPlease re-enter the system name.\n";
+				if (tfAdminUsername.getText().length() > 45)
+					msg+="Administrator username can not exceed 45 characters.\nPlease re-enter the administrator username.\n";
+				if (tfEmployeeUsername.getText().length() > 45)
+					msg+="Employee username can not exceed 45 characters.\nPlease re-enter the employee username.\n";
+				if(!(msg.equals("")))
+					JOptionPane.showMessageDialog(null, msg);
 				else
 				{
                                         int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -551,7 +517,7 @@ public class BasicSystemSettingsGUI extends JPanel
                                                             ftfVAT.getText(), ftfCreditLimitAlert.getText(),
                                                             ftfTermsAlert.getText());
                                             JOptionPane.showMessageDialog(null,
-                                                            "System installation successful.");
+                                                            "Accounts and company information has been successfully added.");
                                             GUIcontroller.changePanelToLogin();
                                         }
 					// GUIcontroller.setTitle();
