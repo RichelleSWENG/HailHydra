@@ -308,8 +308,8 @@ public class SetInventoryQuantityGUI extends JPanel
 			public void tableChanged(TableModelEvent e)
 			{
 				if (e.getColumn() == 3 || e.getColumn() == 5)
-				{
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
+                                {
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
@@ -359,7 +359,8 @@ public class SetInventoryQuantityGUI extends JPanel
 			{
 				if (e.getColumn() == 3 || e.getColumn() == 5)
 				{
-					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-"))
+                                        
+					if (tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).equals("") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().contains("-") || tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()).toString().length()>11)
 						tbSetInventoryQuantity.setValueAt(tbSetInventoryQuantity.getValueAt(e.getFirstRow(), e.getColumn()-1), e.getFirstRow(), e.getColumn());
 					try
 					{
