@@ -126,54 +126,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
 								error = true;
 								lblNotes.setForeground(Color.orange);
 							}
-
-							if (!isInteger(ftfStockMinimum.getText()
-									.replaceAll(",", "")))
-							{
-								JOptionPane
-										.showMessageDialog(null,
-												"Please enter a valid value for stock minimum");
-								error = true;
-								lblStockMinimum.setForeground(Color.orange);
-							}
-							if (!isFloat(ftfSisterCompanyPrice.getText()
-									.replaceAll(",", "")))
-							{
-								JOptionPane
-										.showMessageDialog(null,
-												"Please enter a valid Sister Company Price");
-								error = true;
-								lblSisterCompanyPrice
-										.setForeground(Color.orange);
-							}
-							if (!isFloat(ftfRetailPrice.getText().replaceAll(
-									",", "")))
-							{
-								JOptionPane.showMessageDialog(null,
-										"Please enter a valid Retail Price");
-								error = true;
-								lblRetailPrice.setForeground(Color.orange);
-
-							}
-							if (!isFloat(ftfWalkinPrice.getText().replaceAll(
-									",", "")))
-							{
-								JOptionPane.showMessageDialog(null,
-										"Please enter a valid Walk in Price");
-								error = true;
-								lblWalkinPrice.setForeground(Color.orange);
-
-							}
-							if (!isFloat(ftfLastCost.getText().replaceAll(",",
-									"")))
-							{
-								JOptionPane.showMessageDialog(null,
-										"Please enter a valid Last Cost Price");
-								error = true;
-								lblLastCost.setForeground(Color.orange);
-
-							}
-
+						
 							if (Integer.parseInt(ftfStockMinimum.getText()
 									.replaceAll(",", "")) < 0)
 							{
@@ -280,43 +233,7 @@ public class AddItemProfileGUI extends ItemProfileGUI
 
 					}
 
-					private boolean isInteger(String s)
-					{
-						try
-						{
-							Integer.parseInt(s);
-						} catch (NumberFormatException e)
-						{
-							return false;
-						}
-
-						return true;
-					}
-
-					private boolean isFloat(String s)
-					{
-						try
-						{
-							Float.parseFloat(s);
-						} catch (NumberFormatException e)
-						{
-							return false;
-						}
-						return true;
-					}
-
-					private boolean hasSpecial(String s)
-					{
-						Pattern p = Pattern.compile("[^a-z0-9 ]",
-								Pattern.CASE_INSENSITIVE);
-						Matcher m = p.matcher(s);
-						boolean b = m.find();
-
-						if (b || s.contains(" "))
-							return true;
-						else
-							return false;
-					}
+				
 				});
 
 
