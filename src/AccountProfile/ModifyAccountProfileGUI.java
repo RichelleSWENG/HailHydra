@@ -204,6 +204,14 @@ public class ModifyAccountProfileGUI extends AccountProfileGUI
 							"Credit Limit can not exceed 9,999,999");
 					error = true;
 				}
+                                
+                                 if (Integer.parseInt(ftfTerms.getText().replaceAll(",",
+						"")) < 0)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Terms is invalid.");
+					error = true;
+				}
 
 				if (Float.parseFloat(ftfCreditLimit.getText().replaceAll(",",
 						"")) < 0.00f)

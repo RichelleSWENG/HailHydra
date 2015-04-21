@@ -173,6 +173,14 @@ public class AddAccountProfileGUI extends AccountProfileGUI
 							"Credit Limit is invalid.");
 					error = true;
 				}
+                                
+                                if (Integer.parseInt(ftfTerms.getText().replaceAll(",",
+						"")) < 0)
+				{
+					JOptionPane.showMessageDialog(null,
+							"Terms is invalid.");
+					error = true;
+				}
 
 				if (!"".equals(tfPhone1.getText()))
 					if (!isInteger(tfPhone1.getText())
