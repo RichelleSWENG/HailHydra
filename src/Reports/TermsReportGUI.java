@@ -34,10 +34,11 @@ public class TermsReportGUI extends JPanel
 			lblNumofReportsFound, lblDisplay;
 	private JTextField tfSearch;
 	private String strHeader[] = {
-			"     Customer Name     ",
-			"<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>","<html><center>Type</html></center>",
+			"        Customer Name        ",
+			"<html><center>Sales Invoice /<br>Acknowledgement<br>Receipt Number</center></htm>",
+                        "<html><center>&nbsp&nbsp&nbsp&nbsp&nbsp Type&nbsp&nbsp&nbsp&nbsp&nbsp</html></center>",
 			"<html><center>Terms<br>(Days)</html></center>",
-			"<html><center>Due<br>Date</center><html>",
+			"<html><center>Due<br>&nbsp&nbsp&nbsp&nbsp&nbsp Date&nbsp&nbsp&nbsp&nbsp&nbsp</center><html>",
 			"<html><center>Current<br>Balance</center></html>" },blank[]={""};
 	private DefaultTableModel tbModel;
 	private TableCellRenderer tbCellRenderer, tbCellRendererColumn;
