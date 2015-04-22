@@ -153,6 +153,28 @@ public class ModifySalesInvoiceGUI extends SalesInvoiceGUI implements
 							"PWD ID Number can not exceed 45");
 					error = true;
                                         }
+                                                       if(Float.parseFloat(ftfDiscount.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                      if(Float.parseFloat(ftfBalance.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Balance cannot be negative.",
+									"Invalid Balance",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
                                         
                                         if (tfPONum.getText().length() > 45)
                                         {

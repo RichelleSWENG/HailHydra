@@ -80,6 +80,31 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
+                                    boolean error = false;
+                                                        if(Float.parseFloat(ftfDiscount.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                      if(Float.parseFloat(ftfBalance.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                 if(error == false)
+                                 {
 				try
 				{
                                     mainController.DeductQuantity(tempPTLine);
@@ -141,6 +166,7 @@ public class ModifyPurchaseTransactionGUI extends PurchaseTransactionGUI
                             {
                                 Logger.getLogger(ModifyPurchaseTransactionGUI.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                                                        }
 			}
 		});
 

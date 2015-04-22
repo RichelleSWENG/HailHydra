@@ -364,12 +364,12 @@ public class PurchaseTransactionGUI extends JPanel
 		VAT = VATpercent
 				/ 100
 				* (totalOfEverything - Double
-						.parseDouble(ftfDiscount.getText()));
+						.parseDouble(ftfDiscount.getText().replaceAll(",[^ ]", "")));
 		ftfVat.setValue(VAT);
 		ftfTotal.setValue(totalOfEverything
-				- Double.parseDouble(ftfDiscount.getText()));
+				- Double.parseDouble(ftfDiscount.getText().replaceAll(",[^ ]", "")));
 		ftfBalance.setValue(totalOfEverything
-				- Double.parseDouble(ftfDiscount.getText()));
+				- Double.parseDouble(ftfDiscount.getText().replaceAll(",[^ ]", "")));
 	}
 
 	public static void main(String args[])

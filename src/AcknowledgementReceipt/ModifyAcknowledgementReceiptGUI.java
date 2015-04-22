@@ -91,7 +91,8 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-                                                        if(Float.parseFloat(ftfDiscount.getText())<0.00f)
+                                     boolean error = false;
+                                                        if(Float.parseFloat(ftfDiscount.getText().replaceAll(",[^ ]", ""))<0.00f)
                                     {
                                     {JOptionPane
 							.showMessageDialog(
@@ -99,9 +100,22 @@ public class ModifyAcknowledgementReceiptGUI extends AcknowledgementReceiptGUI
 									"Discount cannot be negative.",
 									"Invalid Discount",
 									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
                                     //ftfDiscount.setText("0.00");
                                     }
-                            else{
+                                      if(Float.parseFloat(ftfBalance.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Balance cannot be negative.",
+									"Invalid Balance",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                 if(error == false)
+                                 {
 				try
 				{
                                     mainController.DeductQuantity(tempARLine);

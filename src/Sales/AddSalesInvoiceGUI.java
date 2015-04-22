@@ -115,13 +115,18 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 		add(btnSubmit);
 		btnSubmit.addActionListener(new ActionListener()
 		{
+                    
 			public void actionPerformed(ActionEvent e)
 			{
+                           
+                                
                             if(!tfSINum.getText().isEmpty())
                             {
+                                
 				try
 				{
                                     boolean error = false;
+                                    
 					int i;
 					for (i = 0; i < tbModel.getRowCount(); i++)
 					{
@@ -148,7 +153,30 @@ public class AddSalesInvoiceGUI extends SalesInvoiceGUI implements
 									JOptionPane.ERROR_MESSAGE);
                                             error = true;
                                         }
-                                        
+
+                                                        if(Float.parseFloat(ftfDiscount.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Discount cannot be negative.",
+									"Invalid Discount",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                      if(Float.parseFloat(ftfBalance.getText().replaceAll(",[^ ]", ""))<0.00f)
+                                    {
+                                    {JOptionPane
+							.showMessageDialog(
+									null,
+									"Balance cannot be negative.",
+									"Invalid Balance",
+									JOptionPane.ERROR_MESSAGE);}
+                                    error = true;
+                                    //ftfDiscount.setText("0.00");
+                                    }
+                                      
                                         if(ARDate.after(currdate))
                                         {
                                         JOptionPane
