@@ -23,6 +23,7 @@ public class HailHydraGUI extends JFrame
 {
 	private Connection db;
 	private JPanel pnlContent, pnlDatabase;
+        private String iconPath;
 
 	public HailHydraGUI(DBConnection db)
 	{
@@ -33,7 +34,9 @@ public class HailHydraGUI extends JFrame
 		this.setResizable(false);
 		setBounds(100, 100, 1000, 650);
 		setVisible(true);
-
+                iconPath = "src/resources/logo.png";
+                ImageIcon img = new ImageIcon(iconPath);
+                setIconImage(img.getImage());
 		pnlContent = new JPanel();
 		pnlContent.setLayout(null);
 		getContentPane().add(pnlContent);
