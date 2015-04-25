@@ -48,8 +48,8 @@ public class AddPaymentCollectiblesGUI extends JPanel
 			lblAmount;
 	private JFormattedTextField ftfDate, ftfAmount;
 	private String strHeader[] = {
-			"Date",
-			"Type",
+			"     Date     ",
+			"     Type     ",
 			"<html><center>Acknowledgement Receipt/<br>Sales Invoice Number</center></html>",
 			"Status", "<html><center>Original<br>Amount</center></html>",
 			"<html><center>Current<br>Balance</center></html>",
@@ -175,7 +175,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 		{
 			tbModel.addColumn(strHeader[i]);
 		}
-
+                setLayout(null);
 		tbPayment = new JTable(tbModel)
 		{
 			public TableCellRenderer getCellRenderer(int row, int column)
@@ -205,6 +205,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
 		tbPayment.setFont(fntPlainText);
+                
 		spPaymentTable = new JScrollPane(tbPayment);
 		spPaymentTable.setBounds(30, 222, 935, 209);
 		add(spPaymentTable);
@@ -395,7 +396,21 @@ public class AddPaymentCollectiblesGUI extends JPanel
 			TableColumn tc = tcm.getColumn(i);
 			tc.setHeaderValue(strHeader[i]);
 		}
-		th.repaint();
+		tbCellRenderer = tbPayment.getTableHeader()
+				.getDefaultRenderer();
+		tbColumnRenderer = tbPayment.getColumnModel();
+		for (int j = 0; j < tbColumnRenderer.getColumnCount(); j += 1)
+		{
+			tbColumn = tbColumnRenderer.getColumn(j);
+			tbCellRendererColumn = tbColumn.getHeaderRenderer();
+			if (tbCellRendererColumn == null)
+				tbCellRendererColumn = tbCellRenderer;
+			component = tbCellRendererColumn.getTableCellRendererComponent(
+					tbPayment, tbColumn.getHeaderValue(), false,
+					false, 0, j);
+			tbColumn.setPreferredWidth(component.getPreferredSize().width);
+		};
+                tbPayment.repaint();
 		cmbCustomer.removeAllItems();
 		setCustomer();
 	}
@@ -439,6 +454,7 @@ public class AddPaymentCollectiblesGUI extends JPanel
 					tbPayment, tbColumn.getHeaderValue(), false, false, 0, j);
 			tbColumn.setPreferredWidth(component.getPreferredSize().width);
 		}
+                tbPayment.repaint();
 		tbm.addTableModelListener(new TableModelListener()
 		{
 			public void tableChanged(TableModelEvent e)
