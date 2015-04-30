@@ -64,10 +64,10 @@ public class ItemModel extends Model
 			con = db.getConnection();
 			statement = con.createStatement();
 			if ("Part Number".equals(filter))
-				sql = "SELECT part_num, description, quantity_functional,quantity_defective, last_cost,walk_in_price, traders_price,sister_company_price FROM item WHERE part_num LIKE '%"
+				sql = "SELECT part_num, description, quantity_functional,quantity_defective, last_cost, sister_company_price, traders_price, walk_in_price FROM item WHERE part_num LIKE '%"
 						+ field + "%'";
 			else
-				sql = "SELECT part_num, description, quantity_functional,quantity_defective, last_cost,walk_in_price, traders_price,sister_company_price FROM item WHERE description LIKE '%"
+				sql = "SELECT part_num, description, quantity_functional,quantity_defective, last_cost, sister_company_price, traders_price, walk_in_price FROM item WHERE description LIKE '%"
 						+ field + "%'";
 			rs = statement.executeQuery(sql);
 			rs.last(); // Get Item Count
