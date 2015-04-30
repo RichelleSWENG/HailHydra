@@ -200,19 +200,6 @@ public class CreditLimitReportGUI extends JPanel
 			}
 		});
 
-		btnAddPayment = new JButton("Add Payment");
-		btnAddPayment.setFont(fntPlainText);
-		btnAddPayment.setBounds(600, 545, 165, 40);
-		add(btnAddPayment);
-		btnAddPayment.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-                                controller.setCallingFunction("Credit Limit Report");
-				controller.changePanelToAddPaymentCollectibles();
-			}
-		});
-
 		btnClose = new JButton("Close");
 		btnClose.setFont(fntPlainText);
 		btnClose.setBounds(855, 545, 110, 40);
